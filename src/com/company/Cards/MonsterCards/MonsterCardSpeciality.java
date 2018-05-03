@@ -1,5 +1,5 @@
 package com.company.Cards.MonsterCards;
 
-public enum MonsterCardType {
+public enum MonsterCardSpeciality {
     Normal,Charge,Taunt
 }

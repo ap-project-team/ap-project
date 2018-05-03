@@ -1,8 +1,23 @@
 package com.company.ToDoPackage;
 
 public class Battler {
-    Hand hand;
-    Deck deck;
+    private Hand hand;
+    private Deck deck;
+    private SpellField spellField;
+    private MonsterField monsterField;
+    private int currentMana;
+    private int maxMana;
+    private int currentHealth;
+    private int maxHealth;
+    private  GraveYard graveYard;
+
+    public int getCurrentHealth() {
+        return currentHealth;
+    }
+
+    public void setCurrentHealth(int currentHealth) {
+        this.currentHealth = currentHealth;
+    }
 
     public Hand getHand() {
         return hand;
@@ -11,11 +26,6 @@ public class Battler {
     public void setHand(Hand hand) {
         this.hand = hand;
     }
-
-    SpellField spellField;
-    MonsterField monsterField;
-    int currentMana;
-    int maxMana;
 
     public int getCurrentMana() {
         return currentMana;
