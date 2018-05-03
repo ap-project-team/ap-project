@@ -1,6 +1,7 @@
 package com.company.Cards;
 
+import com.company.ToDoPackage.Battler;
+
 abstract public class Cards {
-    abstract void orders();
-    abstract void play();
+    abstract public void play(Battler battler);
 }
