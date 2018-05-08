@@ -1,4 +1,4 @@
-package com.company.ToDoPackage;
+package src.ToDoPackage;
 
 public class Battler {
     private Hand hand;

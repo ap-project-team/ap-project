@@ -1,4 +1,4 @@
-package com.company.ToDoPackage;
+package src.ToDoPackage;
 
 public class Slots {
     public boolean isEmpty() {

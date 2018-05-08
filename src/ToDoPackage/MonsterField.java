@@ -1,6 +1,6 @@
-package com.company.ToDoPackage;
+package src.ToDoPackage;
 
-import com.company.Cards.Cards;
+import src.Cards.Cards;
 
 import java.util.ArrayList;
 

@@ -1,8 +1,7 @@
-package com.company.Cards.MonsterCards;
+package src.Cards.MonsterCards;
 
-import com.company.Cards.Cards;
-import com.company.ToDoPackage.Battler;
-import com.company.ToDoPackage.Player;
+import src.Cards.Cards;
+import src.ToDoPackage.Battler;
 
 abstract public class MonsterCards extends Cards {
     protected int basicHealthPoint;
