@@ -42,4 +42,12 @@ public class Battler {
     public void setCurrentMana(int currentMana){
         this.currentMana = currentMana;
     }
+
+    public void changeHealthPoint(int amount){
+        this.currentHealth += amount;
+    }
+
+    public SpellField getSpellField() {
+        return spellField;
+    }
 }

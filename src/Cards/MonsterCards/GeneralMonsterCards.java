@@ -1,5 +1,7 @@
 package src.Cards.MonsterCards;
 
-public class GeneralMonsterCards {
+import src.Cards.MonsterCards.MonsterCardMagic.MonsterCardMagic;
+
+public class GeneralMonsterCards extends MonsterCardMagic {
 
 }
