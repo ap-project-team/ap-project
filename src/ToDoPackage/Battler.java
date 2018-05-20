@@ -11,12 +11,12 @@ public class Battler {
     private int maxHealth;
     private  GraveYard graveYard;
 
-    public int getCurrentHealth() {
-        return currentHealth;
+    public void drawCard(int amount){
+        // TODO: 5/20/2018
     }
 
-    public void setCurrentHealth(int currentHealth) {
-        this.currentHealth = currentHealth;
+    public int getCurrentHealth() {
+        return currentHealth;
     }
 
     public Hand getHand() {
@@ -35,16 +35,16 @@ public class Battler {
         return monsterField;
     }
 
-    public void setMonsterField(MonsterField monsterField) {
-        this.monsterField = monsterField;
-    }
-
     public void setCurrentMana(int currentMana){
         this.currentMana = currentMana;
     }
 
     public void changeHealthPoint(int amount){
         this.currentHealth += amount;
+    }
+
+    public GraveYard getGraveYard() {
+        return graveYard;
     }
 
     public SpellField getSpellField() {

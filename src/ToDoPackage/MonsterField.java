@@ -3,6 +3,7 @@ package src.ToDoPackage;
 import src.Cards.Cards;
 import src.Cards.MonsterCards.MonsterCards;
 import src.Cards.MonsterCards.MonsterCardsInBattle;
+import src.Cards.MonsterCards.Tribe;
 
 import java.util.ArrayList;
 
@@ -27,5 +28,10 @@ public class MonsterField {
 
     public MonsterCardsInBattle[] getMonsterCardsInBattles(){
         return monsterCardsInBattles.toArray(new MonsterCardsInBattle[1]);
+    }
+
+    public MonsterCardsInBattle getRandomMonsterCardInBattleByType(Tribe tribe){
+        MonsterCardsInBattle monsterCardsInBattle = new MonsterCardsInBattle();
+        return monsterCardsInBattle;
     }
 }
