@@ -1,7 +1,6 @@
 package src.Cards.MonsterCards;
 
 import src.Cards.Cards;
-import src.Cards.Magic.Magic;
 import src.ToDoPackage.Battler;
 
 public class MonsterCardsInBattle {
@@ -37,6 +36,10 @@ public class MonsterCardsInBattle {
 
     public Tribe getTribe() {
         return tribe;
+    }
+
+    public Type getType(){
+        return this.type;
     }
 
     public Cards getCard() {

@@ -1,7 +1,6 @@
 package src.Cards.MonsterCards;
 
 import src.Cards.Cards;
-import src.Cards.Magic.Magic;
 
 abstract public class MonsterCards extends Cards {
     protected int basicHealthPoint;

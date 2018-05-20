@@ -4,7 +4,7 @@ import src.Cards.Cards;
 import src.Cards.MonsterCards.MonsterCardsInBattle;
 import src.ToDoPackage.Battler;
 
-public class MoveMonsterCardToHand extends Magic{
+public class MoveMSToHand extends Magic{
     {
         this.magicType  = MagicType.WITHTARGET;
     }
