@@ -41,6 +41,8 @@ public class Battler {
 
     public void changeHealthPoint(int amount){
         this.currentHealth += amount;
+        if(this.currentHealth >= maxHealth)
+            this.currentHealth = maxHealth;
     }
 
     public GraveYard getGraveYard() {

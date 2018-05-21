@@ -1,8 +1,6 @@
 package src.ToDoPackage;
 
-import src.Cards.Cards;
-import src.Cards.MonsterCards.MonsterCards;
-import src.Cards.MonsterCards.MonsterCardsInBattle;
+import src.Cards.MonsterCards.InBattle.MonsterCardsInBattle;
 import src.Cards.MonsterCards.Tribe;
 
 import java.util.ArrayList;
@@ -33,5 +31,9 @@ public class MonsterField {
     public MonsterCardsInBattle getRandomMonsterCardInBattleByType(Tribe tribe){
         MonsterCardsInBattle monsterCardsInBattle = new MonsterCardsInBattle();
         return monsterCardsInBattle;
+    }
+
+    public int getEmptySlotNumber(){
+        return 0;
     }
 }

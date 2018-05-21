@@ -1,14 +1,13 @@
 package src.Cards.Magic;
 
-import src.Cards.MonsterCards.MonsterCards;
-import src.Cards.MonsterCards.MonsterCardsInBattle;
+import src.Cards.MonsterCards.InBattle.MonsterCardsInBattle;
 import src.ToDoPackage.Battler;
 
 public class DamagePlayerOrMS extends Magic{
     private int changeHPAmount;
     private int type;
 
-    DamagePlayerOrMS(int changeHPAmount, int type){
+    public DamagePlayerOrMS(int changeHPAmount, int type){
         this.changeHPAmount = changeHPAmount;
         this.type = type;
         this.magicType = MagicType.BOTH;
