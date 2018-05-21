@@ -1,6 +1,7 @@
 package src.Cards.MonsterCards.OutBattle;
 
 import src.Cards.Magic.Magic;
+import src.Cards.MonsterCards.InBattle.GeneralMonsterCardsInBattle;
 import src.Cards.MonsterCards.InBattle.MagicMonsterCardsInBattle;
 import src.Cards.MonsterCards.MonsterCardSpeciality;
 import src.Cards.MonsterCards.Tribe;
@@ -28,7 +29,7 @@ public class GeneralMonsterCards extends MonsterCards{
             if (currentBattler.getMonsterField().getSlot(slotNum).isEmpty()) {
                 currentBattler.setCurrentMana(currentBattler.getCurrentMana() - manaCost);
                 currentBattler.getHand().remove(this);
-                currentBattler.getMonsterField().add(new MagicMonsterCardsInBattle(this.cardName, this.basicAttackPoint, this.basicHealthPoint, this.monsterCardSpeciality, this.tribe, this.magics,this ,currentBattler, enemyBattler), slotNum);
+                currentBattler.getMonsterField().add(new GeneralMonsterCardsInBattle(this.cardName, this.basicAttackPoint, this.basicHealthPoint, this.monsterCardSpeciality, this.tribe, this.battleCry,this.will,this ,currentBattler, enemyBattler), slotNum);
             } else {
                 System.out.println("That slot is full.");
             }

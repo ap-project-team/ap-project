@@ -6,8 +6,11 @@ import src.Cards.Magic.MagicType;
 import src.Cards.MonsterCards.MonsterCardSpeciality;
 import src.Cards.MonsterCards.Tribe;
 import src.Cards.MonsterCards.Type;
+import src.Cards.Spells.AuraSpell;
 import src.ToDoPackage.Battler;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class MonsterCardsInBattle {
     protected int basicHealthPoint;
@@ -28,6 +31,7 @@ public class MonsterCardsInBattle {
     protected Boolean isBattleCrier = false;
     protected MagicType battleCryType = MagicType.NONE;
     protected MagicType magicType = MagicType.NONE;
+    protected ArrayList<AuraSpell> auraEffectMap = new ArrayList<>();
 
     public MagicType getBattleCryType() {
         return battleCryType;
@@ -57,6 +61,13 @@ public class MonsterCardsInBattle {
         canAttack = false;
     }
 
+    public void addAuraEffect(AuraSpell auraSpell){
+        if(!this.checkAuraEffect(auraSpell)) {
+            auraEffectMap.add(auraSpell);
+            auraSpell.doMagic(this);
+        }
+    }
+
     public Tribe getTribe() {
         return tribe;
     }
@@ -66,6 +77,10 @@ public class MonsterCardsInBattle {
     }
 
     public Cards getCard() { return card; }
+
+    public boolean checkAuraEffect(AuraSpell auraSpell){
+        return auraEffectMap.contains(auraSpell);
+    }
 
     public void checkDeath(){
         if(this.currentHealthPoint <= 0)

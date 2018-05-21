@@ -6,6 +6,7 @@ import src.Cards.MonsterCards.Tribe;
 import java.util.ArrayList;
 
 public class MonsterField {
+    //Don't change
     private ArrayList<Slots> slots = new ArrayList<>(5);
     private ArrayList<MonsterCardsInBattle> monsterCardsInBattles = new ArrayList<>();
 
@@ -35,5 +36,11 @@ public class MonsterField {
 
     public int getEmptySlotNumber(){
         return 0;
+    }
+    public boolean isEmpty(){
+        return monsterCardsInBattles.isEmpty();
+    }
+    public int getSize(){
+        return monsterCardsInBattles.size();
     }
 }

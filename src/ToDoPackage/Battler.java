@@ -1,6 +1,7 @@
 package src.ToDoPackage;
 
 public class Battler {
+    //Don't change
     private Hand hand;
     private Deck deck;
     private SpellField spellField;
