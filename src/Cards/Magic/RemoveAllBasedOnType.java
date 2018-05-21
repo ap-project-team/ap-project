@@ -1,6 +1,6 @@
 package src.Cards.Magic;
 
-import src.Cards.MonsterCards.MonsterCardsInBattle;
+import src.Cards.MonsterCards.InBattle.MonsterCardsInBattle;
 import src.Cards.MonsterCards.Type;
 import src.ToDoPackage.Battler;
 
@@ -11,8 +11,7 @@ public class RemoveAllBasedOnType extends Magic{
         this.magicType = MagicType.WITHOUTTARGET;
     }
 
-    public void doMagic(MonsterCardsInBattle nullTarget, Battler currentBattler, Battler enemyBattler) {
-        if(nullTarget == null) {
+    public void doMagic(Battler currentBattler, Battler enemyBattler) {
             for (MonsterCardsInBattle monsterCardsInBattle : currentBattler.getMonsterField().getMonsterCardsInBattles()) {
                 if (monsterCardsInBattle.getType() != type)
                     currentBattler.getMonsterField().remove(monsterCardsInBattle);
@@ -21,6 +20,5 @@ public class RemoveAllBasedOnType extends Magic{
                 if (monsterCardsInBattle.getType() != type)
                     currentBattler.getMonsterField().remove(monsterCardsInBattle);
             }
-        }
     }
 }

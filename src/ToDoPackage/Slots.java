@@ -1,6 +1,7 @@
 package src.ToDoPackage;
 
 public class Slots {
+    //Don't change
     public boolean isEmpty() {
         return isEmpty;
     }

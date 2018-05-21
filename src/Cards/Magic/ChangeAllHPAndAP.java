@@ -1,6 +1,6 @@
 package src.Cards.Magic;
 
-import src.Cards.MonsterCards.MonsterCardsInBattle;
+import src.Cards.MonsterCards.InBattle.MonsterCardsInBattle;
 import src.ToDoPackage.Battler;
 
 public class ChangeAllHPAndAP extends Magic {
@@ -9,7 +9,7 @@ public class ChangeAllHPAndAP extends Magic {
     private int enemyBattlerChangeAPAmount;
     private int enemyBattlerChangeHPAmount;
 
-    ChangeAllHPAndAP(int currentBattlerChangeAPAmount, int currentBattlerChangeHPAmount, int enemyBattlerChangeAPAmount, int enemyBattlerChangeHPAmount){
+    public ChangeAllHPAndAP(int currentBattlerChangeAPAmount, int currentBattlerChangeHPAmount, int enemyBattlerChangeAPAmount, int enemyBattlerChangeHPAmount){
         this.currentBattlerChangeAPAmount = currentBattlerChangeAPAmount;
         this.currentBattlerChangeHPAmount = currentBattlerChangeHPAmount;
         this.enemyBattlerChangeAPAmount = enemyBattlerChangeAPAmount;
@@ -17,18 +17,16 @@ public class ChangeAllHPAndAP extends Magic {
         this.magicType = MagicType.WITHOUTTARGET;
     }
 
-    public void doMagic(MonsterCardsInBattle nullTarget,Battler currentBattler, Battler enemyBattler) {
-        if(nullTarget == null) {
+    public void doMagic(Battler currentBattler, Battler enemyBattler) {
             for (MonsterCardsInBattle monsterCardsInBattle : enemyBattler.getMonsterField().getMonsterCardsInBattles()) {
                 monsterCardsInBattle.changeAttackPoint(enemyBattlerChangeAPAmount);
                 monsterCardsInBattle.changeHealthPoint(enemyBattlerChangeHPAmount);
-                monsterCardsInBattle.checkDeath(enemyBattler);
+                monsterCardsInBattle.checkDeath();
             }
             for (MonsterCardsInBattle monsterCardsInBattle : currentBattler.getMonsterField().getMonsterCardsInBattles()) {
                 monsterCardsInBattle.changeAttackPoint(currentBattlerChangeAPAmount);
                 monsterCardsInBattle.changeHealthPoint(currentBattlerChangeHPAmount);
-                monsterCardsInBattle.checkDeath(currentBattler);
+                monsterCardsInBattle.checkDeath();
             }
-        }
     }
 }

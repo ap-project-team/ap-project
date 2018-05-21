@@ -1,13 +1,12 @@
 package src.ToDoPackage;
 
-import src.Cards.Cards;
-import src.Cards.MonsterCards.MonsterCards;
-import src.Cards.MonsterCards.MonsterCardsInBattle;
+import src.Cards.MonsterCards.InBattle.MonsterCardsInBattle;
 import src.Cards.MonsterCards.Tribe;
 
 import java.util.ArrayList;
 
 public class MonsterField {
+    //Don't change
     private ArrayList<Slots> slots = new ArrayList<>(5);
     private ArrayList<MonsterCardsInBattle> monsterCardsInBattles = new ArrayList<>();
 
@@ -33,5 +32,15 @@ public class MonsterField {
     public MonsterCardsInBattle getRandomMonsterCardInBattleByType(Tribe tribe){
         MonsterCardsInBattle monsterCardsInBattle = new MonsterCardsInBattle();
         return monsterCardsInBattle;
+    }
+
+    public int getEmptySlotNumber(){
+        return 0;
+    }
+    public boolean isEmpty(){
+        return monsterCardsInBattles.isEmpty();
+    }
+    public int getSize(){
+        return monsterCardsInBattles.size();
     }
 }

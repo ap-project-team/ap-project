@@ -5,6 +5,7 @@ import src.Cards.Spells.Spells;
 import java.util.ArrayList;
 
 public class SpellField {
+    //Don't change
     private ArrayList<Slots> slots = new ArrayList<>(5);
     private ArrayList<Spells> spells = new ArrayList<>();
 
@@ -17,8 +18,9 @@ public class SpellField {
         return slots.get(index);
     }
 
+    // TODO: 5/21/2018  
     public Spells getRandomSpell(){
-        Spells spells = new Spells();
+        Spells spells = null;
         return spells;
     }
 

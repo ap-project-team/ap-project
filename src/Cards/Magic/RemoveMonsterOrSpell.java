@@ -1,6 +1,6 @@
 package src.Cards.Magic;
 
-import src.Cards.MonsterCards.MonsterCardsInBattle;
+import src.Cards.MonsterCards.InBattle.MonsterCardsInBattle;
 import src.ToDoPackage.Battler;
 
 public class RemoveMonsterOrSpell extends Magic{

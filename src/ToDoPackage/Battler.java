@@ -1,6 +1,7 @@
 package src.ToDoPackage;
 
 public class Battler {
+    //Don't change
     private Hand hand;
     private Deck deck;
     private SpellField spellField;
@@ -41,6 +42,8 @@ public class Battler {
 
     public void changeHealthPoint(int amount){
         this.currentHealth += amount;
+        if(this.currentHealth >= maxHealth)
+            this.currentHealth = maxHealth;
     }
 
     public GraveYard getGraveYard() {
