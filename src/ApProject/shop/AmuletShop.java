@@ -6,9 +6,10 @@ import src.ApProject.player.Player;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 public class AmuletShop {
-    static protected ArrayList<String> shopAmulets = new ArrayList<>();
+    static protected List<String> shopAmulets = new ArrayList<>();
 
     {
         shopAmulets.add("c");

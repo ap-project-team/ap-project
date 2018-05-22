@@ -1,15 +1,16 @@
 package src;
 
-import src.Cards.Magic.MagicType;
-
-import java.util.*;
+import src.ApProject.Game;
+import src.ApProject.constants.ConstantDatas;
+import src.ApProject.thing.Cards.MonsterCards.OutBattle.GeneralMonsterCards;
+import src.ApProject.thing.Cards.MonsterCards.OutBattle.MonsterCards;
+import src.ToDoPackage.Battler;
 
 public class Main {
 
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        MagicType magicType = MagicType.WITHOUTTARGET;
-        System.out.println(magicType);
+        ConstantDatas.initData();
+        Game game = new Game();
+        while (game.mainMenuOrders()) ;
     }
 }
-

@@ -1,17 +1,18 @@
 package src.ApProject.thing;
 
 abstract public class Thing {
-    String name;
-    static String type;
-    int price;
+    public static String thingType;
+    protected String name;
+    protected int price;
 
-    Thing(String name, int price){
+   /* public Thing(String name, int price) {
         this.name = name;
         this.price = price;
-    }
+    }*/
 
-    public static String getType() {
-        return type;
+
+    public static String getThingType() {
+        return thingType;
     }
 
     public String getName() {

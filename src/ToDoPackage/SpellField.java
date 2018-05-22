@@ -1,6 +1,6 @@
 package src.ToDoPackage;
 
-import src.Cards.Spells.Spells;
+import src.ApProject.thing.Cards.Spells.Spells;
 
 import java.util.ArrayList;
 

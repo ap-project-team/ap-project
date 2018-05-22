@@ -2,15 +2,20 @@ package src.ApProject.battle.battler;
 
 import src.ApProject.Game;
 import src.ApProject.thing.Amulet;
-import src.ApProject.thing.Card;
+import src.ApProject.thing.Cards.Cards;
 import src.ApProject.thing.Item;
 
 import java.util.ArrayList;
 
 public class realBattler extends Battler {
 
-    public realBattler(String name, Card[] realDeck, ArrayList<Item> realItems, Amulet realAmulet) {
-        super(name, realDeck, realItems, realAmulet);
+    protected ArrayList<Item> items;
+    protected Amulet amulet;
+
+    public realBattler(String name, Cards[] realDeck, ArrayList<Item> realItems, Amulet realAmulet) {
+        super(name, realDeck);
+        this.amulet = realAmulet;
+        this.items = realItems;
         type = "PLAYER";
 
     }
@@ -30,8 +35,18 @@ public class realBattler extends Battler {
                     "8. Done: To end your turn");
         }else if(order.matches("Use \\d*\\s*")) {
             //toDo Use
-        } else if (order.matches("Set HandIndex to \\d*\\s*")){
-            //toDo set card
+        } else if (order.matches("Set \\d* to \\d*\\s*")){
+            String[] str = order.split("\\s");
+            int handIndex = Integer.parseInt(str[1])-1;
+            int slotNum = Integer.parseInt(str[3])-1;
+
+            if (handIndex > hand.size() || handIndex <= 0)
+                System.out.println("HandIndex is not valid.");
+            else if (hand.get(handIndex).getCardType().equals("MONSTERCARD")) {
+                if (battleGround.setMonsterCardInMonsterField(hand.get(handIndex), slotNum))
+                    hand.remove(handIndex);
+            } else if(true); // toDo SPELL ...
+
         } else if (order.matches("View Hand\\s*")){
             System.out.println("Your Hand :");
             for (int i=0; i<hand.size(); i++)

@@ -3,11 +3,13 @@ package src.ApProject.player;
 import src.ApProject.battle.battler.Battler;
 import src.ApProject.battle.battler.realBattler;
 import src.ApProject.constants.*;
+import src.ApProject.exeptions.CardDoesNotExistExeption;
 import src.ApProject.thing.Amulet;
-import src.ApProject.thing.Card;
+import src.ApProject.thing.Cards.Cards;
 import src.ApProject.thing.Item;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Player {
     private String name;
@@ -17,8 +19,10 @@ public class Player {
     {
         name = "MAZ";
 
-        inventory.cardInventory.add(new InventoryThing(5, "a"));
-        inventory.cardInventory.add(new InventoryThing(2, "b"));
+        inventory.cardInventory.add(new InventoryThing(5, "ElvenHunter"));
+        inventory.cardInventory.add(new InventoryThing(5, "YellowDrake"));
+        inventory.cardInventory.add(new InventoryThing(5, "ElvenRanjer"));
+        inventory.cardInventory.add(new InventoryThing(5, "BlueDragon"));
 
         inventory.itemInventory.add(new InventoryThing(2, "a"));
         inventory.itemInventory.add(new InventoryThing(2, "b"));
@@ -39,7 +43,7 @@ public class Player {
         gil += amount;
     }
 
-    public void buy(int number, String name, String type, ArrayList<String> list) {
+    public void buy(int number, String name, String type, List<String> list) {
         int numberOfThingsInShop = 0;
         int price = ConstantDatas.getPrice(name, type);
         for (String s : list)
@@ -82,12 +86,17 @@ public class Player {
     }
 
     public Battler becomeBattler() {
-        Card[] realDeck = new Card[ConstantDatas.SIZE_OF_DECK];
+        Cards[] realDeck = new Cards[ConstantDatas.SIZE_OF_DECK];
         ArrayList<Item> realItems = new ArrayList<>();
         Amulet realAmulet = ConstantDatas.<Amulet>buildThing(inventory.deck.getEquippedAmulet(), "AMULET");
 
-        for (int i = 0; i < realDeck.length; i++)
-            realDeck[i] = ConstantDatas.<Card>buildThing(inventory.deck.getSlots()[i], "CARD");
+        for (int i = 0; i < realDeck.length; i++) {
+            try {
+                realDeck[i] = AllCards.buildCard(inventory.deck.getSlots()[i]);
+            } catch (CardDoesNotExistExeption cardDoesNotExistExeption) {
+                cardDoesNotExistExeption.printStackTrace();
+            }
+        }
         for (int i = 0; i < inventory.itemInventory.size(); i++) {
             InventoryThing inventoryThing = inventory.itemInventory.get(i);
             for (int j = 0; j < inventoryThing.getNum(); j++)

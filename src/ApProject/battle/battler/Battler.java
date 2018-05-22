@@ -1,10 +1,9 @@
 package src.ApProject.battle.battler;
 
-import src.ApProject.Game;
 import src.ApProject.battle.Battle;
 import src.ApProject.battle.BattleGround;
 import src.ApProject.thing.Amulet;
-import src.ApProject.thing.Card;
+import src.ApProject.thing.Cards.Cards;
 import src.ApProject.thing.Item;
 
 import java.util.ArrayList;
@@ -14,6 +13,7 @@ import java.util.Random;
 abstract public class Battler {
     private String name;
     String type;
+    BattleGround battleGround = new BattleGround();
 
 
     int HP = 10000;
@@ -21,18 +21,13 @@ abstract public class Battler {
     int currentMP = 0;
     final int MAX_MP = 10;
 
-    protected Amulet amulet;
     protected Battle battle;
-    protected BattleGround battleGround;
-    protected ArrayList<Card> deck;
-    protected ArrayList<Item> items;
-    protected ArrayList<Card> hand = new ArrayList<>();
+    protected ArrayList<Cards> deck;
+    protected ArrayList<Cards> hand = new ArrayList<>();
 
-    public Battler(String name, Card[] realDeck, ArrayList<Item> realItems, Amulet realAmulet) {
+    public Battler(String name, Cards[] realDeck) {
         this.name = name;
         this.deck = new ArrayList<>(Arrays.asList(realDeck));
-        this.amulet = realAmulet;
-        this.items = realItems;
         shufelDeck();
     }
 
@@ -41,7 +36,7 @@ abstract public class Battler {
     }
 
     private void shufelDeck(){
-        ArrayList<Card> newDeck = new ArrayList<>();
+        ArrayList<Cards> newDeck = new ArrayList<>();
         int size = deck.size();
         for (int i=0; i<size; i++){
             int j = Math.abs(new Random().nextInt())%(deck.size());
@@ -58,7 +53,7 @@ abstract public class Battler {
 
     protected String addToHand(int num){
         for (int i=0; i<num; i++){
-            if (deck.size()!=0) {
+            if (deck.size()>0) {
                 int n = Math.abs(new Random().nextInt()) % deck.size();
                 hand.add(deck.get(n));
                 deck.remove(n);
@@ -84,7 +79,7 @@ abstract public class Battler {
                     "[" + currentMP + " - " + MAX_MP + "]");
             while (turnOrders());
         } else if (type.equals("ENEMY"))
-            System.out.println("Enemy played!");
+            turnOrders();
     }
 
     protected boolean turnOrders() {

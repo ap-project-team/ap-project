@@ -1,7 +1,7 @@
 package src.ToDoPackage;
 
-import src.Cards.MonsterCards.InBattle.MonsterCardsInBattle;
-import src.Cards.MonsterCards.Tribe;
+import src.ApProject.thing.Cards.MonsterCards.InBattle.MonsterCardsInBattle;
+import src.ApProject.thing.Cards.MonsterCards.Tribe;
 
 import java.util.ArrayList;
 

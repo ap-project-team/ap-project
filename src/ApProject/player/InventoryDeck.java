@@ -14,11 +14,11 @@ public class InventoryDeck {
         for (int i=0; i<slots.length; i++)
             slots[i] = new String("null");
         for (int i=0; i<5; i++)
-            slots[i] = "a";
+            slots[i] = "ElvenRanjer";
         for (int i=5; i<10; i++)
-            slots[i] = "b";
+            slots[i] = "ElvenHunter";
         for (int i=10; i<15; i++)
-            slots[i] = "c";
+            slots[i] = "YellowDrake";
     }
 
     protected int getNumberOfCardsInDeck(String name, String type){

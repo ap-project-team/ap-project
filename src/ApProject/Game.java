@@ -2,6 +2,7 @@ package src.ApProject;
 
 import src.ApProject.battle.Battle;
 import src.ApProject.battle.battler.AI_Battler;
+import src.ApProject.constants.AI_BattlerBuilder;
 import src.ApProject.player.Player;
 import src.ApProject.shop.Shop;
 
@@ -16,11 +17,11 @@ public class Game {
 
     Player p = new Player();
     Shop S = new Shop();
-    Game(){
+    public Game(){
         System.out.println("WELCOME");
     }
 
-    boolean mainMenuOrders(){
+    public boolean mainMenuOrders(){
         System.out.println("1. Enter Shop: To enter shop and buy or sell cards and items \n" +
                 "2. Edit Inventory: To edit your amulet or deck\n" +
                 "3. Next: To go to deck and amulet customization");
@@ -32,7 +33,7 @@ public class Game {
             p.editInventory() ;
         } else if(order.matches("Next\\s*")) {
             if (p.isReadyForBattle()) {
-                Battle battle1 = new Battle(p.becomeBattler(), p.becomeBattler());
+                Battle battle1 = new Battle(p.becomeBattler(), AI_BattlerBuilder.FirstAI());
                 String result = battle1.play();
                 System.out.println(result);
             } else System.out.println("Your deck is not full.");

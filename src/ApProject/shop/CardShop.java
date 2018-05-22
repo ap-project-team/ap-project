@@ -2,26 +2,38 @@ package src.ApProject.shop;
 
 import src.ApProject.Game;
 import src.ApProject.constants.ConstantDatas;
+import src.ApProject.constants.FirstShopLists;
 import src.ApProject.player.Player;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 public class CardShop{
-    static protected ArrayList<String> shopCards = new ArrayList<>();
+    static protected ArrayList<String> shopCards = (new ArrayList<String>(){
+        {
+            add("ElvenHunter");
+            add("ElvenHunter");
+            add("ElvenHunter");
+            add("ElvenHunter");
+            add("ElvenHunter");
 
-    {
-        shopCards.add("c");
-        shopCards.add("b");
-        shopCards.add("b");
-        shopCards.add("a");
-        shopCards.add("c");
-        shopCards.add("a");
-        shopCards.add("b");
-        shopCards.add("a");
-        shopCards.add("a");
-        shopCards.add("b");
-    }
+            add("ElvenRanjer");
+            add("ElvenRanjer");
+            add("ElvenRanjer");
+            add("ElvenRanjer");
+            add("ElvenRanjer");
+
+            add("YellowDrake");
+            add("YellowDrake");
+            add("YellowDrake");
+            add("YellowDrake");
+
+            add("BlueDragon");
+            add("BlueDragon");
+            add("BlueDragon");
+            add("BlueDragon");
+        }});
 
     protected boolean cardShopOrders(Player p) {
         String order = Game.give();
@@ -40,7 +52,7 @@ public class CardShop{
             p.buy(Integer.parseInt(str[3]), str[1], "CARD", shopCards);
         } else if (order.matches("info \\w*\\s*")) ;
             //toDo info
-        else if (order.matches("Edit InventoryDeck")) ;
+        else if (order.matches("Edit InventoryDeck\\s*")) ;
             //toDo Edit InventoryDeck
         else if (order.matches("Again\\s*"))
             printEnteringText(p);
@@ -51,7 +63,6 @@ public class CardShop{
     }
 
     public static void printEnteringText(Player p) {
-        Collections.sort(shopCards);
         System.out.println("Remaining gil : "+p.getGil());
         System.out.println(" Shop List");
         for(int i=0; i<shopCards.size(); i++){
