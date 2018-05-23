@@ -2,7 +2,7 @@ package src.ApProject.battle.battler;
 
 import src.ApProject.Game;
 import src.ApProject.thing.Amulet;
-import src.ApProject.thing.Cards.Cards;
+import src.ApProject.thing.Cards.Card;
 import src.ApProject.thing.Item;
 
 import java.util.ArrayList;
@@ -12,7 +12,7 @@ public class realBattler extends Battler {
     protected ArrayList<Item> items;
     protected Amulet amulet;
 
-    public realBattler(String name, Cards[] realDeck, ArrayList<Item> realItems, Amulet realAmulet) {
+    public realBattler(String name, Card[] realDeck, ArrayList<Item> realItems, Amulet realAmulet) {
         super(name, realDeck);
         this.amulet = realAmulet;
         this.items = realItems;
@@ -37,16 +37,12 @@ public class realBattler extends Battler {
             //toDo Use
         } else if (order.matches("Set \\d* to \\d*\\s*")){
             String[] str = order.split("\\s");
-            int handIndex = Integer.parseInt(str[1])-1;
+            int handIndex = Integer.parseInt(str[1]);
             int slotNum = Integer.parseInt(str[3])-1;
 
             if (handIndex > hand.size() || handIndex <= 0)
                 System.out.println("HandIndex is not valid.");
-            else if (hand.get(handIndex).getCardType().equals("MONSTERCARD")) {
-                if (battleGround.setMonsterCardInMonsterField(hand.get(handIndex), slotNum))
-                    hand.remove(handIndex);
-            } else if(true); // toDo SPELL ...
-
+            else hand.get(handIndex-1).play(this, enemy, slotNum);
         } else if (order.matches("View Hand\\s*")){
             System.out.println("Your Hand :");
             for (int i=0; i<hand.size(); i++)
@@ -54,9 +50,9 @@ public class realBattler extends Battler {
         } else if (order.matches("View Graveyard\\s*")) {
             battle.viewGraveyard();
         } else if (order.matches("View SpellField\\s*")) {
-            battle.viewSpellField();
+            spellField.viewSpellField();
         } else if (order.matches("View MonsterField\\s*")) {
-            battleGround.viewMonsterField();
+            monsterField.viewMonsterField();
         } else if (order.matches("info \\w*\\s*")) {
             //toDo info
         } else if (order.matches("Done\\s*")) {

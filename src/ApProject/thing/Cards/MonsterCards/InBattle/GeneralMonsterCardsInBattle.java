@@ -1,16 +1,16 @@
 package src.ApProject.thing.Cards.MonsterCards.InBattle;
 
-import src.ApProject.thing.Cards.Cards;
+import src.ApProject.battle.battler.Battler;
+import src.ApProject.thing.Cards.Card;
 import src.ApProject.thing.Cards.Magic.Magic;
 import src.ApProject.thing.Cards.MonsterCards.MonsterCardSpeciality;
 import src.ApProject.thing.Cards.MonsterCards.Tribe;
 import src.ApProject.thing.Cards.Spells.Spells;
-import src.ToDoPackage.Battler;
 
 import java.util.ArrayList;
 
 public class GeneralMonsterCardsInBattle extends MonsterCardsInBattle {
-    public GeneralMonsterCardsInBattle(String cardName, int attackPoint, int healthPoint, MonsterCardSpeciality monsterCardSpeciality, Tribe tribe, ArrayList<Magic> battleCry, ArrayList<Magic> will, Cards card, Battler currentBattler, Battler enemyBattler){
+    public GeneralMonsterCardsInBattle(String cardName, int attackPoint, int healthPoint, MonsterCardSpeciality monsterCardSpeciality, Tribe tribe, ArrayList<Magic> battleCry, ArrayList<Magic> will, Card card, Battler currentBattler, Battler enemyBattler){
         this.cardName = cardName;
         this.basicHealthPoint = healthPoint;
         this.currentAttackPoint = attackPoint;
@@ -31,7 +31,7 @@ public class GeneralMonsterCardsInBattle extends MonsterCardsInBattle {
     }
 
     // TODO: 5/21/2018 should be used in battle because it might have a target
-    public void doBattleCry(MonsterCardsInBattle monsterCardsInBattle, Spells spells, Cards cards){
+    public void doBattleCry(MonsterCardsInBattle monsterCardsInBattle, Spells spells, Card card){
             try {
                 for (Magic magic : battleCry) {
                     switch (magic.getMagicType()) {
@@ -42,7 +42,7 @@ public class GeneralMonsterCardsInBattle extends MonsterCardsInBattle {
                             magic.doMagic(currentBattler, enemyBattler);
                             break;
                         case SELECTCARD:
-                            magic.doMagic(cards, currentBattler, enemyBattler);
+                            magic.doMagic(card, currentBattler, enemyBattler);
                             break;
                         case SELECTSPELL:
                             magic.doMagic(spells, currentBattler, enemyBattler);
@@ -58,7 +58,7 @@ public class GeneralMonsterCardsInBattle extends MonsterCardsInBattle {
             }
     }
 
-    public void doWill(MonsterCardsInBattle monsterCardsInBattle, Spells spells, Cards cards){
+    public void doWill(MonsterCardsInBattle monsterCardsInBattle, Spells spells, Card card){
         try {
             for (Magic magic : will) {
                 switch (magic.getMagicType()) {
@@ -69,7 +69,7 @@ public class GeneralMonsterCardsInBattle extends MonsterCardsInBattle {
                         magic.doMagic(currentBattler, enemyBattler);
                         break;
                     case SELECTCARD:
-                        magic.doMagic(cards, currentBattler, enemyBattler);
+                        magic.doMagic(card, currentBattler, enemyBattler);
                         break;
                     case SELECTSPELL:
                         magic.doMagic(spells, currentBattler, enemyBattler);

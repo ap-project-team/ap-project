@@ -1,15 +1,10 @@
 package src.ApProject.constants;
 
 import src.ApProject.thing.Amulet;
-import src.ApProject.thing.Cards.Cards;
-import src.ApProject.thing.Cards.MonsterCards.OutBattle.NormalMonsterCard;
-import src.ApProject.thing.Cards.MonsterCards.Tribe;
 import src.ApProject.thing.Item;
 import src.ApProject.thing.Thing;
 
 import java.util.ArrayList;
-
-import static src.ApProject.thing.Cards.MonsterCards.MonsterCardSpeciality.*;
 
 public abstract class ConstantDatas {
     private static ArrayList<Item> items = new ArrayList<>();

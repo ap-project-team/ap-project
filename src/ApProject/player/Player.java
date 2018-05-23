@@ -5,7 +5,7 @@ import src.ApProject.battle.battler.realBattler;
 import src.ApProject.constants.*;
 import src.ApProject.exeptions.CardDoesNotExistExeption;
 import src.ApProject.thing.Amulet;
-import src.ApProject.thing.Cards.Cards;
+import src.ApProject.thing.Cards.Card;
 import src.ApProject.thing.Item;
 
 import java.util.ArrayList;
@@ -86,7 +86,7 @@ public class Player {
     }
 
     public Battler becomeBattler() {
-        Cards[] realDeck = new Cards[ConstantDatas.SIZE_OF_DECK];
+        Card[] realDeck = new Card[ConstantDatas.SIZE_OF_DECK];
         ArrayList<Item> realItems = new ArrayList<>();
         Amulet realAmulet = ConstantDatas.<Amulet>buildThing(inventory.deck.getEquippedAmulet(), "AMULET");
 

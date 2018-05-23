@@ -1,11 +1,10 @@
 package src.ApProject.thing.Cards.Spells;
 
-import src.ApProject.thing.Cards.Cards;
+import src.ApProject.battle.battler.Battler;
+import src.ApProject.thing.Cards.Card;
 import src.ApProject.thing.Cards.Magic.Magic;
 import src.ApProject.thing.Cards.Magic.MagicType;
 import src.ApProject.thing.Cards.MonsterCards.InBattle.MonsterCardsInBattle;
-import src.ApProject.thing.Cards.MonsterCards.InBattle.NormalMonsterCardsInBattle;
-import src.ToDoPackage.Battler;
 
 import java.util.ArrayList;
 
@@ -19,7 +18,7 @@ public class InstantSpell extends Spells{
         this.magicType = magics.get(0).getMagicType();
     }
 
-    public void play(Battler currentBattler, Battler enemyBattler,MonsterCardsInBattle monsterCardsInBattle, Spells spells, Cards cards){
+    public void play(Battler currentBattler, Battler enemyBattler, MonsterCardsInBattle monsterCardsInBattle, Spells spells, Card card){
         if(currentBattler.getCurrentMana()>= manaCost  ) {
                 currentBattler.setCurrentMana(currentBattler.getCurrentMana() - manaCost);
                 currentBattler.getHand().remove(this);
@@ -33,7 +32,7 @@ public class InstantSpell extends Spells{
                             magic.doMagic(currentBattler, enemyBattler);
                             break;
                         case SELECTCARD:
-                            magic.doMagic(cards, currentBattler, enemyBattler);
+                            magic.doMagic(card, currentBattler, enemyBattler);
                             break;
                         case SELECTSPELL:
                             magic.doMagic(spells, currentBattler, enemyBattler);

@@ -1,7 +1,7 @@
 package src.ApProject.thing.Cards.Magic;
 
+import src.ApProject.battle.battler.Battler;
 import src.ApProject.thing.Cards.MonsterCards.InBattle.MonsterCardsInBattle;
-import src.ToDoPackage.Battler;
 
 public class ChangeAllHPAndAP extends Magic {
     private int currentBattlerChangeAPAmount;
@@ -18,15 +18,19 @@ public class ChangeAllHPAndAP extends Magic {
     }
 
     public void doMagic(Battler currentBattler, Battler enemyBattler) {
-            for (MonsterCardsInBattle monsterCardsInBattle : enemyBattler.getMonsterField().getMonsterCardsInBattles()) {
+        for (MonsterCardsInBattle monsterCardsInBattle : enemyBattler.getMonsterField().getMonsterCardsInBattles()) {
+            if (monsterCardsInBattle != null) {
                 monsterCardsInBattle.changeAttackPoint(enemyBattlerChangeAPAmount);
                 monsterCardsInBattle.changeHealthPoint(enemyBattlerChangeHPAmount);
                 monsterCardsInBattle.checkDeath();
             }
-            for (MonsterCardsInBattle monsterCardsInBattle : currentBattler.getMonsterField().getMonsterCardsInBattles()) {
+        }
+        for (MonsterCardsInBattle monsterCardsInBattle : currentBattler.getMonsterField().getMonsterCardsInBattles()) {
+            if (monsterCardsInBattle != null) {
                 monsterCardsInBattle.changeAttackPoint(currentBattlerChangeAPAmount);
                 monsterCardsInBattle.changeHealthPoint(currentBattlerChangeHPAmount);
                 monsterCardsInBattle.checkDeath();
             }
+        }
     }
 }

@@ -1,8 +1,7 @@
 package src.ApProject.thing.Cards.Spells;
 
 import src.ApProject.thing.Cards.Magic.Magic;
-import src.ApProject.thing.Cards.MonsterCards.InBattle.NormalMonsterCardsInBattle;
-import src.ToDoPackage.Battler;
+import src.ApProject.battle.battler.Battler;
 
 import java.util.ArrayList;
 
@@ -16,7 +15,7 @@ public class ContinuousSpell extends Spells{
 
     public void play(Battler currentBattler, Battler enemyBattler, int slotNum) {
         if(currentBattler.getCurrentMana()>= manaCost  ) {
-            if (currentBattler.getMonsterField().getSlot(slotNum).isEmpty()) {
+            if (currentBattler.getMonsterField().getSlot(slotNum) == null) {
                 currentBattler.setCurrentMana(currentBattler.getCurrentMana() - manaCost);
                 this.currentBattler = currentBattler;
                 this.enemyBattler = enemyBattler;

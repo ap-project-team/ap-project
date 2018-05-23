@@ -1,7 +1,6 @@
 package src.ApProject;
 
 import src.ApProject.battle.Battle;
-import src.ApProject.battle.battler.AI_Battler;
 import src.ApProject.constants.AI_BattlerBuilder;
 import src.ApProject.player.Player;
 import src.ApProject.shop.Shop;
@@ -33,8 +32,8 @@ public class Game {
             p.editInventory() ;
         } else if(order.matches("Next\\s*")) {
             if (p.isReadyForBattle()) {
-                Battle battle1 = new Battle(p.becomeBattler(), AI_BattlerBuilder.FirstAI());
-                String result = battle1.play();
+                Battle battle = new Battle(p.becomeBattler(), AI_BattlerBuilder.FirstAI());
+                String result = battle.play();
                 System.out.println(result);
             } else System.out.println("Your deck is not full.");
         } else if(order.matches("Help\\s*")) {

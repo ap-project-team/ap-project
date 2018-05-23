@@ -1,21 +1,17 @@
 package src.ApProject.thing.Cards.MonsterCards.OutBattle;
 
-import src.ApProject.thing.Cards.Cards;
+import src.ApProject.battle.battler.Battler;
 import src.ApProject.thing.Cards.Magic.Magic;
 import src.ApProject.thing.Cards.MonsterCards.InBattle.MagicMonsterCardsInBattle;
-import src.ApProject.thing.Cards.MonsterCards.InBattle.MonsterCardsInBattle;
-import src.ApProject.thing.Cards.MonsterCards.InBattle.NormalMonsterCardsInBattle;
 import src.ApProject.thing.Cards.MonsterCards.MonsterCardSpeciality;
 import src.ApProject.thing.Cards.MonsterCards.Tribe;
 import src.ApProject.thing.Cards.MonsterCards.Type;
-import src.ApProject.thing.Cards.Spells.Spells;
-import src.ToDoPackage.Battler;
 
 import java.util.ArrayList;
 
-public class MagicMonsterCards extends MonsterCards {
+public class MagicMonsterCard extends MonsterCard {
 
-    public MagicMonsterCards(String cardName, int attackPoint, int healthPoint, int manaCost, MonsterCardSpeciality monsterCardSpeciality, Tribe tribe, ArrayList<Magic> magics){
+    public MagicMonsterCard(String cardName, int attackPoint, int healthPoint, int manaCost, MonsterCardSpeciality monsterCardSpeciality, Tribe tribe, ArrayList<Magic> magics){
         name = cardName;
         this.basicAttackPoint = attackPoint;
         this.basicHealthPoint = healthPoint;
@@ -28,7 +24,7 @@ public class MagicMonsterCards extends MonsterCards {
 
     public void play(Battler currentBattler, Battler enemyBattler, int slotNum) {
             if(currentBattler.getCurrentMana()>= manaCost  ) {
-                if (currentBattler.getMonsterField().getSlot(slotNum).isEmpty()) {
+                if (currentBattler.getMonsterField().getSlot(slotNum) == null) {
                     currentBattler.setCurrentMana(currentBattler.getCurrentMana() - manaCost);
                     currentBattler.getHand().remove(this);
                     currentBattler.getMonsterField().add(new MagicMonsterCardsInBattle(this.name, this.basicAttackPoint, this.basicHealthPoint, this.monsterCardSpeciality, this.tribe, this.magics,this, currentBattler, enemyBattler), slotNum);

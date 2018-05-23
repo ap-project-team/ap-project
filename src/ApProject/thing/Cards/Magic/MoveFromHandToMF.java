@@ -1,15 +1,15 @@
 package src.ApProject.thing.Cards.Magic;
 
-import src.ApProject.thing.Cards.Cards;
-import src.ToDoPackage.Battler;
+import src.ApProject.battle.battler.Battler;
+import src.ApProject.thing.Cards.Card;
 
 public class MoveFromHandToMF extends Magic{
     {
         this.magicType = MagicType.SELECTCARD;
     }
 
-    public void doMagic(Cards cards, Battler currentBattler, Battler enemyBattler) {
-        currentBattler.getHand().remove(cards);
-        cards.play(currentBattler, enemyBattler,currentBattler.getMonsterField().getEmptySlotNumber());
+    public void doMagic(Card card, Battler currentBattler, Battler enemyBattler) {
+        currentBattler.getHand().remove(card);
+        card.play(currentBattler, enemyBattler, currentBattler.getMonsterField().getEmptySlotNumber());
     }
 }

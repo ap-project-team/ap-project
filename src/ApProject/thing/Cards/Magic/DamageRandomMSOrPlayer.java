@@ -1,7 +1,6 @@
 package src.ApProject.thing.Cards.Magic;
 
-import src.ApProject.thing.Cards.MonsterCards.InBattle.MonsterCardsInBattle;
-import src.ToDoPackage.Battler;
+import src.ApProject.battle.battler.Battler;
 
 import java.util.Random;
 

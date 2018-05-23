@@ -1,8 +1,7 @@
 package src.ApProject.thing.Cards.Magic;
 
-import src.ApProject.thing.Cards.MonsterCards.InBattle.MonsterCardsInBattle;
+import src.ApProject.battle.battler.Battler;
 import src.ApProject.thing.Cards.Spells.Spells;
-import src.ToDoPackage.Battler;
 
 public class RemoveAllSpells extends Magic{
     {
@@ -10,9 +9,11 @@ public class RemoveAllSpells extends Magic{
     }
 
     public void doMagic(Battler currentBattler, Battler enemyBattler) {
-        for(Spells spell : enemyBattler.getSpellField().getSpells()){
-            enemyBattler.getSpellField().remove(spell);
-            currentBattler.getHand().add(spell);
+        for(Spells spell : enemyBattler.getSpellField().getSpells()) {
+            if (spell != null) {
+                enemyBattler.getSpellField().remove(spell);
+                currentBattler.getHand().add(spell);
+            }
         }
     }
 }

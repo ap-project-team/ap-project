@@ -2,12 +2,12 @@ package src.ApProject.constants;
 
 import src.ApProject.battle.battler.AI_Battler;
 import src.ApProject.exeptions.CardDoesNotExistExeption;
-import src.ApProject.thing.Cards.Cards;
+import src.ApProject.thing.Cards.Card;
 
 public class AI_BattlerBuilder {
 
     static public AI_Battler FirstAI(){
-        Cards[] cards = new Cards[20];
+        Card[] cards = new Card[20];
         try {
 
             for (int i = 0; i < 10; i++)

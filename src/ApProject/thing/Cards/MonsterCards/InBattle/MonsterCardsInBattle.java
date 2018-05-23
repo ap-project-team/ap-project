@@ -1,16 +1,15 @@
 package src.ApProject.thing.Cards.MonsterCards.InBattle;
 
-import src.ApProject.thing.Cards.Cards;
+import src.ApProject.battle.battler.Battler;
+import src.ApProject.thing.Cards.Card;
 import src.ApProject.thing.Cards.Magic.Magic;
 import src.ApProject.thing.Cards.Magic.MagicType;
 import src.ApProject.thing.Cards.MonsterCards.MonsterCardSpeciality;
 import src.ApProject.thing.Cards.MonsterCards.Tribe;
 import src.ApProject.thing.Cards.MonsterCards.Type;
 import src.ApProject.thing.Cards.Spells.AuraSpell;
-import src.ToDoPackage.Battler;
+
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 public class MonsterCardsInBattle {
     protected int basicHealthPoint;
@@ -20,7 +19,7 @@ public class MonsterCardsInBattle {
     protected String cardName;
     protected boolean isSleep = true;
     protected boolean canAttack = false;
-    protected Cards card;
+    protected Card card;
     protected Type type;
     protected ArrayList<Magic> battleCry = new ArrayList<>();
     protected ArrayList<Magic> will = new ArrayList<>();
@@ -61,6 +60,10 @@ public class MonsterCardsInBattle {
         canAttack = false;
     }
 
+    public String getCardName() {
+        return cardName;
+    }
+
     public void addAuraEffect(AuraSpell auraSpell){
         if(!this.checkAuraEffect(auraSpell)) {
             auraEffectMap.add(auraSpell);
@@ -76,7 +79,7 @@ public class MonsterCardsInBattle {
         return this.type;
     }
 
-    public Cards getCard() { return card; }
+    public Card getCard() { return card; }
 
     public boolean checkAuraEffect(AuraSpell auraSpell){
         return auraEffectMap.contains(auraSpell);

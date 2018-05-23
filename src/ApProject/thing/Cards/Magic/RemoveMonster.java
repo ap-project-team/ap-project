@@ -1,7 +1,7 @@
 package src.ApProject.thing.Cards.Magic;
 
+import src.ApProject.battle.battler.Battler;
 import src.ApProject.thing.Cards.MonsterCards.InBattle.MonsterCardsInBattle;
-import src.ToDoPackage.Battler;
 
 public class RemoveMonster extends Magic {
     {

@@ -1,9 +1,9 @@
 package src.ApProject.thing.Cards.Magic;
 
-import src.ApProject.thing.Cards.Cards;
+import src.ApProject.battle.battler.Battler;
+import src.ApProject.thing.Cards.Card;
 import src.ApProject.thing.Cards.MonsterCards.InBattle.MonsterCardsInBattle;
 import src.ApProject.thing.Cards.Spells.Spells;
-import src.ToDoPackage.Battler;
 
 public class Magic {
         protected MagicType magicType;
@@ -11,7 +11,7 @@ public class Magic {
         protected String magicDetails;
         public void doMagic(MonsterCardsInBattle monsterCardsInBattle, Battler currentBattler, Battler enemyBattler){}
         public void doMagic(Spells spells, Battler currentBattler, Battler enemyBattler){}
-        public void doMagic(Cards cards, Battler currentBattler, Battler enemyBattler){}
+        public void doMagic(Card card, Battler currentBattler, Battler enemyBattler){}
         public void doMagic(Battler currentBattler, Battler enemyBattler){}
         public MagicType getMagicType() {
             return magicType;
