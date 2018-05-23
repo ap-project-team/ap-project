@@ -1,14 +1,14 @@
 package src.ApProject.constants;
 
 import src.ApProject.exeptions.CardDoesNotExistExeption;
-import src.ApProject.thing.Cards.Cards;
+import src.ApProject.thing.Cards.Card;
 import src.ApProject.thing.Cards.MonsterCards.OutBattle.NormalMonsterCard;
 import src.ApProject.thing.Cards.MonsterCards.Tribe;
 
 import static src.ApProject.thing.Cards.MonsterCards.MonsterCardSpeciality.Normal;
 
 public abstract class AllCards {
-    public static Cards buildCard(String name) throws CardDoesNotExistExeption {
+    public static Card buildCard(String name) throws CardDoesNotExistExeption {
         if (name.equals("ElvenRanjer"))
             return (new NormalMonsterCard("ElvenRanjer", 400,
                     300, 1, Normal, Tribe.Elven));

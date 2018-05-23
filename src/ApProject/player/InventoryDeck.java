@@ -33,7 +33,7 @@ public class InventoryDeck {
         System.out.println("InventoryDeck :");
         for (int i=0; i<slots.length; i++)
             System.out.println("Slot "+(i+1)+" :\t"+slots[i]);
-        System.out.println("Other Cards :");
+        System.out.println("Other Card :");
         for (int i=0; i<list.size(); i++)
             System.out.println(i+1+".\t"+list.get(i).getNum()+ "\t"+list.get(i).getName()
                     + "\t/\t"+getNumberOfCardsInDeck(list.get(i).getName(),"CARD")+" on deck");

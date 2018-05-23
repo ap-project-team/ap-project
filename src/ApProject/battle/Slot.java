@@ -1,8 +1,8 @@
 package src.ApProject.battle;
 
-import src.ApProject.thing.Cards.Cards;
+import src.ApProject.thing.Cards.Card;
 
-public class Slot<T extends Cards> {
+public class Slot<T extends Card> {
     String type;
     T thing;
 
@@ -14,7 +14,7 @@ public class Slot<T extends Cards> {
         this.thing = thing;
     }
 
-    boolean isEmpety(){
+    public boolean isEmpty() {
         return thing == null;
     }
 

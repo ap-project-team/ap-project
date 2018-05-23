@@ -1,13 +1,13 @@
 package src.ApProject.thing.Cards.MonsterCards.OutBattle;
 
 
+import src.ApProject.battle.battler.Battler;
 import src.ApProject.thing.Cards.MonsterCards.InBattle.NormalMonsterCardsInBattle;
 import src.ApProject.thing.Cards.MonsterCards.MonsterCardSpeciality;
 import src.ApProject.thing.Cards.MonsterCards.Tribe;
 import src.ApProject.thing.Cards.MonsterCards.Type;
-import src.ToDoPackage.Battler;
 
-public class NormalMonsterCard extends MonsterCards {
+public class NormalMonsterCard extends MonsterCard {
 
     public NormalMonsterCard(String cardName, int attackPoint, int healthPoint, int manaCost, MonsterCardSpeciality monsterCardSpeciality, Tribe tribe){
         name = cardName;
@@ -19,9 +19,9 @@ public class NormalMonsterCard extends MonsterCards {
         this.type = Type.Normal;
     }
 
-    public void play(Battler currentBattler, Battler enemyBattler,int slotNum){
+    public void play(Battler currentBattler, Battler enemyBattler, int slotNum){
         if(currentBattler.getCurrentMana()>= manaCost  ) {
-            if (currentBattler.getMonsterField().getSlot(slotNum).isEmpty()) {
+            if (currentBattler.getMonsterField().getSlot(slotNum) == null) {
                 currentBattler.setCurrentMana(currentBattler.getCurrentMana() - manaCost);
                 currentBattler.getHand().remove(this);
                 currentBattler.getMonsterField().add(new NormalMonsterCardsInBattle(name, this.basicAttackPoint, this.basicHealthPoint, this.monsterCardSpeciality, this.tribe, this, currentBattler, enemyBattler), slotNum);

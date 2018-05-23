@@ -1,7 +1,6 @@
 package src.ApProject.thing.Cards.Magic;
 
-import src.ApProject.thing.Cards.MonsterCards.InBattle.MonsterCardsInBattle;
-import src.ToDoPackage.Battler;
+import src.ApProject.battle.battler.Battler;
 
 public class ChangePlayerHP extends Magic {
     private int currentBattlerChangeAmount;
@@ -14,7 +13,7 @@ public class ChangePlayerHP extends Magic {
         this.magicDetails = magicDetails;
     }
 
-    public void doMagic( Battler currentBattler, Battler enemyBattler) {
+    public void doMagic(Battler currentBattler, Battler enemyBattler) {
             currentBattler.changeHealthPoint(currentBattlerChangeAmount);
             enemyBattler.changeHealthPoint(enemyBattlerChangeAmount);
     }

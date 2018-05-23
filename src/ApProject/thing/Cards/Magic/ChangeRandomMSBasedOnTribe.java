@@ -1,8 +1,8 @@
 package src.ApProject.thing.Cards.Magic;
 
+import src.ApProject.battle.battler.Battler;
 import src.ApProject.thing.Cards.MonsterCards.InBattle.MonsterCardsInBattle;
 import src.ApProject.thing.Cards.MonsterCards.Tribe;
-import src.ToDoPackage.Battler;
 
 public class ChangeRandomMSBasedOnTribe extends Magic {
     private Tribe tribe;

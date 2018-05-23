@@ -1,8 +1,8 @@
 package src.ApProject.thing.Cards.Magic;
 
+import src.ApProject.battle.battler.Battler;
 import src.ApProject.thing.Cards.MonsterCards.InBattle.MonsterCardsInBattle;
 import src.ApProject.thing.Cards.MonsterCards.Tribe;
-import src.ToDoPackage.Battler;
 
 public class DealDamageBasedOnTribe extends Magic{
     private int currentBattlerChangeHPAmount;
@@ -17,15 +17,16 @@ public class DealDamageBasedOnTribe extends Magic{
        this.magicType = MagicType.WITHOUTTARGET;
     }
 
-    public void doMagic( Battler currentBattler, Battler enemyBattler) {
+    public void doMagic(Battler currentBattler, Battler enemyBattler) {
+
             for (MonsterCardsInBattle monsterCardsInBattle : enemyBattler.getMonsterField().getMonsterCardsInBattles()) {
-                if(monsterCardsInBattle.getTribe() != tribe) {
+                if(monsterCardsInBattle != null && monsterCardsInBattle.getTribe() != tribe) {
                     monsterCardsInBattle.changeHealthPoint(enemyBattlerChangeHPAmount);
                     monsterCardsInBattle.checkDeath();
                 }
             }
             for (MonsterCardsInBattle monsterCardsInBattle : currentBattler.getMonsterField().getMonsterCardsInBattles()) {
-                if(monsterCardsInBattle.getTribe() != tribe) {
+                if(monsterCardsInBattle != null && monsterCardsInBattle.getTribe() != tribe) {
                     monsterCardsInBattle.changeHealthPoint(currentBattlerChangeHPAmount);
                     monsterCardsInBattle.checkDeath();
                 }

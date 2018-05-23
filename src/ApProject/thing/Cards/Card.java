@@ -1,9 +1,9 @@
 package src.ApProject.thing.Cards;
 
+import src.ApProject.battle.battler.Battler;
 import src.ApProject.thing.Thing;
-import src.ToDoPackage.Battler;
 
-abstract public class Cards extends Thing{
+abstract public class Card extends Thing{
     protected static String cardType;
     protected int manaCost;
 

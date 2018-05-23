@@ -1,11 +1,11 @@
 package src.ApProject.battle.battler;
 
 
-import src.ApProject.thing.Cards.Cards;
+import src.ApProject.thing.Cards.Card;
 
 
 public class AI_Battler extends Battler {
-    public AI_Battler(String name, Cards[] cards) {
+    public AI_Battler(String name, Card[] cards) {
         super(name, cards);
         type = "ENEMY";
     }
