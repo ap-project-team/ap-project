@@ -11,24 +11,21 @@ public class Battle {
 
 
     Battler[] battlers = new Battler[2];
-    BattleGround battleGround = new BattleGround();
-
 
     public Battle(Battler battler, Battler enemy) {
         battlers[0] = battler;
+        battlers[0].setEnemy(enemy);
         battlers[1] = enemy;
-
-        battlers[0].setBattleGround(battleGround);
-        battlers[1].setBattleGround(battleGround);
+        battlers[1].setEnemy(battler);
     }
 
     public String play(){
         int startNumber = Math.abs(new Random().nextInt())%2;
-        System.out.println("Battle against "+battlers[1].getName()+" started!");
+        System.out.println("Battle against "+ battlers[1].getName()+" started!");
         System.out.println(battlers[startNumber].getName()+" starts the battle.\n");
 
-        battlers[0].draw(numberOfCardsInFirstHand,"PLAYER");
-        battlers[1].draw(numberOfCardsInFirstHand, "ENEMY");
+        battlers[0].drawCard(numberOfCardsInFirstHand);
+        battlers[1].drawCard(numberOfCardsInFirstHand);
 
         while (battlers[0].isAlive() && battlers[1].isAlive()){
             System.out.println("");
