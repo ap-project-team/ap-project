@@ -9,10 +9,11 @@ public class ChangeRandomMSBasedOnTribe extends Magic {
     private int changeAPAmount;
     private int changeHPAmount;
 
-    public ChangeRandomMSBasedOnTribe(int changeAPAmount, int changeHPAmount, Tribe tribe){
+    public ChangeRandomMSBasedOnTribe(int changeAPAmount, int changeHPAmount, Tribe tribe, String magicDetails){
         this.tribe =  tribe;
         this.changeAPAmount = changeAPAmount;
         this.changeHPAmount = changeHPAmount;
+        this.magicDetails = magicDetails;
         this.magicType = MagicType.WITHOUTTARGET;
     }
 

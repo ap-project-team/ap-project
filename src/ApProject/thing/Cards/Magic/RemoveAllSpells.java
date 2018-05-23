@@ -8,7 +8,9 @@ public class RemoveAllSpells extends Magic{
     {
         this.magicType = MagicType.WITHOUTTARGET;
     }
-
+    RemoveAllSpells(String magicDetails){
+        this.magicDetails = magicDetails;
+    }
     public void doMagic(Battler currentBattler, Battler enemyBattler) {
         for(Spells spell : enemyBattler.getSpellField().getSpells()){
             enemyBattler.getSpellField().remove(spell);

@@ -9,11 +9,12 @@ public class DealDamageBasedOnTribe extends Magic{
     private int enemyBattlerChangeHPAmount;
     private Tribe tribe;
 
-   public DealDamageBasedOnTribe(int currentBattlerChangeHPAmount, int enemyBattlerChangeHPAmount, Tribe tribe){
+   public DealDamageBasedOnTribe(int currentBattlerChangeHPAmount, int enemyBattlerChangeHPAmount, Tribe tribe, String magicDetails){
         this.currentBattlerChangeHPAmount = currentBattlerChangeHPAmount;
         this.enemyBattlerChangeHPAmount = enemyBattlerChangeHPAmount;
         this.tribe = tribe;
-        this.magicType = MagicType.WITHOUTTARGET;
+       this.magicDetails = magicDetails;
+       this.magicType = MagicType.WITHOUTTARGET;
     }
 
     public void doMagic( Battler currentBattler, Battler enemyBattler) {

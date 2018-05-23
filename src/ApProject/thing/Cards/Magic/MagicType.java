@@ -1,5 +1,5 @@
 package src.ApProject.thing.Cards.Magic;
 
 public enum MagicType {
-    WITHTARGET,WITHOUTTARGET,BOTH,SELECTSPELL,SELECTCARD,NONE
+    WITHOUTTARGET,FriendlyTarget,EnemyTarget,BOTH,SELECTSPELL,SELECTCARD,NONE
 }

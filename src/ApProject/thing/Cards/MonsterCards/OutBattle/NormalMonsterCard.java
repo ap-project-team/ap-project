@@ -33,4 +33,11 @@ public class NormalMonsterCard extends MonsterCards {
             System.out.println("I don't have enough mana.");
         }
     }
+    public String getInfo(){
+        info = "Name : " + name + "\n" + "HP : " + basicHealthPoint + "\n" + "AP : " + basicAttackPoint + "\n"
+                + "MP cost : " + manaCost + "\n" + "Card Type : " + type + "\n"+ "Card Tribe : " + tribe + "\n" + "Is Defensive"
+                + (monsterCardSpeciality == MonsterCardSpeciality.Taunt) + "\n" + "Is Nimble" + (monsterCardSpeciality == MonsterCardSpeciality.Charge)
+                + "\n";
+        return info;
+    }
 }

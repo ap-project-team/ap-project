@@ -5,8 +5,13 @@ import src.ToDoPackage.Battler;
 
 public class RemoveMonster extends Magic {
     {
-        this.magicType = MagicType.WITHTARGET;
+        this.magicType = MagicType.EnemyTarget;
     }
+
+    RemoveMonster(String magicDetails){
+        this.magicDetails = magicDetails;
+    }
+
     public void doMagic(MonsterCardsInBattle monsterCardsInBattle, Battler currentBattler, Battler enemyBattler){
         enemyBattler.getMonsterField().remove(monsterCardsInBattle);
     }

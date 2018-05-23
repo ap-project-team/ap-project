@@ -16,7 +16,7 @@ import java.util.ArrayList;
 public class MagicMonsterCards extends MonsterCards {
 
     public MagicMonsterCards(String cardName, int attackPoint, int healthPoint, int manaCost, MonsterCardSpeciality monsterCardSpeciality, Tribe tribe, ArrayList<Magic> magics){
-        name = cardName;
+        this.name = cardName;
         this.basicAttackPoint = attackPoint;
         this.basicHealthPoint = healthPoint;
         this.manaCost = manaCost;
@@ -39,6 +39,14 @@ public class MagicMonsterCards extends MonsterCards {
             else {
                 System.out.println("I don't have enough mana.");
             }
+    }
+
+    public String getInfo(){
+        info = "Name : " + name + "\n" + "HP : " + basicHealthPoint + "\n" + "AP : " + basicAttackPoint + "\n"
+                + "MP cost : " + manaCost + "\n" + "Card Type : " + type + "\n"+ "Card Tribe : " + tribe + "\n" + "Is Defensive"
+                + (monsterCardSpeciality == MonsterCardSpeciality.Taunt) + "\n" + "Is Nimble" + (monsterCardSpeciality == MonsterCardSpeciality.Charge)
+                + "\n" + "Spell Details : " + "\n" + magics.get(0).getmagicDetails();
+        return info;
     }
 }
 

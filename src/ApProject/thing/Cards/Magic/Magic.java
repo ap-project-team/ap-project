@@ -7,7 +7,6 @@ import src.ToDoPackage.Battler;
 
 public class Magic {
         protected MagicType magicType;
-        protected String magicName;
         protected String magicDetails;
         public void doMagic(MonsterCardsInBattle monsterCardsInBattle, Battler currentBattler, Battler enemyBattler){}
         public void doMagic(Spells spells, Battler currentBattler, Battler enemyBattler){}
@@ -16,8 +15,8 @@ public class Magic {
         public MagicType getMagicType() {
             return magicType;
         }
-        public String getDetails(){
-            return magicName + magicDetails;
+        public String getmagicDetails(){
+            return magicDetails;
         }
 }
 

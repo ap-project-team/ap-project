@@ -28,6 +28,7 @@ public class AuraSpell extends Spells{
             System.out.println("I don't have enough mana.");
         }
     }
+
     public void doMagic(MonsterCardsInBattle monsterCardsInBattle){
         try {
             for (Magic magic : magics) {

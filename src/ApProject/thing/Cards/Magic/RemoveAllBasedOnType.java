@@ -6,8 +6,9 @@ import src.ToDoPackage.Battler;
 
 public class RemoveAllBasedOnType extends Magic{
     private Type type;
-    RemoveAllBasedOnType(Type type){
+    RemoveAllBasedOnType(Type type, String magicDetails){
         this.type = type;
+        this.magicDetails = magicDetails;
         this.magicType = MagicType.WITHOUTTARGET;
     }
 

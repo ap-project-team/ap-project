@@ -7,8 +7,9 @@ public class DamagePlayerOrMS extends Magic{
     private int changeHPAmount;
     private int type;
 
-    public DamagePlayerOrMS(int changeHPAmount, int type){
+    public DamagePlayerOrMS(int changeHPAmount, int type, String magicDetails){
         this.changeHPAmount = changeHPAmount;
+        this.magicDetails = magicDetails;
         this.type = type;
         this.magicType = MagicType.BOTH;
     }

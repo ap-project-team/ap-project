@@ -7,7 +7,9 @@ public class MoveFromHandToMF extends Magic{
     {
         this.magicType = MagicType.SELECTCARD;
     }
-
+    MoveFromHandToMF(String magicDetails){
+        this.magicDetails = magicDetails;
+    }
     public void doMagic(Cards cards, Battler currentBattler, Battler enemyBattler) {
         currentBattler.getHand().remove(cards);
         cards.play(currentBattler, enemyBattler,currentBattler.getMonsterField().getEmptySlotNumber());
