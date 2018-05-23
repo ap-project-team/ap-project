@@ -16,4 +16,9 @@ abstract public class Spells extends Card {
     {
         cardType = "SPELLCARD";
     }
+
+    public String getInfo() {
+        return this.name +" Info" + "\n" + "Name : " + this.name + "\n" + "MP cost : " + manaCost + "\n" + "Card Type : " + spellType + "\n" +  "Spell Details : "
+                + "\n" + magics.get(0).getmagicDetails();
+    }
 }

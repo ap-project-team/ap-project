@@ -6,6 +6,7 @@ import src.ApProject.thing.Thing;
 abstract public class Card extends Thing{
     protected static String cardType;
     protected int manaCost;
+    protected String info;
 
     {
         thingType = "CARD";
@@ -20,5 +21,9 @@ abstract public class Card extends Thing{
 
     public int getManaCost() {
         return manaCost;
+    }
+
+    public String getInfo() {
+        return info;
     }
 }

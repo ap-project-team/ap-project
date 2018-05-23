@@ -3,20 +3,21 @@ package src.ApProject.thing.Cards.Magic;
 import src.ApProject.battle.battler.Battler;
 import src.ApProject.thing.Cards.MonsterCards.InBattle.MonsterCardsInBattle;
 
-public class DamagePlayerOrMS extends Magic{
+public class ChangeHPOfPlayerOrMS extends Magic{
     private int changeHPAmount;
-    private int type;
 
-    public DamagePlayerOrMS(int changeHPAmount, int type, String magicDetails){
+    public ChangeHPOfPlayerOrMS(int changeHPAmount, String magicDetails){
         this.changeHPAmount = changeHPAmount;
         this.magicDetails = magicDetails;
-        this.type = type;
-        this.magicType = MagicType.BOTH;
+        if(changeHPAmount > 0)
+            this.magicType = MagicType.FriendlyPlayerOrMS;
+        else
+            this.magicType = MagicType.EnemeyPlayerOrMS;
     }
 
     public void doMagic(MonsterCardsInBattle monsterCardsInBattle, Battler currentBattler, Battler enemyBattler){
         if(monsterCardsInBattle == null){
-            if(type == 0)
+            if(magicType == MagicType.FriendlyPlayerOrMS)
                 currentBattler.changeHealthPoint(changeHPAmount);
             else
                 enemyBattler.changeHealthPoint(changeHPAmount);

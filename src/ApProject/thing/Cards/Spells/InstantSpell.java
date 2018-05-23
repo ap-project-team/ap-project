@@ -16,6 +16,7 @@ public class InstantSpell extends Spells{
         this.magics.addAll(magics);
         this.spellType = SpellType.Instant;
         this.magicType = magics.get(0).getMagicType();
+        this.price = 700 * this.manaCost;
     }
 
     public void play(Battler currentBattler, Battler enemyBattler, MonsterCardsInBattle monsterCardsInBattle, Spells spells, Card card){
@@ -25,7 +26,10 @@ public class InstantSpell extends Spells{
             try {
                 for (Magic magic : magics) {
                     switch (magic.getMagicType()) {
-                        case WITHTARGET:
+                        case FriendlyTarget:
+                            magic.doMagic(monsterCardsInBattle, currentBattler, enemyBattler);
+                            break;
+                        case EnemyTarget:
                             magic.doMagic(monsterCardsInBattle, currentBattler, enemyBattler);
                             break;
                         case WITHOUTTARGET:
@@ -37,7 +41,13 @@ public class InstantSpell extends Spells{
                         case SELECTSPELL:
                             magic.doMagic(spells, currentBattler, enemyBattler);
                             break;
-                        case BOTH:
+                        case FriendlyPlayerOrMS:
+                            magic.doMagic(monsterCardsInBattle, currentBattler, enemyBattler);
+                            break;
+                        case EnemeyPlayerOrMS:
+                            magic.doMagic(monsterCardsInBattle, currentBattler, enemyBattler);
+                            break;
+                        case MSorSpell:
                             magic.doMagic(monsterCardsInBattle, currentBattler, enemyBattler);
                             break;
                     }

@@ -20,6 +20,7 @@ public class GeneralMonsterCard extends MonsterCard {
         this.type = Type.SpellCaster;
         this.battleCry.addAll(battleCry);
         this.will.addAll(will);
+        this.price = manaCost * 1000;
     }
 
     public void play(Battler currentBattler, Battler enemyBattler, int slotNum) {

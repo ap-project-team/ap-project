@@ -5,7 +5,7 @@ import src.ApProject.thing.Cards.MonsterCards.InBattle.MonsterCardsInBattle;
 
 public class RemoveMonsterOrSpell extends Magic{
     {
-        this.magicType = MagicType.BOTH;
+        this.magicType = MagicType.MSorSpell;
     }
 
     RemoveMonsterOrSpell(String magicDetails){

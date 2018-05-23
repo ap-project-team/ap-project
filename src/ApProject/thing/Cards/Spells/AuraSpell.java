@@ -4,10 +4,17 @@ import src.ApProject.battle.battler.Battler;
 import src.ApProject.thing.Cards.Magic.Magic;
 import src.ApProject.thing.Cards.MonsterCards.InBattle.MonsterCardsInBattle;
 
-public class AuraSpell extends Spells{
-    AuraSpell(String name){
+import java.util.ArrayList;
 
+public class AuraSpell extends Spells{
+    AuraSpell(String name, int manaCost, ArrayList<Magic> magics){
+        this.name = name;
+        this.spellType = SpellType.Aura;
+        this.magics = magics;
+        this.manaCost = manaCost;
+        this.price = 700 * this.manaCost;
     }
+
     public void play(Battler currentBattler, Battler enemyBattler, int slotNum) {
         if(currentBattler.getCurrentMana()>= manaCost  ) {
             if (currentBattler.getMonsterField().getSlot(slotNum) == null) {

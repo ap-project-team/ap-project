@@ -17,7 +17,6 @@ abstract public class MonsterCard extends Card {
     protected ArrayList<Magic> will = new ArrayList<>();
     protected ArrayList<Magic>  magics = new ArrayList<>();
     protected MonsterCardSpeciality monsterCardSpeciality;
-    protected String info;
 
     {
         cardType = "MONSTERCARD";

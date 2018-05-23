@@ -7,13 +7,16 @@ public class RemoveGraveYard extends Magic {
     {
         this.magicType = MagicType.WITHOUTTARGET;
     }
-
-    RemoveGraveYard(String magicDetails){
+    int count;
+    public RemoveGraveYard( int count, String magicDetails){
         this.magicDetails = magicDetails;
+        this.count = count;
     }
     public void doMagic(Battler currentBattler, Battler enemyBattler) {
+        for (int i = 0; i < count; i++) {
             Card randomCard = currentBattler.getGraveYard().getRandomCard();
             currentBattler.getGraveYard().remove(randomCard);
             currentBattler.getHand().add(randomCard);
+        }
     }
 }

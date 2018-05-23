@@ -17,6 +17,7 @@ public class NormalMonsterCard extends MonsterCard {
         this.monsterCardSpeciality = monsterCardSpeciality;
         this.tribe = tribe;
         this.type = Type.Normal;
+        this.price = manaCost * 300;
     }
 
     public void play(Battler currentBattler, Battler enemyBattler, int slotNum){

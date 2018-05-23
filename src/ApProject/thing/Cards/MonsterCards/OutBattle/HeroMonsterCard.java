@@ -21,6 +21,7 @@ public class HeroMonsterCard extends MonsterCard {
         this.battleCry.addAll(battleCry);
         this.will.addAll(will);
         this.magics.addAll(magics);
+        this.price = manaCost * 700;
     }
 
     public void play(Battler currentBattler, Battler enemyBattler, int slotNum) {

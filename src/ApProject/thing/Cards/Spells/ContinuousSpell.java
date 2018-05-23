@@ -11,6 +11,7 @@ public class ContinuousSpell extends Spells{
         this.manaCost = manaCost;
         this.magics.addAll(magics);
         this.spellType = SpellType.Continuous;
+        this.price = 700 * this.manaCost;
     }
 
     public void play(Battler currentBattler, Battler enemyBattler, int slotNum) {

@@ -35,7 +35,10 @@ public class GeneralMonsterCardsInBattle extends MonsterCardsInBattle {
             try {
                 for (Magic magic : battleCry) {
                     switch (magic.getMagicType()) {
-                        case WITHTARGET:
+                        case FriendlyTarget:
+                            magic.doMagic(monsterCardsInBattle, currentBattler, enemyBattler);
+                            break;
+                        case EnemyTarget:
                             magic.doMagic(monsterCardsInBattle, currentBattler, enemyBattler);
                             break;
                         case WITHOUTTARGET:
@@ -47,7 +50,13 @@ public class GeneralMonsterCardsInBattle extends MonsterCardsInBattle {
                         case SELECTSPELL:
                             magic.doMagic(spells, currentBattler, enemyBattler);
                             break;
-                        case BOTH:
+                        case FriendlyPlayerOrMS:
+                            magic.doMagic(monsterCardsInBattle, currentBattler, enemyBattler);
+                            break;
+                        case EnemeyPlayerOrMS:
+                            magic.doMagic(monsterCardsInBattle, currentBattler, enemyBattler);
+                            break;
+                        case MSorSpell:
                             magic.doMagic(monsterCardsInBattle, currentBattler, enemyBattler);
                             break;
                     }
@@ -62,7 +71,10 @@ public class GeneralMonsterCardsInBattle extends MonsterCardsInBattle {
         try {
             for (Magic magic : will) {
                 switch (magic.getMagicType()) {
-                    case WITHTARGET:
+                    case FriendlyTarget:
+                        magic.doMagic(monsterCardsInBattle, currentBattler, enemyBattler);
+                        break;
+                    case EnemyTarget:
                         magic.doMagic(monsterCardsInBattle, currentBattler, enemyBattler);
                         break;
                     case WITHOUTTARGET:
@@ -74,7 +86,13 @@ public class GeneralMonsterCardsInBattle extends MonsterCardsInBattle {
                     case SELECTSPELL:
                         magic.doMagic(spells, currentBattler, enemyBattler);
                         break;
-                    case BOTH:
+                    case FriendlyPlayerOrMS:
+                        magic.doMagic(monsterCardsInBattle, currentBattler, enemyBattler);
+                        break;
+                    case EnemeyPlayerOrMS:
+                        magic.doMagic(monsterCardsInBattle, currentBattler, enemyBattler);
+                        break;
+                    case MSorSpell:
                         magic.doMagic(monsterCardsInBattle, currentBattler, enemyBattler);
                         break;
                 }

@@ -7,7 +7,7 @@ public class RemoveAllSpells extends Magic{
     {
         this.magicType = MagicType.WITHOUTTARGET;
     }
-    RemoveAllSpells(String magicDetails){
+    public RemoveAllSpells(String magicDetails){
         this.magicDetails = magicDetails;
     }
     public void doMagic(Battler currentBattler, Battler enemyBattler) {
