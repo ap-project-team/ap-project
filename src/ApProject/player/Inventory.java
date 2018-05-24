@@ -9,6 +9,17 @@ public class Inventory {
     protected ArrayList<InventoryThing> amuletInventory = new ArrayList<>();
     protected InventoryDeck deck = new InventoryDeck();
 
+    Inventory() {
+
+    }
+
+    Inventory(ArrayList<InventoryThing> cards, ArrayList<InventoryThing> items, ArrayList<InventoryThing> amulets, InventoryDeck deck) {
+        this.cardInventory = cards;
+        this.itemInventory = items;
+        this.amuletInventory = amulets;
+        this.deck = deck;
+    }
+
     ArrayList<InventoryThing> getList(String type) {
         if (type.equals("CARD")) return cardInventory;
         if (type.equals("ITEM")) return itemInventory;
@@ -43,8 +54,8 @@ public class Inventory {
         return 0;
     }
 
-    protected int numberOfThingsInDeck(String name, String type){
-        return deck.getNumberOfCardsInDeck(name,type);
+    protected int numberOfThingsInDeck(String name, String type) {
+        return deck.getNumberOfCardsInDeck(name, type);
     }
 
     public void printInventoy(ArrayList<InventoryThing> list) {
@@ -81,7 +92,7 @@ public class Inventory {
             for (int i = 0; i < cardInventory.size(); i++) {
                 InventoryThing t = cardInventory.get(i);
                 System.out.println(i + 1 + ".\t" + t.getNum()
-                        + " " + t.getName() + "\t/\t" + deck.getNumberOfCardsInDeck(t.getName(), "CARD")+" on deck");
+                        + " " + t.getName() + "\t/\t" + deck.getNumberOfCardsInDeck(t.getName(), "CARD") + " on deck");
             }
             while (inventoryListOrders("Card")) ;
         } else if (order.matches("Item Inventory\\s*")) {
@@ -101,9 +112,9 @@ public class Inventory {
         } else if (order.matches("Edit Deck\\s*")) {
             deck.printDeckEnteringText(cardInventory);
             while (deck.editDeckOerders(this)) ;
-        } else if (order.matches("Edit Amulets\\s*")){
+        } else if (order.matches("Edit Amulets\\s*")) {
             deck.printAmuletEnteringText(amuletInventory);
-            while (deck.editAmuletOerders(this));
+            while (deck.editAmuletOerders(this)) ;
         } else if (order.matches("Exit")) return false;
         else System.out.println("Incorrect order!");
         return true;
@@ -111,13 +122,13 @@ public class Inventory {
 
     private boolean inventoryListOrders(String type) {
         String order = Game.give();
-        if (order.matches("info \\w*\\s*"));
+        if (order.matches("info \\w*\\s*")) ;
             //toDo info
         else if (order.matches("Exit\\s*"))
             return false;
         else if (order.matches("Help\\s*"))
             System.out.println(
-                    "1. Info \""+type+" Name\": To get more information about a "+type+" \n" +
+                    "1. Info \"" + type + " Name\": To get more information about a " + type + " \n" +
                             "2. Exit: To exit to previous menu");
         else System.out.println("Incorrect order!");
         return true;
@@ -126,4 +137,18 @@ public class Inventory {
     public boolean deckIsFull() {
         return deck.deckIsFull();
     }
+
+    Inventory copy() {
+        //toDo
+        /*
+        ArrayList<InventoryThing> cards = new ArrayList<>();
+        ArrayList<InventoryThing> items = new ArrayList<>();
+        ArrayList<InventoryThing> amulets = new ArrayList<>();
+        InventoryDeck deck = new InventoryDeck();
+
+        Inventory inventory = new Inventory(cards,items,amulets,deck);
+    */
+        return null;
+    }
 }
+

@@ -14,11 +14,16 @@ public class InventoryDeck {
         for (int i=0; i<slots.length; i++)
             slots[i] = new String("null");
         for (int i=0; i<5; i++)
-            slots[i] = "ElvenRanjer";
+            slots[i] = "ElvenRanger";
         for (int i=5; i<10; i++)
             slots[i] = "ElvenHunter";
         for (int i=10; i<15; i++)
-            slots[i] = "YellowDrake";
+            slots[i] = "NobleElf";
+    }
+
+    InventoryDeck(String[] slots, String equippedAmulet){
+        this.equippedAmulet = equippedAmulet;
+        this.slots = slots;
     }
 
     protected int getNumberOfCardsInDeck(String name, String type){
@@ -134,5 +139,9 @@ public class InventoryDeck {
             if (slots[i].equals("null"))
                 return false;
         return true;
+    }
+
+    InventoryDeck copy(){
+        return new InventoryDeck(this.slots.clone(),equippedAmulet.substring(0));
     }
 }

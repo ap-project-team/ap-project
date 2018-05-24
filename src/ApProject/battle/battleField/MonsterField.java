@@ -1,13 +1,14 @@
 package src.ApProject.battle.battleField;
 
-import src.ApProject.battle.Slot;
+import src.ApProject.Game;
+import src.ApProject.battle.battler.Battler;
 import src.ApProject.constants.ConstantDatas;
 import src.ApProject.thing.Cards.MonsterCards.InBattle.MonsterCardsInBattle;
-import src.ApProject.thing.Cards.MonsterCards.OutBattle.MonsterCard;
 import src.ApProject.thing.Cards.MonsterCards.Tribe;
 
 import java.util.ArrayList;
 import java.util.Random;
+import src.ApProject.thing.Cards.MonsterCards.Type;
 
 public class MonsterField {
     //Don't change
@@ -81,7 +82,45 @@ public class MonsterField {
     public void viewMonsterField() {
         for (int i = 0; i < slots.length; i++)
             if (slots[i] == null)
-                System.out.println((i + 1) + ".\tEmpty");
+                System.out.println((i + 1) + ".\tEmpety");
             else System.out.println((i + 1) + ".\t" + slots[i].getCardName());
     }
+
+    public boolean useCardOrders(int i, Battler enemy) {
+        //if (slots[i].getType() != Type.SpellCaster) {
+            System.out.println(
+                    "Using " + slots[i].getCardName() + ": \n" +
+                            "HP: " + slots[i].getCurrentHealthPoint() + " AP: " + slots[i].getCurrentAttackPoint() + " \n" +
+                            "Is Sleeping: " + slots[i].isSleep() + "\n" +
+                            "Can Attack: " + slots[i].canAttack()
+            );
+            String order = Game.give();
+
+            if (order.matches("Help\\s*"))
+                System.out.println(
+                        "1. Attack #EnemyMonsterSlot / Player: To attack the card on that slot of enemy MonsterField\n" +
+                                "2. Info: To get full information on card\n" +
+                                "3. Exit: To go back to Play Menu"
+                );
+            else if (order.matches("Attack (\\d*|Player)\\s*")) {
+                String[] str = order.split("\\s");
+                if (!slots[i].canAttack())
+                    System.out.println("This card can't attack.");
+                else {
+                    if (str[1].equals("Player")) {
+                        slots[i].attack();
+                        System.out.println(slots[i].getCardName() + " clashed with " + enemy.getName());
+                    } else {
+                        slots[i].attack(enemy.getMonsterField().getSlot(Integer.parseInt(str[1])));
+                        System.out.println(slots[i].getCardName() + " clashed with " +
+                                enemy.getMonsterField().getSlot(Integer.parseInt(str[1])).getCardName());
+                    }
+                }
+            } else if (order.matches("Info\\s*")) {
+                //toDo
+            } else if (order.matches("Exit\\s*")) return false;
+            else System.out.println("Incurrect order!");
+            return true;
+        }
+    //}
 }

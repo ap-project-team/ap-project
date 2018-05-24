@@ -91,11 +91,7 @@ public class Player {
         Amulet realAmulet = ConstantDatas.<Amulet>buildThing(inventory.deck.getEquippedAmulet(), "AMULET");
 
         for (int i = 0; i < realDeck.length; i++) {
-            try {
-                realDeck[i] = AllCards.buildCard(inventory.deck.getSlots()[i]);
-            } catch (CardDoesNotExistExeption cardDoesNotExistExeption) {
-                cardDoesNotExistExeption.printStackTrace();
-            }
+            realDeck[i] = AllCards.buildCard(inventory.deck.getSlots()[i]);
         }
         for (int i = 0; i < inventory.itemInventory.size(); i++) {
             InventoryThing inventoryThing = inventory.itemInventory.get(i);

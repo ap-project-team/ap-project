@@ -34,7 +34,10 @@ public class realBattler extends Battler {
                     "7. Info \"Card Name\": To view full information about a card\n" +
                     "8. Done: To end your turn");
         }else if(order.matches("Use \\d*\\s*")) {
-            //toDo Use
+            String[] str = order.split("\\s");
+            if (monsterField.getSlot(Integer.parseInt(str[1])-1) == null)
+                System.out.println("This slot is empety.");
+            else while (monsterField.useCardOrders(Integer.parseInt(str[1])-1, this));
         } else if (order.matches("Set \\d* to \\d*\\s*")){
             String[] str = order.split("\\s");
             int handIndex = Integer.parseInt(str[1]);
@@ -50,9 +53,15 @@ public class realBattler extends Battler {
         } else if (order.matches("View Graveyard\\s*")) {
             battle.viewGraveyard();
         } else if (order.matches("View SpellField\\s*")) {
+            System.out.println("Your SpellField :");
             spellField.viewSpellField();
+            System.out.println("Enemy's SpellField :");
+            enemy.spellField.viewSpellField();
         } else if (order.matches("View MonsterField\\s*")) {
+            System.out.println("Your MonsterField :");
             monsterField.viewMonsterField();
+            System.out.println("Enemy's MonsterField :");
+            enemy.monsterField.viewMonsterField();
         } else if (order.matches("info \\w*\\s*")) {
             //toDo info
         } else if (order.matches("Done\\s*")) {

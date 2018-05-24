@@ -86,6 +86,7 @@ abstract public class Battler {
         if (currentMaxMP < MAX_MP) currentMaxMP++;
         currentMP = currentMaxMP;
 
+
         String addedCard;
         if (turnNum != 1 && turnNum != 2)
             addedCard = addToHand(1);
@@ -98,8 +99,9 @@ abstract public class Battler {
                     "[" + addedCard + "]\n" +
                     "[" + currentMaxMP + " - " + MAX_MP + "]");
             while (turnOrders());
-        } else if (type.equals("ENEMY"))
+        } else if (type.equals("ENEMY")) {
             turnOrders();
+        }
     }
 
     protected boolean turnOrders() {

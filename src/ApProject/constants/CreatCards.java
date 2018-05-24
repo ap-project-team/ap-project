@@ -17,6 +17,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class CreatCards {
+
     private Map<String, Card> allCards = new HashMap<>();
 
     public void createAllCards(){
@@ -144,5 +145,5 @@ public class CreatCards {
 
     public Card getCard(String cardName){
         return allCards.get(cardName);
-   }
+    }
 }

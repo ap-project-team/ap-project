@@ -32,6 +32,22 @@ public class MonsterCardsInBattle {
     protected MagicType magicType = MagicType.NONE;
     protected ArrayList<AuraSpell> auraEffectList = new ArrayList<>();
 
+    public boolean isSleep() {
+        return isSleep;
+    }
+
+    public boolean canAttack() {
+        return canAttack;
+    }
+
+    public int getCurrentHealthPoint() {
+        return currentHealthPoint;
+    }
+
+    public int getCurrentAttackPoint() {
+        return currentAttackPoint;
+    }
+
     public MagicType getBattleCryType() {
         return battleCryType;
     }
