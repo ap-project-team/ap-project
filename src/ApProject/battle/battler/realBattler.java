@@ -21,7 +21,7 @@ public class realBattler extends Battler {
     }
 
     @Override
-    protected boolean turnOrders(){
+    protected boolean turnOrders() {
         String order = Game.give();
 
         if (order.matches("Help\\s*")) {
@@ -31,25 +31,36 @@ public class realBattler extends Battler {
                     "4. View Graveyard: To view the cards in your graveyard \n" +
                     "5. View SpellField: To view the cards in both ’players spell fields \n" +
                     "6. View MonsterField: To view the cards in both ’players monster fields \n" +
-                    "7. Info \"Card Name\": To view full information about a card\n" +
-                    "8. Done: To end your turn");
-        }else if(order.matches("Use \\d*\\s*")) {
+                    "7. Battler Info: To view your HP and Mana.\n"+
+                    "8. Info \"Card Name\": To view full information about a card\n" +
+                    "9. Done: To end your turn");
+        } else if (order.matches("Use \\d*\\s*")) {
             String[] str = order.split("\\s");
-            if (monsterField.getSlot(Integer.parseInt(str[1])-1) == null)
+            if (monsterField.getSlot(Integer.parseInt(str[1]) - 1) == null)
                 System.out.println("This slot is empety.");
-            else while (monsterField.useCardOrders(Integer.parseInt(str[1])-1, this));
-        } else if (order.matches("Set \\d* to \\d*\\s*")){
+            else {
+                int i = Integer.parseInt(str[1]) - 1;
+                System.out.println(
+                        "Using " + monsterField.getSlot(i).getCardName() + ": \n" +
+                                "HP: " + monsterField.getSlot(i).getCurrentHealthPoint() + " AP: "
+                                + monsterField.getSlot(i).getCurrentAttackPoint() + " \n" +
+                                "Is Sleeping: " + monsterField.getSlot(i).isSleep() + "\n" +
+                                "Can Attack: " + monsterField.getSlot(i).canAttack()
+                );
+                while (monsterField.useCardOrders(i, enemy)) ;
+            }
+        } else if (order.matches("Set \\d* to \\d*\\s*")) {
             String[] str = order.split("\\s");
             int handIndex = Integer.parseInt(str[1]);
-            int slotNum = Integer.parseInt(str[3])-1;
+            int slotNum = Integer.parseInt(str[3]) - 1;
 
             if (handIndex > hand.size() || handIndex <= 0)
                 System.out.println("HandIndex is not valid.");
-            else hand.get(handIndex-1).play(this, enemy, slotNum);
-        } else if (order.matches("View Hand\\s*")){
+            else hand.get(handIndex - 1).play(this, enemy, slotNum);
+        } else if (order.matches("View Hand\\s*")) {
             System.out.println("Your Hand :");
-            for (int i=0; i<hand.size(); i++)
-                System.out.println((i+1)+".\t"+hand.get(i).getName());
+            for (int i = 0; i < hand.size(); i++)
+                System.out.println((i + 1) + ".\t" + hand.get(i).getName());
         } else if (order.matches("View Graveyard\\s*")) {
             battle.viewGraveyard();
         } else if (order.matches("View SpellField\\s*")) {
@@ -62,7 +73,11 @@ public class realBattler extends Battler {
             monsterField.viewMonsterField();
             System.out.println("Enemy's MonsterField :");
             enemy.monsterField.viewMonsterField();
-        } else if (order.matches("info \\w*\\s*")) {
+        } else if (order.matches("Battler Info")) {
+            System.out.println("Your Info :\nCurrentMana :\t" + getCurrentMana()
+                    + "\nCurrentHP :\t" + getHealth());
+            System.out.println("Enemy Info :\nCurrentHP :\t" + enemy.getHealth());
+        } else if (order.matches("Info \\w*\\s*")) {
             //toDo info
         } else if (order.matches("Done\\s*")) {
             return false;

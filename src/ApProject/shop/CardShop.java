@@ -18,21 +18,11 @@ public class CardShop{
             add("ElvenHunter");
             add("ElvenHunter");
 
-            add("ElvenRanjer");
-            add("ElvenRanjer");
-            add("ElvenRanjer");
-            add("ElvenRanjer");
-            add("ElvenRanjer");
-
-            add("YellowDrake");
-            add("YellowDrake");
-            add("YellowDrake");
-            add("YellowDrake");
-
-            add("BlueDragon");
-            add("BlueDragon");
-            add("BlueDragon");
-            add("BlueDragon");
+            add("ElvenRanger");
+            add("ElvenRanger");
+            add("ElvenRanger");
+            add("ElvenRanger");
+            add("ElvenRanger");
         }});
 
     protected boolean cardShopOrders(Player p) {

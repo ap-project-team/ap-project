@@ -86,6 +86,7 @@ abstract public class Battler {
         if (currentMaxMP < MAX_MP) currentMaxMP++;
         currentMP = currentMaxMP;
 
+        monsterField.nextTurn();
 
         String addedCard;
         if (turnNum != 1 && turnNum != 2)

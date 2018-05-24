@@ -68,8 +68,8 @@ public class MonsterCardsInBattle {
 
     public void attack(MonsterCardsInBattle targetCard){
         if(canAttack) {
-            this.currentHealthPoint = -targetCard.currentAttackPoint;
-            targetCard.currentHealthPoint = -this.currentAttackPoint;
+            this.currentHealthPoint -= targetCard.currentAttackPoint;
+            targetCard.currentHealthPoint -= this.currentAttackPoint;
             this.checkDeath();
             targetCard.checkDeath();
         }
