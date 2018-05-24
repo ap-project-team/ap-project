@@ -94,7 +94,7 @@ public class MonsterCardsInBattle {
 
     public void checkDeath(){
         if(this.currentHealthPoint <= 0)
-            currentBattler.getMonsterField().remove(this);
+            currentBattler.getMonsterField().remove(this, currentBattler);
     }
 
     public void changeHealthPoint(int amount){
@@ -104,5 +104,10 @@ public class MonsterCardsInBattle {
 
     public void changeAttackPoint(int amount){
         this.currentAttackPoint += amount;
+    }
+
+    public void nextTurn(){
+        this.isSleep = false;
+        this.canAttack = true;
     }
 }

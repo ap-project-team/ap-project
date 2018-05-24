@@ -34,11 +34,65 @@ public class CreatCards {
         allCards.put("Poisonous Cauldron" , new ContinuousSpell("Poisonous Cauldron ", 4,magics));
         magics.clear();
 
+        magics.add(new ChangeHPOfPlayerOrMS(500, "First Aid Kit : Increase HP of a selected friendly monster or player by 500"));
+        allCards.put("First Aid Kit", new InstantSpell("First Aid Kit", 3, magics));
+        magics.clear();
+
+        magics.add(new RemoveMonsterOrSpell("Reaper's Scythe : Send an enemy monster or spell card from field ro graveyard"));
+        allCards.put("Reaper's Scythe", new InstantSpell("Reaper's Scythe", 4, magics));
+        magics.clear();
+
+        magics.add(new DamageRandomMSOrPlayer(-800,1, "Meteor Shower : Deal 800 to a random enemy monster card on the field or player"));
+        allCards.put("Meteor Shower", new ContinuousSpell("Meteor Shower", 8, magics));
+        magics.clear();
+
         magics.add(new ChangeHPBasedOnTribe(300, 300, 0, Tribe.Elven, "Lunar Blessing : Increase AP and HP of friendly Elven monster cards by 300"));
         magics.add(new ChangeHPBasedOnTribe(-300, -300, 0, Tribe.Elven, "Lunar Blessing : Increase AP and HP of friendly Elven monster cards by 300"));
         allCards.put("Lunar Blessing", new AuraSpell("Lunar Blessing",6, magics, inverseMagic));
         magics.clear();
         inverseMagic.clear();
+
+        magics.add(new MoveMSToHand("Strategic Retreat : Select and move a friendly monster card from field to hand and draw one card from deck"));
+        magics.add(new DrawCard(1,""));
+        allCards.put("Strategic Retreat", new InstantSpell("Strategic Retreat", 6, magics));
+        magics.clear();
+
+        magics.add(new ChangeHPAndAP(300,0,0,"War Drum : Increase all friendly monster cards' AP by 300"));
+        inverseMagic.add(new ChangeHPAndAP(-300,0,0,""));
+        allCards.put("War Drum", new AuraSpell("War Drum", 6, magics,inverseMagic));
+        magics.clear();
+        inverseMagic.clear();
+
+        magics.add(new ChangeAllHPAndAP(0,200, 0,0, "Healing Ward : Increase all friendly monster cards' HP by 200"));
+        allCards.put("Healing Ward", new ContinuousSpell("Healing Ward", 5, magics));
+        magics.clear();
+
+        magics.add(new ChangePlayerHP(500,-500, "Blood Feast"));
+        allCards.put("Blood Feast", new InstantSpell("Blood Feast", 4, magics));
+        magics.clear();
+
+        magics.add(new DamageBasedOnTribe(-500,-500, Tribe.Atlantian, "Tsunami : Deal 500 damage to all non-Atlantian monster cards on both sides of the field"));
+        allCards.put("Tsunami", new InstantSpell("Tsunami", 6, magics));
+        magics.clear();
+
+        magics.add(new ChangeHPAndAP(400,400, 0, "Take All You Can : Increase all friendly normal monster cards' HP and AP by 400"));
+        inverseMagic.add(new ChangeHPAndAP(-400,-400, 0, ""));
+        allCards.put("Take All You Can", new AuraSpell("Take All You Can", 7, magics,inverseMagic));
+        magics.clear();
+        inverseMagic.clear();
+
+        magics.add(new RemoveSelectedSpell("Arcane Bolt"));
+        magics.add(new ChangePlayerHP(0,-500,""));
+        allCards.put("Arcane Bolt", new InstantSpell("Arcane Boly", 5,magics));
+        magics.clear();
+
+        magics.add(new RemoveAllSpellsBothSides("Greater Purge : Remove all spell cards on field from both sides and move them to hand"));
+        allCards.put("Greater Purge", new InstantSpell("Greater Purge", 7, magics));
+        magics.clear();
+
+        magics.add(new RemoveAllSpells("Magic Seal : Remove all enemy spell cards from field and move them to graveyard"));
+        allCards.put("Magic Seal", new ContinuousSpell("Magic Seal", 9, magics));
+        magics.clear();
 
         allCards.put("Elven Ranger", new NormalMonsterCard("Elven Ranger", 400, 300,1, MonsterCardSpeciality.Normal, Tribe.Elven));
 
@@ -79,6 +133,12 @@ public class CreatCards {
         allCards.put("Armored Dragon", new NormalMonsterCard("Armored Dragon", 400,2000, 5, MonsterCardSpeciality.Taunt, Tribe.DargonBreed));
 
         allCards.put("Yellow Drake", new NormalMonsterCard("Yellow Drake", 1000, 800, 5, MonsterCardSpeciality.Charge, Tribe.DargonBreed));
+
+        allCards.put("Goblin Smuggler", new NormalMonsterCard("Goblin Smuggler", 400, 600,2, MonsterCardSpeciality.Normal, Tribe.Demonic));
+
+        magics.add(new ChangeHPOfPlayerOrMS(400, "Mend : Increase a friendly monster card or player's HP by 400"));
+        allCards.put("Goblin Shaman", new MagicMonsterCard("Goblin Shaman", 700,1000,4, MonsterCardSpeciality.Normal, Tribe.Demonic, magics));
+        magics.clear();
 
     }
 

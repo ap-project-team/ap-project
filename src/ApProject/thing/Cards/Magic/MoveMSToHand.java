@@ -6,7 +6,7 @@ import src.ApProject.thing.Cards.MonsterCards.InBattle.MonsterCardsInBattle;
 
 public class MoveMSToHand extends Magic{
     {
-        this.magicType  = MagicType.FriendlyTarget;
+        this.magicType  = MagicType.FriendlyPlayerOrMS;
     }
 
     public MoveMSToHand(String magicDetails){
@@ -14,7 +14,7 @@ public class MoveMSToHand extends Magic{
     }
     public void doMagic(MonsterCardsInBattle monsterCardsInBattle, Battler currentBattler, Battler enemyBattler) {
             Card tempCard = monsterCardsInBattle.getCard();
-            currentBattler.getMonsterField().remove(monsterCardsInBattle);
+            currentBattler.getMonsterField().remove(monsterCardsInBattle, currentBattler);
             currentBattler.getHand().add(tempCard);
     }
 }
