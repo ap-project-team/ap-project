@@ -15,11 +15,11 @@ public class RemoveAllBasedOnType extends Magic{
     public void doMagic(Battler currentBattler, Battler enemyBattler) {
             for (MonsterCardsInBattle monsterCardsInBattle : currentBattler.getMonsterField().getMonsterCardsInBattles()) {
                 if (monsterCardsInBattle != null && monsterCardsInBattle.getType() != type)
-                    currentBattler.getMonsterField().remove(monsterCardsInBattle);
+                    currentBattler.getMonsterField().remove(monsterCardsInBattle, currentBattler);
             }
             for (MonsterCardsInBattle monsterCardsInBattle : enemyBattler.getMonsterField().getMonsterCardsInBattles()) {
                 if (monsterCardsInBattle != null && monsterCardsInBattle.getType() != type)
-                    currentBattler.getMonsterField().remove(monsterCardsInBattle);
+                    enemyBattler.getMonsterField().remove(monsterCardsInBattle, enemyBattler);
             }
     }
 }

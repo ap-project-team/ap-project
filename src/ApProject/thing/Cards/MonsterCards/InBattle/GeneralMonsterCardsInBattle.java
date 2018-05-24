@@ -112,7 +112,7 @@ public class GeneralMonsterCardsInBattle extends MonsterCardsInBattle {
 
     public void checkDeath() {
         if(this.currentHealthPoint <= 0)
-            currentBattler.getMonsterField().remove(this);
+            currentBattler.getMonsterField().remove(this, currentBattler);
         doWill(null,null,null);
     }
 }

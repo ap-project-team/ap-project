@@ -19,9 +19,10 @@ public class MonsterField {
             slots[slotNum] = (card);
     }
 
-    public void remove(MonsterCardsInBattle card){
+    public void remove(MonsterCardsInBattle card, Battler cardOwner){
         for(int i=0; i<slots.length; i++)
             if (slots[i].equals(card)) {
+                cardOwner.getGraveYard().add(slots[i].getCard());
                 slots[i] = null;
                 return;
             }

@@ -14,7 +14,7 @@ public class MoveRandomMSToHand extends Magic {
     }
     public void doMagic(Battler currentBattler, Battler enemyBattler) {
             MonsterCardsInBattle monsterCardsInBattle = enemyBattler.getMonsterField().getRandomMonsterCardInBattle();
-            enemyBattler.getMonsterField().remove(monsterCardsInBattle);
+            enemyBattler.getMonsterField().remove(monsterCardsInBattle, enemyBattler);
             currentBattler.getHand().add(monsterCardsInBattle.getCard());
     }
 }

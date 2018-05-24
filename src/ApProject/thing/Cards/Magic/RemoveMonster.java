@@ -13,6 +13,6 @@ public class RemoveMonster extends Magic {
     }
 
     public void doMagic(MonsterCardsInBattle monsterCardsInBattle, Battler currentBattler, Battler enemyBattler){
-        enemyBattler.getMonsterField().remove(monsterCardsInBattle);
+        enemyBattler.getMonsterField().remove(monsterCardsInBattle, enemyBattler);
     }
 }

@@ -17,7 +17,7 @@ public class RemoveMonsterOrSpell extends Magic{
             enemyBattler.getSpellField().remove(enemyBattler.getSpellField().getRandomSpell(), enemyBattler);
         }
         else{
-            currentBattler.getMonsterField().remove(monsterCardsInBattle);
+            currentBattler.getMonsterField().remove(monsterCardsInBattle, currentBattler);
         }
     }
 }

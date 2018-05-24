@@ -4,17 +4,17 @@ import src.ApProject.battle.battler.Battler;
 import src.ApProject.thing.Cards.MonsterCards.InBattle.MonsterCardsInBattle;
 import src.ApProject.thing.Cards.MonsterCards.Tribe;
 
-public class DealDamageBasedOnTribe extends Magic{
+public class DamageBasedOnTribe extends Magic{
     private int currentBattlerChangeHPAmount;
     private int enemyBattlerChangeHPAmount;
     private Tribe tribe;
 
-   public DealDamageBasedOnTribe(int currentBattlerChangeHPAmount, int enemyBattlerChangeHPAmount, Tribe tribe, String magicDetails){
+   public DamageBasedOnTribe(int currentBattlerChangeHPAmount, int enemyBattlerChangeHPAmount, Tribe tribe, String magicDetails){
         this.currentBattlerChangeHPAmount = currentBattlerChangeHPAmount;
         this.enemyBattlerChangeHPAmount = enemyBattlerChangeHPAmount;
         this.tribe = tribe;
-       this.magicDetails = magicDetails;
-       this.magicType = MagicType.WITHOUTTARGET;
+        this.magicDetails = magicDetails;
+        this.magicType = MagicType.WITHOUTTARGET;
     }
 
     public void doMagic(Battler currentBattler, Battler enemyBattler) {

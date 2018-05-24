@@ -29,6 +29,7 @@ public class SpellField {
                         }
                     }
                 }
+                spellOwner.getGraveYard().add(spell);
                 slots[i] = null;
                 return;
             }
