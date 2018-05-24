@@ -66,4 +66,8 @@ public class SpellField {
             else System.out.println((i + 1) + ".\t" + slots[i].getName());
 
     }
+
+    public boolean spellCastingOrders(Battler player, Battler enemy, MonsterCardsInBattle card) {
+        return false;
+    }
 }

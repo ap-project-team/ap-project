@@ -41,6 +41,10 @@ public class MonsterCardsInBattle {
         return canAttack;
     }
 
+    public MonsterCardSpeciality getMonsterCardSpeciality() {
+        return monsterCardSpeciality;
+    }
+
     public int getCurrentHealthPoint() {
         return currentHealthPoint;
     }

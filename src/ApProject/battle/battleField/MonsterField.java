@@ -7,11 +7,14 @@ import src.ApProject.constants.ConstantDatas;
 import src.ApProject.constants.CreatCards;
 import src.ApProject.thing.Cards.Magic.MagicType;
 import src.ApProject.thing.Cards.MonsterCards.InBattle.MonsterCardsInBattle;
+import src.ApProject.thing.Cards.MonsterCards.OutBattle.MonsterCard;
 import src.ApProject.thing.Cards.MonsterCards.Tribe;
 
 import java.util.ArrayList;
 import java.util.Random;
 import src.ApProject.thing.Cards.MonsterCards.Type;
+
+import static src.ApProject.thing.Cards.MonsterCards.MonsterCardSpeciality.Taunt;
 
 public class MonsterField {
     private MonsterCardsInBattle[] slots = new MonsterCardsInBattle[ConstantDatas.SIZE_OF_MONSTERFIELD];
@@ -96,16 +99,16 @@ public class MonsterField {
             else System.out.println((i + 1) + ".\t" + slots[i].getInfoInMonsterField());
     }
 
-    public boolean useCardOrders(int i, Battler enemy) {
+    public boolean useCardOrders(Battler player, Battler enemy, int slotNum) {
         //if (slots[i].getType() != Type.SpellCaster) {
 
         String order = Game.give();
 
         if (order.matches("Again\\s*")) {
-            System.out.println(slots[i].getUseInfo());
+            System.out.println(slots[slotNum].getUseInfo());
             System.out.println("Your ");
         } else if (order.matches("Help\\s*")) {
-            if (slots[i].getMagicType() == MagicType.NONE) {
+            if (slots[slotNum].getMagicType() == MagicType.NONE) {
                 System.out.println(
                         "1. Attack #EnemyMonsterSlot / Player: To attack the card on that slot of enemy MonsterField\n" +
                                 "2. Info: To get full information on card\n" +
@@ -118,27 +121,49 @@ public class MonsterField {
         } else if (order.matches("Attack (\\d*|Player)\\s*")) {
             String[] str = order.split("\\s");
 
-            if (!slots[i].canAttack())
+            if (!slots[slotNum].canAttack())
                 System.out.println("This card can't attack.");
-            else {
-                String cardName = slots[i].getCardName();
+            else if (enemy.getMonsterField().numberOfTaunts() != 0) {
+                System.out.println("Player have Taunt in his field!");
+                MonsterCardsInBattle card = enemy.getMonsterField().getRandomTaunt();
+                System.out.println(slots[slotNum] + " clashed with " + card.getCardName());
+                slots[slotNum].attack(card);
+            } else {
+                String cardName = slots[slotNum].getCardName();
                 if (str[1].equals("Player")) {
                     System.out.println(cardName + " clashed with " + enemy.getName());
-                    slots[i].attack();
+                    slots[slotNum].attack();
                 } else {
                     System.out.println(cardName + " clashed with " +
                             enemy.getMonsterField().getSlot(Integer.parseInt(str[1]) - 1).getCardName());
-                    slots[i].attack(enemy.getMonsterField().getSlot(Integer.parseInt(str[1]) - 1));
+                    slots[slotNum].attack(enemy.getMonsterField().getSlot(Integer.parseInt(str[1]) - 1));
                     return false;
                 }
             }
-        } else if (order.matches("Spell Casting\\s*") && slots[i].getMagicType() != MagicType.NONE) {
-
+        } else if (order.matches("Spell Casting\\s*") && slots[slotNum].getMagicType() != MagicType.NONE) {
+            while (player.getSpellField().spellCastingOrders(player, enemy, slots[slotNum]));
         } else if (order.matches("Info\\s*")) {
-            System.out.println(slots[i].getCard().getInfo());
+            System.out.println(slots[slotNum].getCard().getInfo());
         } else if (order.matches("Exit\\s*")) return false;
         else System.out.println("Incurrect order!");
         return true;
+    }
+
+    private int numberOfTaunts() {
+        int num = 0;
+        for (int i=0; i<slots.length; i++)
+            if (slots[i] != null)
+                if (slots[i].getMonsterCardSpeciality() == Taunt)
+                    num ++;
+        return num;
+    }
+
+    private MonsterCardsInBattle getRandomTaunt(){
+        int i = (new Random().nextInt(numberOfTaunts()));
+        for (int j = 0; j<slots.length; j++)
+            if (slots[j] != null && slots[j].getMonsterCardSpeciality() == Taunt && i--==0)
+                return slots[i+1];
+        throw new Error();
     }
     //}
 }

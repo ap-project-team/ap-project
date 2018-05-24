@@ -12,9 +12,9 @@ public abstract class AI_BattlerBuilder {
         for (int i = 0; i < 10; i++)
             cards[i] = AllCards.buildCard("GoblinSmuggler");
         for (int i = 10; i < 15; i++)
-            cards[i] = AllCards.buildCard("GoblinShaman");
+            cards[i] = AllCards.buildCard("ElvenGuardsman");
         for (int i = 15; i < 20; i++)
-            cards[i] = AllCards.buildCard("ThrowingKnives");
+            cards[i] = AllCards.buildCard("ElvenGuardsman");
 
         return new AI_Battler("Goblin Chieftain", cards);
     }

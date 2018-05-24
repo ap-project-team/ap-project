@@ -43,7 +43,7 @@ public class realBattler extends Battler {
             else {
                 int i = Integer.parseInt(str[1]) - 1;
                 System.out.println(monsterField.getSlot(i).getUseInfo());
-                while (monsterField.useCardOrders(i, enemy)) ;
+                while (monsterField.useCardOrders(this, enemy, i));
             }
         } else if (order.matches("Set \\d* to \\d*\\s*")) {
             String[] str = order.split("\\s");
