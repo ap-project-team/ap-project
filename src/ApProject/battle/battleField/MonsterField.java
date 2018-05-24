@@ -4,6 +4,8 @@ import src.ApProject.Game;
 import src.ApProject.battle.Battle;
 import src.ApProject.battle.battler.Battler;
 import src.ApProject.constants.ConstantDatas;
+import src.ApProject.constants.CreatCards;
+import src.ApProject.thing.Cards.Magic.MagicType;
 import src.ApProject.thing.Cards.MonsterCards.InBattle.MonsterCardsInBattle;
 import src.ApProject.thing.Cards.MonsterCards.Tribe;
 
@@ -102,13 +104,18 @@ public class MonsterField {
         if (order.matches("Again\\s*")) {
             System.out.println(slots[i].getUseInfo());
             System.out.println("Your ");
-        } else if (order.matches("Help\\s*"))
-            System.out.println(
-                    "1. Attack #EnemyMonsterSlot / Player: To attack the card on that slot of enemy MonsterField\n" +
-                            "2. Info: To get full information on card\n" +
-                            "3. Exit: To go back to Play Menu"
-            );
-        else if (order.matches("Attack (\\d*|Player)\\s*")) {
+        } else if (order.matches("Help\\s*")) {
+            if (slots[i].getMagicType() == MagicType.NONE) {
+                System.out.println(
+                        "1. Attack #EnemyMonsterSlot / Player: To attack the card on that slot of enemy MonsterField\n" +
+                                "2. Info: To get full information on card\n" +
+                                "3. Exit: To go back to Play Menu");
+            } else System.out.println(
+                    "1. Attack #EnemyMonsterSlot / Player: To attack the card on that slot of enemy MonsterField or the enemy player\n" +
+                            "2. Cast Spell: To cast the ’cards spell \n" +
+                            "3. Info: To get full information on card\n" +
+                            "4. Exit: To go back to Play Menu");
+        } else if (order.matches("Attack (\\d*|Player)\\s*")) {
             String[] str = order.split("\\s");
 
             if (!slots[i].canAttack())
@@ -125,6 +132,8 @@ public class MonsterField {
                     return false;
                 }
             }
+        } else if (order.matches("Spell Casting\\s*") && slots[i].getMagicType() != MagicType.NONE) {
+
         } else if (order.matches("Info\\s*")) {
             System.out.println(slots[i].getCard().getInfo());
         } else if (order.matches("Exit\\s*")) return false;

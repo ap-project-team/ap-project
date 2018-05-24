@@ -18,4 +18,9 @@ public class GraveYard {
         cardArrayList.remove(card);
         return card;
     }
+
+    public void viewGraveyard() {
+        for (int i = 0; i < cardArrayList.size(); i++)
+            System.out.println((i+1)+"\t"+cardArrayList.get(i).getName());
+    }
 }

@@ -2,6 +2,7 @@ package src.ApProject.shop;
 
 import src.ApProject.Game;
 import src.ApProject.constants.ConstantDatas;
+import src.ApProject.constants.CreatCards;
 import src.ApProject.constants.FirstShopLists;
 import src.ApProject.player.Player;
 
@@ -23,6 +24,8 @@ public class CardShop{
             add("ElvenRanger");
             add("ElvenRanger");
             add("ElvenRanger");
+
+            add("Luthien,TheHighPriestess");
         }});
 
     protected boolean cardShopOrders(Player p) {
@@ -40,9 +43,9 @@ public class CardShop{
             p.sell(Integer.parseInt(str[3]), str[1], "CARD");
         } else if (order.matches("Buy \\w* - \\d*\\s*")) {
             p.buy(Integer.parseInt(str[3]), str[1], "CARD", shopCards);
-        } else if (order.matches("info \\w*\\s*")) ;
-            //toDo info
-        else if (order.matches("Edit InventoryDeck\\s*")) ;
+        } else if (order.matches("info \\D*\\s*")) {
+            System.out.println(CreatCards.getCard(str[1]).getInfo());
+        } else if (order.matches("Edit InventoryDeck\\s*")) ;
             //toDo Edit InventoryDeck
         else if (order.matches("Again\\s*"))
             printEnteringText(p);

@@ -1,8 +1,11 @@
 package src.ApProject.battle.battler;
 
 import src.ApProject.Game;
+import src.ApProject.battle.battleField.MonsterField;
+import src.ApProject.constants.CreatCards;
 import src.ApProject.thing.Amulet;
 import src.ApProject.thing.Cards.Card;
+import src.ApProject.thing.Cards.MonsterCards.OutBattle.MonsterCard;
 import src.ApProject.thing.Item;
 
 import java.util.ArrayList;
@@ -17,7 +20,6 @@ public class realBattler extends Battler {
         this.amulet = realAmulet;
         this.items = realItems;
         type = "PLAYER";
-
     }
 
     @Override
@@ -54,7 +56,7 @@ public class realBattler extends Battler {
         } else if (order.matches("View Hand\\s*")) {
             System.out.println("Your Hand :");
             for (int i = 0; i < hand.size(); i++)
-                System.out.println((i + 1) + ".\t" + hand.get(i).getName());
+                System.out.println((i + 1) + ".\t" + hand.get(i).getName() +" - Mana : "+hand.get(i).getManaCost());
         } else if (order.matches("View Graveyard\\s*")) {
             battle.viewGraveyard();
         } else if (order.matches("View SpellField\\s*")) {
@@ -72,7 +74,7 @@ public class realBattler extends Battler {
                     + "\nCurrentHP :\t" + getHealth());
             System.out.println("Enemy Info :\nCurrentHP :\t" + enemy.getHealth());
         } else if (order.matches("Info \\w*\\s*")) {
-            //toDo info
+            System.out.println(CreatCards.getCard(order.split("\\s")[1]).getInfo());
         } else if (order.matches("Done\\s*")) {
             return false;
         } else System.out.println("Incorrect order!");

@@ -2,6 +2,7 @@ package src.ApProject.player;
 
 import src.ApProject.Game;
 import src.ApProject.constants.ConstantDatas;
+import src.ApProject.constants.CreatCards;
 
 import java.util.ArrayList;
 
@@ -90,7 +91,7 @@ public class InventoryDeck {
                 System.out.println(str[1] + " was removed from slot " + slotNumber + ".");
             }
         } else if (order.equals("Info \\w*\\s*")){
-            //toDo Info
+            CreatCards.getCard(order.split("\\s")[1]).getInfo();
         } else if (order.equals("Exit")) return false;
         else System.out.println("Incorrect order!");
         return true;

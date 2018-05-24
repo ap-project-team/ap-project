@@ -1,6 +1,8 @@
 package src.ApProject.player;
 
 import src.ApProject.Game;
+import src.ApProject.constants.CreatCards;
+
 import java.util.ArrayList;
 
 public class Inventory {
@@ -123,7 +125,8 @@ public class Inventory {
     private boolean inventoryListOrders(String type) {
         String order = Game.give();
         if (order.matches("info \\w*\\s*")) ;
-            //toDo info
+            if (type.equals("Card"))
+                CreatCards.getCard(order.split("\\s")[1]).getInfo();
         else if (order.matches("Exit\\s*"))
             return false;
         else if (order.matches("Help\\s*"))
