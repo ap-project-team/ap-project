@@ -22,6 +22,7 @@ public class ContinuousSpell extends Spells{
                 this.enemyBattler = enemyBattler;
                 currentBattler.getSpellField().add(this, slotNum);
                 currentBattler.getHand().remove(this);
+                System.out.println(this.name + "was moved from hand to number " + (slotNum + 1) + " slot in the spell field");
             } else {
                 System.out.println("That slot is full.");
             }

@@ -30,7 +30,7 @@ public class MonsterCardsInBattle {
     protected Boolean isBattleCrier = false;
     protected MagicType battleCryType = MagicType.NONE;
     protected MagicType magicType = MagicType.NONE;
-    protected ArrayList<AuraSpell> auraEffectMap = new ArrayList<>();
+    protected ArrayList<AuraSpell> auraEffectList = new ArrayList<>();
 
     public MagicType getBattleCryType() {
         return battleCryType;
@@ -66,8 +66,15 @@ public class MonsterCardsInBattle {
 
     public void addAuraEffect(AuraSpell auraSpell){
         if(!this.checkAuraEffect(auraSpell)) {
-            auraEffectMap.add(auraSpell);
+            auraEffectList.add(auraSpell);
             auraSpell.doMagic(this);
+        }
+    }
+
+    public void removeAuraEffect(AuraSpell auraSpell){
+        if(this.checkAuraEffect(auraSpell)) {
+            auraEffectList.remove(auraSpell);
+            auraSpell.doInverseMagic(this);
         }
     }
 
@@ -82,7 +89,7 @@ public class MonsterCardsInBattle {
     public Card getCard() { return card; }
 
     public boolean checkAuraEffect(AuraSpell auraSpell){
-        return auraEffectMap.contains(auraSpell);
+        return auraEffectList.contains(auraSpell);
     }
 
     public void checkDeath(){

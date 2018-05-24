@@ -4,6 +4,9 @@ import src.ApProject.battle.battler.Battler;
 import src.ApProject.thing.Cards.Card;
 import src.ApProject.thing.Cards.MonsterCards.MonsterCardSpeciality;
 import src.ApProject.thing.Cards.MonsterCards.Tribe;
+import src.ApProject.thing.Cards.Spells.AuraSpell;
+import src.ApProject.thing.Cards.Spells.SpellType;
+import src.ApProject.thing.Cards.Spells.Spells;
 
 public class NormalMonsterCardsInBattle extends MonsterCardsInBattle {
 
@@ -20,6 +23,11 @@ public class NormalMonsterCardsInBattle extends MonsterCardsInBattle {
         if(this.monsterCardSpeciality == MonsterCardSpeciality.Charge){
             canAttack = true;
             isSleep = false;
+        }
+        for(Spells spell : currentBattler.getSpellField().getSpells()){
+            if(spell != null)
+                if(spell.getSpellType() == SpellType.Aura)
+                    this.addAuraEffect((AuraSpell) spell);
         }
     }
 }

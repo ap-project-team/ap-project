@@ -9,7 +9,7 @@ public class MoveRandomMSToHand extends Magic {
     {
         this.magicType = MagicType.WITHOUTTARGET;
     }
-    MoveRandomMSToHand(String magicDetails){
+    public MoveRandomMSToHand(String magicDetails){
         this.magicDetails = magicDetails;
     }
     public void doMagic(Battler currentBattler, Battler enemyBattler) {

@@ -8,7 +8,7 @@ public class RemoveMonster extends Magic {
         this.magicType = MagicType.EnemyTarget;
     }
 
-    RemoveMonster(String magicDetails){
+    public RemoveMonster(String magicDetails){
         this.magicDetails = magicDetails;
     }
 

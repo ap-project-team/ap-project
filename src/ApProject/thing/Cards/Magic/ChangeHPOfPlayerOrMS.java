@@ -12,7 +12,7 @@ public class ChangeHPOfPlayerOrMS extends Magic{
         if(changeHPAmount > 0)
             this.magicType = MagicType.FriendlyPlayerOrMS;
         else
-            this.magicType = MagicType.EnemeyPlayerOrMS;
+            this.magicType = MagicType.EnemyPlayerOrMS;
     }
 
     public void doMagic(MonsterCardsInBattle monsterCardsInBattle, Battler currentBattler, Battler enemyBattler){

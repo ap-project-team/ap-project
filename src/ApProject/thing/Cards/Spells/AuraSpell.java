@@ -7,16 +7,18 @@ import src.ApProject.thing.Cards.MonsterCards.InBattle.MonsterCardsInBattle;
 import java.util.ArrayList;
 
 public class AuraSpell extends Spells{
-    AuraSpell(String name, int manaCost, ArrayList<Magic> magics){
+    private ArrayList<Magic> inverseMagics = new ArrayList<>();
+    public AuraSpell(String name, int manaCost, ArrayList<Magic> magics, ArrayList<Magic> inverseMagics){
         this.name = name;
         this.spellType = SpellType.Aura;
-        this.magics = magics;
+        this.magics.addAll(magics);
         this.manaCost = manaCost;
+        this.inverseMagics.addAll(inverseMagics);
         this.price = 700 * this.manaCost;
     }
 
     public void play(Battler currentBattler, Battler enemyBattler, int slotNum) {
-        if(currentBattler.getCurrentMana()>= manaCost  ) {
+        if(currentBattler.getCurrentMana()>= manaCost ) {
             if (currentBattler.getMonsterField().getSlot(slotNum) == null) {
                 currentBattler.setCurrentMana(currentBattler.getCurrentMana() - manaCost);
                 this.currentBattler = currentBattler;
@@ -27,6 +29,7 @@ public class AuraSpell extends Spells{
                     if (monsterCardsInBattle != null)
                         monsterCardsInBattle.addAuraEffect(this);
                 }
+                System.out.println(this.name + " was moved from hand to number " + (slotNum + 1) + " slot in the spell field");
             } else {
                 System.out.println("That slot is full.");
             }
@@ -46,4 +49,15 @@ public class AuraSpell extends Spells{
             System.out.println("Aura Spell Not Working");
         }
     }
-}
+
+    public void doInverseMagic(MonsterCardsInBattle monsterCardsInBattle){
+        try {
+            for (Magic magic : inverseMagics) {
+                magic.doMagic(monsterCardsInBattle, currentBattler, enemyBattler);
+            }
+            monsterCardsInBattle.checkDeath();
+        }
+        catch (Exception e) {
+            System.out.println("Aura Spell Not Working");
+        }
+    }}

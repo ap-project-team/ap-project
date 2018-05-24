@@ -6,7 +6,7 @@ import src.ApProject.thing.Cards.MonsterCards.Type;
 
 public class RemoveAllBasedOnType extends Magic{
     private Type type;
-    RemoveAllBasedOnType(Type type, String magicDetails){
+    public RemoveAllBasedOnType(Type type, String magicDetails){
         this.type = type;
         this.magicDetails = magicDetails;
         this.magicType = MagicType.WITHOUTTARGET;

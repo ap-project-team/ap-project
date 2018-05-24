@@ -7,6 +7,7 @@ import src.ApProject.thing.Cards.MonsterCards.OutBattle.MonsterCard;
 import src.ApProject.thing.Cards.MonsterCards.Tribe;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class MonsterField {
     //Don't change
@@ -30,8 +31,13 @@ public class MonsterField {
     }
 
     public MonsterCardsInBattle getRandomMonsterCardInBattle(){
-        MonsterCardsInBattle monsterCardsInBattle = new MonsterCardsInBattle();
-        return monsterCardsInBattle;
+        Random random = new Random();
+        int randomNum;
+        while (true){
+            randomNum = random.nextInt(slots.length);
+            if(slots[randomNum] != null)
+                return slots[randomNum];
+        }
     }
 
     public MonsterCardsInBattle[] getMonsterCardsInBattles(){
@@ -39,8 +45,21 @@ public class MonsterField {
     }
 
     public MonsterCardsInBattle getRandomMonsterCardInBattleByType(Tribe tribe){
-        MonsterCardsInBattle monsterCardsInBattle = new MonsterCardsInBattle();
-        return monsterCardsInBattle;
+        Random random = new Random();
+        int randomNum;
+        int count = 0;
+        for (int i = 0; i < slots.length; i++) {
+            if(slots[i] != null)
+                if (slots[i].getTribe() == tribe)
+                    count++;
+        }
+        while (count != 0){
+            randomNum = random.nextInt(ConstantDatas.SIZE_OF_MONSTERFIELD);
+            if(slots[randomNum] != null)
+                if(slots[randomNum].getTribe() == tribe)
+                    return slots[randomNum];
+        }
+        return null;
     }
 
     public int getEmptySlotNumber(){
@@ -62,7 +81,7 @@ public class MonsterField {
     public void viewMonsterField() {
         for (int i = 0; i < slots.length; i++)
             if (slots[i] == null)
-                System.out.println((i + 1) + ".\tEmpety");
+                System.out.println((i + 1) + ".\tEmpty");
             else System.out.println((i + 1) + ".\t" + slots[i].getCardName());
     }
 }

@@ -44,7 +44,7 @@ public class InstantSpell extends Spells{
                         case FriendlyPlayerOrMS:
                             magic.doMagic(monsterCardsInBattle, currentBattler, enemyBattler);
                             break;
-                        case EnemeyPlayerOrMS:
+                        case EnemyPlayerOrMS:
                             magic.doMagic(monsterCardsInBattle, currentBattler, enemyBattler);
                             break;
                         case MSorSpell:
@@ -52,6 +52,7 @@ public class InstantSpell extends Spells{
                             break;
                     }
                 }
+                System.out.println(this.name + " was casted : \n" + magics.get(0).getmagicDetails());
             }
             catch (Exception e) {
                 System.out.println("That's not a valid Target");

@@ -13,7 +13,7 @@ public class RemoveAllSpells extends Magic{
     public void doMagic(Battler currentBattler, Battler enemyBattler) {
         for(Spells spell : enemyBattler.getSpellField().getSpells()) {
             if (spell != null) {
-                enemyBattler.getSpellField().remove(spell);
+                enemyBattler.getSpellField().remove(spell, enemyBattler);
                 currentBattler.getHand().add(spell);
             }
         }

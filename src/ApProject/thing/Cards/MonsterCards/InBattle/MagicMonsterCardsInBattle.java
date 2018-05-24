@@ -5,6 +5,8 @@ import src.ApProject.thing.Cards.Card;
 import src.ApProject.thing.Cards.Magic.Magic;
 import src.ApProject.thing.Cards.MonsterCards.MonsterCardSpeciality;
 import src.ApProject.thing.Cards.MonsterCards.Tribe;
+import src.ApProject.thing.Cards.Spells.AuraSpell;
+import src.ApProject.thing.Cards.Spells.SpellType;
 import src.ApProject.thing.Cards.Spells.Spells;
 
 import java.util.ArrayList;
@@ -26,6 +28,11 @@ public class MagicMonsterCardsInBattle extends MonsterCardsInBattle {
         if(this.monsterCardSpeciality == MonsterCardSpeciality.Charge){
             canAttack = true;
             isSleep = false;
+        }
+        for(Spells spell : currentBattler.getSpellField().getSpells()){
+            if(spell != null)
+                if(spell.getSpellType() == SpellType.Aura)
+                    this.addAuraEffect((AuraSpell) spell);
         }
     }
 
@@ -52,7 +59,7 @@ public class MagicMonsterCardsInBattle extends MonsterCardsInBattle {
                         case FriendlyPlayerOrMS:
                             magic.doMagic(monsterCardsInBattle, currentBattler, enemyBattler);
                             break;
-                        case EnemeyPlayerOrMS:
+                        case EnemyPlayerOrMS:
                             magic.doMagic(monsterCardsInBattle, currentBattler, enemyBattler);
                             break;
                         case MSorSpell:

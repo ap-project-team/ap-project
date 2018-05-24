@@ -5,6 +5,8 @@ import src.ApProject.thing.Cards.Card;
 import src.ApProject.thing.Cards.Magic.Magic;
 import src.ApProject.thing.Cards.MonsterCards.MonsterCardSpeciality;
 import src.ApProject.thing.Cards.MonsterCards.Tribe;
+import src.ApProject.thing.Cards.Spells.AuraSpell;
+import src.ApProject.thing.Cards.Spells.SpellType;
 import src.ApProject.thing.Cards.Spells.Spells;
 
 import java.util.ArrayList;
@@ -31,6 +33,11 @@ public class HeroMonsterCardsInBattle extends MonsterCardsInBattle{
             canAttack = true;
             isSleep = false;
         }
+        for(Spells spell : currentBattler.getSpellField().getSpells()){
+            if(spell != null)
+                if(spell.getSpellType() == SpellType.Aura)
+                    this.addAuraEffect((AuraSpell) spell);
+        }
     }
 
     // TODO: 5/21/2018 should be used in battle because it might have a target
@@ -56,7 +63,7 @@ public class HeroMonsterCardsInBattle extends MonsterCardsInBattle{
                     case FriendlyPlayerOrMS:
                         magic.doMagic(monsterCardsInBattle, currentBattler, enemyBattler);
                         break;
-                    case EnemeyPlayerOrMS:
+                    case EnemyPlayerOrMS:
                         magic.doMagic(monsterCardsInBattle, currentBattler, enemyBattler);
                         break;
                     case MSorSpell:
@@ -92,7 +99,7 @@ public class HeroMonsterCardsInBattle extends MonsterCardsInBattle{
                     case FriendlyPlayerOrMS:
                         magic.doMagic(monsterCardsInBattle, currentBattler, enemyBattler);
                         break;
-                    case EnemeyPlayerOrMS:
+                    case EnemyPlayerOrMS:
                         magic.doMagic(monsterCardsInBattle, currentBattler, enemyBattler);
                         break;
                     case MSorSpell:
@@ -129,7 +136,7 @@ public class HeroMonsterCardsInBattle extends MonsterCardsInBattle{
                         case FriendlyPlayerOrMS:
                             magic.doMagic(monsterCardsInBattle, currentBattler, enemyBattler);
                             break;
-                        case EnemeyPlayerOrMS:
+                        case EnemyPlayerOrMS:
                             magic.doMagic(monsterCardsInBattle, currentBattler, enemyBattler);
                             break;
                         case MSorSpell:

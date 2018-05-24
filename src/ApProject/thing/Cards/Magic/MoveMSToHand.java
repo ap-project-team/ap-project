@@ -9,7 +9,7 @@ public class MoveMSToHand extends Magic{
         this.magicType  = MagicType.FriendlyTarget;
     }
 
-    MoveMSToHand(String magicDetails){
+    public MoveMSToHand(String magicDetails){
         this.magicDetails = magicDetails;
     }
     public void doMagic(MonsterCardsInBattle monsterCardsInBattle, Battler currentBattler, Battler enemyBattler) {

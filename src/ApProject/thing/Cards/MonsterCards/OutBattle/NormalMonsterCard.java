@@ -26,6 +26,7 @@ public class NormalMonsterCard extends MonsterCard {
                 currentBattler.setCurrentMana(currentBattler.getCurrentMana() - manaCost);
                 currentBattler.getHand().remove(this);
                 currentBattler.getMonsterField().add(new NormalMonsterCardsInBattle(name, this.basicAttackPoint, this.basicHealthPoint, this.monsterCardSpeciality, this.tribe, this, currentBattler, enemyBattler), slotNum);
+                System.out.println(this.name + "was moved from hand to number " + (slotNum + 1) + " slot in the monster field");
             } else {
                 System.out.println("That slot is full.");
             }
