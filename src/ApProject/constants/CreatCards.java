@@ -71,7 +71,7 @@ public class CreatCards {
         allCards.put("Blood Feast", new InstantSpell("Blood Feast", 4, magics));
         magics.clear();
 
-        magics.add(new DamageBasedOnTribe(-500,-500, Tribe.Atlantian, "Tsunami : Deal 500 damage to all non-Atlantian monster cards on both sides of the field"));
+        magics.add(new DamageBasedOnTribe(-500,-500, Tribe.Atlantean, "Tsunami : Deal 500 damage to all non-Atlantean monster cards on both sides of the field"));
         allCards.put("Tsunami", new InstantSpell("Tsunami", 6, magics));
         magics.clear();
 
@@ -126,13 +126,13 @@ public class CreatCards {
         battleCry.clear();
         will.clear();
 
-        allCards.put("Lesser Whelp", new NormalMonsterCard("Lesser Whelp", 300, 500,1, MonsterCardSpeciality.Normal, Tribe.DargonBreed));
+        allCards.put("Lesser Whelp", new NormalMonsterCard("Lesser Whelp", 300, 500,1, MonsterCardSpeciality.Normal, Tribe.DragonBreed));
 
-        allCards.put("Dragonling", new NormalMonsterCard("Dragonling", 700,700, 3, MonsterCardSpeciality.Normal, Tribe.DargonBreed));
+        allCards.put("Dragonling", new NormalMonsterCard("Dragonling", 700,700, 3, MonsterCardSpeciality.Normal, Tribe.DragonBreed));
 
-        allCards.put("Armored Dragon", new NormalMonsterCard("Armored Dragon", 400,2000, 5, MonsterCardSpeciality.Taunt, Tribe.DargonBreed));
+        allCards.put("Armored Dragon", new NormalMonsterCard("Armored Dragon", 400,2000, 5, MonsterCardSpeciality.Taunt, Tribe.DragonBreed));
 
-        allCards.put("Yellow Drake", new NormalMonsterCard("Yellow Drake", 1000, 800, 5, MonsterCardSpeciality.Charge, Tribe.DargonBreed));
+        allCards.put("Yellow Drake", new NormalMonsterCard("Yellow Drake", 1000, 800, 5, MonsterCardSpeciality.Charge, Tribe.DragonBreed));
 
         allCards.put("Goblin Smuggler", new NormalMonsterCard("Goblin Smuggler", 400, 600,2, MonsterCardSpeciality.Normal, Tribe.Demonic));
 

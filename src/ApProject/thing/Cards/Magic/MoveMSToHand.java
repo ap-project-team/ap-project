@@ -12,6 +12,7 @@ public class MoveMSToHand extends Magic{
     public MoveMSToHand(String magicDetails){
         this.magicDetails = magicDetails;
     }
+
     public void doMagic(MonsterCardsInBattle monsterCardsInBattle, Battler currentBattler, Battler enemyBattler) {
             Card tempCard = monsterCardsInBattle.getCard();
             currentBattler.getMonsterField().remove(monsterCardsInBattle, currentBattler);
