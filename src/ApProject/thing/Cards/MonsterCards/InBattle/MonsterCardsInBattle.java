@@ -21,6 +21,7 @@ public class MonsterCardsInBattle {
     protected boolean canAttack = false;
     protected Card card;
     protected Type type;
+    protected boolean isMagicUsed = false;
     protected ArrayList<Magic> battleCry = new ArrayList<>();
     protected ArrayList<Magic> will = new ArrayList<>();
     protected ArrayList<Magic>  magics = new ArrayList<>();
@@ -125,5 +126,13 @@ public class MonsterCardsInBattle {
     public void nextTurn(){
         this.isSleep = false;
         this.canAttack = true;
+    }
+
+    public String getInfoInMonsterField(){
+        return this.cardName + " HP : " + this.currentHealthPoint + " AP : " + this.currentAttackPoint + " " + this.monsterCardSpeciality + " " + ((this.magicType == MagicType.NONE)?"No Spell":isMagicUsed?"UsedSpell":"HasSpell");
+    }
+
+    public String getUseInfo(){
+        return "Using : " + this.cardName + "\n" + "HP : " + this.currentHealthPoint + " AP : " + this.currentAttackPoint + "\n" + "Is Sleeping : " + isSleep + "\nCan Attack : " + this.canAttack + ((this.magicType == MagicType.NONE)?"":"\nCan Cast : " + (isMagicUsed?"False":"True"));
     }
 }

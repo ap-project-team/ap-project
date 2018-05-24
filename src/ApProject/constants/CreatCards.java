@@ -144,6 +144,12 @@ public abstract class CreatCards {
     }
 
     public static Card getCard(String cardName){
-        return allCards.get(cardName);
+        Card card = allCards.get(cardName);
+        if(card == null) {
+            System.out.println("No such a Card");
+            return card;
+        }
+        else
+            return card;
     }
 }

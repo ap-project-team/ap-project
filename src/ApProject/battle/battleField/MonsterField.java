@@ -91,7 +91,7 @@ public class MonsterField {
         for (int i = 0; i < slots.length; i++)
             if (slots[i] == null)
                 System.out.println((i + 1) + ".\tEmpety");
-            else System.out.println((i + 1) + ".\t" + slots[i].getCardName());
+            else System.out.println((i + 1) + ".\t" + slots[i].getInfoInMonsterField());
     }
 
     public boolean useCardOrders(int i, Battler enemy) {
@@ -100,12 +100,7 @@ public class MonsterField {
         String order = Game.give();
 
         if (order.matches("Again\\s*")) {
-            System.out.println(
-                    "Using " + slots[i].getCardName() + ": \n" +
-                            "HP: " + slots[i].getCurrentHealthPoint() + " AP: " + slots[i].getCurrentAttackPoint() + " \n" +
-                            "Is Sleeping: " + slots[i].isSleep() + "\n" +
-                            "Can Attack: " + slots[i].canAttack()
-            );
+            System.out.println(slots[i].getUseInfo());
             System.out.println("Your ");
         } else if (order.matches("Help\\s*"))
             System.out.println(
@@ -131,7 +126,7 @@ public class MonsterField {
                 }
             }
         } else if (order.matches("Info\\s*")) {
-            //toDo
+            System.out.println(slots[i].getCard().getInfo());
         } else if (order.matches("Exit\\s*")) return false;
         else System.out.println("Incurrect order!");
         return true;

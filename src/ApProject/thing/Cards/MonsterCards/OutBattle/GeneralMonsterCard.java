@@ -41,9 +41,9 @@ public class GeneralMonsterCard extends MonsterCard {
 
     public String getInfo(){
         info = "Name : " + name + "\n" + "HP : " + basicHealthPoint + "\n" + "AP : " + basicAttackPoint + "\n"
-                + "MP cost : " + manaCost + "\n" + "Card Type : " + type + "\n"+ "Card Tribe : " + tribe + "\n" + "Is Defensive"
-                + (monsterCardSpeciality == MonsterCardSpeciality.Taunt) + "\n" + "Is Nimble" + (monsterCardSpeciality == MonsterCardSpeciality.Charge)
-                + "\n"  + "BattleCry Details : " + "\n" + battleCry.get(0).getmagicDetails() + "\n" + "Will Details : " + will.get(0).getmagicDetails();
+                + "MP cost : " + manaCost + "\n" + "Card Type : " + type + "\n"+ "Card Tribe : " + tribe + "\n" + "Is Defensive : "
+                + (monsterCardSpeciality == MonsterCardSpeciality.Taunt) + "\n" + "Is Nimble : " + (monsterCardSpeciality == MonsterCardSpeciality.Charge)
+                + "\n"  + "BattleCry Details : " + "\n" + battleCry.get(0).getmagicDetails() + "\n" + "Will Details : \n" + will.get(0).getmagicDetails();
         return info;
     }
 }

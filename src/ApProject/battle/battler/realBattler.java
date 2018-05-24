@@ -40,13 +40,7 @@ public class realBattler extends Battler {
                 System.out.println("This slot is empety.");
             else {
                 int i = Integer.parseInt(str[1]) - 1;
-                System.out.println(
-                        "Using " + monsterField.getSlot(i).getCardName() + ": \n" +
-                                "HP: " + monsterField.getSlot(i).getCurrentHealthPoint() + " AP: "
-                                + monsterField.getSlot(i).getCurrentAttackPoint() + " \n" +
-                                "Is Sleeping: " + monsterField.getSlot(i).isSleep() + "\n" +
-                                "Can Attack: " + monsterField.getSlot(i).canAttack()
-                );
+                System.out.println(monsterField.getSlot(i).getUseInfo());
                 while (monsterField.useCardOrders(i, enemy)) ;
             }
         } else if (order.matches("Set \\d* to \\d*\\s*")) {

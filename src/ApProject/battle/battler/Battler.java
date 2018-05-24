@@ -56,10 +56,10 @@ abstract public class Battler {
     public Battler(String name, Card[] realDeck) {
         this.name = name;
         this.deck = new ArrayList<>(Arrays.asList(realDeck));
-        shufelDeck();
+        shuffleDeck();
     }
 
-    private void shufelDeck(){
+    private void shuffleDeck(){
         ArrayList<Card> newDeck = new ArrayList<>();
         int size = deck.size();
         for (int i=0; i<size; i++){
@@ -79,7 +79,7 @@ abstract public class Battler {
             }
         }
         if (deck.size() > 0) return deck.get(deck.size()-1).getName();
-        else return "Your deck is empety";
+        else return "Your deck is empty";
     }
 
     public void playOneTurn(int turnNum){

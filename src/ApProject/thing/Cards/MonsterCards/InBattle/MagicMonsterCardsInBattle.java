@@ -12,7 +12,6 @@ import src.ApProject.thing.Cards.Spells.Spells;
 import java.util.ArrayList;
 
 public class MagicMonsterCardsInBattle extends MonsterCardsInBattle {
-    private boolean isMagicUsed = false;
     public MagicMonsterCardsInBattle(String cardName, int attackPoint, int healthPoint, MonsterCardSpeciality monsterCardSpeciality, Tribe tribe, ArrayList<Magic> magics, Card card, Battler currentBattler, Battler enemyBattler){
         this.cardName = cardName;
         this.basicHealthPoint = healthPoint;
