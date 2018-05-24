@@ -16,11 +16,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CreatCards {
+public abstract class CreatCards {
 
-    private Map<String, Card> allCards = new HashMap<>();
+    private static Map<String, Card> allCards = new HashMap<>();
 
-    public void createAllCards(){
+    public static void createAllCards(){
         ArrayList<Magic> magics = new ArrayList<>();
         ArrayList<Magic> inverseMagic = new ArrayList<>();
         ArrayList<Magic> battleCry =  new ArrayList<>();
@@ -143,7 +143,7 @@ public class CreatCards {
 
     }
 
-    public Card getCard(String cardName){
+    public static Card getCard(String cardName){
         return allCards.get(cardName);
     }
 }
