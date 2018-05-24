@@ -1,6 +1,7 @@
 package src.ApProject.battle.battleField;
 
 import src.ApProject.Game;
+import src.ApProject.battle.Battle;
 import src.ApProject.battle.battler.Battler;
 import src.ApProject.constants.ConstantDatas;
 import src.ApProject.thing.Cards.MonsterCards.InBattle.MonsterCardsInBattle;
