@@ -5,6 +5,7 @@ import src.ApProject.battle.battleField.MonsterField;
 import src.ApProject.constants.CreatCards;
 import src.ApProject.thing.Amulet;
 import src.ApProject.thing.Cards.Card;
+import src.ApProject.thing.Cards.MonsterCards.InBattle.MonsterCardsInBattle;
 import src.ApProject.thing.Cards.MonsterCards.OutBattle.MonsterCard;
 import src.ApProject.thing.Item;
 
@@ -52,13 +53,20 @@ public class realBattler extends Battler {
 
             if (handIndex > hand.size() || handIndex <= 0)
                 System.out.println("HandIndex is not valid.");
-            else hand.get(handIndex - 1).play(this, enemy, slotNum);
+            else {
+                hand.get(handIndex - 1).play(this, enemy, slotNum);
+                if (monsterField.getSlot(slotNum) != null && monsterField.getSlot(slotNum).getBattleCrier())
+                    spellField.battleCryOrders(this, enemy, monsterField.getSlot(slotNum));
+            }
         } else if (order.matches("View Hand\\s*")) {
             System.out.println("Your Hand :");
             for (int i = 0; i < hand.size(); i++)
                 System.out.println((i + 1) + ".\t" + hand.get(i).getName() +" - Mana : "+hand.get(i).getManaCost());
         } else if (order.matches("View Graveyard\\s*")) {
-            battle.viewGraveyard();
+            System.out.println("Your Graveyard :");
+            graveYard.viewGraveyard();
+            System.out.println("Enemy Graveyard :");
+            enemy.graveYard.viewGraveyard();
         } else if (order.matches("View SpellField\\s*")) {
             System.out.println("Your SpellField :");
             spellField.viewSpellField();

@@ -132,13 +132,15 @@ public class MonsterField {
             else if (enemy.getMonsterField().numberOfTaunts() != 0) {
                 System.out.println("Player have Taunt in his field!");
                 MonsterCardsInBattle card = enemy.getMonsterField().getRandomTaunt();
-                System.out.println(slots[slotNum] + " clashed with " + card.getCardName());
+                System.out.println(slots[slotNum].getCardName() + " clashed with " + card.getCardName());
                 slots[slotNum].attack(card);
+                return false;
             } else {
                 String cardName = slots[slotNum].getCardName();
                 if (str[1].equals("Player")) {
                     System.out.println(cardName + " clashed with " + enemy.getName());
                     slots[slotNum].attack();
+                    return false;
                 } else {
                     System.out.println(cardName + " clashed with " +
                             enemy.getMonsterField().getSlot(Integer.parseInt(str[1]) - 1).getCardName());
@@ -255,7 +257,7 @@ public class MonsterField {
         return true;
     }
 
-    private int numberOfTaunts() {
+    public int numberOfTaunts() {
         int num = 0;
         for (int i=0; i<slots.length; i++)
             if (slots[i] != null)
@@ -264,10 +266,10 @@ public class MonsterField {
         return num;
     }
 
-    private MonsterCardsInBattle getRandomTaunt(){
+    public MonsterCardsInBattle getRandomTaunt(){
         int i = (new Random().nextInt(numberOfTaunts()));
         for (int j = 0; j<slots.length; j++)
-            if (slots[j] != null && slots[j].getMonsterCardSpeciality() == Taunt && i--==0)
+            if (slots[j] != null && slots[j].getMonsterCardSpeciality() == Taunt && (i--)==0)
                 return slots[i+1];
         throw new Error();
     }

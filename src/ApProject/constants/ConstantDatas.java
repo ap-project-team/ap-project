@@ -6,6 +6,7 @@ import src.ApProject.thing.Thing;
 
 import java.util.ArrayList;
 
+
 public abstract class ConstantDatas {
     private static ArrayList<Item> items = new ArrayList<>();
     private static ArrayList<Amulet> amulets = new ArrayList<>();
@@ -36,7 +37,7 @@ public abstract class ConstantDatas {
 
     public static int getPrice(String name, String type){
         if (type.equals("CARD"))
-            return AllCards.getPrice(name);
+            return CreatCards.getCard(name).getPrice();
         ArrayList<Thing> list = getList(type);
         for (Thing t : list){
             if (t.getName().equals(name))

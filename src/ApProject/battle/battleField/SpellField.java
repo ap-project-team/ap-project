@@ -116,4 +116,7 @@ public class SpellField {
         return false;
     }
 
+    public boolean battleCryOrders(Battler currentBattler, Battler enemyBattler, MonsterCardsInBattle monsterCardsInBattle){
+        return false;
+    }
 }

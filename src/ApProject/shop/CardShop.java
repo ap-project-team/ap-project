@@ -3,12 +3,9 @@ package src.ApProject.shop;
 import src.ApProject.Game;
 import src.ApProject.constants.ConstantDatas;
 import src.ApProject.constants.CreatCards;
-import src.ApProject.constants.FirstShopLists;
 import src.ApProject.player.Player;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 public class CardShop{
     static protected ArrayList<String> shopCards = (new ArrayList<String>(){

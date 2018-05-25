@@ -142,15 +142,19 @@ public class Inventory {
     }
 
     Inventory copy() {
-        //toDo
-        /*
         ArrayList<InventoryThing> cards = new ArrayList<>();
         ArrayList<InventoryThing> items = new ArrayList<>();
         ArrayList<InventoryThing> amulets = new ArrayList<>();
-        InventoryDeck deck = new InventoryDeck();
+        InventoryDeck deck = this.deck.copy();
+
+        for (int i=0; i<cardInventory.size(); i++)
+            cards.add(cardInventory.get(i).copy());
+        for (int i=0; i<itemInventory.size(); i++)
+            items.add(itemInventory.get(i).copy());
+        for (int i=0; i<amuletInventory.size(); i++)
+            amulets.add(amuletInventory.get(i).copy());
 
         Inventory inventory = new Inventory(cards,items,amulets,deck);
-    */
         return null;
     }
 }

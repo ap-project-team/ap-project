@@ -32,24 +32,14 @@ public class Battle {
             battlers[(startNumber+(turnNum++))%2].playOneTurn(turnNum);
         }
 
+        System.out.println("GAME OVER");
 
-        String winner;
+        String winner = "Draw";
         if (battlers[0].isAlive()) winner = "ENEMY";
         else if (battlers[1].isAlive()) winner = "PLAYER";
-        else winner = "DRAW";
+
+        System.out.println(winner+"Wins");
 
         return winner;
-    }
-
-    public void viewMonsterField() {
-       // battleGround.viewMonsterField();
-    }
-
-    public void viewSpellField() {
-       // battleGround.viewSpellField();
-    }
-
-    public void viewGraveyard() {
-       // battleGround.viewGraveyard();
     }
 }

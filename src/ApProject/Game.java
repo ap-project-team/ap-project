@@ -32,9 +32,16 @@ public class Game {
             p.editInventory() ;
         } else if(order.matches("Next\\s*")) {
             if (p.isReadyForBattle()) {
-                Battle battle = new Battle(p.becomeBattler(), AI_BattlerBuilder.FirstAI());
+                Battle battle = new Battle(p.becomeBattler(), AI_BattlerBuilder.build(p.getLevel()));
                 String result = battle.play();
-                System.out.println(result);
+                if (result.equals("PLAYER")) p.win();
+                else if (result.equals("ENEMY"))
+                    if (p.defeat()) {
+                        System.out.println("YOU ARE OUT OF Mystic Hourglass.");
+                        System.out.println("Good Game!\tWell Played!");
+                        System.out.println("GAME OVER\nThe End");
+                        return false;
+                    }
             } else System.out.println("Your deck is not full.");
         } else if(order.matches("Help\\s*")) {
             System.out.println("1. Enter Shop: To enter shop and buy or sell cards and items \n" +

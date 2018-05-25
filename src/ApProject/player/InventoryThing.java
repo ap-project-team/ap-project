@@ -31,4 +31,7 @@ public class InventoryThing {
     }
 
 
+    public InventoryThing copy() {
+        return new InventoryThing(num, name);
+    }
 }

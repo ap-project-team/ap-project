@@ -12,9 +12,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Player {
+    private int level = 1;
     private String name;
+    private int MysticHourglassNum = 3;
     private int gil = 1000;
     private Inventory inventory = new Inventory();
+    private State lastState;
 
     {
         name = "MAZ";
@@ -29,6 +32,10 @@ public class Player {
 
         inventory.amuletInventory.add(new InventoryThing(1, "c"));
         inventory.amuletInventory.add(new InventoryThing(2, "d"));
+    }
+
+    public int getLevel() {
+        return level;
     }
 
     public int getGil() {
@@ -91,7 +98,7 @@ public class Player {
         Amulet realAmulet = ConstantDatas.<Amulet>buildThing(inventory.deck.getEquippedAmulet(), "AMULET");
 
         for (int i = 0; i < realDeck.length; i++) {
-            realDeck[i] = AllCards.buildCard(inventory.deck.getSlots()[i]);
+            realDeck[i] = CreatCards.getCard(inventory.deck.getSlots()[i]);
         }
         for (int i = 0; i < inventory.itemInventory.size(); i++) {
             InventoryThing inventoryThing = inventory.itemInventory.get(i);
@@ -102,5 +109,21 @@ public class Player {
         Battler battler = new realBattler(name, realDeck, realItems, realAmulet);
 
         return battler;
+    }
+
+    public boolean defeat() {
+        if (MysticHourglassNum > 0) {
+            lastState.getState(gil, inventory);
+            System.out.println("You Used one Mystic Hourglass.");
+            System.out.println("You have " + MysticHourglassNum + "Mystic Hourglass left.");
+            return false;
+        }
+        return true;
+    }
+
+    public void win(){
+        gil += 10000*level;
+        lastState = new State(gil, inventory);
+        level++;
     }
 }
