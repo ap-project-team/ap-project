@@ -32,7 +32,7 @@ public abstract class CreatCards {
 
         magics.add(new ChangeAllHPAndAP(0,0,0,-100, "Poisonous Cauldron : Deal 100 damage to all enemy monster cards and enemy player"));
         magics.add(new ChangePlayerHP(0, -100,""));
-        allCards.put("PoisonousCauldron" , new ContinuousSpell("PoisonousCauldron ", 4,magics));
+        allCards.put("PoisonousCauldron" , new ContinuousSpell("PoisonousCauldron ", 1,magics));
         magics.clear();
 
         magics.add(new ChangeHPOfPlayerOrMS(500, "First Aid Kit : Increase HP of a selected friendly monster or player by 500"));
@@ -47,9 +47,9 @@ public abstract class CreatCards {
         allCards.put("MeteorShower", new ContinuousSpell("MeteorShower", 8, magics));
         magics.clear();
 
-        magics.add(new ChangeHPBasedOnTribe(300, 300, 0, Tribe.Elven, "Lunar Blessing : Increase AP and HP of friendly Elven monster cards by 300"));
-        magics.add(new ChangeHPBasedOnTribe(-300, -300, 0, Tribe.Elven, "Lunar Blessing : Increase AP and HP of friendly Elven monster cards by 300"));
-        allCards.put("LunarBlessing", new AuraSpell("LunarBlessing",6, magics, inverseMagic));
+        magics.add(new ChangeHPBasedOnTribe(300, 300, Tribe.Elven, "Lunar Blessing : Increase AP and HP of friendly Elven monster cards by 300"));
+        inverseMagic.add(new ChangeHPBasedOnTribe(-300, -300, Tribe.Elven, "Lunar Blessing : Increase AP and HP of friendly Elven monster cards by 300"));
+        allCards.put("LunarBlessing", new AuraSpell("LunarBlessing",1, magics, inverseMagic));
         magics.clear();
         inverseMagic.clear();
 
@@ -122,7 +122,7 @@ public abstract class CreatCards {
         magics.add(new ChangeHPOfPlayerOrMS(2500,"DivineBlessing : Increase HP of a friendly monster card or player by 2500"));
         will.add(new ChangeAllHPAndAP(200,500,0,0,"Burst of Light : Increase HP of all friendly monster cards and player by 500 and increase AP of all friendly monster cards by 200"));
         will.add(new ChangePlayerHP(500,0,""));
-        allCards.put("Luthien,TheHighPriestess", new HeroMonsterCard("Luthien,TheHighPriestess", 2000, 2500, 1, MonsterCardSpeciality.Normal, Tribe.Elven, magics, battleCry,will));
+        allCards.put("Luthien,TheHighPriestess", new HeroMonsterCard("Luthien,TheHighPriestess", 2000, 2500, 9, MonsterCardSpeciality.Normal, Tribe.Elven, magics, battleCry,will));
         magics.clear();
         battleCry.clear();
         will.clear();

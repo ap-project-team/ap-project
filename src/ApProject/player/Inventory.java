@@ -113,7 +113,7 @@ public class Inventory {
             while (inventoryListOrders("Amulet")) ;
         } else if (order.matches("Edit Deck\\s*")) {
             deck.printDeckEnteringText(cardInventory);
-            while (deck.editDeckOerders(this)) ;
+            while (deck.editDeckOrders(this)) ;
         } else if (order.matches("Edit Amulets\\s*")) {
             deck.printAmuletEnteringText(amuletInventory);
             while (deck.editAmuletOerders(this)) ;

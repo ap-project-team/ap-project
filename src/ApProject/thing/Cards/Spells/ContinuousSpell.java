@@ -16,13 +16,13 @@ public class ContinuousSpell extends Spells{
 
     public void play(Battler currentBattler, Battler enemyBattler, int slotNum) {
         if(currentBattler.getCurrentMana()>= manaCost  ) {
-            if (currentBattler.getMonsterField().getSlot(slotNum) == null) {
+            if (currentBattler.getSpellField().getSlot(slotNum) == null) {
                 currentBattler.setCurrentMana(currentBattler.getCurrentMana() - manaCost);
                 this.currentBattler = currentBattler;
                 this.enemyBattler = enemyBattler;
                 currentBattler.getSpellField().add(this, slotNum);
                 currentBattler.getHand().remove(this);
-                System.out.println(this.name + "was moved from hand to number " + (slotNum + 1) + " slot in the spell field");
+                System.out.println(this.name + " was moved from hand to number " + (slotNum + 1) + " slot in the spell field. " + this.manaCost + " MP was used.");
             } else {
                 System.out.println("That slot is full.");
             }
@@ -38,6 +38,7 @@ public class ContinuousSpell extends Spells{
                 for (Magic magic : magics) {
                     magic.doMagic(currentBattler, enemyBattler);
                 }
+                System.out.println(this.name + " has cast a spell : \n" + magics.get(0).getmagicDetails() + "\n");
             }
             catch (Exception e) {
                 System.out.println("Continuous Magic Failed");

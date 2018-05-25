@@ -9,7 +9,7 @@ public class ChangeHPBasedOnTribe extends Magic{
     private int changeAPAmount;
     private Tribe tribe;
 
-    public ChangeHPBasedOnTribe(int changeAPAmount, int changeHPAmount, int type, Tribe tribe, String magicDetails){
+    public ChangeHPBasedOnTribe(int changeAPAmount, int changeHPAmount, Tribe tribe, String magicDetails){
         this.changeAPAmount = changeAPAmount;
         this.changeHPAmount = changeHPAmount;
         this.magicDetails = magicDetails;

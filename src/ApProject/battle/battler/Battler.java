@@ -158,4 +158,8 @@ abstract public class Battler {
     public SpellField getSpellField() {
         return spellField;
     }
+
+    public String getType() {
+        return type;
+    }
 }

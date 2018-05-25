@@ -13,9 +13,9 @@ public abstract class ConstantDatas {
 
     public static final int STARTING_GIL = 10000;
     public static final int MAX_CARD_IN_HAND = 10;
-    public final static int SIZE_OF_DECK = 15;
+    public final static int SIZE_OF_DECK = 30;
     public final static int SIZE_OF_MONSTERFIELD = 5;
-    public final static int SIZE_OF_SpellField = 5;
+    public final static int SIZE_OF_SpellField = 3;
     public final static int SIZE_OF_HAND = 10;
 
     public static void initData(){

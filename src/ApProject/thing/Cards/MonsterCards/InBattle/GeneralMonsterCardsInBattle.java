@@ -39,7 +39,7 @@ public class GeneralMonsterCardsInBattle extends MonsterCardsInBattle {
         this.battleCryDetail = battleCry.get(0).getmagicDetails();
         this.willDetail = will.get(0).getmagicDetails();
         ArrayList<Map> map = currentBattler.getMonsterField().printingTargets( currentBattler, enemyBattler, battleCryType);
-        while (currentBattler.getSpellField().battleCryOrders(this, map.get(0), map.get(1), map.get(2)));
+        while (currentBattler.getSpellField().battleCryOrders(currentBattler,this, map.get(0), map.get(1), map.get(2)));
     }
 
     public void doBattleCry(MonsterCardsInBattle monsterCardsInBattle, Spells spells, Card card){

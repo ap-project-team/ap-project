@@ -6,9 +6,11 @@ import src.ApProject.thing.Cards.MonsterCards.InBattle.MonsterCardsInBattle;
 
 import java.util.ArrayList;
 
-public class AuraSpell extends Spells{
+public class AuraSpell extends Spells {
+    int countOnTheBattleField = 0;
     private ArrayList<Magic> inverseMagics = new ArrayList<>();
-    public AuraSpell(String name, int manaCost, ArrayList<Magic> magics, ArrayList<Magic> inverseMagics){
+
+    public AuraSpell(String name, int manaCost, ArrayList<Magic> magics, ArrayList<Magic> inverseMagics) {
         this.name = name;
         this.spellType = SpellType.Aura;
         this.magics.addAll(magics);
@@ -18,46 +20,49 @@ public class AuraSpell extends Spells{
     }
 
     public void play(Battler currentBattler, Battler enemyBattler, int slotNum) {
-        if(currentBattler.getCurrentMana()>= manaCost ) {
-            if (currentBattler.getMonsterField().getSlot(slotNum) == null) {
+        if (currentBattler.getCurrentMana() >= manaCost) {
+            if (currentBattler.getSpellField().getSlot(slotNum) == null) {
                 currentBattler.setCurrentMana(currentBattler.getCurrentMana() - manaCost);
                 this.currentBattler = currentBattler;
                 this.enemyBattler = enemyBattler;
                 currentBattler.getHand().remove(this);
                 currentBattler.getSpellField().add(this, slotNum);
-                for(MonsterCardsInBattle monsterCardsInBattle: currentBattler.getMonsterField().getMonsterCardsInBattles()){
+                countOnTheBattleField++;
+                for (MonsterCardsInBattle monsterCardsInBattle : currentBattler.getMonsterField().getMonsterCardsInBattles()) {
                     if (monsterCardsInBattle != null)
                         monsterCardsInBattle.addAuraEffect(this);
                 }
-                System.out.println(this.name + " was moved from hand to number " + (slotNum + 1) + " slot in the spell field");
+                System.out.println(this.name + " was moved from hand to number " + (slotNum + 1) + " slot in the spell field. " + this.manaCost + " MP was used.");
             } else {
                 System.out.println("That slot is full.");
             }
-        }
-        else {
+        } else {
             System.out.println("I don't have enough mana.");
         }
     }
 
-    public void doMagic(MonsterCardsInBattle monsterCardsInBattle){
+    public void doMagic(MonsterCardsInBattle monsterCardsInBattle) {
         try {
             for (Magic magic : magics) {
-                        magic.doMagic(monsterCardsInBattle, currentBattler, enemyBattler);
+                magic.doMagic(monsterCardsInBattle, currentBattler, enemyBattler);
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println("Aura Spell Not Working");
         }
     }
 
-    public void doInverseMagic(MonsterCardsInBattle monsterCardsInBattle){
+    public void doInverseMagic(MonsterCardsInBattle monsterCardsInBattle) {
         try {
             for (Magic magic : inverseMagics) {
                 magic.doMagic(monsterCardsInBattle, currentBattler, enemyBattler);
             }
             monsterCardsInBattle.checkDeath();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println("Aura Spell Not Working");
         }
-    }}
+    }
+
+    public int getCountOnTheBattleField() {
+        return countOnTheBattleField;
+    }
+}

@@ -15,11 +15,17 @@ public class InventoryDeck {
         for (int i=0; i<slots.length; i++)
             slots[i] = new String("null");
         for (int i=0; i<5; i++)
-            slots[i] = "ElvenRanger";
+            slots[i] = "ThrowingKnives";
         for (int i=5; i<10; i++)
-            slots[i] = "Luthien,TheHighPriestess";
+            slots[i] = "PoisonousCauldron";
         for (int i=10; i<15; i++)
-            slots[i] = "Luthien,TheHighPriestess";
+            slots[i] = "LunarBlessing";
+        for (int i = 15; i < 20; i++)
+            slots[i] = "ElvenRanger";
+            for (int i = 20; i < 25; i++)
+                slots[i] = "ElvenRanger";
+                for (int i = 25; i < 30; i++)
+                    slots[i] = "ElvenRanger";
     }
 
     InventoryDeck(String[] slots, String equippedAmulet){
@@ -53,7 +59,7 @@ public class InventoryDeck {
             System.out.println("Player is equipped with "+equippedAmulet);
     }
 
-    protected boolean editDeckOerders(Inventory inventory){
+    protected boolean editDeckOrders(Inventory inventory){
         String order = Game.give();
 
         if (order.matches("Help\\s*"))

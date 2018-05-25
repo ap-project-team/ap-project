@@ -3,7 +3,6 @@ package src.ApProject.player;
 import src.ApProject.battle.battler.Battler;
 import src.ApProject.battle.battler.realBattler;
 import src.ApProject.constants.*;
-import src.ApProject.exeptions.CardDoesNotExistExeption;
 import src.ApProject.thing.Amulet;
 import src.ApProject.thing.Cards.Card;
 import src.ApProject.thing.Item;
@@ -133,6 +132,6 @@ public class Player {
 
     public void editDeck(){
         inventory.deck.printDeckEnteringText(inventory.cardInventory);
-        while (inventory.deck.editDeckOerders(inventory));
+        while (inventory.deck.editDeckOrders(inventory));
     }
 }

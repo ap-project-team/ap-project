@@ -7,6 +7,7 @@ import src.ApProject.thing.Cards.Magic.MagicType;
 import src.ApProject.thing.Cards.MonsterCards.InBattle.MonsterCardsInBattle;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 public class InstantSpell extends Spells{
     private MagicType magicType;
@@ -23,7 +24,10 @@ public class InstantSpell extends Spells{
         if(currentBattler.getCurrentMana()>= manaCost  ) {
                 currentBattler.setCurrentMana(currentBattler.getCurrentMana() - manaCost);
                 currentBattler.getHand().remove(this);
-                    while(currentBattler.getSpellField().instantSpellOrders());
+                this.currentBattler = currentBattler;
+                this.enemyBattler = enemyBattler;
+                ArrayList<Map> map = currentBattler.getMonsterField().printingTargets( currentBattler, enemyBattler, magicType);
+                while (currentBattler.getSpellField().instantSpellOrders(currentBattler,this, map.get(0), map.get(1), map.get(2)));
         } else
             System.out.println("I don't have enough mana.");
     }
@@ -46,7 +50,6 @@ public class InstantSpell extends Spells{
                         break;
                 }
             }
-            System.out.println(this.name + " was casted : \n" + magics.get(0).getmagicDetails());
         }
         catch (Exception e) {
             System.out.println("That's not a valid Target");

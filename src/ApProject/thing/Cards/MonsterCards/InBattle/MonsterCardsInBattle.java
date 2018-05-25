@@ -11,6 +11,8 @@ import src.ApProject.thing.Cards.Spells.AuraSpell;
 import src.ApProject.thing.Cards.Spells.Spells;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class MonsterCardsInBattle {
     protected int basicHealthPoint;
@@ -35,7 +37,6 @@ public class MonsterCardsInBattle {
     protected String magicDetail;
     protected String battleCryDetail;
     protected String willDetail;
-    protected ArrayList<AuraSpell> auraEffectList = new ArrayList<>();
 
     public String getMagicDetail() {
         return magicDetail;
@@ -105,19 +106,9 @@ public class MonsterCardsInBattle {
         return cardName;
     }
 
-    public void addAuraEffect(AuraSpell auraSpell){
-        if(!this.checkAuraEffect(auraSpell)) {
-            auraEffectList.add(auraSpell);
-            auraSpell.doMagic(this);
-        }
-    }
+    public void addAuraEffect(AuraSpell auraSpell){ auraSpell.doMagic(this); }
 
-    public void removeAuraEffect(AuraSpell auraSpell){
-        if(this.checkAuraEffect(auraSpell)) {
-            auraEffectList.remove(auraSpell);
-            auraSpell.doInverseMagic(this);
-        }
-    }
+    public void removeAuraEffect(AuraSpell auraSpell){ auraSpell.doInverseMagic(this); }
 
     public Tribe getTribe() {
         return tribe;
@@ -128,10 +119,6 @@ public class MonsterCardsInBattle {
     }
 
     public Card getCard() { return card; }
-
-    public boolean checkAuraEffect(AuraSpell auraSpell){
-        return auraEffectList.contains(auraSpell);
-    }
 
     public void checkDeath(){
         if(this.currentHealthPoint <= 0)
