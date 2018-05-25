@@ -6,7 +6,7 @@ import src.ApProject.thing.Cards.MonsterCards.InBattle.MonsterCardsInBattle;
 
 public class MoveMSToHand extends Magic{
     {
-        this.magicType  = MagicType.FriendlyPlayerOrMS;
+        this.magicType  = MagicType.FriendlyTarget;
     }
 
     public MoveMSToHand(String magicDetails){

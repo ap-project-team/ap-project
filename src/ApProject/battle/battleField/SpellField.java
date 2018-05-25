@@ -208,7 +208,7 @@ public class SpellField {
                 }
              else{
                     monsterCardsInBattle.doMagic(null, null, null);
-                    System.out.println(monsterCardsInBattle.getCardName() + " has cast a spell : \n" + monsterCardsInBattle.getBattleCryDetail() + "\n");
+                    System.out.println(monsterCardsInBattle.getCardName() + " has cast a spell : \n" + monsterCardsInBattle.getMagicDetail() + "\n");
                     return false;
                 }
             }
