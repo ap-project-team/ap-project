@@ -19,16 +19,11 @@ public class Player {
     private State lastState = new State(gil, inventory);
 
     {
-        inventory.cardInventory.add(new InventoryThing(5, "ElvenHunter"));
-        inventory.cardInventory.add(new InventoryThing(5, "YellowDrake"));
-        inventory.cardInventory.add(new InventoryThing(5, "ElvenRanger"));
-        inventory.cardInventory.add(new InventoryThing(5, "BlueDragon"));
+        inventory.itemInventory.add(new InventoryThing(2, "SmallHPPotion"));
+        inventory.itemInventory.add(new InventoryThing(2, "GreaterRestorative"));
 
-        inventory.itemInventory.add(new InventoryThing(2, "a"));
-        inventory.itemInventory.add(new InventoryThing(2, "b"));
-
-        inventory.amuletInventory.add(new InventoryThing(1, "c"));
-        inventory.amuletInventory.add(new InventoryThing(2, "d"));
+        inventory.amuletInventory.add(new InventoryThing(1, "GoldRing"));
+        inventory.amuletInventory.add(new InventoryThing(2, "DemonKing’sCrown"));
     }
 
     public Player(String name){
@@ -51,9 +46,8 @@ public class Player {
         gil += amount;
     }
 
-    public void buy(int number, String name, String type, List<String> list) {
+    public void buy(int number, String name, String type, List<String> list, int price) {
         int numberOfThingsInShop = 0;
-        int price = ConstantDatas.getPrice(name, type);
         for (String s : list)
             if (s.equals(name))
                 numberOfThingsInShop++;
@@ -69,9 +63,8 @@ public class Player {
         } else System.out.println("Shop don't have enough thing");
     }
 
-    public void sell(int number, String name, String type) {
+    public void sell(int number, String name, String type, int price) {
         int numberOfAvailableThingsInInventory = inventory.numberOfThingsInInventory(name, type) - inventory.numberOfThingsInDeck(name, type);
-        int price = ConstantDatas.getSellPrice(name, type);
         if (number <= 0) System.out.println("You should sell more than one thing!");
         else if (number <= numberOfAvailableThingsInInventory) {
             inventory.removeFromInventory(number, name, inventory.getList(type));
@@ -96,7 +89,7 @@ public class Player {
     public Battler becomeBattler() {
         Card[] realDeck = new Card[ConstantDatas.SIZE_OF_DECK];
         ArrayList<Item> realItems = new ArrayList<>();
-        Amulet realAmulet = ConstantDatas.<Amulet>buildThing(inventory.deck.getEquippedAmulet(), "AMULET");
+        Amulet realAmulet = Amulet.buildAmulet(inventory.deck.getEquippedAmulet());
 
         for (int i = 0; i < realDeck.length; i++) {
             realDeck[i] = CreatCards.getCard(inventory.deck.getSlots()[i]);
@@ -104,7 +97,7 @@ public class Player {
         for (int i = 0; i < inventory.itemInventory.size(); i++) {
             InventoryThing inventoryThing = inventory.itemInventory.get(i);
             for (int j = 0; j < inventoryThing.getNum(); j++)
-                realItems.add(ConstantDatas.<Item>buildThing(inventoryThing.getName(), "ITEM"));
+                realItems.add(Item.buildItems(inventoryThing.getName()));
         }
 
         Battler battler = new realBattler(name, realDeck, realItems, realAmulet);

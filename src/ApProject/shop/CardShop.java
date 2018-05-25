@@ -37,9 +37,9 @@ public class CardShop{
                             "4. Edit InventoryDeck: To edit InventoryDeck and remove and add cards to it\n" +
                             "5. Exit: To return to shop menu");
         } else if (order.matches("Sell \\w* - \\d*\\s*")) {
-            p.sell(Integer.parseInt(str[3]), str[1], "CARD");
+            p.sell(Integer.parseInt(str[3]), str[1], "CARD", CreatCards.getCard(str[1]).getPrice());
         } else if (order.matches("Buy \\w* - \\d*\\s*")) {
-            p.buy(Integer.parseInt(str[3]), str[1], "CARD", shopCards);
+            p.buy(Integer.parseInt(str[3]), str[1], "CARD", shopCards, CreatCards.getCard(str[1]).getPrice());
         } else if (order.matches("info \\D*\\s*")) {
             System.out.println(CreatCards.getCard(str[1]).getInfo());
         } else if (order.matches("Edit InventoryDeck\\s*")) {
@@ -56,7 +56,7 @@ public class CardShop{
         System.out.println("Remaining gil : "+p.getGil());
         System.out.println(" Shop List");
         for(int i=0; i<shopCards.size(); i++){
-            System.out.println(i+1+".\t"+shopCards.get(i)+"\t"+ ConstantDatas.getPrice(shopCards.get(i),"CARD"));
+            System.out.println(i+1+".\t"+shopCards.get(i)+"\t"+ CreatCards.getCard(shopCards.get(i)).getPrice());
         }
         System.out.println(" Card Inventory");
         p.printInventory("CARD");

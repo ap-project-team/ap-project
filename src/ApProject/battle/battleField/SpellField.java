@@ -67,7 +67,7 @@ public class SpellField {
         return slots;
     }
 
-    public void nextTurne(){
+    public void nextTurn(){
         for (int i=0; i<slots.length; i++){
             if (slots[i] != null)
                 if (slots[i].getSpellType() == SpellType.Continuous)
@@ -473,5 +473,9 @@ public class SpellField {
             }
         }
         return false;
+    }
+
+    public int getSize(){
+        return slots.length;
     }
 }

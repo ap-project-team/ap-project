@@ -32,7 +32,7 @@ public abstract class CreatCards {
 
         magics.add(new ChangeAllHPAndAP(0,0,0,-100, "Poisonous Cauldron : Deal 100 damage to all enemy monster cards and enemy player"));
         magics.add(new ChangePlayerHP(0, -100,""));
-        allCards.put("PoisonousCauldron" , new ContinuousSpell("PoisonousCauldron ", 1,magics));
+        allCards.put("PoisonousCauldron" , new ContinuousSpell("PoisonousCauldron ", 4,magics));
         magics.clear();
 
         magics.add(new ChangeHPOfPlayerOrMS(500, "First Aid Kit : Increase HP of a selected friendly monster or player by 500"));
@@ -49,7 +49,7 @@ public abstract class CreatCards {
 
         magics.add(new ChangeHPBasedOnTribe(300, 300, Tribe.Elven, "Lunar Blessing : Increase AP and HP of friendly Elven monster cards by 300"));
         inverseMagic.add(new ChangeHPBasedOnTribe(-300, -300, Tribe.Elven, "Lunar Blessing : Increase AP and HP of friendly Elven monster cards by 300"));
-        allCards.put("LunarBlessing", new AuraSpell("LunarBlessing",1, magics, inverseMagic));
+        allCards.put("LunarBlessing", new AuraSpell("LunarBlessing",6, magics, inverseMagic));
         magics.clear();
         inverseMagic.clear();
 

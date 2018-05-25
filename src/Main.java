@@ -13,7 +13,6 @@ public class Main {
     public static void main(String[] args) {
         ArrayList<String> addAll = new ArrayList<>();
         CreatCards.createAllCards();
-        ConstantDatas.initData();
 
         System.out.println("'WELCOME TO THIS GAME'");
         System.out.print("Please Enter Your Name : ");
