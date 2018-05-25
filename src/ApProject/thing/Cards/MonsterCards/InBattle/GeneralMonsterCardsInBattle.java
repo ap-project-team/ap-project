@@ -35,6 +35,8 @@ public class GeneralMonsterCardsInBattle extends MonsterCardsInBattle {
                 if(spell.getSpellType() == SpellType.Aura)
                     this.addAuraEffect((AuraSpell) spell);
         }
+        this.battleCryDetail = battleCry.get(0).getmagicDetails();
+        this.willDetail = will.get(0).getmagicDetails();
     }
 
     // TODO: 5/21/2018 should be used in battle because it might have a target
@@ -42,12 +44,6 @@ public class GeneralMonsterCardsInBattle extends MonsterCardsInBattle {
             try {
                 for (Magic magic : battleCry) {
                     switch (magic.getMagicType()) {
-                        case FriendlyTarget:
-                            magic.doMagic(monsterCardsInBattle, currentBattler, enemyBattler);
-                            break;
-                        case EnemyTarget:
-                            magic.doMagic(monsterCardsInBattle, currentBattler, enemyBattler);
-                            break;
                         case WITHOUTTARGET:
                             magic.doMagic(currentBattler, enemyBattler);
                             break;
@@ -57,13 +53,7 @@ public class GeneralMonsterCardsInBattle extends MonsterCardsInBattle {
                         case SELECTSPELL:
                             magic.doMagic(spells, currentBattler, enemyBattler);
                             break;
-                        case FriendlyPlayerOrMS:
-                            magic.doMagic(monsterCardsInBattle, currentBattler, enemyBattler);
-                            break;
-                        case EnemyPlayerOrMS:
-                            magic.doMagic(monsterCardsInBattle, currentBattler, enemyBattler);
-                            break;
-                        case MSorSpell:
+                        default:
                             magic.doMagic(monsterCardsInBattle, currentBattler, enemyBattler);
                             break;
                     }
@@ -78,12 +68,6 @@ public class GeneralMonsterCardsInBattle extends MonsterCardsInBattle {
         try {
             for (Magic magic : will) {
                 switch (magic.getMagicType()) {
-                    case FriendlyTarget:
-                        magic.doMagic(monsterCardsInBattle, currentBattler, enemyBattler);
-                        break;
-                    case EnemyTarget:
-                        magic.doMagic(monsterCardsInBattle, currentBattler, enemyBattler);
-                        break;
                     case WITHOUTTARGET:
                         magic.doMagic(currentBattler, enemyBattler);
                         break;
@@ -93,13 +77,7 @@ public class GeneralMonsterCardsInBattle extends MonsterCardsInBattle {
                     case SELECTSPELL:
                         magic.doMagic(spells, currentBattler, enemyBattler);
                         break;
-                    case FriendlyPlayerOrMS:
-                        magic.doMagic(monsterCardsInBattle, currentBattler, enemyBattler);
-                        break;
-                    case EnemyPlayerOrMS:
-                        magic.doMagic(monsterCardsInBattle, currentBattler, enemyBattler);
-                        break;
-                    case MSorSpell:
+                    default:
                         magic.doMagic(monsterCardsInBattle, currentBattler, enemyBattler);
                         break;
                 }

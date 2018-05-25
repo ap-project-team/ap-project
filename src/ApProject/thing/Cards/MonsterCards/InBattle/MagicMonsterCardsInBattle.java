@@ -24,6 +24,7 @@ public class MagicMonsterCardsInBattle extends MonsterCardsInBattle {
         this.currentBattler = currentBattler;
         this.enemyBattler = enemyBattler;
         this.magicType = magics.get(0).getMagicType();
+        this.magicDetail = magics.get(0).getmagicDetails();
         if(this.monsterCardSpeciality == MonsterCardSpeciality.Charge){
             canAttack = true;
             isSleep = false;
@@ -40,12 +41,6 @@ public class MagicMonsterCardsInBattle extends MonsterCardsInBattle {
             try {
                 for (Magic magic : magics) {
                     switch (magic.getMagicType()) {
-                        case FriendlyTarget:
-                            magic.doMagic(monsterCardsInBattle, currentBattler, enemyBattler);
-                            break;
-                        case EnemyTarget:
-                            magic.doMagic(monsterCardsInBattle, currentBattler, enemyBattler);
-                            break;
                         case WITHOUTTARGET:
                             magic.doMagic(currentBattler, enemyBattler);
                             break;
@@ -55,13 +50,7 @@ public class MagicMonsterCardsInBattle extends MonsterCardsInBattle {
                         case SELECTSPELL:
                             magic.doMagic(spells, currentBattler, enemyBattler);
                             break;
-                        case FriendlyPlayerOrMS:
-                            magic.doMagic(monsterCardsInBattle, currentBattler, enemyBattler);
-                            break;
-                        case EnemyPlayerOrMS:
-                            magic.doMagic(monsterCardsInBattle, currentBattler, enemyBattler);
-                            break;
-                        case MSorSpell:
+                        default:
                             magic.doMagic(monsterCardsInBattle, currentBattler, enemyBattler);
                             break;
                     }

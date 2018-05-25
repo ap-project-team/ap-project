@@ -28,6 +28,9 @@ public class HeroMonsterCardsInBattle extends MonsterCardsInBattle{
         this.isBattleCrier = true;
         this.magicType = magics.get(0).getMagicType();
         this.battleCryType = battleCry.get(0).getMagicType();
+        this.magicDetail = magics.get(0).getmagicDetails();
+        this.battleCryDetail = battleCry.get(0).getmagicDetails();
+        this.willDetail = will.get(0).getmagicDetails();
         if(this.monsterCardSpeciality == MonsterCardSpeciality.Charge){
             canAttack = true;
             isSleep = false;
@@ -44,12 +47,6 @@ public class HeroMonsterCardsInBattle extends MonsterCardsInBattle{
         try {
             for (Magic magic : battleCry) {
                 switch (magic.getMagicType()) {
-                    case FriendlyTarget:
-                        magic.doMagic(monsterCardsInBattle, currentBattler, enemyBattler);
-                        break;
-                    case EnemyTarget:
-                        magic.doMagic(monsterCardsInBattle, currentBattler, enemyBattler);
-                        break;
                     case WITHOUTTARGET:
                         magic.doMagic(currentBattler, enemyBattler);
                         break;
@@ -59,13 +56,7 @@ public class HeroMonsterCardsInBattle extends MonsterCardsInBattle{
                     case SELECTSPELL:
                         magic.doMagic(spells, currentBattler, enemyBattler);
                         break;
-                    case FriendlyPlayerOrMS:
-                        magic.doMagic(monsterCardsInBattle, currentBattler, enemyBattler);
-                        break;
-                    case EnemyPlayerOrMS:
-                        magic.doMagic(monsterCardsInBattle, currentBattler, enemyBattler);
-                        break;
-                    case MSorSpell:
+                    default:
                         magic.doMagic(monsterCardsInBattle, currentBattler, enemyBattler);
                         break;
                 }
@@ -80,12 +71,6 @@ public class HeroMonsterCardsInBattle extends MonsterCardsInBattle{
         try {
             for (Magic magic : will) {
                 switch (magic.getMagicType()) {
-                    case FriendlyTarget:
-                        magic.doMagic(monsterCardsInBattle, currentBattler, enemyBattler);
-                        break;
-                    case EnemyTarget:
-                        magic.doMagic(monsterCardsInBattle, currentBattler, enemyBattler);
-                        break;
                     case WITHOUTTARGET:
                         magic.doMagic(currentBattler, enemyBattler);
                         break;
@@ -95,13 +80,7 @@ public class HeroMonsterCardsInBattle extends MonsterCardsInBattle{
                     case SELECTSPELL:
                         magic.doMagic(spells, currentBattler, enemyBattler);
                         break;
-                    case FriendlyPlayerOrMS:
-                        magic.doMagic(monsterCardsInBattle, currentBattler, enemyBattler);
-                        break;
-                    case EnemyPlayerOrMS:
-                        magic.doMagic(monsterCardsInBattle, currentBattler, enemyBattler);
-                        break;
-                    case MSorSpell:
+                    default:
                         magic.doMagic(monsterCardsInBattle, currentBattler, enemyBattler);
                         break;
                 }
@@ -117,12 +96,6 @@ public class HeroMonsterCardsInBattle extends MonsterCardsInBattle{
             try {
                 for (Magic magic : magics) {
                     switch (magic.getMagicType()) {
-                        case FriendlyTarget:
-                            magic.doMagic(monsterCardsInBattle, currentBattler, enemyBattler);
-                            break;
-                        case EnemyTarget:
-                            magic.doMagic(monsterCardsInBattle, currentBattler, enemyBattler);
-                            break;
                         case WITHOUTTARGET:
                             magic.doMagic(currentBattler, enemyBattler);
                             break;
@@ -132,13 +105,7 @@ public class HeroMonsterCardsInBattle extends MonsterCardsInBattle{
                         case SELECTSPELL:
                             magic.doMagic(spells, currentBattler, enemyBattler);
                             break;
-                        case FriendlyPlayerOrMS:
-                            magic.doMagic(monsterCardsInBattle, currentBattler, enemyBattler);
-                            break;
-                        case EnemyPlayerOrMS:
-                            magic.doMagic(monsterCardsInBattle, currentBattler, enemyBattler);
-                            break;
-                        case MSorSpell:
+                        default:
                             magic.doMagic(monsterCardsInBattle, currentBattler, enemyBattler);
                             break;
                     }

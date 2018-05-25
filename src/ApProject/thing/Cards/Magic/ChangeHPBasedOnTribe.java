@@ -14,10 +14,8 @@ public class ChangeHPBasedOnTribe extends Magic{
         this.changeHPAmount = changeHPAmount;
         this.magicDetails = magicDetails;
         this.tribe = tribe;
-        if(type == 0)
-            this.magicType = MagicType.FriendlyTarget;
-        else
-            this.magicType = MagicType.EnemyTarget;
+        this.magicType = MagicType.FriendlyTarget;
+        // TODO: 5/25/2018  
     }
 
     public void doMagic(MonsterCardsInBattle monsterCardsInBattle, Battler currentBattler, Battler enemyBattler) {

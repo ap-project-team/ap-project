@@ -8,6 +8,7 @@ import src.ApProject.thing.Cards.MonsterCards.MonsterCardSpeciality;
 import src.ApProject.thing.Cards.MonsterCards.Tribe;
 import src.ApProject.thing.Cards.MonsterCards.Type;
 import src.ApProject.thing.Cards.Spells.AuraSpell;
+import src.ApProject.thing.Cards.Spells.Spells;
 
 import java.util.ArrayList;
 
@@ -31,7 +32,22 @@ public class MonsterCardsInBattle {
     protected Boolean isBattleCrier = false;
     protected MagicType battleCryType = MagicType.NONE;
     protected MagicType magicType = MagicType.NONE;
+    protected String magicDetail;
+    protected String battleCryDetail;
+    protected String willDetail;
     protected ArrayList<AuraSpell> auraEffectList = new ArrayList<>();
+
+    public String getMagicDetail() {
+        return magicDetail;
+    }
+
+    public String getBattleCryDetail() {
+        return battleCryDetail;
+    }
+
+    public String getWillDetail() {
+        return willDetail;
+    }
 
     public boolean isSleep() {
         return isSleep;
@@ -139,4 +155,8 @@ public class MonsterCardsInBattle {
     public String getUseInfo(){
         return "Using : " + this.cardName + "\n" + "HP : " + this.currentHealthPoint + " AP : " + this.currentAttackPoint + "\n" + "Is Sleeping : " + isSleep + "\nCan Attack : " + this.canAttack + ((this.magicType == MagicType.NONE)?"":"\nCan Cast : " + (isMagicUsed?"False":"True"));
     }
+
+    public void doMagic(MonsterCardsInBattle monsterCardsInBattle, Spells spells, Card card){}
+
+    public void doBattleCry(MonsterCardsInBattle monsterCardsInBattle, Spells spells, Card card){}
 }
