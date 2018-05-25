@@ -91,26 +91,27 @@ public class realBattler extends Battler {
     }
 
     boolean useItemOrders() {
-        String order = Game.give();
+        String order = Game.give().toLowerCase();
 
-        if (order.matches("Use \\w*\\s*")) {
+        if (order.matches("use \\w*\\s*")) {
             for (int i = 0; i < items.size(); i++) {
-                String str = order.split("\\s*")[1];
-                if (items.get(i).getName().matches(str)) {
+                String[] str = order.split("\\s");
+                if (items.get(i).getName().toLowerCase().matches(str[1].toLowerCase())) {
                     items.get(i).useItem(this);
+                    items.remove(i);
                     return true;
                 }
             }
             System.out.println("You don't have this Item.");
-        } else if (order.matches("Help")) {
+        } else if (order.matches("help")) {
             System.out.println("1.\tUse \"Item Name\": To use item.\n" +
                     "2.\tView Items: To see your items.\n" +
                     "3.\tExit: To exit to previous menu");
-        } else if (order.matches("View Items")) {
+        } else if (order.matches("view items")) {
             System.out.println("Your Items :");
             for (int i = 0; i < items.size(); i++)
                 System.out.println((i + 1) + "\t" + items.get(i).getName() + ": " + items.get(i).getInfo());
-        } else if (order.matches("Exit\\s*")) return false;
+        } else if (order.matches("exit\\s*")) return false;
         else System.out.println("Incorrect order!");
         return true;
     }
