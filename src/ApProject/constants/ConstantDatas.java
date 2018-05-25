@@ -13,6 +13,7 @@ public abstract class ConstantDatas {
     public final static int SIZE_OF_DECK = 15;
     public final static int SIZE_OF_MONSTERFIELD = 5;
     public final static int SIZE_OF_SpellField = 5;
+    public final static int SIZE_OF_HAND = 10;
 
     public static void initData(){
         items.add(new Item("a",100));

@@ -5,15 +5,21 @@ import src.ApProject.battle.Battle;
 import src.ApProject.battle.battler.Battler;
 import src.ApProject.constants.ConstantDatas;
 import src.ApProject.constants.CreatCards;
+import src.ApProject.thing.Cards.Card;
 import src.ApProject.thing.Cards.Magic.MagicType;
 import src.ApProject.thing.Cards.MonsterCards.InBattle.MonsterCardsInBattle;
 import src.ApProject.thing.Cards.MonsterCards.OutBattle.MonsterCard;
 import src.ApProject.thing.Cards.MonsterCards.Tribe;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 import src.ApProject.thing.Cards.MonsterCards.Type;
+import src.ApProject.thing.Cards.Spells.Spells;
 
+import static src.ApProject.thing.Cards.Magic.MagicType.FriendlyTarget;
+import static src.ApProject.thing.Cards.Magic.MagicType.WITHOUTTARGET;
 import static src.ApProject.thing.Cards.MonsterCards.MonsterCardSpeciality.Taunt;
 
 public class MonsterField {
@@ -140,12 +146,112 @@ public class MonsterField {
                     return false;
                 }
             }
-        } else if (order.matches("Spell Casting\\s*") && slots[slotNum].getMagicType() != MagicType.NONE) {
-            while (player.getSpellField().spellCastingOrders(player, enemy, slots[slotNum]));
+        } else if (order.matches("Cast Spell\\s*") && slots[slotNum].getMagicType() != MagicType.NONE) {
+            Battler currentBattler = player;
+            Battler enemyBattler = enemy;
+            MonsterCardsInBattle monsterCardsInBattle = slots[slotNum];
+            System.out.println(monsterCardsInBattle.getCardName() + " has cast a spell : \n" + monsterCardsInBattle.getMagicDetail() + "\n");
+            Integer count = 1;
+            Map<Integer, MonsterCardsInBattle> monsterMap = new HashMap<>();
+            Map<Integer, Card> cardsMap = new HashMap<>();
+            Map<Integer, Spells> spellMap = new HashMap<>();
+            switch (monsterCardsInBattle.getMagicType()) {
+                case FriendlyTarget:
+                    System.out.println("List of Targets : \n");
+                    System.out.println("MonsterField : \n");
+                    for (int i = 0; i < ConstantDatas.SIZE_OF_MONSTERFIELD; i++) {
+                        MonsterCardsInBattle monsterCard = currentBattler.getMonsterField().getMonsterCardsInBattles()[i];
+                        if (monsterCard != null) {
+                            System.out.println(count + ".\tSlot" + (i + 1) + ".\t" + monsterCard.getCardName());
+                            monsterMap.put(count, monsterCard);
+                            count++;
+                        }
+                    }
+                    break;
+                case EnemyTarget:
+                    System.out.println("List of Targets : \n");
+                    System.out.println("MonsterField : \n");
+                    for (int i = 0; i < ConstantDatas.SIZE_OF_MONSTERFIELD; i++) {
+                        MonsterCardsInBattle monsterCard = enemyBattler.getMonsterField().getMonsterCardsInBattles()[i];
+                        if (monsterCard != null) {
+                            System.out.println(count + ".\tSlot" + (i + 1) + ".\t" + monsterCard.getCardName());
+                            monsterMap.put(count, monsterCard);
+                            count++;
+                        }
+                    }
+                    break;
+                case FriendlyPlayerOrMS:
+                    System.out.println("List of Targets : \n");
+                    System.out.println(count + ". \t Your Player\n");
+                    count++;
+                    System.out.println("MonsterField : \n");
+                    for (int i = 0; i < ConstantDatas.SIZE_OF_MONSTERFIELD; i++) {
+                        MonsterCardsInBattle monsterCard = currentBattler.getMonsterField().getMonsterCardsInBattles()[i];
+                        if (monsterCard != null) {
+                            System.out.println(count + ".\tSlot" + (i + 1) + ".\t" + monsterCard.getCardName());
+                            monsterMap.put(count, monsterCard);
+                            count++;
+                        }
+                    }
+                    break;
+                case EnemyPlayerOrMS:
+                    System.out.println("List of Targets : \n");
+                    System.out.println(count + ". \t Enemy Player\n");
+                    count++;
+                    System.out.println("MonsterField : \n");
+                    for (int i = 0; i < ConstantDatas.SIZE_OF_MONSTERFIELD; i++) {
+                        MonsterCardsInBattle monsterCard = enemyBattler.getMonsterField().getMonsterCardsInBattles()[i];
+                        if (monsterCard != null) {
+                            System.out.println(count + ".\tSlot" + (i + 1) + ".\t" + monsterCard.getCardName());
+                            monsterMap.put(count, monsterCard);
+                            count++;
+                        }
+                    }
+                    break;
+                case SELECTCARD:
+                    System.out.println("List of Targets : \n");
+                    System.out.println("Hand : \n");
+                    for (int i = 0; i < ConstantDatas.SIZE_OF_HAND; i++) {
+                        Card card = currentBattler.getHand().get(i);
+                        if (card != null) {
+                            System.out.println(count + ".\t" + card.getName());
+                            cardsMap.put(count, card);
+                            count++;
+                        }
+                    }
+                    break;
+                case SELECTSPELL:
+                    System.out.println("List of Targets : \n");
+                    System.out.println("SpellField : \n");
+                    for (int i = 0; i < ConstantDatas.SIZE_OF_SpellField; i++) {
+                        Spells spell = enemyBattler.getSpellField().getSlot(i);
+                        if (spell != null) {
+                            System.out.println(count + ".\t" + spell.getName());
+                            spellMap.put(count, spell);
+                            count++;
+                        }
+                    }
+                    break;
+                case MSorSpell:
+                    System.out.println("List of Targets : \n");
+                    System.out.println("MonsterField : \n");
+                    for (int i = 0; i < ConstantDatas.SIZE_OF_MONSTERFIELD; i++) {
+                        MonsterCardsInBattle monsterCard = enemyBattler.getMonsterField().getMonsterCardsInBattles()[i];
+                        if (monsterCard != null) {
+                            System.out.println(count + ".\tSlot" + (i + 1) + ".\t" + monsterCard.getCardName());
+                            monsterMap.put(count, monsterCard);
+                            count++;
+                        }
+                    }
+                    break;
+            }
+            count = 1;
+            while (player.getSpellField().spellCastingOrders(player, enemy, slots[slotNum], monsterMap, cardsMap, spellMap)){
+            }
         } else if (order.matches("Info\\s*")) {
             System.out.println(slots[slotNum].getCard().getInfo());
         } else if (order.matches("Exit\\s*")) return false;
-        else System.out.println("Incurrect order!");
+        else System.out.println("Incorrect order!");
         return true;
     }
 
