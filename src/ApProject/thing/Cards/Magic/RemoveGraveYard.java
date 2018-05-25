@@ -15,8 +15,10 @@ public class RemoveGraveYard extends Magic {
     public void doMagic(Battler currentBattler, Battler enemyBattler) {
         for (int i = 0; i < count; i++) {
             Card randomCard = currentBattler.getGraveYard().getRandomCard();
-            currentBattler.getGraveYard().remove(randomCard);
-            currentBattler.getHand().add(randomCard);
+            if(randomCard != null) {
+                currentBattler.getGraveYard().remove(randomCard);
+                currentBattler.getHand().add(randomCard);
+            }
         }
     }
 }

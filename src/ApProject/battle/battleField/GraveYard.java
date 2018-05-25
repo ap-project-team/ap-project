@@ -12,13 +12,15 @@ public class GraveYard {
 
     public void remove(Card card){cardArrayList.remove(card);}
 
-    public Card getRandomCard(){
+    public Card getRandomCard() {
         Random random = new Random();
-        Card card = cardArrayList.get(random.nextInt(cardArrayList.size()));
-        cardArrayList.remove(card);
-        return card;
+        if (cardArrayList.size() > 0) {
+            Card card = cardArrayList.get(random.nextInt(cardArrayList.size()));
+            cardArrayList.remove(card);
+            return card;
+        }
+        return null;
     }
-
     public void viewGraveyard() {
         for (int i = 0; i < cardArrayList.size(); i++)
             System.out.println((i+1)+"\t"+cardArrayList.get(i).getName());

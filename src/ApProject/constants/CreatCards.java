@@ -84,7 +84,7 @@ public abstract class CreatCards {
 
         magics.add(new RemoveSelectedSpell("ArcaneBolt"));
         magics.add(new ChangePlayerHP(0,-500,""));
-        allCards.put("ArcaneBolt", new InstantSpell("ArcaneBoly", 5,magics));
+        allCards.put("ArcaneBolt", new InstantSpell("ArcaneBolt", 5,magics));
         magics.clear();
 
         magics.add(new RemoveAllSpellsBothSides("Greater Purge : Remove all spell cards on field from both sides and move them to hand"));
@@ -122,7 +122,7 @@ public abstract class CreatCards {
         magics.add(new ChangeHPOfPlayerOrMS(2500,"DivineBlessing : Increase HP of a friendly monster card or player by 2500"));
         will.add(new ChangeAllHPAndAP(200,500,0,0,"Burst of Light : Increase HP of all friendly monster cards and player by 500 and increase AP of all friendly monster cards by 200"));
         will.add(new ChangePlayerHP(500,0,""));
-        allCards.put("Luthien,TheHighPriestess", new HeroMonsterCard("Luthien,TheHighPriestess", 2000, 2500, 9, MonsterCardSpeciality.Normal, Tribe.Elven, magics, battleCry,will));
+        allCards.put("Luthien,TheHighPriestess", new HeroMonsterCard("Luthien,TheHighPriestess", 2000, 2500, 1, MonsterCardSpeciality.Normal, Tribe.Elven, magics, battleCry,will));
         magics.clear();
         battleCry.clear();
         will.clear();

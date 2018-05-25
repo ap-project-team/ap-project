@@ -72,56 +72,106 @@ public class SpellField {
 
     }
 
-    public boolean spellCastingOrders(Battler currentBattler, Battler enemyBattler, MonsterCardsInBattle monsterCardsInBattle , Map<Integer, MonsterCardsInBattle> monsterMap,  Map<Integer, Card> cardsMap, Map<Integer, Spells> spellMap ) {
+    public boolean spellCastingOrders(MonsterCardsInBattle monsterCardsInBattle , Map<Integer, MonsterCardsInBattle> monsterMap,  Map<Integer, Card> cardsMap, Map<Integer, Spells> spellMap ) {
         if(monsterCardsInBattle.getMagicType() != MagicType.NONE) {
-            String order = Game.give();
+            if (monsterCardsInBattle.getBattleCryType() != MagicType.WITHOUTTARGET) {
+                String order = Game.give();
+                if (order.matches("Help\\s*")) {
+                    System.out.println(
+                            "1.\tTarget #TargetNum:To cast the spell on the specified target\n" +
+                                    "2.\tExit: To skip spell casting");
+                } else if (order.matches("Target \\d*")) {
+                    String[] str = order.split("\\s");
+                    switch (monsterCardsInBattle.getMagicType()) {
+                        case WITHOUTTARGET:
+                            monsterCardsInBattle.doMagic(null, null, null);
+                            System.out.println(monsterCardsInBattle.getCardName() + " has cast a spell : \n" + monsterCardsInBattle.getMagicDetail() + "\n");
+                            return false;
 
-            if (order.matches("Help\\s*")) {
-              System.out.println(
-                        "1.\tTarget #TargetNum:To cast the spell on the specified target\n" +
-                                "2.\tExit: To skip spell casting");
-            } else if (order.matches("Target \\d*")) {
-                String[] str = order.split("\\s");
-                switch (monsterCardsInBattle.getMagicType()) {
-                    case WITHOUTTARGET:
-                        monsterCardsInBattle.doMagic(null, null, null);
-                        System.out.println(monsterCardsInBattle.getCardName() + " has cast a spell : \n" + monsterCardsInBattle.getMagicDetail() + "\n");
-                        return false;
-
-                    case SELECTCARD:
-                        if (cardsMap.get(Integer.parseInt(str[1])) != null) {
-                            monsterCardsInBattle.doMagic(null, null, cardsMap.get(Integer.parseInt(str[1])));
-                            System.out.println(monsterCardsInBattle.getCardName() + " has cast a spell : \n" + monsterCardsInBattle.getMagicDetail() + "\n");
-                            return false;
-                        }else
-                            System.out.println("That's not a valid Target");
-                        break;
-                    case SELECTSPELL:
-                        if (spellMap.get(Integer.parseInt(str[1])) != null) {
-                            monsterCardsInBattle.doMagic(null, spellMap.get(Integer.parseInt(str[1])), null);
-                            System.out.println(monsterCardsInBattle.getCardName() + " has cast a spell : \n" + monsterCardsInBattle.getMagicDetail() + "\n");
-                            return false;
-                        }else
-                            System.out.println("That's not a valid Target");
-                        break;
-                    default:
-                        if (monsterMap.get(Integer.parseInt(str[1])) != null) {
-                            monsterCardsInBattle.doMagic(monsterMap.get(Integer.parseInt(str[1])), null, null);
-                            System.out.println(monsterCardsInBattle.getCardName() + " has cast a spell : \n" + monsterCardsInBattle.getMagicDetail() + "\n");
-                            return false;
-                        }
-                        else
-                            System.out.println("That's not a valid Target");
-                        break;
-                }
-            } else if (order.matches("Exit\\s*")) return false;
-            else System.out.println("Incorrect order!");
-            return true;
+                        case SELECTCARD:
+                            if (cardsMap.get(Integer.parseInt(str[1])) != null) {
+                                monsterCardsInBattle.doMagic(null, null, cardsMap.get(Integer.parseInt(str[1])));
+                                System.out.println(monsterCardsInBattle.getCardName() + " has cast a spell : \n" + monsterCardsInBattle.getMagicDetail() + "\n");
+                                return false;
+                            } else
+                                System.out.println("That's not a valid Target");
+                            break;
+                        case SELECTSPELL:
+                            if (spellMap.get(Integer.parseInt(str[1])) != null) {
+                                monsterCardsInBattle.doMagic(null, spellMap.get(Integer.parseInt(str[1])), null);
+                                System.out.println(monsterCardsInBattle.getCardName() + " has cast a spell : \n" + monsterCardsInBattle.getMagicDetail() + "\n");
+                                return false;
+                            } else
+                                System.out.println("That's not a valid Target");
+                            break;
+                        default:
+                            if (monsterMap.get(Integer.parseInt(str[1])) != null) {
+                                monsterCardsInBattle.doMagic(monsterMap.get(Integer.parseInt(str[1])), null, null);
+                                System.out.println(monsterCardsInBattle.getCardName() + " has cast a spell : \n" + monsterCardsInBattle.getMagicDetail() + "\n");
+                                return false;
+                            } else
+                                System.out.println("That's not a valid Target");
+                            break;
+                    }
+                } else if (order.matches("Exit\\s*")) return false;
+                else System.out.println("Incorrect order!");
+                return true;
+            }
+             else {
+                monsterCardsInBattle.doBattleCry(null, null, null);
+                System.out.println(monsterCardsInBattle.getCardName() + " has cast a spell : \n" + monsterCardsInBattle.getBattleCryDetail() + "\n");
+                return false;
+            }
         }
         return false;
     }
 
-    public boolean battleCryOrders(Battler currentBattler, Battler enemyBattler, MonsterCardsInBattle monsterCardsInBattle){
+    public boolean battleCryOrders(MonsterCardsInBattle monsterCardsInBattle , Map<Integer, MonsterCardsInBattle> monsterMap,  Map<Integer, Card> cardsMap, Map<Integer, Spells> spellMap){
+        if(monsterCardsInBattle.getBattleCryType() != MagicType.NONE) {
+            if (monsterCardsInBattle.getBattleCryType() != MagicType.WITHOUTTARGET) {
+                String order = Game.give();
+                if (order.matches("Help\\s*")) {
+                    System.out.println(
+                            "1.\tTarget #TargetNum:To cast the spell on the specified target\n" +
+                                    "2.\tExit: To skip spell casting");
+                } else if (order.matches("Target \\d*")) {
+                    String[] str = order.split("\\s");
+                    switch (monsterCardsInBattle.getBattleCryType()) {
+                        case SELECTCARD:
+                            if (cardsMap.get(Integer.parseInt(str[1])) != null) {
+                                monsterCardsInBattle.doBattleCry(null, null, cardsMap.get(Integer.parseInt(str[1])));
+                                System.out.println(monsterCardsInBattle.getCardName() + " has cast a spell : \n" + monsterCardsInBattle.getBattleCryDetail() + "\n");
+                                return false;
+                            } else
+                                System.out.println("That's not a valid Target");
+                            break;
+                        case SELECTSPELL:
+                            if (spellMap.get(Integer.parseInt(str[1])) != null) {
+                                monsterCardsInBattle.doBattleCry(null, spellMap.get(Integer.parseInt(str[1])), null);
+                                System.out.println(monsterCardsInBattle.getCardName() + " has cast a spell : \n" + monsterCardsInBattle.getBattleCryDetail() + "\n");
+                                return false;
+                            } else
+                                System.out.println("That's not a valid Target");
+                            break;
+                        default:
+                            if (monsterMap.get(Integer.parseInt(str[1])) != null) {
+                                monsterCardsInBattle.doBattleCry(monsterMap.get(Integer.parseInt(str[1])), null, null);
+                                System.out.println(monsterCardsInBattle.getCardName() + " has cast a spell : \n" + monsterCardsInBattle.getBattleCryDetail() + "\n");
+                                return false;
+                            } else
+                                System.out.println("That's not a valid Target");
+                            break;
+                    }
+                } else if (order.matches("Exit\\s*")) return false;
+                else System.out.println("Incorrect order!");
+                return true;
+            }
+            else {
+                monsterCardsInBattle.doBattleCry(null, null, null);
+                System.out.println(monsterCardsInBattle.getCardName() + " has cast a spell : \n" + monsterCardsInBattle.getBattleCryDetail() + "\n");
+                return false;
+            }
+        }
         return false;
     }
 }

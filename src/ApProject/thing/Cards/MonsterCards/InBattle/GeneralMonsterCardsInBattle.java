@@ -10,6 +10,7 @@ import src.ApProject.thing.Cards.Spells.SpellType;
 import src.ApProject.thing.Cards.Spells.Spells;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 public class GeneralMonsterCardsInBattle extends MonsterCardsInBattle {
     public GeneralMonsterCardsInBattle(String cardName, int attackPoint, int healthPoint, MonsterCardSpeciality monsterCardSpeciality, Tribe tribe, ArrayList<Magic> battleCry, ArrayList<Magic> will, Card card, Battler currentBattler, Battler enemyBattler){
@@ -37,9 +38,10 @@ public class GeneralMonsterCardsInBattle extends MonsterCardsInBattle {
         }
         this.battleCryDetail = battleCry.get(0).getmagicDetails();
         this.willDetail = will.get(0).getmagicDetails();
+        ArrayList<Map> map = currentBattler.getMonsterField().printingTargets( currentBattler, enemyBattler, battleCryType);
+        while (currentBattler.getSpellField().battleCryOrders(this, map.get(0), map.get(1), map.get(2)));
     }
 
-    // TODO: 5/21/2018 should be used in battle because it might have a target
     public void doBattleCry(MonsterCardsInBattle monsterCardsInBattle, Spells spells, Card card){
             try {
                 for (Magic magic : battleCry) {

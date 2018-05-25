@@ -55,8 +55,6 @@ public class realBattler extends Battler {
                 System.out.println("HandIndex is not valid.");
             else {
                 hand.get(handIndex - 1).play(this, enemy, slotNum);
-                if (monsterField.getSlot(slotNum) != null && monsterField.getSlot(slotNum).getBattleCrier())
-                    spellField.battleCryOrders(this, enemy, monsterField.getSlot(slotNum));
             }
         } else if (order.matches("View Hand\\s*")) {
             System.out.println("Your Hand :");

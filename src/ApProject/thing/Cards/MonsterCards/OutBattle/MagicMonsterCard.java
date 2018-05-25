@@ -29,7 +29,7 @@ public class MagicMonsterCard extends MonsterCard {
                     currentBattler.setCurrentMana(currentBattler.getCurrentMana() - manaCost);
                     currentBattler.getHand().remove(this);
                     currentBattler.getMonsterField().add(new MagicMonsterCardsInBattle(this.name, this.basicAttackPoint, this.basicHealthPoint, this.monsterCardSpeciality, this.tribe, this.magics,this, currentBattler, enemyBattler), slotNum);
-                    System.out.println(this.name + "was moved from hand to number " + (slotNum + 1) + " slot in the monster field");
+                    System.out.println(this.name + " was moved from hand to number " + (slotNum + 1) + " slot in the monster field "+ this.manaCost + " MP was used.");
                 } else {
                     System.out.println("That slot is full.");
                 }

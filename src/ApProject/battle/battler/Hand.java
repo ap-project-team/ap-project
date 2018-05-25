@@ -8,7 +8,7 @@ import java.util.Random;
 
 
 public class Hand {
-    //Don't change
+
     ArrayList<Card> hand = new ArrayList<>();
 
     public void add(Card card){
