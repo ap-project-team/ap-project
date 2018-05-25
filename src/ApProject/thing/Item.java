@@ -29,6 +29,7 @@ public class Item extends Thing{
     public void useItem(Battler battler){
         battler.setCurrentMana(battler.getCurrentMana()+increaseMP);
         battler.changeHealthPoint(increaseHP);
+        System.out.println("Item used.");
     }
 
     public String getInfo(){
