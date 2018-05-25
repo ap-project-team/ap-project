@@ -1,13 +1,16 @@
 package src.ApProject.battle.battler;
 
 
+import src.ApProject.battle.battleField.SpellField;
 import src.ApProject.constants.ConstantDatas;
 import src.ApProject.thing.Cards.Card;
+import src.ApProject.thing.Cards.Magic.MagicType;
 import src.ApProject.thing.Cards.MonsterCards.InBattle.MonsterCardsInBattle;
 import src.ApProject.thing.Cards.MonsterCards.OutBattle.MonsterCard;
 
 import java.awt.image.AreaAveragingScaleFilter;
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.Random;
 
 
@@ -55,6 +58,14 @@ public class AI_Battler extends Battler {
                             + enemyMonsterField.get(rand).getCardName());
                     monsterField.getSlot(i).attack(enemyMonsterField.get(rand));
                 }
+            }
+        }
+        for (int i=0; i<monsterField.getSize(); i++) {
+            if (monsterField.getSlot(i) != null && monsterField.getSlot(i).getMagicType() != MagicType.NONE
+                    && !monsterField.getSlot(i).isMagicUsed()) {
+                ArrayList<Map> map = this.getMonsterField().printingTargets(this, enemy, monsterField.getSlot(i).getMagicType());
+                while (this.getSpellField().spellCastingOrders(monsterField.getSlot(i), map.get(0), map.get(1), map.get(2)))
+                    ;
             }
         }
     }

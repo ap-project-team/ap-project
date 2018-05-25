@@ -13,11 +13,12 @@ import java.util.Random;
 
 abstract public class Battler {
     private String name;
-    String type;
+    protected String type;
 
     MonsterField monsterField = new MonsterField();
     SpellField spellField = new SpellField();
     GraveYard graveYard = new GraveYard();
+
 
     int HP = 10000;
 
@@ -33,6 +34,9 @@ abstract public class Battler {
     protected ArrayList<Card> deck;
     protected Hand hand = new Hand();
 
+    public String getType() {
+        return type;
+    }
 
     public void setEnemy(Battler enemy) {
         this.enemy = enemy;
@@ -87,7 +91,7 @@ abstract public class Battler {
         if (currentMaxMP < MAX_MP) currentMaxMP++;
         currentMP = currentMaxMP;
 
-        spellField.nextTurne();
+        spellField.nextTurn();
         monsterField.nextTurn();
 
         String addedCard = "Your hand is full.";

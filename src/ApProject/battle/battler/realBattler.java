@@ -35,8 +35,9 @@ public class realBattler extends Battler {
                     "5. View SpellField: To view the cards in both ’players spell fields \n" +
                     "6. View MonsterField: To view the cards in both ’players monster fields \n" +
                     "7. Battler Info: To view your HP and Mana.\n"+
-                    "8. Info \"Card Name\": To view full information about a card\n" +
-                    "9. Done: To end your turn");
+                    "8. Use Item #ItemName: To use some of your items."+
+                    "9. Info \"Card Name\": To view full information about a card\n" +
+                    "10. Done: To end your turn");
         } else if (order.matches("Use \\d*\\s*")) {
             String[] str = order.split("\\s");
             if (monsterField.getSlot(Integer.parseInt(str[1]) - 1) == null)
@@ -79,11 +80,38 @@ public class realBattler extends Battler {
             System.out.println("Your Info :\nCurrentMana :\t" + getCurrentMana()
                     + "\nCurrentHP :\t" + getHealth());
             System.out.println("Enemy Info :\nCurrentHP :\t" + enemy.getHealth());
+        } else if(order.matches("Use Item")) {
+            while (useItemOrders());
         } else if (order.matches("Info \\w*\\s*")) {
             System.out.println(CreatCards.getCard(order.split("\\s")[1]).getInfo());
         } else if (order.matches("Done\\s*")) {
             return false;
         } else System.out.println("Incorrect order!");
+        return true;
+    }
+
+    boolean useItemOrders() {
+        String order = Game.give();
+
+        if (order.matches("Use \\w*\\s*")) {
+            for (int i = 0; i < items.size(); i++) {
+                String str = order.split("\\s*")[1];
+                if (items.get(i).getName().matches(str)) {
+                    items.get(i).useItem(this);
+                    return true;
+                }
+            }
+            System.out.println("You don't have this Item.");
+        } else if (order.matches("Help")) {
+            System.out.println("1.\tUse \"Item Name\": To use item.\n" +
+                    "2.\tView Items: To see your items.\n" +
+                    "3.\tExit: To exit to previous menu");
+        } else if (order.matches("View Items")) {
+            System.out.println("Your Items :");
+            for (int i = 0; i < items.size(); i++)
+                System.out.println((i + 1) + "\t" + items.get(i).getName() + ": " + items.get(i).getInfo());
+        } else if (order.matches("Exit\\s*")) return false;
+        else System.out.println("Incorrect order!");
         return true;
     }
 }

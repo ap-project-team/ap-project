@@ -3,6 +3,7 @@ package src.ApProject.shop;
 import src.ApProject.Game;
 import src.ApProject.constants.ConstantDatas;
 import src.ApProject.player.Player;
+import src.ApProject.thing.Amulet;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -36,9 +37,9 @@ public class AmuletShop {
                     "4. Edit Amulets: To equip or remove your ’heros amulet\n" +
                     "5. Exit: To exit to the shop menu");
         } else if (order.matches("Sell \\w* - \\d*\\s*")) {
-            p.sell(Integer.parseInt(str[3]), str[1], "AMULET");
+            p.sell(Integer.parseInt(str[3]), str[1], "AMULET", Amulet.buildAmulet(str[1]).getPrice());
         } else if (order.matches("Buy \\w* - \\d*\\s*")) {
-            p.buy(Integer.parseInt(str[3]), str[1], "AMULET", shopAmulets);
+            p.buy(Integer.parseInt(str[3]), str[1], "AMULET", shopAmulets, Amulet.buildAmulet(str[1]).getPrice());
         } else if (order.matches("info \\w*\\s*")) ;
             //toDo info
         else if (order.matches("Edit Amulets")) ;
@@ -56,7 +57,7 @@ public class AmuletShop {
         System.out.println("Remaining gil : "+p.getGil());
         System.out.println(" Shop List");
         for(int i=0; i<shopAmulets.size(); i++){
-            System.out.println(i+1+".\t"+shopAmulets.get(i)+"\t"+ ConstantDatas.getPrice(shopAmulets.get(i),"AMULET"));
+            System.out.println(i+1+".\t"+shopAmulets.get(i)+"\t"+ Amulet.buildAmulet(shopAmulets.get(i)).getPrice());
         }
         System.out.println(" Amulet Inventory");
         p.printInventory("AMULET");
