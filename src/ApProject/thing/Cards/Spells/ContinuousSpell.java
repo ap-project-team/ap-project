@@ -35,10 +35,10 @@ public class ContinuousSpell extends Spells{
     // TODO: 5/21/2018  should be called at start of a player's turn
     public void doMagic(){
             try {
+                System.out.println(this.name + " has cast a spell : \n" + magics.get(0).getmagicDetails() + "\n");
                 for (Magic magic : magics) {
                     magic.doMagic(currentBattler, enemyBattler);
                 }
-                System.out.println(this.name + " has cast a spell : \n" + magics.get(0).getmagicDetails() + "\n");
             }
             catch (Exception e) {
                 System.out.println("Continuous Magic Failed");

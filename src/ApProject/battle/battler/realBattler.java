@@ -14,13 +14,17 @@ import java.util.ArrayList;
 public class realBattler extends Battler {
 
     protected ArrayList<Item> items;
-    protected Amulet amulet;
+
 
     public realBattler(String name, Card[] realDeck, ArrayList<Item> realItems, Amulet realAmulet) {
         super(name, realDeck);
         this.amulet = realAmulet;
         this.items = realItems;
         type = "PLAYER";
+        this.HP += amulet.getIncreaseHP();
+        this.MAX_HP += amulet.getIncreaseHP();
+        this.currentMP += amulet.getIncreaseMP();
+        this.currentMaxMP += amulet.getIncreaseMP();
     }
 
     @Override
@@ -78,7 +82,7 @@ public class realBattler extends Battler {
             enemy.monsterField.viewMonsterField();
         } else if (order.matches("Battler Info")) {
             System.out.println("Your Info :\nCurrentMana :\t" + getCurrentMana()
-                    + "\nCurrentHP :\t" + getHealth());
+                    + "\nCurrentHP :\t" + getHealth() + "\nAmulet :\t" + this.amulet.getName());
             System.out.println("Enemy Info :\nCurrentHP :\t" + enemy.getHealth());
         } else if(order.matches("Use Item")) {
             while (useItemOrders());

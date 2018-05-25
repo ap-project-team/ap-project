@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class InventoryDeck {
     private String[] slots = new String[ConstantDatas.SIZE_OF_DECK];
-    private String equippedAmulet = "null";
+    private String equippedAmulet = "DemonKing’sCrown";
 
 
     InventoryDeck(){

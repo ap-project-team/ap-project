@@ -2,6 +2,7 @@ package src.ApProject.battle.battler;
 
 import src.ApProject.battle.Battle;
 import src.ApProject.constants.ConstantDatas;
+import src.ApProject.thing.Amulet;
 import src.ApProject.thing.Cards.Card;
 import src.ApProject.battle.battleField.GraveYard;
 import src.ApProject.battle.battleField.MonsterField;
@@ -14,6 +15,7 @@ import java.util.Random;
 abstract public class Battler {
     private String name;
     protected String type;
+    protected Amulet amulet;
 
     MonsterField monsterField = new MonsterField();
     SpellField spellField = new SpellField();
@@ -24,7 +26,7 @@ abstract public class Battler {
 
     int currentMaxMP = 0;
     int currentMP;
-    final int MAX_HP = 10000;
+    int MAX_HP = 10000;
     final int MAX_MP = 10;
 
     protected Battle battle;
@@ -56,6 +58,10 @@ abstract public class Battler {
 
     public int getCurrentMana() {
         return currentMP;
+    }
+
+    public void setCurrentMaxMP(int currentMaxMP) {
+        this.currentMaxMP = currentMaxMP;
     }
 
     public Battler(String name, Card[] realDeck) {
@@ -145,6 +151,7 @@ abstract public class Battler {
         return monsterField;
     }
 
+
     public void setCurrentMana(int currentMana){
         this.currentMP = currentMana;
     }
@@ -163,7 +170,5 @@ abstract public class Battler {
         return spellField;
     }
 
-    public String getType() {
-        return type;
-    }
+    public Amulet getAmulet(){return amulet;}
 }

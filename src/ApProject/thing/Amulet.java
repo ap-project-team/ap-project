@@ -33,5 +33,15 @@ public class Amulet extends Thing{
         return null;
     }
 
+    public int getIncreaseHP() {
+        return increaseHP;
+    }
 
+    public int getIncreaseMP() {
+        return increaseMP;
+    }
+
+    public boolean canAttack() {
+        return attack;
+    }
 }

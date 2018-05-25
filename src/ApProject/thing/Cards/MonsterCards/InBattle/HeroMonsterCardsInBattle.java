@@ -87,6 +87,7 @@ public class HeroMonsterCardsInBattle extends MonsterCardsInBattle{
                         break;
                 }
             }
+            System.out.println(this.cardName + " has cased a spell:\n" + getWillDetail());
         }
         catch (Exception e) {
             System.out.println("That's not a valid Target");

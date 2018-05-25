@@ -82,20 +82,38 @@ public class MonsterCardsInBattle {
         return magicType;
     }
 
-    public Boolean getBattleCrier() {
-        return isBattleCrier;
-    }
-
     public void attack(){
-        if(canAttack)
+        if(canAttack) {
+            if(enemyBattler.getType().equals("PLAYER")){
+                if(enemyBattler.getAmulet().canAttack()){
+                    enemyBattler.changeHealthPoint(-(int)(this.currentAttackPoint * 0.8));
+                }
+            } else
             enemyBattler.changeHealthPoint(-this.currentAttackPoint);
+        }
         canAttack = false;
     }
 
     public void attack(MonsterCardsInBattle targetCard){
         if(canAttack) {
-            this.currentHealthPoint -= targetCard.currentAttackPoint;
-            targetCard.currentHealthPoint -= this.currentAttackPoint;
+            if(currentBattler.getType().equals("PLAYER")){
+                if(currentBattler.getAmulet().canAttack()) {
+                    this.currentHealthPoint -= (int)(targetCard.currentAttackPoint * 0.8);
+                    targetCard.currentHealthPoint -= this.currentAttackPoint;
+                }
+                else {
+                    this.currentHealthPoint -= targetCard.currentAttackPoint;
+                    targetCard.currentHealthPoint -= this.currentAttackPoint;
+                }
+            }else {
+                if(enemyBattler.getAmulet().canAttack()) {
+                    this.currentHealthPoint -= targetCard.currentAttackPoint;
+                    targetCard.currentHealthPoint -= (int)(this.currentAttackPoint * 0.8);
+                } else {
+                    this.currentHealthPoint -= targetCard.currentAttackPoint;
+                    targetCard.currentHealthPoint -= this.currentAttackPoint;
+                }
+            }
             this.checkDeath();
             targetCard.checkDeath();
         }
