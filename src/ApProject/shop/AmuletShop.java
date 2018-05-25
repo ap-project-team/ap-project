@@ -13,16 +13,13 @@ public class AmuletShop {
     static protected List<String> shopAmulets = new ArrayList<>();
 
     {
-        shopAmulets.add("c");
-        shopAmulets.add("b");
-        shopAmulets.add("b");
-        shopAmulets.add("a");
-        shopAmulets.add("c");
-        shopAmulets.add("a");
-        shopAmulets.add("b");
-        shopAmulets.add("a");
-        shopAmulets.add("a");
-        shopAmulets.add("b");
+        shopAmulets.add("IronPendant");
+        shopAmulets.add("GoldPendant");
+        shopAmulets.add("DiamondPendant");
+        shopAmulets.add("IronRing");
+        shopAmulets.add("GoldRing");
+        shopAmulets.add("DiamondRing");
+        shopAmulets.add("DemonKing’sCrown");
     }
 
     protected boolean amuletShopOrders(Player p) {

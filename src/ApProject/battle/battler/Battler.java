@@ -84,7 +84,7 @@ abstract public class Battler {
     protected String addToHand(int num){
         for (int i=0; i<num; i++){
             if (deck.size()>0) {
-                int n = Math.abs(new Random().nextInt()) % deck.size();
+                int n = (new Random().nextInt(deck.size()));
                 hand.add(deck.get(n));
                 deck.remove(n);
             }
