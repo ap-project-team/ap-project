@@ -148,11 +148,10 @@ public class MonsterField {
                     return false;
                 }
             }
-        } else if (order.matches("Cast Spell\\s*") && slots[slotNum].getMagicType() != MagicType.NONE) {
+        } else if (order.matches("Cast Spell\\s*") && slots[slotNum].getMagicType() != MagicType.NONE && !slots[slotNum].isMagicUsed()) {
             Battler currentBattler = player;
             Battler enemyBattler = enemy;
             MonsterCardsInBattle monsterCardsInBattle = slots[slotNum];
-            System.out.println(monsterCardsInBattle.getCardName() + " has cast a spell : \n" + monsterCardsInBattle.getMagicDetail() + "\n");
             Integer count = 1;
             Map<Integer, MonsterCardsInBattle> monsterMap = new HashMap<>();
             Map<Integer, Card> cardsMap = new HashMap<>();

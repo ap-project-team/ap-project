@@ -49,6 +49,10 @@ public class MonsterCardsInBattle {
         return willDetail;
     }
 
+    public boolean isMagicUsed() {
+        return isMagicUsed;
+    }
+
     public boolean isSleep() {
         return isSleep;
     }
@@ -153,7 +157,7 @@ public class MonsterCardsInBattle {
     }
 
     public String getUseInfo(){
-        return "Using : " + this.cardName + "\n" + "HP : " + this.currentHealthPoint + " AP : " + this.currentAttackPoint + "\n" + "Is Sleeping : " + isSleep + "\nCan Attack : " + this.canAttack + ((this.magicType == MagicType.NONE)?"":"\nCan Cast : " + (isMagicUsed?"False":"True"));
+        return "Using : " + this.cardName + "\n" + "HP : " + this.currentHealthPoint + " AP : " + this.currentAttackPoint + "\n" + "Is Sleeping : " + isSleep + "\nCan Attack : " + this.canAttack + ((this.magicType == MagicType.NONE)?"":"\nCan Cast : " + (isSleep?"False":isMagicUsed?"False":"True"));
     }
 
     public void doMagic(MonsterCardsInBattle monsterCardsInBattle, Spells spells, Card card){}

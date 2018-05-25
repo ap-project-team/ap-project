@@ -85,10 +85,13 @@ public class SpellField {
                 switch (monsterCardsInBattle.getMagicType()) {
                     case WITHOUTTARGET:
                         monsterCardsInBattle.doMagic(null, null, null);
-                        break;
+                        System.out.println(monsterCardsInBattle.getCardName() + " has cast a spell : \n" + monsterCardsInBattle.getMagicDetail() + "\n");
+                        return false;
+
                     case SELECTCARD:
                         if (cardsMap.get(Integer.parseInt(str[1])) != null) {
                             monsterCardsInBattle.doMagic(null, null, cardsMap.get(Integer.parseInt(str[1])));
+                            System.out.println(monsterCardsInBattle.getCardName() + " has cast a spell : \n" + monsterCardsInBattle.getMagicDetail() + "\n");
                             return false;
                         }else
                             System.out.println("That's not a valid Target");
@@ -96,6 +99,7 @@ public class SpellField {
                     case SELECTSPELL:
                         if (spellMap.get(Integer.parseInt(str[1])) != null) {
                             monsterCardsInBattle.doMagic(null, spellMap.get(Integer.parseInt(str[1])), null);
+                            System.out.println(monsterCardsInBattle.getCardName() + " has cast a spell : \n" + monsterCardsInBattle.getMagicDetail() + "\n");
                             return false;
                         }else
                             System.out.println("That's not a valid Target");
@@ -103,6 +107,7 @@ public class SpellField {
                     default:
                         if (monsterMap.get(Integer.parseInt(str[1])) != null) {
                             monsterCardsInBattle.doMagic(monsterMap.get(Integer.parseInt(str[1])), null, null);
+                            System.out.println(monsterCardsInBattle.getCardName() + " has cast a spell : \n" + monsterCardsInBattle.getMagicDetail() + "\n");
                             return false;
                         }
                         else
