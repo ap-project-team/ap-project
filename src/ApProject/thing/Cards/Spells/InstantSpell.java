@@ -23,7 +23,7 @@ public class InstantSpell extends Spells{
         if(currentBattler.getCurrentMana()>= manaCost  ) {
                 currentBattler.setCurrentMana(currentBattler.getCurrentMana() - manaCost);
                 currentBattler.getHand().remove(this);
-                // TODO: 5/25/2018 Get Target Instant Spell
+                    while(currentBattler.getSpellField().instantSpellOrders());
         } else
             System.out.println("I don't have enough mana.");
     }

@@ -35,10 +35,10 @@ public class Battle {
         System.out.println("GAME OVER");
 
         String winner = "Draw";
-        if (battlers[0].isAlive()) winner = "ENEMY";
-        else if (battlers[1].isAlive()) winner = "PLAYER";
+        if (battlers[0].isAlive()) winner = "PLAYER";
+        else if (battlers[1].isAlive()) winner = "ENEMY";
 
-        System.out.println(winner+"Wins");
+        System.out.println(winner+" Wins");
 
         return winner;
     }

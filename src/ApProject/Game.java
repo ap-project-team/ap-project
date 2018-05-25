@@ -14,10 +14,12 @@ public class Game {
         return order;
     }
 
-    Player p = new Player();
+
+    Player p ;
     Shop S = new Shop();
-    public Game(){
-        System.out.println("WELCOME");
+
+    public Game(String name){
+        p = new Player(name);
     }
 
     public boolean mainMenuOrders(){

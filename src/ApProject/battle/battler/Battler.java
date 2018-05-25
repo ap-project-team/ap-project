@@ -1,6 +1,7 @@
 package src.ApProject.battle.battler;
 
 import src.ApProject.battle.Battle;
+import src.ApProject.constants.ConstantDatas;
 import src.ApProject.thing.Cards.Card;
 import src.ApProject.battle.battleField.GraveYard;
 import src.ApProject.battle.battleField.MonsterField;
@@ -86,12 +87,19 @@ abstract public class Battler {
         if (currentMaxMP < MAX_MP) currentMaxMP++;
         currentMP = currentMaxMP;
 
+        spellField.nextTurne();
         monsterField.nextTurn();
 
-        String addedCard;
-        if (turnNum != 1 && turnNum != 2)
-            addedCard = addToHand(1);
-        else addedCard = "Your cards has been drawn.";
+        String addedCard = "Your hand is full.";
+        if (turnNum != 1 && turnNum != 2) {
+            if (hand.size() != ConstantDatas.MAX_CARD_IN_HAND)
+                addedCard = addToHand(1);
+            else {
+                int i =(new Random().nextInt(deck.size()));
+                graveYard.add(deck.get(i));
+                deck.remove(i);
+            }
+        }else addedCard = "Your cards has been drawn.";
 
         if (type.equals("PLAYER")) {
             System.out.println(

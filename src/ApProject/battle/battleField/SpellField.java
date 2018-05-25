@@ -6,10 +6,13 @@ import src.ApProject.constants.ConstantDatas;
 import src.ApProject.thing.Cards.Card;
 import src.ApProject.thing.Cards.Magic.MagicType;
 import src.ApProject.thing.Cards.MonsterCards.InBattle.MonsterCardsInBattle;
+import src.ApProject.thing.Cards.MonsterCards.Type;
 import src.ApProject.thing.Cards.Spells.AuraSpell;
+import src.ApProject.thing.Cards.Spells.ContinuousSpell;
 import src.ApProject.thing.Cards.Spells.SpellType;
 import src.ApProject.thing.Cards.Spells.Spells;
 
+import java.security.PublicKey;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -62,6 +65,15 @@ public class SpellField {
 
     public Spells[] getSpells(){
         return slots;
+    }
+
+    public void nextTurne(){
+        for (int i=0; i<slots.length; i++){
+            if (slots[i] != null)
+                if (slots[i].getSpellType() == SpellType.Continuous)
+                    ((ContinuousSpell)slots[i]).doMagic();
+        }
+
     }
 
     public void viewSpellField(){
@@ -172,6 +184,10 @@ public class SpellField {
                 return false;
             }
         }
+        return false;
+    }
+
+    public boolean instantSpellOrders() {
         return false;
     }
 }

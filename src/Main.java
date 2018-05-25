@@ -8,7 +8,12 @@ public class Main {
     public static void main(String[] args) {
         CreatCards.createAllCards();
         ConstantDatas.initData();
-        Game game = new Game();
+
+        System.out.println("'WELCOME TO THIS GAME'");
+        System.out.print("Please Enter Your Name : ");
+
+        Game game = new Game(Game.give());
+
         while (game.mainMenuOrders()) ;
     }
 }

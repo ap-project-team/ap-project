@@ -15,16 +15,14 @@ public class Player {
     private int level = 1;
     private String name;
     private int MysticHourglassNum = 3;
-    private int gil = 1000;
+    private int gil = ConstantDatas.STARTING_GIL;
     private Inventory inventory = new Inventory();
-    private State lastState;
+    private State lastState = new State(gil, inventory);
 
     {
-        name = "MAZ";
-
         inventory.cardInventory.add(new InventoryThing(5, "ElvenHunter"));
         inventory.cardInventory.add(new InventoryThing(5, "YellowDrake"));
-        inventory.cardInventory.add(new InventoryThing(5, "ElvenRanjer"));
+        inventory.cardInventory.add(new InventoryThing(5, "ElvenRanger"));
         inventory.cardInventory.add(new InventoryThing(5, "BlueDragon"));
 
         inventory.itemInventory.add(new InventoryThing(2, "a"));
@@ -32,6 +30,10 @@ public class Player {
 
         inventory.amuletInventory.add(new InventoryThing(1, "c"));
         inventory.amuletInventory.add(new InventoryThing(2, "d"));
+    }
+
+    public Player(String name){
+        this.name = name;
     }
 
     public int getLevel() {
@@ -113,9 +115,11 @@ public class Player {
 
     public boolean defeat() {
         if (MysticHourglassNum > 0) {
-            lastState.getState(gil, inventory);
-            System.out.println("You Used one Mystic Hourglass.");
-            System.out.println("You have " + MysticHourglassNum + "Mystic Hourglass left.");
+            gil = lastState.getGil();
+            inventory = lastState.getInventory();
+
+            System.out.println("\nYou Used one Mystic Hourglass.");
+            System.out.println("You have " + (--MysticHourglassNum) + " Mystic Hourglass left.\n");
             return false;
         }
         return true;
@@ -125,5 +129,10 @@ public class Player {
         gil += 10000*level;
         lastState = new State(gil, inventory);
         level++;
+    }
+
+    public void editDeck(){
+        inventory.deck.printDeckEnteringText(inventory.cardInventory);
+        while (inventory.deck.editDeckOerders(inventory));
     }
 }

@@ -9,8 +9,11 @@ public class State {
         this.inventory = inventory.copy();
     }
 
-    void getState(int gil, Inventory inventory){
-        gil = this.gil;
-        inventory = this.inventory;
+    public int getGil() {
+        return gil;
+    }
+
+    public Inventory getInventory() {
+        return inventory;
     }
 }
