@@ -8,6 +8,7 @@ import src.ApProject.thing.Cards.MonsterCards.MonsterCardSpeciality;
 import src.ApProject.thing.Cards.MonsterCards.Tribe;
 import src.ApProject.thing.Cards.MonsterCards.Type;
 import src.ApProject.thing.Cards.Spells.AuraSpell;
+import src.ApProject.thing.Cards.Spells.InstantSpell;
 import src.ApProject.thing.Cards.Spells.Spells;
 
 import java.util.ArrayList;
@@ -25,9 +26,9 @@ public class MonsterCardsInBattle {
     protected Card card;
     protected Type type;
     protected boolean isMagicUsed = false;
-    protected ArrayList<Magic> battleCry = new ArrayList<>();
-    protected ArrayList<Magic> will = new ArrayList<>();
-    protected ArrayList<Magic>  magics = new ArrayList<>();
+    protected InstantSpell battleCry;
+    protected InstantSpell will;
+    protected InstantSpell  magics;
     protected MonsterCardSpeciality monsterCardSpeciality;
     protected Battler currentBattler;
     protected Battler enemyBattler;
@@ -37,6 +38,8 @@ public class MonsterCardsInBattle {
     protected String magicDetail;
     protected String battleCryDetail;
     protected String willDetail;
+
+    public InstantSpell getMagics() { return magics; }
 
     public String getMagicDetail() {
         return magicDetail;
@@ -51,7 +54,7 @@ public class MonsterCardsInBattle {
     }
 
     public boolean isMagicUsed() {
-        return isMagicUsed;
+        return magics.isMagicUsed();
     }
 
     public boolean isSleep() {
@@ -139,8 +142,10 @@ public class MonsterCardsInBattle {
     public Card getCard() { return card; }
 
     public void checkDeath(){
-        if(this.currentHealthPoint <= 0)
+        if(this.currentHealthPoint <= 0) {
             currentBattler.getMonsterField().remove(this, currentBattler);
+            System.out.println(this.getCardName() + " has been killed!");
+        }
     }
 
     public void changeHealthPoint(int amount){
@@ -165,7 +170,4 @@ public class MonsterCardsInBattle {
         return "Using : " + this.cardName + "\n" + "HP : " + this.currentHealthPoint + " AP : " + this.currentAttackPoint + "\n" + "Is Sleeping : " + isSleep + "\nCan Attack : " + this.canAttack + ((this.magicType == MagicType.NONE)?"":"\nCan Cast : " + (isSleep?"False":isMagicUsed?"False":"True"));
     }
 
-    public void doMagic(MonsterCardsInBattle monsterCardsInBattle, Spells spells, Card card){}
-
-    public void doBattleCry(MonsterCardsInBattle monsterCardsInBattle, Spells spells, Card card){}
 }

@@ -16,7 +16,7 @@ public class ContinuousSpell extends Spells{
 
     public void play(Battler currentBattler, Battler enemyBattler, int slotNum) {
         if(currentBattler.getCurrentMana()>= manaCost  ) {
-            if (currentBattler.getSpellField().getSlot(slotNum) == null) {
+            if (slotNum > -1 && slotNum < 3 && currentBattler.getSpellField().getSlot(slotNum) == null) {
                 currentBattler.setCurrentMana(currentBattler.getCurrentMana() - manaCost);
                 this.currentBattler = currentBattler;
                 this.enemyBattler = enemyBattler;
@@ -24,15 +24,16 @@ public class ContinuousSpell extends Spells{
                 currentBattler.getHand().remove(this);
                 System.out.println(this.name + " was moved from hand to number " + (slotNum + 1) + " slot in the spell field. " + this.manaCost + " MP was used.");
             } else {
-                System.out.println("That slot is full.");
-            }
+                if(slotNum > -1 && slotNum < 3)
+                    System.out.println("That slot is full.");
+                else
+                    System.out.println("Invalid Input");            }
         }
         else {
             System.out.println("I don't have enough mana.");
         }
     }
 
-    // TODO: 5/21/2018  should be called at start of a player's turn
     public void doMagic(){
             try {
                 System.out.println(this.name + " has cast a spell : \n" + magics.get(0).getmagicDetails() + "\n");

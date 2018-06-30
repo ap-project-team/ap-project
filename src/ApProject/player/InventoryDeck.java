@@ -22,10 +22,10 @@ public class InventoryDeck {
             slots[i] = "LunarBlessing";
         for (int i = 15; i < 20; i++)
             slots[i] = "ElvenRanger";
-            for (int i = 20; i < 25; i++)
-                slots[i] = "ElvenRanger";
-                for (int i = 25; i < 30; i++)
-                    slots[i] = "ElvenRanger";
+        for (int i = 20; i < 25; i++)
+            slots[i] = "OgreWarchief";
+        for (int i = 25; i < 30; i++)
+            slots[i] = "OgreWarchief";
     }
 
     InventoryDeck(String[] slots, String equippedAmulet){

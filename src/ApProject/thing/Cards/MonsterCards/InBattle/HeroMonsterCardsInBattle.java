@@ -6,6 +6,7 @@ import src.ApProject.thing.Cards.Magic.Magic;
 import src.ApProject.thing.Cards.MonsterCards.MonsterCardSpeciality;
 import src.ApProject.thing.Cards.MonsterCards.Tribe;
 import src.ApProject.thing.Cards.Spells.AuraSpell;
+import src.ApProject.thing.Cards.Spells.InstantSpell;
 import src.ApProject.thing.Cards.Spells.SpellType;
 import src.ApProject.thing.Cards.Spells.Spells;
 
@@ -13,7 +14,7 @@ import java.util.ArrayList;
 import java.util.Map;
 
 public class HeroMonsterCardsInBattle extends MonsterCardsInBattle{
-    public HeroMonsterCardsInBattle(String cardName, int attackPoint, int healthPoint, MonsterCardSpeciality monsterCardSpeciality, Tribe tribe, ArrayList<Magic> magics, ArrayList<Magic> battleCry, ArrayList<Magic> will, Card card, Battler currentBattler, Battler enemyBattler){
+    public HeroMonsterCardsInBattle(String cardName, int attackPoint, int healthPoint, MonsterCardSpeciality monsterCardSpeciality, Tribe tribe, InstantSpell magics, InstantSpell battleCry, InstantSpell will, Card card, Battler currentBattler, Battler enemyBattler){
         this.cardName = cardName;
         this.basicHealthPoint = healthPoint;
         this.currentAttackPoint = attackPoint;
@@ -21,17 +22,17 @@ public class HeroMonsterCardsInBattle extends MonsterCardsInBattle{
         this.monsterCardSpeciality = monsterCardSpeciality;
         this.tribe = tribe;
         this.card = card;
-        this.magics.addAll(magics);
-        this.battleCry.addAll(battleCry);
-        this.will.addAll(will);
+        this.magics = magics;
+        this.battleCry = battleCry;
+        this.will = will;
         this.currentBattler = currentBattler;
         this.enemyBattler = enemyBattler;
         this.isBattleCrier = true;
-        this.magicType = magics.get(0).getMagicType();
-        this.battleCryType = battleCry.get(0).getMagicType();
-        this.magicDetail = magics.get(0).getmagicDetails();
-        this.battleCryDetail = battleCry.get(0).getmagicDetails();
-        this.willDetail = will.get(0).getmagicDetails();
+        this.magicType = magics.getMagicType();
+        this.battleCryType = battleCry.getMagicType();
+        this.magicDetail = magics.getMagicDetails();
+        this.battleCryDetail = battleCry.getMagicDetails();
+        this.willDetail = will.getMagicDetails();
         if(this.monsterCardSpeciality == MonsterCardSpeciality.Charge){
             canAttack = true;
             isSleep = false;
@@ -42,89 +43,13 @@ public class HeroMonsterCardsInBattle extends MonsterCardsInBattle{
                     this.addAuraEffect((AuraSpell) spell);
         }
         ArrayList<Map> map = currentBattler.getMonsterField().printingTargets( currentBattler, enemyBattler, battleCryType);
-        while (currentBattler.getSpellField().battleCryOrders(currentBattler,this, map.get(0), map.get(1), map.get(2)));
+        while (currentBattler.getSpellField().instantSpellOrders(currentBattler, enemyBattler, battleCry, map.get(0), map.get(1), map.get(2)));
     }
-
-    public void doBattleCry(MonsterCardsInBattle monsterCardsInBattle, Spells spells, Card card){
-        try {
-            for (Magic magic : battleCry) {
-                switch (magic.getMagicType()) {
-                    case WITHOUTTARGET:
-                        magic.doMagic(currentBattler, enemyBattler);
-                        break;
-                    case SELECTCARD:
-                        magic.doMagic(card, currentBattler, enemyBattler);
-                        break;
-                    case SELECTSPELL:
-                        magic.doMagic(spells, currentBattler, enemyBattler);
-                        break;
-                    default:
-                        magic.doMagic(monsterCardsInBattle, currentBattler, enemyBattler);
-                        break;
-                }
-            }
-        }
-        catch (Exception e) {
-            System.out.println("That's not a valid Target");
-        }
-    }
-
-    public void doWill(MonsterCardsInBattle monsterCardsInBattle, Spells spells, Card card){
-        try {
-            for (Magic magic : will) {
-                switch (magic.getMagicType()) {
-                    case WITHOUTTARGET:
-                        magic.doMagic(currentBattler, enemyBattler);
-                        break;
-                    case SELECTCARD:
-                        magic.doMagic(card, currentBattler, enemyBattler);
-                        break;
-                    case SELECTSPELL:
-                        magic.doMagic(spells, currentBattler, enemyBattler);
-                        break;
-                    default:
-                        magic.doMagic(monsterCardsInBattle, currentBattler, enemyBattler);
-                        break;
-                }
-            }
-            System.out.println(this.cardName + " has cased a spell:\n" + getWillDetail());
-        }
-        catch (Exception e) {
-            System.out.println("That's not a valid Target");
-        }
-    }
-
-    public void doMagic(MonsterCardsInBattle monsterCardsInBattle, Spells spells, Card card){
-        if(!isMagicUsed) {
-            try {
-                for (Magic magic : magics) {
-                    switch (magic.getMagicType()) {
-                        case WITHOUTTARGET:
-                            magic.doMagic(currentBattler, enemyBattler);
-                            break;
-                        case SELECTCARD:
-                            magic.doMagic(card, currentBattler, enemyBattler);
-                            break;
-                        case SELECTSPELL:
-                            magic.doMagic(spells, currentBattler, enemyBattler);
-                            break;
-                        default:
-                            magic.doMagic(monsterCardsInBattle, currentBattler, enemyBattler);
-                            break;
-                    }
-                }
-                isMagicUsed = true;
-            }
-            catch (Exception e) {
-                System.out.println("That's not a valid Target");
-                isMagicUsed = false;
-            }
-        }
-    }
-
     public void checkDeath() {
-        if(this.currentHealthPoint <= 0)
+        if(this.currentHealthPoint <= 0) {
             currentBattler.getMonsterField().remove(this, currentBattler);
-        doWill(null,null,null);
+            System.out.println(this.getCardName() + " has been killed!");
+            while (currentBattler.getSpellField().instantSpellOrders(currentBattler, enemyBattler,this.will, null, null, null));
+        }
     }
 }

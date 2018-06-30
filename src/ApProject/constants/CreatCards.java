@@ -23,8 +23,9 @@ public abstract class CreatCards {
     public static void createAllCards(){
         ArrayList<Magic> magics = new ArrayList<>();
         ArrayList<Magic> inverseMagic = new ArrayList<>();
-        ArrayList<Magic> battleCry =  new ArrayList<>();
-        ArrayList<Magic> will = new ArrayList<>();
+        InstantSpell battleCry;
+        InstantSpell magicalSpell;
+        InstantSpell will;
 
         magics.add(new ChangeHPOfPlayerOrMS(-500, "ThrowingKnives : Deal 500 Damage to a selected enemy monster card on the field or to enemy Player"));
         allCards.put("ThrowingKnives",new InstantSpell("ThrowingKnives",3, magics));
@@ -49,7 +50,7 @@ public abstract class CreatCards {
 
         magics.add(new ChangeHPBasedOnTribe(300, 300, Tribe.Elven, "Lunar Blessing : Increase AP and HP of friendly Elven monster cards by 300"));
         inverseMagic.add(new ChangeHPBasedOnTribe(-300, -300, Tribe.Elven, "Lunar Blessing : Increase AP and HP of friendly Elven monster cards by 300"));
-        allCards.put("LunarBlessing", new AuraSpell("LunarBlessing",1, magics, inverseMagic));
+        allCards.put("LunarBlessing", new AuraSpell("LunarBlessing",6, magics, inverseMagic));
         magics.clear();
         inverseMagic.clear();
 
@@ -104,28 +105,35 @@ public abstract class CreatCards {
         allCards.put("ElvenAssassin", new NormalMonsterCard("ElvenAssassin", 1200, 800, 5, MonsterCardSpeciality.Normal, Tribe.Elven));
 
         magics.add(new ChangeHPAndAP(300, 500, 0, "Rejuvenation : Increase a selected friendly monster card's HP by 500 and AP by 300"));
-        allCards.put("ElvenDruid" , new MagicMonsterCard("ElvenDruid", 600, 1200, 5, MonsterCardSpeciality.Normal, Tribe.Elven, magics));
+        magicalSpell = new InstantSpell("ElvenDruid",0,magics);
+        allCards.put("ElvenDruid" , new MagicMonsterCard("ElvenDruid", 600, 1200, 5, MonsterCardSpeciality.Normal, Tribe.Elven, magicalSpell));
         magics.clear();
 
         magics.add(new ChangeAllHPAndAP(0,0,0,400, "Arcane Explosion : Deal 400 damage to all enemy monster cards and remove a random spell card form enemy field and move it to graveyard"));
         magics.add(new RemoveRandomSpell(""));
-        allCards.put("ElvenSorceress", new MagicMonsterCard("ElvenSorceress", 1000, 1000, 7, MonsterCardSpeciality.Charge, Tribe.Elven,magics));
+        magicalSpell = new InstantSpell("ElvenSorceress", 0, magics);
+        allCards.put("ElvenSorceress", new MagicMonsterCard("ElvenSorceress", 1000, 1000, 7, MonsterCardSpeciality.Charge, Tribe.Elven, magicalSpell));
         magics.clear();
 
-        battleCry.add(new RemoveAllSpells("Purge : Remove all enemy spell cards on the field and move them to hand"));
-        will.add(new ChangeRandomMSBasedOnTribe(600, 800 , Tribe.Elven, "Increase a random friendly Elven monster card on the field's HP by 800 and AP by 600"));
+        magics.add(new RemoveAllSpells("Purge : Remove all enemy spell cards on the field and move them to hand"));
+        battleCry = new InstantSpell("NobleElf", 0 , magics);
+        magics.clear();
+        magics.add(new ChangeRandomMSBasedOnTribe(600, 800 , Tribe.Elven, "Increase a random friendly Elven monster card on the field's HP by 800 and AP by 600"));
+        will = new InstantSpell("NobleElf",0, magics);
         allCards.put("NobleElf", new GeneralMonsterCard("NobleElf", 2000, 2400, 9, MonsterCardSpeciality.Normal, Tribe.Elven, battleCry, will));
-        battleCry.clear();
-        will.clear();
-
-        battleCry.add(new RemoveGraveYard(2, "ReviveAllies : move two random cards from your graveyard to hand"));
-        magics.add(new ChangeHPOfPlayerOrMS(2500,"DivineBlessing : Increase HP of a friendly monster card or player by 2500"));
-        will.add(new ChangeAllHPAndAP(200,500,0,0,"Burst of Light : Increase HP of all friendly monster cards and player by 500 and increase AP of all friendly monster cards by 200"));
-        will.add(new ChangePlayerHP(500,0,""));
-        allCards.put("Luthien,TheHighPriestess", new HeroMonsterCard("Luthien,TheHighPriestess", 2000, 2500, 1, MonsterCardSpeciality.Normal, Tribe.Elven, magics, battleCry,will));
         magics.clear();
-        battleCry.clear();
-        will.clear();
+
+        magics.add(new RemoveGraveYard(2, "ReviveAllies : move two random cards from your graveyard to hand"));
+        battleCry = new InstantSpell("Luthien,TheHighPriestess",0, magics);
+        magics.clear();
+        magics.add(new ChangeHPOfPlayerOrMS(2500,"DivineBlessing : Increase HP of a friendly monster card or player by 2500"));
+        magicalSpell = new InstantSpell("Luthien,TheHighPriestess", 0, magics);
+        magics.clear();
+        magics.add(new ChangeAllHPAndAP(200,500,0,0,"Burst of Light : Increase HP of all friendly monster cards and player by 500 and increase AP of all friendly monster cards by 200"));
+        magics.add(new ChangePlayerHP(500,0,""));
+        will = new InstantSpell("Luthien,TheHighPriestess", 0 , magics);
+        allCards.put("Luthien,TheHighPriestess", new HeroMonsterCard("Luthien,TheHighPriestess", 2000, 2500, 9, MonsterCardSpeciality.Normal, Tribe.Elven, magicalSpell, battleCry,will));
+        magics.clear();
 
         allCards.put("LesserWhelp", new NormalMonsterCard("LesserWhelp", 300, 500,1, MonsterCardSpeciality.Normal, Tribe.DragonBreed));
 
@@ -138,8 +146,27 @@ public abstract class CreatCards {
         allCards.put("GoblinSmuggler", new NormalMonsterCard("GoblinSmuggler", 400, 600,2, MonsterCardSpeciality.Normal, Tribe.Demonic));
 
         magics.add(new ChangeHPOfPlayerOrMS(400, "Mend : Increase a friendly monster card or player's HP by 400"));
-        allCards.put("GoblinShaman", new MagicMonsterCard("GoblinShaman", 700,1000,4, MonsterCardSpeciality.Normal, Tribe.Demonic, magics));
+        magicalSpell = new InstantSpell("GoblinShaman", 0 , magics);
+        allCards.put("GoblinShaman", new MagicMonsterCard("GoblinShaman", 700,1000,4, MonsterCardSpeciality.Normal, Tribe.Demonic, magicalSpell));
         magics.clear();
+
+        allCards.put("OgreWarrior", new NormalMonsterCard("OgreWarrior", 500, 800, 3, MonsterCardSpeciality.Normal, Tribe.Demonic));
+
+        allCards.put("OgreFrontliner", new NormalMonsterCard("OgreFrontliner", 600, 1800, 5,MonsterCardSpeciality.Taunt, Tribe.Demonic));
+
+        magics.add(new ChangeHPAndAP(400,0, 0, "Enrage: Increase a friendly monster card’s AP by 400"));
+        magicalSpell = new InstantSpell("OgreMagi", 0, magics);
+        magics.clear();
+        allCards.put("OgreMagi", new MagicMonsterCard("OgreMagi", 800, 1500, 5, MonsterCardSpeciality.Normal, Tribe.Demonic, magicalSpell));
+
+        magics.add(new ChangeAllHPAndAP(0,-400, 0, -400, "War Stomp: Deal 400 damage to all enemy monster cards and player"));
+        magics.add(new ChangePlayerHP(-400, -400, ""));
+        battleCry = new InstantSpell("OgreWarchief", 0, magics);
+        magics.clear();
+        magics.add(new ChangeAllHPAndAP(300,0,0,0,"Last Order: Increase all friendly monster cards’ AP by 300"));
+        will = new InstantSpell("OgreWarchief",0, magics);
+        magics.clear();
+        allCards.put("OgreWarchief", new GeneralMonsterCard("OgreWarchief", 1500, 2500, 7,MonsterCardSpeciality.Normal, Tribe.Demonic, battleCry, will));
 
     }
 

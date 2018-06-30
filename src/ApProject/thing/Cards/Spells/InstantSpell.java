@@ -11,6 +11,8 @@ import java.util.Map;
 
 public class InstantSpell extends Spells{
     private MagicType magicType;
+    private boolean isMagicUsed = false;
+
     public InstantSpell(String name, int manaCost, ArrayList<Magic> magics){
         this.name = name;
         this.manaCost = manaCost;
@@ -27,12 +29,12 @@ public class InstantSpell extends Spells{
                 this.currentBattler = currentBattler;
                 this.enemyBattler = enemyBattler;
                 ArrayList<Map> map = currentBattler.getMonsterField().printingTargets( currentBattler, enemyBattler, magicType);
-                while (currentBattler.getSpellField().instantSpellOrders(currentBattler,this, map.get(0), map.get(1), map.get(2)));
+                while (currentBattler.getSpellField().instantSpellOrders(currentBattler, enemyBattler,this, map.get(0), map.get(1), map.get(2)));
         } else
             System.out.println("I don't have enough mana.");
     }
     
-    public void doMagic(MonsterCardsInBattle monsterCardsInBattle, Spells spells, Card card){
+    public void doMagic(Battler currentBattler, Battler enemyBattler, MonsterCardsInBattle monsterCardsInBattle, Spells spells, Card card){
         try {
             for (Magic magic : magics) {
                 switch (magic.getMagicType()) {
@@ -50,16 +52,16 @@ public class InstantSpell extends Spells{
                         break;
                 }
             }
+            isMagicUsed = true;
         }
         catch (Exception e) {
             System.out.println("That's not a valid Target");
-            currentBattler.getHand().add(this);
-            currentBattler.setCurrentMana(currentBattler.getCurrentMana() + manaCost);
         }
     }
 
     public MagicType getMagicType() {
         return magicType;
     }
-    
+
+    public boolean isMagicUsed() { return isMagicUsed; }
 }

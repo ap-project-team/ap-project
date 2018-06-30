@@ -33,7 +33,6 @@ public class MonsterField {
     public void remove(MonsterCardsInBattle card, Battler cardOwner) {
         for (int i = 0; i < slots.length; i++)
             if (card.equals(slots[i])) {
-                System.out.println(card.getCardName() + " has been kiled!");
                 cardOwner.getGraveYard().add(slots[i].getCard());
                 slots[i] = null;
                 return;
@@ -101,7 +100,7 @@ public class MonsterField {
     public void viewMonsterField() {
         for (int i = 0; i < slots.length; i++)
             if (slots[i] == null)
-                System.out.println((i + 1) + ".\tEmpety");
+                System.out.println((i + 1) + ".\tEmpty");
             else System.out.println((i + 1) + ".\t" + slots[i].getInfoInMonsterField());
     }
 
@@ -150,7 +149,7 @@ public class MonsterField {
             }
         } else if (order.matches("Cast Spell\\s*") && slots[slotNum].getMagicType() != MagicType.NONE && !slots[slotNum].isMagicUsed() && !slots[slotNum].isSleep()) {
             ArrayList<Map> map= player.getMonsterField().printingTargets(player,enemy, slots[slotNum].getMagicType());
-            while (player.getSpellField().spellCastingOrders( player, slots[slotNum], map.get(0), map.get(1), map.get(2))){
+            while (player.getSpellField().instantSpellOrders( player, enemy,slots[slotNum].getMagics(), map.get(0), map.get(1), map.get(2))){
             }
         } else if (order.matches("Info\\s*")) {
             System.out.println(slots[slotNum].getCard().getInfo());

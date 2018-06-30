@@ -124,7 +124,7 @@ abstract public class Battler {
     }
 
     protected boolean turnOrders() {
-        System.out.println("TURN ORDERS DID'NT OVER WRITED PROPERLY.");
+        System.out.println("TURN ORDERS DID'NT OVERWRITE PROPERLY.");
         return true;
     }
 
