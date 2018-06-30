@@ -39,9 +39,9 @@ public class AmuletShop {
             p.buy(Integer.parseInt(str[3]), str[1], "AMULET", shopAmulets, Amulet.buildAmulet(str[1]).getPrice());
         } else if (order.matches("info \\w*\\s*")) ;
             //toDo info
-        else if (order.matches("Edit Amulets")) ;
-            //toDo Edit Amulet
-        else if (order.matches("Again\\s*"))
+        else if (order.matches("Edit Amulets")) {
+
+        }else if (order.matches("Again\\s*"))
             printEnteringText(p);
         else if (order.matches("Exit\\s*"))
             return false;

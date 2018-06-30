@@ -124,10 +124,10 @@ public class Inventory {
 
     private boolean inventoryListOrders(String type) {
         String order = Game.give();
-        if (order.matches("Info \\w*\\s*")) ;
+        if (order.matches("Info \\w*\\s*")) {
             if (type.equals("Card"))
                 CreatCards.getCard(order.split("\\s")[1]).getInfo();
-        else if (order.matches("Exit\\s*"))
+        } else if (order.matches("Exit\\s*"))
             return false;
         else if (order.matches("Help\\s*"))
             System.out.println(

@@ -25,7 +25,7 @@ abstract public class Battler {
     int HP = 10000;
 
     int currentMaxMP = 0;
-    int currentMP;
+    int currentMP = 0;
     int MAX_HP = 10000;
     final int MAX_MP = 10;
 

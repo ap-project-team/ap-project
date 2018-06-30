@@ -13,16 +13,8 @@ public class ItemShop {
     static protected List<String> shopItems = new ArrayList<>();
 
     {
-        shopItems.add("c");
-        shopItems.add("b");
-        shopItems.add("b");
-        shopItems.add("a");
-        shopItems.add("c");
-        shopItems.add("a");
-        shopItems.add("b");
-        shopItems.add("a");
-        shopItems.add("a");
-        shopItems.add("b");
+        shopItems.add("SmallMPPotion");
+        shopItems.add("SmallHPPotion");
     }
 
     protected boolean itemShopOrders(Player p) {

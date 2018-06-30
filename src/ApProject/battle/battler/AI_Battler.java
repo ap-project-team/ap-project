@@ -49,7 +49,7 @@ public class AI_Battler extends Battler {
                 enemyMonsterField.add(enemy.monsterField.getSlot(i));
         for (int i=0; i<monsterField.getSize(); i++){
             if (monsterField.getSlot(i).canAttack()) {
-                int rand = new Random().nextInt(enemyMonsterField.size()+1);
+                int rand = new Random().nextInt(enemyMonsterField.size());
                 if (rand == enemyMonsterField.size()) {
                     System.out.println(monsterField.getSlot(i).getCardName() + " clashed with " + enemy.getName());
                     monsterField.getSlot(i).attack();
