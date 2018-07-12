@@ -60,7 +60,7 @@ public class Inventory {
         return deck.getNumberOfCardsInDeck(name, type);
     }
 
-    public void printInventoy(ArrayList<InventoryThing> list) {
+    public void printInventory(ArrayList<InventoryThing> list) {
         for (int i = 0; i < list.size(); i++) {
             System.out.println(i + 1 + ". " + list.get(i).getName() + " / " + list.get(i).getNum());
         }

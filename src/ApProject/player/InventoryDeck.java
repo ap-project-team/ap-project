@@ -1,5 +1,17 @@
 package src.ApProject.player;
 
+import com.sun.jdi.connect.Connector;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.effect.Glow;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import src.ApProject.Game;
 import src.ApProject.constants.ConstantDatas;
 import src.ApProject.constants.CreatCards;
@@ -9,7 +21,6 @@ import java.util.ArrayList;
 public class InventoryDeck {
     private String[] slots = new String[ConstantDatas.SIZE_OF_DECK];
     private String equippedAmulet = "DemonKing’sCrown";
-
 
     InventoryDeck(){
         for (int i=0; i<slots.length; i++)
@@ -49,6 +60,55 @@ public class InventoryDeck {
         for (int i=0; i<list.size(); i++)
             System.out.println(i+1+".\t"+list.get(i).getNum()+ "\t"+list.get(i).getName()
                     + "\t/\t"+getNumberOfCardsInDeck(list.get(i).getName(),"CARD")+" on deck");
+    }
+
+    protected void editDeck(Pane root) {
+        Scene scene = root.getScene();
+        VBox deckVBox = new VBox(5);
+        deckVBox.setTranslateX(scene.getWidth()-350);
+        deckVBox.setTranslateY(60);
+        Text text = new Text(scene.getWidth()-350, 40 , "Your Deck :");
+        text.setFont(new Font(25));
+        text.setFill(Color.SLATEGRAY);
+        for (int i=0; i<slots.length; i++) {
+            String name = slots[i];
+            ImageView img = new ImageView("./src//source//CARD//" + name + ".png");
+            img.setFitHeight(20);
+            img.setFitWidth(300);
+            img.setEffect(new Glow(0.2));
+            deckVBox.getChildren().addAll(img);
+
+            StackPane info = new StackPane();
+
+            Text t = new Text(CreatCards.getCard(name).getInfo());
+            t.setFont(new Font(10));
+            t.setFill(Color.SLATEGRAY);
+            Rectangle rectangle = new Rectangle(t.maxWidth(100)+10, t.maxHeight(100)+10);
+            rectangle.setFill(Color.LIGHTYELLOW);
+            rectangle.setArcHeight(15);
+            rectangle.setArcWidth(15);
+            info.getChildren().addAll(rectangle, t);
+            info.setAlignment(Pos.CENTER);
+
+            img.setOnMouseEntered(event -> {
+                img.setOpacity(0.6);
+                root.getChildren().addAll(info);
+                info.setTranslateX(event.getSceneX()-5);
+                info.setTranslateY(event.getSceneY()+5);
+            });
+            img.setOnMouseExited(event -> {
+                img.setOpacity(1);
+                root.getChildren().remove(info);
+            });
+            img.setOnMouseDragged(event -> {
+                img.startFullDrag();
+                //System.out.println(img.get());
+            });
+
+        }
+        root.getChildren().addAll(deckVBox, text);
+
+
     }
 
     protected void printAmuletEnteringText(ArrayList<InventoryThing> list){

@@ -1,9 +1,14 @@
 package src.ApProject.shop;
 
+import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import src.ApProject.Game;
+import src.ApProject.graphics.Button;
 import src.ApProject.player.Player;
 
 public class Shop {
+    Pane root = new Pane();
     CardShop cardShop = new CardShop();
     ItemShop itemShop = new ItemShop();
     AmuletShop amuletShop = new AmuletShop();
@@ -14,6 +19,28 @@ public class Shop {
                 "2. Item Shop \n" +
                 "3. Amulet Shop\n" +
                 "4. Exit");
+    }
+
+    public void shopControler(Player p, Scene scene, Pane pastRoot){
+        scene.setRoot(root);
+
+        StackPane cardShopButtom = Button.buildButton("Card Shop");
+        cardShopButtom.setOnMouseClicked(event -> {
+            cardShop.cardShopOrders(p);
+        });
+
+        StackPane itemShopButtom = Button.buildButton("Item Shop");
+        itemShopButtom.setOnMouseClicked(event -> {
+            itemShop.itemShopOrders(p);
+        });
+
+        StackPane amuletShopButtom = Button.buildButton("Amulet Shop");
+        amuletShopButtom.setOnMouseClicked(event -> {
+            amuletShop.amuletShopOrders(p);
+        });
+
+
+        root.getChildren().addAll(Button.buildButtonList(new StackPane[]{cardShopButtom, itemShopButtom, amuletShopButtom}));
     }
 
     public boolean shopOrders(Player p) {

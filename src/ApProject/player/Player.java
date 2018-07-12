@@ -1,5 +1,7 @@
 package src.ApProject.player;
 
+import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
 import src.ApProject.battle.battler.Battler;
 import src.ApProject.battle.battler.realBattler;
 import src.ApProject.constants.*;
@@ -74,7 +76,7 @@ public class Player {
     }
 
     public void printInventory(String type) {
-        inventory.printInventoy(inventory.getList(type));
+        inventory.printInventory(inventory.getList(type));
     }
 
     public void editInventory() {
@@ -126,5 +128,11 @@ public class Player {
     public void editDeck(){
         inventory.deck.printDeckEnteringText(inventory.cardInventory);
         while (inventory.deck.editDeckOrders(inventory));
+    }
+
+    public void editDeck (Scene scene, Pane pastRoot) {
+        Pane root = new Pane();
+        scene.setRoot(root);
+        inventory.deck.editDeck(root);
     }
 }

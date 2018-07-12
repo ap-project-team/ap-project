@@ -1,11 +1,20 @@
 package src.ApProject.thing;
 
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.StackPane;
+
 abstract public class Thing {
     public static String thingType;
     protected String name;
     protected int price;
+    protected ImageView image;
 
-   /* public Thing(String name, int price) {
+    {
+        try {
+            image = new ImageView("./src//source//" + thingType + "//" + name + ".png");
+        } catch (Exception e) {} //{ image = new ImageView("./src//source//a.jpeg");}
+    }
+    /* public Thing(String name, int price) {
         this.name = name;
         this.price = price;
     }*/
@@ -21,5 +30,9 @@ abstract public class Thing {
 
     public int getPrice() {
         return price;
+    }
+
+    public ImageView getImage(){
+        return image;
     }
 }

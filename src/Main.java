@@ -4,9 +4,8 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import src.ApProject.Game;
 import src.ApProject.constants.CreatCards;
-import src.ApProject.controler.MainMenu;
+import src.ApProject.MainMenu;
 
 import java.util.ArrayList;
 
@@ -21,16 +20,18 @@ public class Main extends Application{
         ArrayList<String> addAll = new ArrayList<>();
         CreatCards.createAllCards();
 
-        //Scene scene = new Scene(new Pane());
-        //stage.setScene(new MainMenu().buildMainMenu(scene));
+        Scene scene = new Scene(new Pane());
+        stage.setScene(new MainMenu().buildMainMenu(scene));
 
-       // stage.show();
+        stage.setFullScreen(true);
+        stage.show();
 
         System.out.println("'WELCOME TO THIS GAME'");
-        System.out.print("Please Enter Your Name : ");
+        System.out.println("Please Enter Your Name : ");
 
-        Game game = new Game(Game.give());
 
-        while (game.mainMenuOrders()) ;
+        //Game game = new Game("name", scene, new Pane());
+
+        //while (game.mainMenuOrders(Game.give())) ;
     }
 }
