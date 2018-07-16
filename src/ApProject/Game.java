@@ -28,7 +28,7 @@ public class Game {
                 "3. Next: To go to deck and amulet customization");
         String order = give();
         if (order.matches("Enter Shop\\s*")) {
-            System.out.println("Welcom To Shop :");
+            System.out.println("Welcome To Shop :");
             while (S.shopOrders(p)) ;
         } else if(order.matches("Edit Inventory\\s*")) {
             p.editInventory() ;

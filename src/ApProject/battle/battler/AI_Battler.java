@@ -1,14 +1,11 @@
 package src.ApProject.battle.battler;
 
 
-import src.ApProject.battle.battleField.SpellField;
-import src.ApProject.constants.ConstantDatas;
+import src.ApProject.constants.ConstantData;
 import src.ApProject.thing.Cards.Card;
 import src.ApProject.thing.Cards.Magic.MagicType;
 import src.ApProject.thing.Cards.MonsterCards.InBattle.MonsterCardsInBattle;
-import src.ApProject.thing.Cards.MonsterCards.OutBattle.MonsterCard;
 
-import java.awt.image.AreaAveragingScaleFilter;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Random;
@@ -33,7 +30,7 @@ public class AI_Battler extends Battler {
         hand.shuffleHand();
         for (int i = 0; i < hand.size(); i++)
             if (hand.get(i).getManaCost() <= getCurrentMana())
-                for (int j = 0; j < ConstantDatas.SIZE_OF_MONSTERFIELD; j++)
+                for (int j = 0; j < ConstantData.SIZE_OF_MONSTERFIELD; j++)
                     if (monsterField.getSlot(j) == null) {
                         hand.get(i).play(this, enemy, j);
                         break;

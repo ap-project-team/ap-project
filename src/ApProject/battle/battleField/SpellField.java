@@ -2,17 +2,12 @@ package src.ApProject.battle.battleField;
 
 import src.ApProject.Game;
 import src.ApProject.battle.battler.Battler;
-import src.ApProject.constants.ConstantDatas;
+import src.ApProject.constants.ConstantData;
 import src.ApProject.thing.Cards.Card;
 import src.ApProject.thing.Cards.Magic.MagicType;
 import src.ApProject.thing.Cards.MonsterCards.InBattle.MonsterCardsInBattle;
-import src.ApProject.thing.Cards.MonsterCards.OutBattle.MonsterCard;
-import src.ApProject.thing.Cards.MonsterCards.Type;
 import src.ApProject.thing.Cards.Spells.*;
 
-import java.security.PublicKey;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
@@ -20,7 +15,7 @@ import static src.ApProject.thing.Cards.Magic.MagicType.WITHOUTTARGET;
 
 public class SpellField {
 
-    private Spells[] slots = new Spells[ConstantDatas.SIZE_OF_SpellField];
+    private Spells[] slots = new Spells[ConstantData.SIZE_OF_SpellField];
 
     public void add(Spells spells, int slotNum){
         if (slots[slotNum] == null)

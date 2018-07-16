@@ -1,7 +1,7 @@
 package src.ApProject.battle.battler;
 
 import src.ApProject.battle.Battle;
-import src.ApProject.constants.ConstantDatas;
+import src.ApProject.constants.ConstantData;
 import src.ApProject.thing.Amulet;
 import src.ApProject.thing.Cards.Card;
 import src.ApProject.battle.battleField.GraveYard;
@@ -102,7 +102,7 @@ abstract public class Battler {
 
         String addedCard = "Your hand is full.";
         if (turnNum != 1 && turnNum != 2) {
-            if (hand.size() != ConstantDatas.MAX_CARD_IN_HAND)
+            if (hand.size() != ConstantData.MAX_CARD_IN_HAND)
                 addedCard = addToHand(1);
             else {
                 int i =(new Random().nextInt(deck.size()));

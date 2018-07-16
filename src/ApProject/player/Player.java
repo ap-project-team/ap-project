@@ -14,7 +14,7 @@ public class Player {
     private int level = 1;
     private String name;
     private int MysticHourglassNum = 3;
-    private int gil = ConstantDatas.STARTING_GIL;
+    private int gil = ConstantData.STARTING_GIL;
     private Inventory inventory = new Inventory();
     private State lastState = new State(gil, inventory);
 
@@ -87,7 +87,7 @@ public class Player {
     }
 
     public Battler becomeBattler() {
-        Card[] realDeck = new Card[ConstantDatas.SIZE_OF_DECK];
+        Card[] realDeck = new Card[ConstantData.SIZE_OF_DECK];
         ArrayList<Item> realItems = new ArrayList<>();
         Amulet realAmulet = Amulet.buildAmulet(inventory.deck.getEquippedAmulet());
 

@@ -7,7 +7,7 @@ import src.ApProject.thing.Thing;
 import java.util.ArrayList;
 
 
-public abstract class ConstantDatas {
+public abstract class ConstantData {
     private static ArrayList<Item> items = new ArrayList<>();
     private static ArrayList<Amulet> amulets = new ArrayList<>();
 
@@ -17,4 +17,6 @@ public abstract class ConstantDatas {
     public final static int SIZE_OF_MONSTERFIELD = 5;
     public final static int SIZE_OF_SpellField = 3;
     public final static int SIZE_OF_HAND = 10;
+    public final static int SCENE_LENGTH = 1800;
+    public final static int SCENE_HEIGHT = 900;
 }
