@@ -10,13 +10,16 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Rectangle;
 import src.ApProject.battle.Battle;
 import src.ApProject.constants.AI_BattlerBuilder;
 import src.ApProject.graphics.ImageButton;
 import src.ApProject.graphics.Button;
+import src.ApProject.graphics.Message;
 import src.ApProject.player.Player;
 import src.ApProject.shop.Shop;
 
+import java.awt.*;
 import java.io.File;
 import java.util.Scanner;
 
@@ -97,6 +100,21 @@ public class Game {
         player.setFitWidth(30);
         final File[] currentMove = {new File("./src//source//player//New folder")};
 
+        Rectangle rectangle = new Rectangle(100,100,100,100);
+        root.getChildren().addAll(rectangle);
+        rectangle.setOnMouseClicked(event -> {
+            if (p.isReadyForBattle()) {
+                Battle battle = new Battle(p.becomeBattler(), AI_BattlerBuilder.build(p.getLevel()));
+                String result = battle.play(scene, root);
+                if (result.equals("PLAYER")) p.win();
+                else if (result.equals("ENEMY"))
+                    if (p.defeat()) {
+                        System.out.println("YOU ARE OUT OF Mystic Hourglass.");
+                        System.out.println("Good Game!\tWell Played!");
+                        System.out.println("GAME OVER\nThe End");
+                    }
+            } else Message.buildMessage("Your deck is not full.", root);
+        });
 
         root.getChildren().addAll(player);
 
@@ -181,10 +199,10 @@ public class Game {
             editDeck.setOnMouseClicked(event -> p.editDeck(scene, root));
 
             StackPane items = ImageButton.buildButton("./src//source//ITEM//item.jpg");
-            items.setOnMouseClicked(event -> p.printInventory("ITEM"));
+            items.setOnMouseClicked(event -> p.viewInventory(scene, root, "ITEM"));
 
             StackPane amulets = ImageButton.buildButton("./src//source//AMULET//amulet.gif");
-            amulets.setOnMouseClicked(event -> p.printInventory("AMULET"));
+            amulets.setOnMouseClicked(event -> p.editAmulet(scene, root));
 
             StackPane back = ImageButton.buildButton("./src//source//back.png");
 

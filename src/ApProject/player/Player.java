@@ -5,10 +5,12 @@ import javafx.scene.layout.Pane;
 import src.ApProject.battle.battler.Battler;
 import src.ApProject.battle.battler.realBattler;
 import src.ApProject.constants.*;
+import src.ApProject.graphics.BackButton;
 import src.ApProject.thing.Amulet;
 import src.ApProject.thing.Cards.Card;
 import src.ApProject.thing.Item;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -131,8 +133,27 @@ public class Player {
     }
 
     public void editDeck (Scene scene, Pane pastRoot) {
+        inventory.editDeck(scene, pastRoot);
+    }
+
+    public void viewInventory(Pane root, String type) {
+        inventory.viewInventory(root, type, inventory.getList(type));
+    }
+
+    public void viewInventory(Scene scene, Pane pastRoot, String type){
         Pane root = new Pane();
         scene.setRoot(root);
-        inventory.deck.editDeck(root);
+        root.getChildren().addAll(BackButton.buildBackButton(scene, pastRoot));
+
+        viewInventory(root, type);
+    }
+
+    public void editAmulet(Scene scene, Pane pastRoot){
+        Pane root = new Pane();
+        scene.setRoot(root);
+        root.getChildren().addAll(BackButton.buildBackButton(scene, pastRoot));
+
+        viewInventory(root,"AMULET");
+        inventory.editAmulet(root);
     }
 }

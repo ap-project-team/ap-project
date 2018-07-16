@@ -1,5 +1,6 @@
 package src.ApProject.battle.battler;
 
+import javafx.scene.layout.Pane;
 import src.ApProject.battle.Battle;
 import src.ApProject.constants.ConstantDatas;
 import src.ApProject.thing.Amulet;
@@ -121,6 +122,10 @@ abstract public class Battler {
         } else if (type.equals("ENEMY")) {
             turnOrders();
         }
+    }
+
+    public void playOneTurn(int turnNum, Pane root){
+
     }
 
     protected boolean turnOrders() {

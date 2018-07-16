@@ -3,7 +3,9 @@ package src.ApProject.player;
 import com.sun.jdi.connect.Connector;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.effect.Glow;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -17,6 +19,7 @@ import src.ApProject.constants.ConstantDatas;
 import src.ApProject.constants.CreatCards;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class InventoryDeck {
     private String[] slots = new String[ConstantDatas.SIZE_OF_DECK];
@@ -62,7 +65,7 @@ public class InventoryDeck {
                     + "\t/\t"+getNumberOfCardsInDeck(list.get(i).getName(),"CARD")+" on deck");
     }
 
-    protected void editDeck(Pane root) {
+    protected void viewDeck(Pane root) {
         Scene scene = root.getScene();
         VBox deckVBox = new VBox(5);
         deckVBox.setTranslateX(scene.getWidth()-350);
@@ -72,42 +75,59 @@ public class InventoryDeck {
         text.setFill(Color.SLATEGRAY);
         for (int i=0; i<slots.length; i++) {
             String name = slots[i];
-            ImageView img = new ImageView("./src//source//CARD//" + name + ".png");
-            img.setFitHeight(20);
-            img.setFitWidth(300);
-            img.setEffect(new Glow(0.2));
-            deckVBox.getChildren().addAll(img);
+            if (!name.equals("null")) {
+                ImageView img = new ImageView("./src//source//CARD//" + name + ".png");
+                img.setFitHeight(20);
+                img.setFitWidth(300);
+                img.setEffect(new Glow(0.2));
+                deckVBox.getChildren().addAll(img);
 
-            StackPane info = new StackPane();
+                StackPane info = new StackPane();
 
-            Text t = new Text(CreatCards.getCard(name).getInfo());
-            t.setFont(new Font(10));
-            t.setFill(Color.SLATEGRAY);
-            Rectangle rectangle = new Rectangle(t.maxWidth(100)+10, t.maxHeight(100)+10);
-            rectangle.setFill(Color.LIGHTYELLOW);
-            rectangle.setArcHeight(15);
-            rectangle.setArcWidth(15);
-            info.getChildren().addAll(rectangle, t);
-            info.setAlignment(Pos.CENTER);
+                Text t = new Text(CreatCards.getCard(name).getInfo());
+                t.setFont(new Font(10));
+                t.setFill(Color.SLATEGRAY);
+                Rectangle rectangle = new Rectangle(t.maxWidth(100) + 10, t.maxHeight(100) + 10);
+                rectangle.setFill(Color.LIGHTYELLOW);
+                rectangle.setArcHeight(15);
+                rectangle.setArcWidth(15);
+                info.getChildren().addAll(rectangle, t);
+                info.setAlignment(Pos.CENTER);
 
-            img.setOnMouseEntered(event -> {
-                img.setOpacity(0.6);
-                root.getChildren().addAll(info);
-                info.setTranslateX(event.getSceneX()-5);
-                info.setTranslateY(event.getSceneY()+5);
-            });
-            img.setOnMouseExited(event -> {
-                img.setOpacity(1);
-                root.getChildren().remove(info);
-            });
-            img.setOnMouseDragged(event -> {
-                img.startFullDrag();
-                //System.out.println(img.get());
-            });
+                img.setOnMouseEntered(event -> {
+                    img.setOpacity(0.6);
+                    root.getChildren().addAll(info);
+                    info.setTranslateX(event.getSceneX() - 5);
+                    info.setTranslateY(event.getSceneY() + 5);
+                });
+                img.setOnMouseExited(event -> {
+                    img.setOpacity(1);
+                    root.getChildren().remove(info);
+                });
 
+                int finalI = i;
+                img.setOnMouseClicked(event -> {
+                    slots[finalI] = "null";
+                    deckVBox.getChildren().removeAll(img);
+                    StackPane empty = new StackPane();
+
+                    Label label = new Label("This Slot is empty.");
+                    Rectangle rectangle1 = new Rectangle(300, 20, Color.LIGHTSKYBLUE);
+
+                    empty.getChildren().addAll(rectangle1, label);
+                    deckVBox.getChildren().addAll(empty);
+                });
+            } else {
+                StackPane empty = new StackPane();
+
+                Label label = new Label("This Slot is empty.");
+                Rectangle rectangle1 = new Rectangle(300, 20, Color.LIGHTSKYBLUE);
+
+                empty.getChildren().addAll(rectangle1, label);
+                deckVBox.getChildren().addAll(empty);
+            }
         }
         root.getChildren().addAll(deckVBox, text);
-
 
     }
 
@@ -210,5 +230,24 @@ public class InventoryDeck {
 
     InventoryDeck copy(){
         return new InventoryDeck(this.slots.clone(),equippedAmulet.substring(0));
+    }
+
+    public void removeEquippedAmulet(){
+        equippedAmulet = "null";
+    }
+
+    public void setEquippedAmulet(String name) {equippedAmulet = name;}
+
+    public void addCardToDeck(String name) {
+        for (int i=0; i<slots.length; i++){
+            if (slots[i].equals("null")) {
+                slots[i] = name;
+                break;
+            }
+        }
+    }
+
+    public void sort(){
+        Arrays.sort(slots);
     }
 }
