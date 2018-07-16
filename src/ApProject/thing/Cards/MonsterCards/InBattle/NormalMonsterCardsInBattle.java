@@ -30,6 +30,8 @@ public class NormalMonsterCardsInBattle extends MonsterCardsInBattle {
                 if(spell.getSpellType() == SpellType.Aura)
                     this.addAuraEffect((AuraSpell) spell);
         }
+
+
     }
 
 }

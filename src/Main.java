@@ -5,6 +5,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import src.ApProject.constants.CreatCards;
+import src.ApProject.Game;
 import src.ApProject.MainMenu;
 
 import java.util.ArrayList;
@@ -30,8 +31,8 @@ public class Main extends Application{
         System.out.println("Please Enter Your Name : ");
 
 
-        //Game game = new Game("name", scene, new Pane());
-
-        //while (game.mainMenuOrders(Game.give())) ;
+//        Game game = new Game("name", scene, new Pane());
+//
+//        while (game.mainMenuOrders(Game.give())) ;
     }
 }

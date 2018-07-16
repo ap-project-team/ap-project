@@ -1,5 +1,9 @@
 package src.ApProject.battle.battleField;
 
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
+import javafx.scene.shape.Rectangle;
 import src.ApProject.Game;
 import src.ApProject.battle.Battle;
 import src.ApProject.battle.battler.Battler;
@@ -23,7 +27,10 @@ import static src.ApProject.thing.Cards.Magic.MagicType.WITHOUTTARGET;
 import static src.ApProject.thing.Cards.MonsterCards.MonsterCardSpeciality.Taunt;
 
 public class MonsterField {
+
+    private VBox vBox;
     private MonsterCardsInBattle[] slots = new MonsterCardsInBattle[ConstantDatas.SIZE_OF_MONSTERFIELD];
+
 
     public void add(MonsterCardsInBattle card, int slotNum) {
         if (slots[slotNum] == null)
@@ -345,5 +352,22 @@ public class MonsterField {
             }
         }
         return outputMap;
+    }
+
+    public void update(Pane root){
+        if (vBox != null)
+            root.getChildren().remove(vBox);
+
+        vBox = new VBox();
+
+        for (int i=0; i<slots.length; i++) {
+            if (slots[i] == null)
+                vBox.getChildren().addAll(new Rectangle());
+            else {
+                vBox.getChildren().addAll(slots[i].getImage());
+            }
+        }
+
+        root.getChildren().addAll(vBox);
     }
 }

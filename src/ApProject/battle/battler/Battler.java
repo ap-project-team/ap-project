@@ -125,12 +125,48 @@ abstract public class Battler {
     }
 
     public void playOneTurn(int turnNum, Pane root){
+        if (currentMaxMP < MAX_MP) currentMaxMP++;
+        currentMP = currentMaxMP;
 
+        spellField.nextTurn();
+        monsterField.nextTurn();
+
+        String addedCard = "Your hand is full.";
+        if (turnNum != 1 && turnNum != 2) {
+            if (hand.size() != ConstantDatas.MAX_CARD_IN_HAND)
+                addedCard = addToHand(1);
+            else {
+                int i =(new Random().nextInt(deck.size()));
+                graveYard.add(deck.get(i));
+                deck.remove(i);
+            }
+        }else addedCard = "Your cards has been drawn.";
+
+        updatePlayField(root);
+
+        if (type.equals("PLAYER")) {
+            System.out.println(
+                    "Turn " + turnNum + " started! \n"
+                            + name + "’s turn.\n"+
+                            "[" + addedCard + "]\n" +
+                            "[" + currentMaxMP + " - " + MAX_MP + "]");
+            turnOrders();
+            // while (turnOrders());
+        } else if (type.equals("ENEMY")) {
+            turnOrders();
+        }
+
+    }
+
+    private void updatePlayField(Pane root) {
+        monsterField.update(root);
+//        spellField.update();
+//        hand.update();
     }
 
     protected boolean turnOrders() {
         System.out.println("TURN ORDERS DID'NT OVERWRITE PROPERLY.");
-        return true;
+        return false;
     }
 
     public String getName() {

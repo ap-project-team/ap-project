@@ -2,10 +2,13 @@ package src.ApProject.battle;
 
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import src.ApProject.battle.battler.Battler;
 import src.ApProject.graphics.BackButton;
 import src.ApProject.graphics.Message;
+import src.ApProject.player.Player;
 
 import java.awt.*;
 import java.util.Random;
@@ -13,7 +16,7 @@ import java.util.Random;
 
 public class Battle {
     final int numberOfCardsInFirstHand = 5;
-    int turnNum = 0;
+    int turnNum = 1;
 
 
     Battler[] battlers = new Battler[2];
@@ -33,9 +36,8 @@ public class Battle {
         battlers[0].drawCard(numberOfCardsInFirstHand);
         battlers[1].drawCard(numberOfCardsInFirstHand);
 
-        while (battlers[0].isAlive() && battlers[1].isAlive()){
-            System.out.println("");
-            battlers[(startNumber+(turnNum++))%2].playOneTurn(turnNum);
+        for (int turnNum = 0; battlers[0].isAlive() && battlers[1].isAlive(); turnNum++){
+            battlers[(startNumber+(turnNum))%2].playOneTurn(turnNum);
         }
 
         System.out.println("GAME OVER");
@@ -49,10 +51,12 @@ public class Battle {
         return winner;
     }
 
-    public String play(Scene scene, Pane pastRoot){
+    public void play(Scene scene, Pane pastRoot, Player p){
         Pane root = new Pane();
         scene.setRoot(root);
-        root.getChildren().addAll(BackButton.buildBackButton(scene, pastRoot));
+        Circle nextTurnButton = new Circle(100,100,10, Color.BLUE);
+        root.getChildren().addAll(BackButton.buildBackButton(scene, pastRoot), nextTurnButton);
+
 
         Rectangle line1 = new Rectangle(root.getWidth()/3, 0, 5, root.getHeight());
         Rectangle line2 = new Rectangle(root.getWidth()/3*2, 0, 5, root.getHeight());
@@ -66,18 +70,25 @@ public class Battle {
         battlers[0].drawCard(numberOfCardsInFirstHand);
         battlers[1].drawCard(numberOfCardsInFirstHand);
 
-        for (int turnNum=0; battlers[0].isAlive() && battlers[1].isAlive(); turnNum++){
-            battlers[(startNumber+(turnNum))%2].playOneTurn(turnNum);
-        }
 
-        System.out.println("GAME OVER");
+        battlers[(startNumber+(turnNum))%2].playOneTurn(turnNum, root);
+        nextTurnButton.setOnMouseClicked(event -> {
+            battlers[(startNumber+(turnNum))%2].playOneTurn(turnNum, root);
+        });
 
-        String winner = "Draw";
-        if (battlers[0].isAlive()) winner = "PLAYER";
-        else if (battlers[1].isAlive()) winner = "ENEMY";
+        Circle endButton = new Circle(300,100,10, Color.RED);
+        root.getChildren().addAll(endButton);
 
-        System.out.println(winner+" Wins");
+        endButton.setOnMouseClicked(event -> {
+            System.out.println("GAME OVER");
 
-        return winner;
+            String winner = "Draw";
+            if (battlers[0].isAlive()) winner = "PLAYER";
+            else if (battlers[1].isAlive()) winner = "ENEMY";
+
+            System.out.println(winner + " Wins");
+
+        });
+
     }
 }

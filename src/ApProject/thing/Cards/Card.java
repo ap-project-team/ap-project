@@ -1,7 +1,10 @@
 package src.ApProject.thing.Cards;
 
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import src.ApProject.battle.battler.Battler;
 import src.ApProject.thing.Thing;
+
 
 abstract public class Card extends Thing{
     protected static String cardType;

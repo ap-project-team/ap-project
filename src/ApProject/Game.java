@@ -37,7 +37,6 @@ public class Game {
     Pane pastRoot;
     Scene scene;
     boolean paused = false;
-    VBox buttons;
 
     public Game(String name,  Scene scene, Pane pastRoot) {
         p = new Player(name);
@@ -86,7 +85,7 @@ public class Game {
     }
 
     void movePlayer(){
-        final boolean[] stoped = {true};
+        final boolean[] stopped = {true};
 //        Image img = new Image("./src//source//test1.png");
 //        ImageView gameMap = new ImageView(img);
 //        gameMap.setFitWidth(1000);
@@ -105,14 +104,15 @@ public class Game {
         rectangle.setOnMouseClicked(event -> {
             if (p.isReadyForBattle()) {
                 Battle battle = new Battle(p.becomeBattler(), AI_BattlerBuilder.build(p.getLevel()));
-                String result = battle.play(scene, root);
-                if (result.equals("PLAYER")) p.win();
-                else if (result.equals("ENEMY"))
-                    if (p.defeat()) {
-                        System.out.println("YOU ARE OUT OF Mystic Hourglass.");
-                        System.out.println("Good Game!\tWell Played!");
-                        System.out.println("GAME OVER\nThe End");
-                    }
+                battle.play(scene, root, p);
+
+//                if (result.equals("PLAYER")) p.win();
+//                else if (result.equals("ENEMY"))
+//                    if (p.defeat()) {
+//                        System.out.println("YOU ARE OUT OF Mystic Hourglass.");
+//                        System.out.println("Good Game!\tWell Played!");
+//                        System.out.println("GAME OVER\nThe End");
+//                    }
             } else Message.buildMessage("Your deck is not full.", root);
         });
 
@@ -123,7 +123,7 @@ public class Game {
 
             @Override
             public void handle(long now) {
-                if (!stoped[0]) {
+                if (!stopped[0]) {
                     if (j++ % 5 == 0) player.setImage(new Image(currentMove[0].listFiles()[i++ % currentMove[0].listFiles().length].getPath()));
                     player.setTranslateX(player.getTranslateX() + veracity[0].getX());
                     player.setTranslateY(player.getTranslateY() + veracity[0].getY());
@@ -155,7 +155,7 @@ public class Game {
 
 
                 if (canGo(player.getX()+veracity[0].getX(), player.getY()+veracity[0].getY())) {
-                    stoped[0] = false;
+                    stopped[0] = false;
                     currentMove[0] = new File("./src//source//player//move("+(int)veracity[0].getX()+","+(int)veracity[0].getY()+")");
                     System.out.println("move("+(int)veracity[0].getX()+","+(int)veracity[0].getY()+")");
                 }

@@ -1,5 +1,6 @@
 package src.ApProject.thing.Cards.MonsterCards.InBattle;
 
+import javafx.scene.image.ImageView;
 import src.ApProject.battle.battler.Battler;
 import src.ApProject.thing.Cards.Card;
 import src.ApProject.thing.Cards.Magic.Magic;
@@ -38,6 +39,8 @@ public class MonsterCardsInBattle {
     protected String magicDetail;
     protected String battleCryDetail;
     protected String willDetail;
+    protected ImageView image;
+
 
     public InstantSpell getMagics() { return magics; }
 
@@ -170,4 +173,13 @@ public class MonsterCardsInBattle {
         return "Using : " + this.cardName + "\n" + "HP : " + this.currentHealthPoint + " AP : " + this.currentAttackPoint + "\n" + "Is Sleeping : " + isSleep + "\nCan Attack : " + this.canAttack + ((this.magicType == MagicType.NONE)?"":"\nCan Cast : " + (isSleep?"False":isMagicUsed?"False":"True"));
     }
 
+    public ImageView getImage() {
+        return image;
+    }
+
+    public void setImage() {
+        this.image = new ImageView("./src//source//CARD//"+getCardName()+".png");
+        image.setFitWidth(50);
+        image.setFitHeight(50);
+    }
 }
