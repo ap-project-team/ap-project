@@ -96,7 +96,7 @@ public class MonsterField {
         return getEmptySlotNumber() == 0;
     }
 
-    public int getSize() {
+    public int getNumberOfFullSlots() {
         return slots.length - getEmptySlotNumber();
     }
 

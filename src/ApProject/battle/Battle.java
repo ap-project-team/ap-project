@@ -7,6 +7,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 import src.ApProject.battle.battler.Battler;
 import src.ApProject.graphics.BackButton;
 import src.ApProject.graphics.Message;
@@ -120,6 +121,7 @@ public class Battle {
 
         battlers[1].updatePlayField(vBox1);
         battlers[0].updatePlayField(vBox2);
+        vBox2.getChildren().addAll(new Text(battlers[0].getHealth()+""));
 
         battleGround.getChildren().addAll(vBox1, vBox2);
 

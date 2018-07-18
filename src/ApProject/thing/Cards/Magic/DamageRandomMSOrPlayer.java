@@ -17,7 +17,7 @@ public class DamageRandomMSOrPlayer extends Magic{
 
     public void doMagic(Battler currentBattler, Battler enemyBattler){
         Random random = new Random();
-        int randNum = random.nextInt(enemyBattler.getMonsterField().getSize() + 1) + 1;
+        int randNum = random.nextInt(enemyBattler.getMonsterField().getNumberOfFullSlots() + 1) + 1;
         if(randNum == 1 || enemyBattler.getMonsterField().isEmpty()){
             if(type == 0)
                 currentBattler.changeHealthPoint(changeHPAmount);
