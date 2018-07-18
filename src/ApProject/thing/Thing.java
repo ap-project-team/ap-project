@@ -31,8 +31,4 @@ abstract public class Thing {
     public int getPrice() {
         return price;
     }
-
-    public ImageView getImage(){
-        return image;
-    }
 }

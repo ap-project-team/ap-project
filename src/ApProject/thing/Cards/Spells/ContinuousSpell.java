@@ -17,6 +17,7 @@ public class ContinuousSpell extends Spells{
     public void play(Battler currentBattler, Battler enemyBattler, int slotNum) {
         if(currentBattler.getCurrentMana()>= manaCost  ) {
             if (slotNum > -1 && slotNum < 3 && currentBattler.getSpellField().getSlot(slotNum) == null) {
+                setImage();
                 currentBattler.setCurrentMana(currentBattler.getCurrentMana() - manaCost);
                 this.currentBattler = currentBattler;
                 this.enemyBattler = enemyBattler;

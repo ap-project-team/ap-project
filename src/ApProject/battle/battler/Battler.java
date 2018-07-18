@@ -4,6 +4,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import src.ApProject.battle.Battle;
 import src.ApProject.constants.ConstantDatas;
+import src.ApProject.graphics.Message;
 import src.ApProject.thing.Amulet;
 import src.ApProject.thing.Cards.Card;
 import src.ApProject.battle.battleField.GraveYard;
@@ -36,7 +37,7 @@ abstract public class Battler {
 
 
     protected ArrayList<Card> deck;
-    protected Hand hand = new Hand();
+    protected Hand hand = new Hand(this);
 
     public String getType() {
         return type;
@@ -91,8 +92,7 @@ abstract public class Battler {
                 deck.remove(n);
             }
         }
-        if (deck.size() > 0) return deck.get(deck.size()-1).getName();
-        else return "Your deck is empty";
+        return hand.get(hand.size()-1).getName();
     }
 
     public void playOneTurn(int turnNum){
@@ -103,15 +103,18 @@ abstract public class Battler {
         monsterField.nextTurn();
 
         String addedCard = "Your hand is full.";
-        if (turnNum != 1 && turnNum != 2) {
-            if (hand.size() != ConstantDatas.MAX_CARD_IN_HAND)
-                addedCard = addToHand(1);
-            else {
-                int i =(new Random().nextInt(deck.size()));
-                graveYard.add(deck.get(i));
-                deck.remove(i);
-            }
-        }else addedCard = "Your cards has been drawn.";
+
+        if (turnNum != 1) {
+            if (deck.size() != 0) {
+                if (hand.size() != ConstantDatas.MAX_CARD_IN_HAND)
+                    addedCard = addToHand(1);
+                else {
+                    int i = (new Random().nextInt(deck.size()));
+                    graveYard.add(deck.get(i));
+                    deck.remove(i);
+                }
+            } else addedCard = "Your deck is empty.";
+        } else addedCard = "Your cards has been drawn.";
 
         if (type.equals("PLAYER")) {
             System.out.println(
@@ -134,16 +137,19 @@ abstract public class Battler {
 
         String addedCard = "Your hand is full.";
         if (turnNum != 1) {
-            if (hand.size() != ConstantDatas.MAX_CARD_IN_HAND)
-                addedCard = addToHand(1);
-            else {
-                int i =(new Random().nextInt(deck.size()));
-                graveYard.add(deck.get(i));
-                deck.remove(i);
-            }
+            if (deck.size() != 0) {
+                if (hand.size() != ConstantDatas.MAX_CARD_IN_HAND)
+                    addedCard = addToHand(1);
+                else {
+                    int i = (new Random().nextInt(deck.size()));
+                    graveYard.add(deck.get(i));
+                    deck.remove(i);
+                }
+            } else addedCard = "Your deck is empty.";
         } else addedCard = "Your cards has been drawn.";
 
         battle.update();
+        root.getChildren().addAll(Message.buildMessage(addedCard, root));
 
         if (type.equals("PLAYER")) {
             System.out.println(

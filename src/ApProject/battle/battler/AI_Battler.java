@@ -24,6 +24,7 @@ public class AI_Battler extends Battler {
         System.out.println("Enemy Moves :");
         useMonsterCard();
         setCard();
+        battle.update();
         return false;
     }
 
@@ -77,7 +78,7 @@ public class AI_Battler extends Battler {
     }
 
     public void updatePlayField(VBox vBox) {
-//        spellField.update();
+        spellField.update(vBox);
         monsterField.update(vBox);
     }
 }

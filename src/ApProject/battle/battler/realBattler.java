@@ -123,7 +123,7 @@ public class realBattler extends Battler {
 
     public void updatePlayField(VBox vBox) {
         monsterField.update(vBox);
-//        spellField.update();
+        spellField.update(vBox);
         hand.update(vBox);
     }
 }

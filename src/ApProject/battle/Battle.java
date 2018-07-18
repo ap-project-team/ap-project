@@ -1,6 +1,7 @@
 package src.ApProject.battle;
 
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -13,8 +14,8 @@ import src.ApProject.graphics.BackButton;
 import src.ApProject.graphics.Message;
 import src.ApProject.player.Player;
 
-import java.awt.*;
 import java.util.Random;
+
 
 
 public class Battle {
@@ -114,22 +115,22 @@ public class Battle {
 
     public void update(){
         root.getChildren().remove(battleGround);
-        battleGround = new VBox(300);
+        battleGround = new VBox(50);
 
         VBox vBox1 = new VBox(30);
         VBox vBox2= new VBox(30);
 
+        vBox1.getChildren().addAll(new Text("Health: "+battlers[1].getHealth()));
         battlers[1].updatePlayField(vBox1);
         battlers[0].updatePlayField(vBox2);
-        vBox2.getChildren().addAll(new Text(battlers[0].getHealth()+""));
+        vBox2.getChildren().addAll(new Text("Health: "+battlers[0].getHealth()+"\nMana: "+battlers[0].getCurrentMana()));
 
         battleGround.getChildren().addAll(vBox1, vBox2);
 
         vBox1.setAlignment(Pos.CENTER);
         vBox2.setAlignment(Pos.CENTER);
 
-
-        battleGround.setTranslateX(root.getWidth()/2 - 150);
+        battleGround.setTranslateX(root.getWidth()/2 - 170);
         battleGround.setTranslateY(200);
         battleGround.setAlignment(Pos.CENTER);
 

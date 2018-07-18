@@ -367,4 +367,11 @@ public class MonsterField {
         hBox.setAlignment(Pos.CENTER);
         root.getChildren().addAll(hBox);
     }
+
+    public int getFirstEmptySlot() {
+        for (int i=0; i<slots.length; i++)
+            if (slots[i] == null)
+                return i;
+        return -1;
+    }
 }

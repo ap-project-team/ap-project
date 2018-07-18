@@ -1,5 +1,9 @@
 package src.ApProject.battle.battleField;
 
+import javafx.geometry.Pos;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.shape.Rectangle;
 import src.ApProject.Game;
 import src.ApProject.battle.battler.Battler;
 import src.ApProject.constants.ConstantDatas;
@@ -21,6 +25,8 @@ import static src.ApProject.thing.Cards.Magic.MagicType.WITHOUTTARGET;
 public class SpellField {
 
     private Spells[] slots = new Spells[ConstantDatas.SIZE_OF_SpellField];
+    HBox hBox;
+
 
     public void add(Spells spells, int slotNum){
         if (slots[slotNum] == null)
@@ -215,5 +221,39 @@ public class SpellField {
 
     public int getSize(){
         return slots.length;
+    }
+
+    public int getEmptySlotNumber() {
+        int num = 0;
+        for (int i=0; i<slots.length; i++)
+            if (slots[i] == null)
+                num++;
+        return num;
+    }
+
+
+    public int getFirstEmptySlot() {
+        for (int i=0; i<slots.length; i++)
+            if (slots[i] == null)
+                return i;
+        return -1;
+    }
+
+    public void update(Pane root){
+        if (hBox != null)
+            root.getChildren().remove(hBox);
+
+        hBox = new HBox(10);
+
+        for (int i=0; i<slots.length; i++) {
+            if (slots[i] == null)
+                hBox.getChildren().addAll(new Rectangle(60,80));
+            else {
+                hBox.getChildren().addAll(slots[i].getFullImage());
+            }
+        }
+
+        hBox.setAlignment(Pos.CENTER);
+        root.getChildren().addAll(hBox);
     }
 }

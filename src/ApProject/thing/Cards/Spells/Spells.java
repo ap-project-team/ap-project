@@ -1,5 +1,10 @@
 package src.ApProject.thing.Cards.Spells;
 
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 import src.ApProject.battle.battler.Battler;
 import src.ApProject.thing.Cards.Card;
 import src.ApProject.thing.Cards.Magic.Magic;
@@ -15,7 +20,6 @@ abstract public class Spells extends Card {
 
     {
         cardType = "SPELLCARD";
-
     }
 
     public SpellType getSpellType() {
@@ -27,5 +31,23 @@ abstract public class Spells extends Card {
     }
     public String getMagicDetails(){
         return magics.get(0).getmagicDetails();
+    }
+
+    public StackPane getFullImage(){
+        StackPane fullImage = new StackPane();
+        Text t = new Text(this.getName());
+
+        fullImage.getChildren().addAll(image, t);
+        return fullImage;
+    }
+
+    public void setImage() {
+        image = new ImageView("./src//source//CARD//"+getSpellName()+".png");
+        image.setFitWidth(60);
+        image.setFitHeight(80);
+    }
+
+    public String getSpellName() {
+        return name;
     }
 }

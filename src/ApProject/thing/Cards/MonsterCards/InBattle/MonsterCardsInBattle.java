@@ -1,6 +1,8 @@
 package src.ApProject.thing.Cards.MonsterCards.InBattle;
 
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.StackPane;
+import javafx.scene.text.Text;
 import src.ApProject.battle.battler.Battler;
 import src.ApProject.thing.Cards.Card;
 import src.ApProject.thing.Cards.Magic.Magic;
@@ -173,8 +175,12 @@ public class MonsterCardsInBattle {
         return "Using : " + this.cardName + "\n" + "HP : " + this.currentHealthPoint + " AP : " + this.currentAttackPoint + "\n" + "Is Sleeping : " + isSleep + "\nCan Attack : " + this.canAttack + ((this.magicType == MagicType.NONE)?"":"\nCan Cast : " + (isSleep?"False":isMagicUsed?"False":"True"));
     }
 
-    public ImageView getImage() {
-        return image;
+    public StackPane getImage() {
+        StackPane fullImage = new StackPane();
+        Text t = new Text("HP: "+getCurrentHealthPoint()+"\n"+"AP: "+getCurrentAttackPoint());
+
+        fullImage.getChildren().addAll(image, t);
+        return fullImage;
     }
 
     public void setImage() {
