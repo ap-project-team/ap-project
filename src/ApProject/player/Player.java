@@ -10,7 +10,6 @@ import src.ApProject.thing.Amulet;
 import src.ApProject.thing.Cards.Card;
 import src.ApProject.thing.Item;
 
-import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 

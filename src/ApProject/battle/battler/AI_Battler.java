@@ -6,7 +6,9 @@ import src.ApProject.constants.ConstantDatas;
 import src.ApProject.thing.Cards.Card;
 import src.ApProject.thing.Cards.Magic.MagicType;
 import src.ApProject.thing.Cards.MonsterCards.InBattle.MonsterCardsInBattle;
+import src.ApProject.thing.Cards.MonsterCards.OutBattle.MonsterCard;
 
+import java.awt.image.AreaAveragingScaleFilter;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Random;

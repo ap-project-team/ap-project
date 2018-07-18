@@ -21,9 +21,9 @@ public class Main extends Application{
         CreatCards.createAllCards();
 
         Scene scene = new Scene(new Pane());
-        stage.setScene(new MainMenu().buildMainMenu(scene));
+        stage.setScene(new MainMenu().buildMainMenu(stage, scene));
 
-        stage.setFullScreen(true);
+        stage.setFullScreen(false);
         stage.setMaxWidth(1368);
         stage.setMaxHeight(912);
 

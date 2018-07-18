@@ -1,7 +1,6 @@
 package src.ApProject.shop;
 
 import src.ApProject.Game;
-import src.ApProject.constants.ConstantDatas;
 import src.ApProject.player.Player;
 import src.ApProject.thing.Amulet;
 
