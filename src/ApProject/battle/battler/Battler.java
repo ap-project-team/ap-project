@@ -1,6 +1,7 @@
 package src.ApProject.battle.battler;
 
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import src.ApProject.battle.Battle;
 import src.ApProject.constants.ConstantDatas;
 import src.ApProject.thing.Amulet;
@@ -132,7 +133,7 @@ abstract public class Battler {
         monsterField.nextTurn();
 
         String addedCard = "Your hand is full.";
-        if (turnNum != 1 && turnNum != 2) {
+        if (turnNum != 1) {
             if (hand.size() != ConstantDatas.MAX_CARD_IN_HAND)
                 addedCard = addToHand(1);
             else {
@@ -140,9 +141,9 @@ abstract public class Battler {
                 graveYard.add(deck.get(i));
                 deck.remove(i);
             }
-        }else addedCard = "Your cards has been drawn.";
+        } else addedCard = "Your cards has been drawn.";
 
-        updatePlayField(root);
+        battle.update();
 
         if (type.equals("PLAYER")) {
             System.out.println(
@@ -150,7 +151,7 @@ abstract public class Battler {
                             + name + "’s turn.\n"+
                             "[" + addedCard + "]\n" +
                             "[" + currentMaxMP + " - " + MAX_MP + "]");
-            turnOrders();
+            //turnOrders();
             // while (turnOrders());
         } else if (type.equals("ENEMY")) {
             turnOrders();
@@ -158,10 +159,8 @@ abstract public class Battler {
 
     }
 
-    private void updatePlayField(Pane root) {
-        monsterField.update(root);
-//        spellField.update();
-//        hand.update();
+    public void updatePlayField(VBox vBox) {
+        //Override
     }
 
     protected boolean turnOrders() {
@@ -192,7 +191,6 @@ abstract public class Battler {
         return monsterField;
     }
 
-
     public void setCurrentMana(int currentMana){
         this.currentMP = currentMana;
     }
@@ -212,4 +210,6 @@ abstract public class Battler {
     }
 
     public Amulet getAmulet(){return amulet;}
+
+
 }

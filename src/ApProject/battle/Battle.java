@@ -1,7 +1,9 @@
 package src.ApProject.battle;
 
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
@@ -17,15 +19,18 @@ import java.util.Random;
 public class Battle {
     final int numberOfCardsInFirstHand = 5;
     int turnNum = 1;
-
+    VBox battleGround = new VBox();
+    Pane root = new Pane();
 
     Battler[] battlers = new Battler[2];
 
     public Battle(Battler battler, Battler enemy) {
         battlers[0] = battler;
+        battlers[0].setBattle(this);
         battlers[0].setEnemy(enemy);
         battlers[1] = enemy;
         battlers[1].setEnemy(battler);
+        battlers[1].setBattle(this);
     }
 
     public String play(){
@@ -52,7 +57,6 @@ public class Battle {
     }
 
     public void play(Scene scene, Pane pastRoot, Player p){
-        Pane root = new Pane();
         scene.setRoot(root);
         Circle nextTurnButton = new Circle(100,100,10, Color.BLUE);
         root.getChildren().addAll(BackButton.buildBackButton(scene, pastRoot), nextTurnButton);
@@ -71,10 +75,25 @@ public class Battle {
         battlers[1].drawCard(numberOfCardsInFirstHand);
 
 
-        battlers[(startNumber+(turnNum))%2].playOneTurn(turnNum, root);
-        nextTurnButton.setOnMouseClicked(event -> {
-            battlers[(startNumber+(turnNum))%2].playOneTurn(turnNum, root);
-        });
+        if (startNumber == 0) {
+            battlers[0].playOneTurn(turnNum, root);
+            battlers[1].playOneTurn(turnNum);
+            turnNum++;
+            nextTurnButton.setOnMouseClicked(event -> {
+                battlers[0].playOneTurn(turnNum, root);
+                battlers[1].playOneTurn(turnNum);
+                turnNum++;
+            });
+        } else {
+            battlers[1].playOneTurn(turnNum);
+            battlers[0].playOneTurn(turnNum, root);
+            turnNum++;
+            nextTurnButton.setOnMouseClicked(event -> {
+                battlers[1].playOneTurn(turnNum);
+                battlers[0].playOneTurn(turnNum, root);
+                turnNum++;
+            });
+        }
 
         Circle endButton = new Circle(300,100,10, Color.RED);
         root.getChildren().addAll(endButton);
@@ -90,5 +109,28 @@ public class Battle {
 
         });
 
+    }
+
+    public void update(){
+        root.getChildren().remove(battleGround);
+        battleGround = new VBox(300);
+
+        VBox vBox1 = new VBox(30);
+        VBox vBox2= new VBox(30);
+
+        battlers[1].updatePlayField(vBox1);
+        battlers[0].updatePlayField(vBox2);
+
+        battleGround.getChildren().addAll(vBox1, vBox2);
+
+        vBox1.setAlignment(Pos.CENTER);
+        vBox2.setAlignment(Pos.CENTER);
+
+
+        battleGround.setTranslateX(root.getWidth()/2 - 150);
+        battleGround.setTranslateY(200);
+        battleGround.setAlignment(Pos.CENTER);
+
+        root.getChildren().addAll(battleGround);
     }
 }

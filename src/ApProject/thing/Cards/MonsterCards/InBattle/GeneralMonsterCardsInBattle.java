@@ -40,6 +40,7 @@ public class GeneralMonsterCardsInBattle extends MonsterCardsInBattle {
         this.battleCryDetail = battleCry.getMagicDetails();
         this.willDetail = will.getMagicDetails();
         ArrayList<Map> map = currentBattler.getMonsterField().printingTargets( currentBattler, enemyBattler, battleCryType);
+        setImage();
         while (currentBattler.getSpellField().instantSpellOrders(currentBattler, enemyBattler, battleCry, map.get(0), map.get(1), map.get(2)));
     }
 

@@ -1,5 +1,10 @@
 package src.ApProject.battle.battler;
 
+import javafx.geometry.Pos;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.shape.Rectangle;
 import src.ApProject.thing.Cards.Card;
 import src.ApProject.thing.Cards.MonsterCards.InBattle.MonsterCardsInBattle;
 
@@ -8,7 +13,7 @@ import java.util.Random;
 
 
 public class Hand {
-
+    HBox hBox;
     ArrayList<Card> hand = new ArrayList<>();
 
     public void add(Card card){
@@ -46,4 +51,21 @@ public class Hand {
         hand = newHand;
     }
 
+    public void update(Pane root) {
+        if (hBox != null)
+            root.getChildren().remove(hBox);
+
+        hBox = new HBox(10);
+
+        for (int i=0; i<hand.size(); i++) {
+            System.out.println(hand.get(i).getName());
+            ImageView image = new ImageView("./src//source//CARD//" + hand.get(i).getName() + ".png");
+            image.setFitHeight(60);
+            image.setFitWidth(45);
+            hBox.getChildren().addAll(image);
+        }
+
+        hBox.setAlignment(Pos.CENTER);
+        root.getChildren().addAll(hBox);
+    }
 }

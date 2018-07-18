@@ -179,7 +179,7 @@ public class MonsterCardsInBattle {
 
     public void setImage() {
         this.image = new ImageView("./src//source//CARD//"+getCardName()+".png");
-        image.setFitWidth(50);
-        image.setFitHeight(50);
+        image.setFitWidth(60);
+        image.setFitHeight(80);
     }
 }

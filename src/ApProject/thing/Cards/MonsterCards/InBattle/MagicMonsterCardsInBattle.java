@@ -35,8 +35,7 @@ public class MagicMonsterCardsInBattle extends MonsterCardsInBattle {
                 if(spell.getSpellType() == SpellType.Aura)
                     this.addAuraEffect((AuraSpell) spell);
         }
-
-
+        setImage();
     }
 }
 

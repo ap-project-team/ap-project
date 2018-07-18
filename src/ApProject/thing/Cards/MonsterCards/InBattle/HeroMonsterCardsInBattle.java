@@ -44,6 +44,8 @@ public class HeroMonsterCardsInBattle extends MonsterCardsInBattle{
         }
         ArrayList<Map> map = currentBattler.getMonsterField().printingTargets( currentBattler, enemyBattler, battleCryType);
         while (currentBattler.getSpellField().instantSpellOrders(currentBattler, enemyBattler, battleCry, map.get(0), map.get(1), map.get(2)));
+        setImage();
+
     }
     public void checkDeath() {
         if(this.currentHealthPoint <= 0) {
@@ -52,4 +54,5 @@ public class HeroMonsterCardsInBattle extends MonsterCardsInBattle{
             while (currentBattler.getSpellField().instantSpellOrders(currentBattler, enemyBattler,this.will, null, null, null));
         }
     }
+
 }

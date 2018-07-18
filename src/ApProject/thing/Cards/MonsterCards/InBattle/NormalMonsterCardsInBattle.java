@@ -31,7 +31,7 @@ public class NormalMonsterCardsInBattle extends MonsterCardsInBattle {
                     this.addAuraEffect((AuraSpell) spell);
         }
 
-
+        setImage();
     }
 
 }

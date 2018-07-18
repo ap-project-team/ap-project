@@ -1,5 +1,6 @@
 package src.ApProject.battle.battler;
 
+import javafx.scene.layout.VBox;
 import src.ApProject.Game;
 import src.ApProject.battle.battleField.MonsterField;
 import src.ApProject.constants.CreatCards;
@@ -118,5 +119,11 @@ public class realBattler extends Battler {
         } else if (order.matches("exit\\s*")) return false;
         else System.out.println("Incorrect order!");
         return true;
+    }
+
+    public void updatePlayField(VBox vBox) {
+        monsterField.update(vBox);
+//        spellField.update();
+        hand.update(vBox);
     }
 }

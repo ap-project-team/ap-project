@@ -33,7 +33,7 @@ public abstract class CreatCards {
 
         magics.add(new ChangeAllHPAndAP(0,0,0,-100, "Poisonous Cauldron : Deal 100 damage to all enemy monster cards and enemy player"));
         magics.add(new ChangePlayerHP(0, -100,""));
-        allCards.put("PoisonousCauldron" , new ContinuousSpell("PoisonousCauldron ", 4,magics));
+        allCards.put("PoisonousCauldron" , new ContinuousSpell("PoisonousCauldron", 4,magics));
         magics.clear();
 
         magics.add(new ChangeHPOfPlayerOrMS(500, "First Aid Kit : Increase HP of a selected friendly monster or player by 500"));

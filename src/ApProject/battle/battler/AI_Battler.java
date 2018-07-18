@@ -1,6 +1,7 @@
 package src.ApProject.battle.battler;
 
 
+import javafx.scene.layout.VBox;
 import src.ApProject.battle.battleField.SpellField;
 import src.ApProject.constants.ConstantDatas;
 import src.ApProject.thing.Cards.Card;
@@ -67,5 +68,10 @@ public class AI_Battler extends Battler {
                 while (this.getSpellField().instantSpellOrders(this, enemy, monsterField.getSlot(i).getMagics(), map.get(0), map.get(1), map.get(2))) ;
             }
         }
+    }
+
+    public void updatePlayField(VBox vBox) {
+//        spellField.update();
+        monsterField.update(vBox);
     }
 }

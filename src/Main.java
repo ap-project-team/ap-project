@@ -18,14 +18,18 @@ public class Main extends Application{
 
     @Override
     public void start(Stage stage) throws Exception {
-        ArrayList<String> addAll = new ArrayList<>();
         CreatCards.createAllCards();
 
         Scene scene = new Scene(new Pane());
         stage.setScene(new MainMenu().buildMainMenu(scene));
 
         stage.setFullScreen(true);
+        stage.setMaxWidth(1368);
+        stage.setMaxHeight(912);
+
         stage.show();
+
+
 
         System.out.println("'WELCOME TO THIS GAME'");
         System.out.println("Please Enter Your Name : ");

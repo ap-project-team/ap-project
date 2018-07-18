@@ -1,34 +1,30 @@
 package src.ApProject.battle.battleField;
 
+import javafx.geometry.Pos;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
 import src.ApProject.Game;
-import src.ApProject.battle.Battle;
 import src.ApProject.battle.battler.Battler;
 import src.ApProject.constants.ConstantDatas;
-import src.ApProject.constants.CreatCards;
 import src.ApProject.thing.Cards.Card;
 import src.ApProject.thing.Cards.Magic.MagicType;
 import src.ApProject.thing.Cards.MonsterCards.InBattle.MonsterCardsInBattle;
-import src.ApProject.thing.Cards.MonsterCards.OutBattle.MonsterCard;
 import src.ApProject.thing.Cards.MonsterCards.Tribe;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
-import src.ApProject.thing.Cards.MonsterCards.Type;
+
 import src.ApProject.thing.Cards.Spells.Spells;
 
-import static src.ApProject.thing.Cards.Magic.MagicType.FriendlyTarget;
-import static src.ApProject.thing.Cards.Magic.MagicType.WITHOUTTARGET;
 import static src.ApProject.thing.Cards.MonsterCards.MonsterCardSpeciality.Taunt;
 
 public class MonsterField {
 
-    private VBox vBox;
+    private HBox hBox;
     private MonsterCardsInBattle[] slots = new MonsterCardsInBattle[ConstantDatas.SIZE_OF_MONSTERFIELD];
 
 
@@ -355,19 +351,20 @@ public class MonsterField {
     }
 
     public void update(Pane root){
-        if (vBox != null)
-            root.getChildren().remove(vBox);
+        if (hBox != null)
+            root.getChildren().remove(hBox);
 
-        vBox = new VBox();
+        hBox = new HBox(10);
 
         for (int i=0; i<slots.length; i++) {
             if (slots[i] == null)
-                vBox.getChildren().addAll(new Rectangle());
+                hBox.getChildren().addAll(new Rectangle(60,80));
             else {
-                vBox.getChildren().addAll(slots[i].getImage());
+                hBox.getChildren().addAll(slots[i].getImage());
             }
         }
 
-        root.getChildren().addAll(vBox);
+        hBox.setAlignment(Pos.CENTER);
+        root.getChildren().addAll(hBox);
     }
 }

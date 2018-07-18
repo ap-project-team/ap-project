@@ -93,28 +93,15 @@ public class Game {
 //        root.getChildren().addAll(gameMap);
 
 
+        System.out.println(root.getWidth());
+        System.out.println(root.getHeight());
+
+
         final Point2D[] veracity = {new Point2D(0, 0)};
         ImageView player = new ImageView("./src//source//player//New folder//knight iso char_idle_0.png");
         player.setFitHeight(30);
         player.setFitWidth(30);
         final File[] currentMove = {new File("./src//source//player//New folder")};
-
-        Rectangle rectangle = new Rectangle(100,100,100,100);
-        root.getChildren().addAll(rectangle);
-        rectangle.setOnMouseClicked(event -> {
-            if (p.isReadyForBattle()) {
-                Battle battle = new Battle(p.becomeBattler(), AI_BattlerBuilder.build(p.getLevel()));
-                battle.play(scene, root, p);
-
-//                if (result.equals("PLAYER")) p.win();
-//                else if (result.equals("ENEMY"))
-//                    if (p.defeat()) {
-//                        System.out.println("YOU ARE OUT OF Mystic Hourglass.");
-//                        System.out.println("Good Game!\tWell Played!");
-//                        System.out.println("GAME OVER\nThe End");
-//                    }
-            } else Message.buildMessage("Your deck is not full.", root);
-        });
 
         root.getChildren().addAll(player);
 
@@ -170,7 +157,22 @@ public class Game {
 
         });
 
-
+        Rectangle rectangle = new Rectangle(100,100,100,100);
+        root.getChildren().addAll(rectangle);
+        rectangle.setOnMouseClicked(event -> {
+            if (p.isReadyForBattle()) {
+                Battle battle = new Battle(p.becomeBattler(), AI_BattlerBuilder.build(p.getLevel()));
+                battle.play(scene, root, p);
+                timer.stop();
+//                if (result.equals("PLAYER")) p.win();
+//                else if (result.equals("ENEMY"))
+//                    if (p.defeat()) {
+//                        System.out.println("YOU ARE OUT OF Mystic Hourglass.");
+//                        System.out.println("Good Game!\tWell Played!");
+//                        System.out.println("GAME OVER\nThe End");
+//                    }
+            } else Message.buildMessage("Your deck is not full.", root);
+        });
 
         timer.start();
     }
