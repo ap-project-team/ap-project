@@ -28,10 +28,16 @@ public class NewCard {
             VBox vBox = new VBox(new Label("Monster Card"));
             vBox.setAlignment(Pos.CENTER);
             gridPane.add(vBox, 0 ,0);
-            gridPane.add(newMonsterCard.getGridPane(),0,1);
+            gridPane.add(newMonsterCard.getGridPane(stage),0,1);
         });
         spellCard.setOnMouseClicked(event -> {
             cardTypeLabel.setText("Spell Card");
+            NewSpellCard newSpellCard = new NewSpellCard();
+            gridPane.getChildren().clear();
+            VBox vBox = new VBox(new Label("Spell Card"));
+            vBox.setAlignment(Pos.CENTER);
+            gridPane.add(vBox, 0 ,0);
+            gridPane.add(newSpellCard.getGridPane(stage),0,1);
         });
         hBox.getChildren().addAll(monsterCard, spellCard, cardTypeLabel);
         hBox.setSpacing(50);

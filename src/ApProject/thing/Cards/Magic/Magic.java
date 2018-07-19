@@ -5,7 +5,9 @@ import src.ApProject.thing.Cards.Card;
 import src.ApProject.thing.Cards.MonsterCards.InBattle.MonsterCardsInBattle;
 import src.ApProject.thing.Cards.Spells.Spells;
 
-public class Magic {
+import java.io.Serializable;
+
+public class Magic implements Serializable {
         protected MagicType magicType;
         protected String magicDetails;
         public void doMagic(MonsterCardsInBattle monsterCardsInBattle, Battler currentBattler, Battler enemyBattler){}
@@ -15,7 +17,7 @@ public class Magic {
         public MagicType getMagicType() {
             return magicType;
         }
-        public String getmagicDetails(){
+        public String getMagicDetails(){
             return magicDetails;
         }
 }

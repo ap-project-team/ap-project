@@ -2,8 +2,6 @@ package src.ApProject.thing.Cards.Spells;
 
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import src.ApProject.battle.battler.Battler;
 import src.ApProject.thing.Cards.Card;
@@ -27,10 +25,10 @@ abstract public class Spells extends Card {
     }
     public String getInfo() {
         return this.name +" Info" + "\n" + "Name : " + this.name + "\n" + "MP cost : " + manaCost + "\n" + "Card Type : " + spellType + "\n" +  "Spell Details : "
-                + "\n" + magics.get(0).getmagicDetails();
+                + "\n" + magics.get(0).getMagicDetails();
     }
     public String getMagicDetails(){
-        return magics.get(0).getmagicDetails();
+        return magics.get(0).getMagicDetails();
     }
 
     public StackPane getFullImage(){

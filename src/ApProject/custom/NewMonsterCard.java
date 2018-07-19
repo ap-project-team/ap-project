@@ -6,13 +6,14 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
 import src.ApProject.graphics.Button;
 
 
 public class NewMonsterCard {
     private GridPane gridPane = new GridPane();
     private String cardName;
-    public GridPane getGridPane(){
+    public GridPane getGridPane(Stage stage){
         Label cardNameLabel = new Label("Insert Monster Card's Name : ");
         TextField cardNameTextField = new TextField();
         gridPane.add(cardNameLabel, 0, 0);

@@ -7,6 +7,7 @@ import src.ApProject.thing.Cards.MonsterCards.Tribe;
 import src.ApProject.thing.Cards.MonsterCards.Type;
 import src.ApProject.thing.Cards.Spells.InstantSpell;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 abstract public class MonsterCard extends Card {

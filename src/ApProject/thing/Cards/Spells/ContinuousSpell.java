@@ -37,7 +37,7 @@ public class ContinuousSpell extends Spells{
 
     public void doMagic(){
             try {
-                System.out.println(this.name + " has cast a spell : \n" + magics.get(0).getmagicDetails() + "\n");
+                System.out.println(this.name + " has cast a spell : \n" + magics.get(0).getMagicDetails() + "\n");
                 for (Magic magic : magics) {
                     magic.doMagic(currentBattler, enemyBattler);
                 }

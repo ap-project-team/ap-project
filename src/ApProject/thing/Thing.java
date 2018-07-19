@@ -3,7 +3,9 @@ package src.ApProject.thing;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 
-abstract public class Thing {
+import java.io.Serializable;
+
+abstract public class Thing implements Serializable{
     public static String thingType;
     protected String name;
     protected int price;

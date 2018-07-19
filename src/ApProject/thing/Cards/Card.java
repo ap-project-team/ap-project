@@ -5,8 +5,10 @@ import javafx.scene.image.ImageView;
 import src.ApProject.battle.battler.Battler;
 import src.ApProject.thing.Thing;
 
+import java.io.Serializable;
 
-abstract public class Card extends Thing{
+
+abstract public class Card extends Thing {
     protected static String cardType;
     protected int manaCost;
     protected String info;
