@@ -12,9 +12,9 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import src.ApProject.graphics.Button;
 import src.ApProject.thing.Cards.Card;
-import src.ApProject.thing.Cards.Magic.ChangeHPAndAP;
-import src.ApProject.thing.Cards.Magic.Magic;
+import src.ApProject.thing.Cards.Magic.*;
 import src.ApProject.thing.Cards.Spells.AuraSpell;
+import src.ApProject.thing.Cards.Spells.ContinuousSpell;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -100,6 +100,81 @@ public class NewSpellCard {
 
                 break;
             case "Continuous":
+                Label continuousFriendlyAttackLabel = new Label("Insert Friendly Attack Change : ");
+                TextField continuousFriendlyAttackTextField = new TextField();
+                gridPane.add(continuousFriendlyAttackLabel, 0, 0);
+                gridPane.add(continuousFriendlyAttackTextField, 1,0);
+
+                Label continuousFriendlyHealthLabel = new Label("Insert Friendly Health Change : ");
+                TextField continuousFriendlyHealthTextField = new TextField();
+                gridPane.add(continuousFriendlyHealthLabel, 2, 0);
+                gridPane.add(continuousFriendlyHealthTextField, 3,0);
+
+                Label continuousEnemyAttackLabel = new Label("Insert Enemy Attack Change : ");
+                TextField continuousEnemyAttackTextField = new TextField();
+                gridPane.add(continuousEnemyAttackLabel, 0, 1);
+                gridPane.add(continuousEnemyAttackTextField, 1,1);
+
+                Label continuousEnemyHealthLabel = new Label("Insert Enemy Health Change : ");
+                TextField continuousEnemyHealthTextField = new TextField();
+                gridPane.add(continuousEnemyHealthLabel, 2, 1);
+                gridPane.add(continuousEnemyHealthTextField, 3,1);
+
+                StackPane addMagicButton = Button.buildButton("Add Magic");
+                addMagicButton.setOnMouseClicked(event -> {
+                    magics.add(new ChangeAllHPAndAP(Integer.parseInt(continuousFriendlyAttackTextField.getText()),Integer.parseInt(continuousFriendlyHealthTextField.getText()),Integer.parseInt(continuousEnemyAttackTextField.getText()),Integer.parseInt(continuousEnemyHealthTextField.getText()), cardName + " : " + cardDetails));
+                });
+                gridPane.add(addMagicButton,4,1);
+
+                Label continuousFriendlyHeroHealthLabel = new Label("Insert Friendly Hero Health Change : ");
+                TextField continuousFriendlyHeroHealthTextField = new TextField();
+                gridPane.add(continuousFriendlyHeroHealthLabel, 0, 2);
+                gridPane.add(continuousFriendlyHeroHealthTextField, 1,2);
+
+                Label continuousEnemyHeroHealthLabel = new Label("Insert Enemy Hero Health Change : ");
+                TextField continuousEnemyHeroHealthTextField = new TextField();
+                gridPane.add(continuousEnemyHeroHealthLabel, 2, 2);
+                gridPane.add(continuousEnemyHeroHealthTextField, 3,2);
+
+                StackPane addMagicButton1 = Button.buildButton("Add Magic");
+                addMagicButton1.setOnMouseClicked(event -> {
+                    magics.add(new ChangePlayerHP(Integer.parseInt(continuousFriendlyHeroHealthTextField.getText()), Integer.parseInt(continuousEnemyHeroHealthTextField.getText()),cardName + " : " + cardDetails));
+                });
+                gridPane.add(addMagicButton1,4,2);
+
+                Label continuousDamageRandomMSOrPlayerHeroLabel = new Label("Insert Damage To A Random Enemy Card On The Field Or Player : ");
+                TextField continuousDamageRandomMSOrPlayerHeroTextField = new TextField();
+                gridPane.add(continuousDamageRandomMSOrPlayerHeroLabel, 0, 3);
+                gridPane.add(continuousDamageRandomMSOrPlayerHeroTextField, 1,3);
+
+                StackPane addMagicButton2 = Button.buildButton("Add Magic");
+                addMagicButton2.setOnMouseClicked(event -> {
+                    magics.add(new DamageRandomMSOrPlayer(Integer.parseInt(continuousDamageRandomMSOrPlayerHeroTextField.getText()),1, cardName + " : " + cardDetails));
+                });
+                gridPane.add(addMagicButton2,4,3);
+
+                Label continuousRemoveAllSpellsLabel = new Label("Remove All Enemy Spell Cards : ");
+                gridPane.add(continuousRemoveAllSpellsLabel, 0, 4);
+
+                StackPane addMagicButton3 = Button.buildButton("Add Magic");
+                addMagicButton3.setOnMouseClicked(event -> {
+                    magics.add(new RemoveAllSpells(cardName + " : " + cardDetails));
+                });
+                gridPane.add(addMagicButton3,4,4);
+                StackPane confirmButton1 = Button.buildButton("Confirm");
+                confirmButton1.setOnMouseClicked(event -> {
+                    gridPane.getChildren().clear();
+                    save(new ContinuousSpell(cardName, cardMana, magics));
+                    NewCard.start(stage);
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Information Dialog");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Your Continuous Spell Card Was Successfully Added To The Cards!");
+                    alert.showAndWait();
+                });
+                StackPane backButton1 = Button.buildButton("Back");
+                gridPane.add(backButton1,1,5);
+                gridPane.add(confirmButton1,2,5);
                 break;
 
             case "Aura":
@@ -119,22 +194,24 @@ public class NewSpellCard {
                     magics.add(new ChangeHPAndAP(Integer.parseInt(auraAttackTextField.getText()),Integer.parseInt(auraHealthTextField.getText()), 0, cardName + " : " + cardDetails));
                     inverseMagic.add(new ChangeHPAndAP(Integer.parseInt(auraAttackTextField.getText()),Integer.parseInt(auraHealthTextField.getText()), 0, ""));
                     save(new AuraSpell(cardName, cardMana, magics,inverseMagic));
-                    magics.clear();
                     NewCard.start(stage);
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setTitle("Information Dialog");
                     alert.setHeaderText(null);
-                    alert.setContentText("Your Aura Card Was Successfully Added To The Cards!");
+                    alert.setContentText("Your Aura Spell Card Was Successfully Added To The Cards!");
                     alert.showAndWait();
                 });
                 StackPane backButton = Button.buildButton("Back");
                 gridPane.add(backButton,1,2);
                 gridPane.add(confirmButton,2,2);
-
-
-                inverseMagic.clear();
                 break;
         }
+        gridPane.setPadding(new Insets(20,20,20,20));
+        gridPane.setVgap(20);
+        gridPane.setHgap(20);
+        gridPane.setAlignment(Pos.TOP_CENTER);
+        magics.clear();
+        inverseMagic.clear();
         return gridPane;
     }
     public void save(Card card){
