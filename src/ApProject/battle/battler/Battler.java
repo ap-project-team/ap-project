@@ -155,7 +155,7 @@ abstract public class Battler {
         root.getChildren().addAll(Message.buildMessage(addedCard, root));
 
         if (type.equals("PLAYER")) {
-            System.out.println(
+            getBattle().updateEvent(
                     "Turn " + turnNum + " started! \n"
                             + name + "’s turn.\n"+
                             "[" + addedCard + "]\n" +
@@ -184,12 +184,14 @@ abstract public class Battler {
     public void drawCard(int num) {
         addToHand(num);
         String text = "Player drew ";
-        for(int i=0; i<num; i++) {
+        for (int i = 0; i < num; i++) {
             text += hand.getName(i) + ", ";
         }
-        text = text.substring(0,text.lastIndexOf(','));
-        if (type.equals("PLAYER"))
+        text = text.substring(0, text.lastIndexOf(','));
+        if (type.equals("PLAYER")) {
             System.out.println(text);
+//            battle.updateEvent(text);
+        }
     }
 
     public boolean isAlive(){

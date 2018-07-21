@@ -21,8 +21,10 @@ public abstract class Message{
             @Override
             public void handle(long now) {
                 t.setOpacity(t.getOpacity()-0.01);
-                if (t.getOpacity() == 0)
+                if (t.getOpacity() == 0) {
+                    root.getChildren().remove(t);
                     this.stop();
+                }
             }
         };
 

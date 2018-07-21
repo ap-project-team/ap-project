@@ -4,6 +4,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import src.ApProject.battle.battler.Battler;
+import src.ApProject.graphics.DieingEffect;
 import src.ApProject.thing.Cards.Card;
 import src.ApProject.thing.Cards.Magic.Magic;
 import src.ApProject.thing.Cards.Magic.MagicType;
@@ -150,6 +151,7 @@ public class MonsterCardsInBattle {
         if(this.currentHealthPoint <= 0) {
             currentBattler.getMonsterField().remove(this, currentBattler);
             System.out.println(this.getCardName() + " has been killed!");
+            DieingEffect.buildEffect(this.fullImage, currentBattler.getBattle());
         }
     }
 

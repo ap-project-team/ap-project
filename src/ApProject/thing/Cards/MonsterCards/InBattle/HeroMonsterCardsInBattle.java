@@ -33,6 +33,7 @@ public class HeroMonsterCardsInBattle extends MonsterCardsInBattle{
         this.magicDetail = magics.getMagicDetails();
         this.battleCryDetail = battleCry.getMagicDetails();
         this.willDetail = will.getMagicDetails();
+
         if(this.monsterCardSpeciality == MonsterCardSpeciality.Charge){
             canAttack = true;
             isSleep = false;
@@ -42,6 +43,7 @@ public class HeroMonsterCardsInBattle extends MonsterCardsInBattle{
                 if(spell.getSpellType() == SpellType.Aura)
                     this.addAuraEffect((AuraSpell) spell);
         }
+
         ArrayList<Map> map = currentBattler.getMonsterField().printingTargets( currentBattler, enemyBattler, battleCryType);
         while (currentBattler.getSpellField().instantSpellOrders(currentBattler, enemyBattler, battleCry, map.get(0), map.get(1), map.get(2)));
         setImage();
@@ -50,7 +52,7 @@ public class HeroMonsterCardsInBattle extends MonsterCardsInBattle{
     public void checkDeath() {
         if(this.currentHealthPoint <= 0) {
             currentBattler.getMonsterField().remove(this, currentBattler);
-            System.out.println(this.getCardName() + " has been killed!");
+            currentBattler.getBattle().updateEvent(this.getCardName() + " has been killed!");
             while (currentBattler.getSpellField().instantSpellOrders(currentBattler, enemyBattler,this.will, null, null, null));
         }
     }

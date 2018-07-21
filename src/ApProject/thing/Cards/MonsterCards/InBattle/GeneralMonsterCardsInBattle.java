@@ -47,7 +47,7 @@ public class GeneralMonsterCardsInBattle extends MonsterCardsInBattle {
     public void checkDeath() {
         if(this.currentHealthPoint <= 0) {
             currentBattler.getMonsterField().remove(this, currentBattler);
-            System.out.println(this.getCardName() + " has been killed!");
+            currentBattler.getBattle().updateEvent(this.getCardName() + " has been killed!");
             while (currentBattler.getSpellField().instantSpellOrders(currentBattler, enemyBattler,this.will, null, null, null));
         }
     }

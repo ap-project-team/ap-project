@@ -85,7 +85,7 @@ public class Hand {
                     } else root.getChildren().addAll(Message.buildMessage("Your SpellField is full.", root));
                 }
 
-                battler.battle.update();
+                battler.getBattle().update();
             });
 
             image.setFitHeight(80*5/hand.size());

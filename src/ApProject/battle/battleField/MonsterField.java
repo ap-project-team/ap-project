@@ -142,17 +142,17 @@ public class MonsterField {
             else if (enemy.getMonsterField().numberOfTaunts() != 0) {
                 System.out.println("Player have Taunt in his field!");
                 MonsterCardsInBattle card = enemy.getMonsterField().getRandomTaunt();
-                System.out.println(slots[slotNum].getCardName() + " clashed with " + card.getCardName());
+                battler.getBattle().updateEvent(slots[slotNum].getCardName() + " clashed with " + card.getCardName());
                 slots[slotNum].attack(card);
                 return false;
             } else {
                 String cardName = slots[slotNum].getCardName();
                 if (str[1].equals("Player")) {
-                    System.out.println(cardName + " clashed with " + enemy.getName());
+                    battler.getBattle().updateEvent(cardName + " clashed with " + enemy.getName());
                     slots[slotNum].attack();
                     return false;
                 } else {
-                    System.out.println(cardName + " clashed with " +
+                    battler.getBattle().updateEvent(cardName + " clashed with " +
                             enemy.getMonsterField().getSlot(Integer.parseInt(str[1]) - 1).getCardName());
                     slots[slotNum].attack(enemy.getMonsterField().getSlot(Integer.parseInt(str[1]) - 1));
                     return false;
@@ -379,7 +379,7 @@ public class MonsterField {
                     else if (battler.getEnemy().getMonsterField().numberOfTaunts() != 0) {
                         root.getChildren().addAll(Message.buildMessage("Player had Taunt in his field!", root));
                         MonsterCardsInBattle card = battler.getEnemy().getMonsterField().getRandomTaunt();
-                        System.out.println(slots[finalI].getCardName() + " clashed with " + card.getCardName());
+                        battler.getBattle().updateEvent(slots[finalI].getCardName() + " clashed with " + card.getCardName());
                         slots[finalI].attack(card);
                     } else {
                         String cardName = slots[finalI].getCardName();
@@ -387,10 +387,10 @@ public class MonsterField {
 
                         battler.getEnemy().getBattlerCard().setOpacity(0.4);
                         battler.getEnemy().getBattlerCard().setOnMouseClicked(event1 -> {
-                            System.out.println(cardName + " clashed with " + battler.getEnemy().getName());
+                            battler.getBattle().updateEvent(cardName + " clashed with " + battler.getEnemy().getName());
                             AttackMove.buildAttackMove(root, battler, slots[finalI].getFullImage(), battler.getEnemy().getBattlerCard());
                             slots[finalI].attack();
-                            battler.getBattle().update();
+                            //battler.getBattle().update();
                         });
                         for (int j=0; j<ConstantDatas.SIZE_OF_MONSTERFIELD; j++){
                             if (battler.getEnemy().getMonsterField().getSlot(j) == null)

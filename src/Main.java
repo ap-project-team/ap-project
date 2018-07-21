@@ -23,7 +23,7 @@ public class Main extends Application{
         Scene scene = new Scene(new Pane());
         stage.setScene(new MainMenu().buildMainMenu(stage, scene));
 
-        stage.setFullScreen(false);
+        stage.setFullScreen(true);
         stage.setMaxWidth(1368);
         stage.setMaxHeight(912);
 

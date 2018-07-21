@@ -24,9 +24,9 @@ public class AI_Battler extends Battler {
 
     @Override
     protected boolean turnOrders() {
-        System.out.println("Enemy Moves :");
-        useMonsterCard();
+        getBattle().updateEvent("Enemy Moves :");
         setCard();
+        useMonsterCard();
         battle.update();
         return false;
     }
@@ -61,10 +61,12 @@ public class AI_Battler extends Battler {
                 if (monsterField.getSlot(i).canAttack()) {
                     int rand = new Random().nextInt(enemyMonsterField.size()+1);
                     if (rand == enemyMonsterField.size()) {
-                        System.out.println(monsterField.getSlot(i).getCardName() + " clashed with " + enemy.getName());
+                        getBattle().updateEvent(monsterField.getSlot(i).getCardName() + " clashed with " + enemy.getName());
+                        AttackMove.buildAttackMove(battle.getRoot(), this, monsterField.getSlot(i).getFullImage(),
+                                enemy.battlerCard);
                         monsterField.getSlot(i).attack();
                     } else {
-                        System.out.println(monsterField.getSlot(i).getCardName() + " clashed with "
+                        getBattle().updateEvent(monsterField.getSlot(i).getCardName() + " clashed with "
                                 + enemyMonsterField.get(rand).getCardName());
                         AttackMove.buildAttackMove(battle.getRoot(), this, monsterField.getSlot(i).getFullImage(),
                                 enemyMonsterField.get(rand).getFullImage());
