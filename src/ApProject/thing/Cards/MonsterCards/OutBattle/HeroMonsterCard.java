@@ -18,7 +18,7 @@ public class HeroMonsterCard extends MonsterCard {
         this.manaCost = manaCost;
         this.monsterCardSpeciality = monsterCardSpeciality;
         this.tribe = tribe;
-        this.type = Type.SpellCaster;
+        this.type = Type.Hero;
         this.battleCry = battleCry;
         this.will = will;
         this.magics = magics;

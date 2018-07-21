@@ -18,7 +18,7 @@ public class GeneralMonsterCard extends MonsterCard {
         this.manaCost = manaCost;
         this.monsterCardSpeciality = monsterCardSpeciality;
         this.tribe = tribe;
-        this.type = Type.SpellCaster;
+        this.type = Type.General;
         this.battleCry = battleCry;
         this.will = will;
         this.price = manaCost * 1000;
