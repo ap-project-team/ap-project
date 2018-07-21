@@ -24,5 +24,19 @@ abstract public class MonsterCard extends Card {
         cardType = "MONSTERCARD";
     }
 
+    public void setBattleCry(InstantSpell battleCry) {
+        this.battleCry = battleCry;
+    }
 
+    public void setWill(InstantSpell will) {
+        this.will = will;
+    }
+
+    public void setMagics(InstantSpell magics) {
+        this.magics = magics;
+    }
+
+    public Type getType() {
+        return type;
+    }
 }

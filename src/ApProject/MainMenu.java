@@ -31,9 +31,8 @@ public class MainMenu extends Pane{
 
         StackPane customGameButton  = Button.buildButton("CustomGame");
         customGameButton.setOnMouseClicked(event -> {
-//            CustomGame customGame = new CustomGame(stage);
-//            customGame.start();
-            NewCard.start(stage);
+            CustomGame customGame = new CustomGame(stage);
+            customGame.start();
         });
         StackPane optionsButton = Button.buildButton("Options");
 
