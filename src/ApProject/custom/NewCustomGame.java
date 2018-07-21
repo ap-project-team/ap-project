@@ -19,12 +19,17 @@ public class NewCustomGame {
         newCardButton.setOnMouseClicked(event -> {
             NewCard.start(stage);
         });
-        StackPane newItemButton =  Button.buildButton("Create New Items");
+        StackPane newItemButton =  Button.buildButton("Create New Item");
         newItemButton.setOnMouseClicked(event -> {
             NewItem newItem = new NewItem();
             newItem.start(stage);
         });
-        vBox.getChildren().addAll(newCardButton, newItemButton);
+        StackPane newAmuletButton =  Button.buildButton("Create New Amulet");
+        newAmuletButton.setOnMouseClicked(event -> {
+            NewAmulet newAmulet = new NewAmulet();
+            newAmulet.start(stage);
+        });
+        vBox.getChildren().addAll(newCardButton, newItemButton, newAmuletButton);
         vBox.setSpacing(50);
         vBox.setAlignment(Pos.CENTER);
         vBox.setPadding(new Insets(20,20,20,20));

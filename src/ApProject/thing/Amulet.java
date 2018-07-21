@@ -31,7 +31,7 @@ public class Amulet extends Thing{
         if (attack) return ("Decrease All Incoming Damages by 20%");
         else if (increaseMP == 0) return " Increase Player’s Max HP by "+increaseHP;
         else if (increaseHP == 0) return " Increase Player’s Max MP by "+increaseMP;
-        return null;
+        else return " Increase Player’s Max HP by " + increaseHP + " Increase Player’s Max MP by " + increaseMP;
     }
 
     public int getIncreaseHP() {
