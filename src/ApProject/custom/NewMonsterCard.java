@@ -20,9 +20,7 @@ import src.ApProject.thing.Cards.MonsterCards.Tribe;
 import src.ApProject.thing.Cards.MonsterCards.Type;
 import src.ApProject.thing.Cards.Spells.InstantSpell;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.util.ArrayList;
 
 
@@ -375,11 +373,16 @@ public class NewMonsterCard {
         try {
             FileOutputStream fos = new FileOutputStream("cards.ser");
             ObjectOutputStream oos = new ObjectOutputStream(fos);
-//            FileInputStream fis = new FileInputStream("cards.ser");
-//            ObjectInputStream ois = new ObjectInputStream(fis);
-//            Card result = (Card) ois.readObject();
+            oos.writeObject(card);
+            FileInputStream fis = new FileInputStream("cards.ser");
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            Card result = (Card) ois.readObject();
+            System.out.println(result.getName());
+            System.out.println(result.getInfo());
             oos.close();
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
     }

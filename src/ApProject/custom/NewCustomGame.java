@@ -15,12 +15,16 @@ public class NewCustomGame {
         GridPane gridPane = new GridPane();
         gridPane.setPadding(new Insets(20,20,20,20));
         VBox vBox = new VBox();
-        StackPane newGame =  Button.buildButton("Create New Card");
-        newGame.setOnMouseClicked(event -> {
+        StackPane newCardButton =  Button.buildButton("Create New Card");
+        newCardButton.setOnMouseClicked(event -> {
             NewCard.start(stage);
         });
-        StackPane savedButton =  Button.buildButton("Saved Games");
-        vBox.getChildren().addAll(newGame, savedButton);
+        StackPane newItemButton =  Button.buildButton("Create New Items");
+        newItemButton.setOnMouseClicked(event -> {
+            NewItem newItem = new NewItem();
+            newItem.start(stage);
+        });
+        vBox.getChildren().addAll(newCardButton, newItemButton);
         vBox.setSpacing(50);
         vBox.setAlignment(Pos.CENTER);
         vBox.setPadding(new Insets(20,20,20,20));

@@ -367,6 +367,7 @@ public class NewSpellCard {
         try {
             FileOutputStream fos = new FileOutputStream("cards.ser");
             ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(card);
 //            FileInputStream fis = new FileInputStream("cards.ser");
 //            ObjectInputStream ois = new ObjectInputStream(fis);
 //            Card result = (Card) ois.readObject();

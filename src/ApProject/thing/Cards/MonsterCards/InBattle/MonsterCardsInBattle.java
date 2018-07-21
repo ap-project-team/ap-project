@@ -186,6 +186,7 @@ public class MonsterCardsInBattle {
     }
 
     public void setImage() {
+        System.out.println("./src//source//CARD//" + getCardName() + ".png");
         this.image = new ImageView("./src//source//CARD//"+getCardName()+".png");
         image.setFitWidth(60);
         image.setFitHeight(80);

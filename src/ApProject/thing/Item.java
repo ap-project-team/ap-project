@@ -34,9 +34,9 @@ public class Item extends Thing{
     }
 
     public String getInfo(){
-        if (increaseMP == 0) return " Increase Player’s HP by "+increaseHP;
-        else if (increaseHP == 0) return " Increase Player’s MP by "+increaseMP;
-        else return "Increase Player’s HP by "+increaseHP+" and MP by "+increaseMP;
+        if (increaseMP == 0) return " Increase Player’s HP by " + increaseHP;
+        else if (increaseHP == 0) return " Increase Player’s MP by "+ increaseMP;
+        else return "Increase Player’s HP by " + increaseHP+" and MP by "+ increaseMP;
     }
 
 }
