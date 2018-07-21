@@ -74,16 +74,16 @@ public class Hand {
 
             ImageView image = new ImageView("./src//source//CARD//" + hand.get(i).getName() + ".png");
             int finalI = i;
-            image.setOnMouseClicked(event -> {
+            fullImage.setOnMouseClicked(event -> {
                 if (hand.get(finalI).getCardType().equals("MONSTERCARD")) {
                     if (battler.monsterField.getEmptySlotNumber() != 0) {
                         hand.get(finalI).play(battler, battler.enemy, battler.monsterField.getFirstEmptySlot());
                     } else root.getChildren().addAll(Message.buildMessage("Your MonsterField is full.", root));
-
-                } else if (hand.get(finalI).getCardType().equals("SPELLCARD"))
+                } else if (hand.get(finalI).getCardType().equals("SPELLCARD")) {
                     if (battler.spellField.getEmptySlotNumber() != 0) {
                         hand.get(finalI).play(battler, battler.enemy, battler.spellField.getFirstEmptySlot());
-                    } else root.getChildren().addAll(Message.buildMessage("Your MonsterField is full.", root));
+                    } else root.getChildren().addAll(Message.buildMessage("Your SpellField is full.", root));
+                }
 
                 battler.battle.update();
             });

@@ -1,15 +1,18 @@
 package src.ApProject.battle.battler;
 
+
+
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import src.ApProject.battle.Battle;
+import src.ApProject.battle.battleField.GraveYard;
+import src.ApProject.battle.battleField.MonsterField;
+import src.ApProject.battle.battleField.SpellField;
 import src.ApProject.constants.ConstantDatas;
 import src.ApProject.graphics.Message;
 import src.ApProject.thing.Amulet;
 import src.ApProject.thing.Cards.Card;
-import src.ApProject.battle.battleField.GraveYard;
-import src.ApProject.battle.battleField.MonsterField;
-import src.ApProject.battle.battleField.SpellField;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -20,10 +23,10 @@ abstract public class Battler {
     protected String type;
     protected Amulet amulet;
 
-    MonsterField monsterField = new MonsterField();
+    MonsterField monsterField = new MonsterField(this);
     SpellField spellField = new SpellField();
     GraveYard graveYard = new GraveYard();
-
+    StackPane battlerCard;
 
     int HP = 10000;
 
@@ -217,5 +220,19 @@ abstract public class Battler {
 
     public Amulet getAmulet(){return amulet;}
 
+    public Battler getEnemy() {
+        return enemy;
+    }
 
+    public Battle getBattle() {
+        return battle;
+    }
+
+    public void setBattlerCard(StackPane battlerCard) {
+        this.battlerCard = battlerCard;
+    }
+
+    public StackPane getBattlerCard() {
+        return battlerCard;
+    }
 }

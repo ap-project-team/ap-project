@@ -3,6 +3,7 @@ package src.ApProject.battle.battler;
 
 import javafx.scene.layout.VBox;
 import src.ApProject.constants.ConstantDatas;
+import src.ApProject.graphics.AttackMove;
 import src.ApProject.thing.Cards.Card;
 import src.ApProject.thing.Cards.Magic.MagicType;
 import src.ApProject.thing.Cards.MonsterCards.InBattle.MonsterCardsInBattle;
@@ -65,6 +66,8 @@ public class AI_Battler extends Battler {
                     } else {
                         System.out.println(monsterField.getSlot(i).getCardName() + " clashed with "
                                 + enemyMonsterField.get(rand).getCardName());
+                        AttackMove.buildAttackMove(battle.getRoot(), this, monsterField.getSlot(i).getFullImage(),
+                                enemyMonsterField.get(rand).getFullImage());
                         monsterField.getSlot(i).attack(enemyMonsterField.get(rand));
                     }
                 }

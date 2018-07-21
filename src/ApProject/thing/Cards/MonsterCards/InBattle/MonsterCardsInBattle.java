@@ -42,7 +42,7 @@ public class MonsterCardsInBattle {
     protected String battleCryDetail;
     protected String willDetail;
     protected ImageView image;
-
+    StackPane fullImage;
 
     public InstantSpell getMagics() { return magics; }
 
@@ -176,7 +176,7 @@ public class MonsterCardsInBattle {
     }
 
     public StackPane getImage() {
-        StackPane fullImage = new StackPane();
+        fullImage = new StackPane();
         Text t = new Text("HP: "+getCurrentHealthPoint()+"\n"+"AP: "+getCurrentAttackPoint());
 
         fullImage.getChildren().addAll(image, t);
@@ -187,5 +187,9 @@ public class MonsterCardsInBattle {
         this.image = new ImageView("./src//source//CARD//"+getCardName()+".png");
         image.setFitWidth(60);
         image.setFitHeight(80);
+    }
+
+    public StackPane getFullImage() {
+        return fullImage;
     }
 }

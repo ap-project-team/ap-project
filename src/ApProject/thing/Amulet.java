@@ -1,6 +1,6 @@
 package src.ApProject.thing;
 
-import javafx.scene.image.ImageView;
+import javafx.scene.image.*;
 import src.ApProject.battle.battler.Battler;
 
 public class Amulet extends Thing{

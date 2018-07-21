@@ -1,9 +1,11 @@
 package src.ApProject.battle;
 
+import javafx.animation.AnimationTimer;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -14,6 +16,7 @@ import src.ApProject.graphics.BackButton;
 import src.ApProject.graphics.Message;
 import src.ApProject.player.Player;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 
@@ -23,7 +26,8 @@ public class Battle {
     int turnNum = 1;
     VBox battleGround = new VBox();
     Pane root = new Pane();
-
+    Pane pastRoot = new Pane();
+    int startNumber;
     Battler[] battlers = new Battler[2];
 
     public Battle(Battler battler, Battler enemy) {
@@ -96,34 +100,33 @@ public class Battle {
                 turnNum++;
             });
         }
-
-        Circle endButton = new Circle(300,100,10, Color.RED);
-        root.getChildren().addAll(endButton);
-
-        endButton.setOnMouseClicked(event -> {
-            System.out.println("GAME OVER");
-
-            String winner = "Draw";
-            if (battlers[0].isAlive()) winner = "PLAYER";
-            else if (battlers[1].isAlive()) winner = "ENEMY";
-
-            System.out.println(winner + " Wins");
-
-        });
-
     }
 
-    public void update(){
-        root.getChildren().remove(battleGround);
+    synchronized public void update(){
+        //root.getChildren().remove(battleGround);
+        if (root.getChildren().contains(battleGround))
+            root.getChildren().remove(battleGround);
+
         battleGround = new VBox(50);
+        StackPane[] battlersView = new StackPane[2];
 
         VBox vBox1 = new VBox(30);
         VBox vBox2= new VBox(30);
 
-        vBox1.getChildren().addAll(new Text("Health: "+battlers[1].getHealth()));
+        Circle circle = new Circle(50, Color.GREENYELLOW);
+        Text text = new Text("Health: "+battlers[1].getHealth());
+        battlersView[1] = new StackPane(circle, text);
+        battlers[1].setBattlerCard(battlersView[1]);
+
+        Circle circle1 = new Circle(50, Color.GREENYELLOW);
+        Text text1 = new Text("Health: "+battlers[0].getHealth()+"\nMana: "+battlers[0].getCurrentMana());
+        battlersView[0] = new StackPane(circle1, text1);
+        battlers[0].setBattlerCard(battlersView[0]);
+
+        vBox1.getChildren().addAll(battlersView[1]);
         battlers[1].updatePlayField(vBox1);
         battlers[0].updatePlayField(vBox2);
-        vBox2.getChildren().addAll(new Text("Health: "+battlers[0].getHealth()+"\nMana: "+battlers[0].getCurrentMana()));
+        vBox2.getChildren().addAll(battlersView[0]);
 
         battleGround.getChildren().addAll(vBox1, vBox2);
 
@@ -131,9 +134,13 @@ public class Battle {
         vBox2.setAlignment(Pos.CENTER);
 
         battleGround.setTranslateX(root.getWidth()/2 - 170);
-        battleGround.setTranslateY(200);
+        battleGround.setTranslateY(50);
         battleGround.setAlignment(Pos.CENTER);
 
         root.getChildren().addAll(battleGround);
+    }
+
+    public Pane getRoot() {
+        return root;
     }
 }

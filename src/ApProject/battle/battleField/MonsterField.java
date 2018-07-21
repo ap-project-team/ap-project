@@ -1,12 +1,15 @@
 package src.ApProject.battle.battleField;
 
-import javafx.geometry.Pos;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.shape.Rectangle;
+import javafx.geometry.*;
+import javafx.scene.effect.*;
+import javafx.scene.layout.*;
+import javafx.scene.paint.*;
+import javafx.scene.shape.*;
 import src.ApProject.Game;
 import src.ApProject.battle.battler.Battler;
 import src.ApProject.constants.ConstantDatas;
+import src.ApProject.graphics.AttackMove;
+import src.ApProject.graphics.Message;
 import src.ApProject.thing.Cards.Card;
 import src.ApProject.thing.Cards.Magic.MagicType;
 import src.ApProject.thing.Cards.MonsterCards.InBattle.MonsterCardsInBattle;
@@ -19,13 +22,19 @@ import java.util.Random;
 
 import src.ApProject.thing.Cards.Spells.Spells;
 
+import javax.swing.text.html.ImageView;
+
 import static src.ApProject.thing.Cards.MonsterCards.MonsterCardSpeciality.Taunt;
 
 public class MonsterField {
 
     private HBox hBox;
+    Battler battler;
     private MonsterCardsInBattle[] slots = new MonsterCardsInBattle[ConstantDatas.SIZE_OF_MONSTERFIELD];
 
+    public MonsterField(Battler battler){
+        this.battler = battler;
+    }
 
     public void add(MonsterCardsInBattle card, int slotNum) {
         if (slots[slotNum] == null)
@@ -359,7 +368,51 @@ public class MonsterField {
             if (slots[i] == null)
                 hBox.getChildren().addAll(new Rectangle(60,80));
             else {
-                hBox.getChildren().addAll(slots[i].getImage());
+                StackPane image = slots[i].getImage();
+                hBox.getChildren().addAll(image);
+
+                int finalI = i;
+                image.setOnMouseClicked(event -> {
+                    battler.getBattle().update();
+                    if (!slots[finalI].canAttack())
+                        root.getChildren().addAll(Message.buildMessage("This card can't attack.", root));
+                    else if (battler.getEnemy().getMonsterField().numberOfTaunts() != 0) {
+                        root.getChildren().addAll(Message.buildMessage("Player had Taunt in his field!", root));
+                        MonsterCardsInBattle card = battler.getEnemy().getMonsterField().getRandomTaunt();
+                        System.out.println(slots[finalI].getCardName() + " clashed with " + card.getCardName());
+                        slots[finalI].attack(card);
+                    } else {
+                        String cardName = slots[finalI].getCardName();
+                        slots[finalI].getFullImage().setEffect(new DropShadow(5, Color.RED));
+
+                        battler.getEnemy().getBattlerCard().setOpacity(0.4);
+                        battler.getEnemy().getBattlerCard().setOnMouseClicked(event1 -> {
+                            System.out.println(cardName + " clashed with " + battler.getEnemy().getName());
+                            AttackMove.buildAttackMove(root, battler, slots[finalI].getFullImage(), battler.getEnemy().getBattlerCard());
+                            slots[finalI].attack();
+                            battler.getBattle().update();
+                        });
+                        for (int j=0; j<ConstantDatas.SIZE_OF_MONSTERFIELD; j++){
+                            if (battler.getEnemy().getMonsterField().getSlot(j) == null)
+                                continue;
+
+                            StackPane enemyCard = battler.getEnemy().getMonsterField().getSlot(j).getFullImage();
+                            enemyCard.setOpacity(0.4);
+
+                            int finalJ = j;
+                            enemyCard.setOnMouseClicked(event1 -> {
+                                System.out.println(cardName + " clashed with " + battler.getEnemy().getMonsterField().getSlot(finalJ).getCardName());
+                                slots[finalI].attack(battler.getEnemy().getMonsterField().getSlot(finalJ));
+                                AttackMove.buildAttackMove(root, battler, image, enemyCard);
+                                //battler.getBattle().update();
+                            });
+
+                            getSlot(finalI).getFullImage().setOnMouseClicked(event1 -> {
+                                battler.getBattle().update();
+                            });
+                        }
+                    }
+                });
             }
         }
 
@@ -373,4 +426,5 @@ public class MonsterField {
                 return i;
         return -1;
     }
+
 }

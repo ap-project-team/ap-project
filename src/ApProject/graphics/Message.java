@@ -10,9 +10,12 @@ public abstract class Message{
         Text t = new Text(text);
         t.setFont(new Font(20));
 
+        //System.out.println("Hieght: "+root.getHeight());
 
         t.setX(root.getWidth()/2 - t.maxWidth(10)/2);
         t.setY(root.getHeight() - 20);
+
+
 
         AnimationTimer timer = new AnimationTimer() {
             @Override

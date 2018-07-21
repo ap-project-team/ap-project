@@ -24,4 +24,5 @@ abstract public class MonsterCard extends Card {
         cardType = "MONSTERCARD";
     }
 
+
 }

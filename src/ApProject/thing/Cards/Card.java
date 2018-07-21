@@ -1,15 +1,12 @@
 package src.ApProject.thing.Cards;
 
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import src.ApProject.battle.battler.Battler;
 import src.ApProject.thing.Thing;
 
-import java.io.Serializable;
 
 
-abstract public class Card extends Thing {
-    protected static String cardType;
+abstract public class Card extends Thing{
+    protected String cardType;
     protected int manaCost;
     protected String info;
 
@@ -18,7 +15,7 @@ abstract public class Card extends Thing {
     }
 
 
-    public static String getCardType() {
+    public String getCardType() {
         return cardType;
     }
 
