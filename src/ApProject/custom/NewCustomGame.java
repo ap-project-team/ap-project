@@ -8,6 +8,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import org.apache.commons.io.FileUtils;
 import src.ApProject.graphics.Button;
 
@@ -61,10 +62,24 @@ public class NewCustomGame {
         int rowCount = 1;
         for (String fileName : directories){
             StackPane savedGamesButton =  Button.buildButton(fileName);
+            String path =  ".\\src\\Resource\\" + fileName;
             savedGamesButton.setOnMouseClicked(event -> {
-                    sourcePath =  ".\\src\\Resource\\" + fileName;
+                    sourcePath =  path;
             });
+            javafx.scene.control.Button button = new javafx.scene.control.Button("Remove");
+            button.setTextFill(Color.RED);
+            button.setOnMouseClicked(event -> {
+                try {
+                    FileUtils.deleteDirectory(new File(path));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                showMenu(scene);
+            });
+            button.setMaxWidth(100);
             gridPane.add(savedGamesButton,0,rowCount);
+            if(rowCount != 1)
+                gridPane.add(button,1,rowCount);
             rowCount++;
         }
         TextField textField = new TextField("Input Custom Game's Name");
@@ -83,8 +98,14 @@ public class NewCustomGame {
             }
             start(scene, destinationPath);
         });
-        gridPane.add(savedGamesButton,0,rowCount + 1);
-        gridPane.add(textField, 0, rowCount );
+        gridPane.add(textField, 0, rowCount++);
+        gridPane.add(savedGamesButton,0,rowCount++);
+        StackPane backButton =  Button.buildButton("Back");
+        backButton.setOnMouseClicked(event -> {
+            CustomGame.start(scene);
+        });
+        gridPane.add(backButton,0,rowCount);
+
         gridPane.setHgap(20);
         gridPane.setVgap(20);
         gridPane.setAlignment(Pos.CENTER);
