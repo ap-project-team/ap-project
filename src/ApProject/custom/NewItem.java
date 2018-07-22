@@ -10,7 +10,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.TextAlignment;
-import javafx.stage.Stage;
 import src.ApProject.graphics.Button;
 import src.ApProject.thing.Item;
 
@@ -21,9 +20,9 @@ public class NewItem {
     private int itemMPChange;
     private int itemCost;
     private int itemHPChange;
+    private String path;
 
-    public void start(Stage stage){
-        stage.close();
+    public void start(Scene scene){
         GridPane gridPane = new GridPane();
         Label itemNameLabel = new Label("Insert Item's Name : ");
         TextField itemNameTextField = new TextField();
@@ -60,11 +59,11 @@ public class NewItem {
             alert.setHeaderText(null);
             alert.setContentText("Your Item Was Successfully Added To The Items!");
             alert.showAndWait();
-            NewCustomGame.start(stage);
+            NewCustomGame.start(scene, path);
         });
         StackPane backButton = Button.buildButton("Back");
         backButton.setOnMouseClicked(event -> {
-            NewCustomGame.start(stage);
+            NewCustomGame.start(scene, path);
         });
         gridPane.add(confirmButton, 1, 4);
         gridPane.add(backButton,0,4);
@@ -85,9 +84,7 @@ public class NewItem {
         gridPane.setPadding(new Insets(20,20, 20,20));
         gridPane.setVgap(20);
         gridPane.setHgap(20);
-        Scene scene = new Scene(vBox);
-        stage.setScene(scene);
-        stage.show();
+        scene.setRoot(vBox);
     }
 
 

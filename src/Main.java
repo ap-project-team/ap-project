@@ -27,7 +27,7 @@ public class Main extends Application{
         ItemShop.loadShopItems();
         AmuletShop.loadShopAmulets();
         Scene scene = new Scene(new Pane());
-        stage.setScene(new MainMenu().buildMainMenu(stage, scene));
+        stage.setScene(new MainMenu().buildMainMenu(scene));
 
         stage.setFullScreen(true);
        // stage.setMaxWidth(1368);

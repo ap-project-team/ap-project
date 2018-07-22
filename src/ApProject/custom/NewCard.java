@@ -5,17 +5,14 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
-import javafx.stage.Stage;
 import src.ApProject.graphics.Button;
 
 public class NewCard {
-    public static void start(Stage stage){
-        stage.close();
+    static private String path;
+    public static void start(Scene scene){
         GridPane gridPane = new GridPane();
         gridPane.setPadding(new Insets(20,20,20,20));
         StackPane monsterCard =  Button.buildButton("Monster Card");
@@ -31,7 +28,7 @@ public class NewCard {
             VBox vBox = new VBox(new Label("Monster Card"));
             vBox.setAlignment(Pos.CENTER);
             gridPane.add(vBox, 0 ,0);
-            gridPane.add(newMonsterCard.getGridPane(stage),0,1);
+            gridPane.add(newMonsterCard.getGridPane(scene),0,1);
         });
         spellCard.setOnMouseClicked(event -> {
             cardTypeLabel.setText("Spell Card");
@@ -40,11 +37,11 @@ public class NewCard {
             VBox vBox = new VBox(new Label("Spell Card"));
             vBox.setAlignment(Pos.CENTER);
             gridPane.add(vBox, 0 ,0);
-            gridPane.add(newSpellCard.getGridPane(stage),0,1);
+            gridPane.add(newSpellCard.getGridPane(scene),0,1);
         });
         StackPane backButton =  Button.buildButton("Back");
         backButton.setOnMouseClicked(event -> {
-            NewCustomGame.start(stage);
+            NewCustomGame.start(scene, path);
         });
         gridPane.add(monsterCard,0,1);
         gridPane.add(spellCard,2,1);
@@ -56,8 +53,6 @@ public class NewCard {
         gridPane.setPadding(new Insets(20,20, 20,20));
         gridPane.setVgap(20);
         gridPane.setHgap(20);
-        Scene scene = new Scene(gridPane);
-        stage.setScene(scene);
-        stage.show();
+        scene.setRoot(gridPane);
     }
 }

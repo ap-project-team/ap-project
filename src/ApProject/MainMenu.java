@@ -12,14 +12,14 @@ import src.ApProject.custom.NewCard;
 import src.ApProject.graphics.Button;
 
 public class MainMenu extends Pane{
-    public Scene buildMainMenu(Stage stage, Scene scene){
+    public Scene buildMainMenu(Scene scene){
         scene = new Scene (this,1000,700);
 
-        getChildren().addAll(buildButtons( stage, scene));
+        getChildren().addAll(buildButtons(scene));
         return scene;
     }
 
-    VBox buildButtons(Stage stage, Scene scene){
+    VBox buildButtons( Scene scene){
 
         StackPane singlePlayerButton = Button.buildButton("SinglePlayer");
         singlePlayerButton.setOnMouseClicked(event -> {
@@ -31,8 +31,7 @@ public class MainMenu extends Pane{
 
         StackPane customGameButton  = Button.buildButton("CustomGame");
         customGameButton.setOnMouseClicked(event -> {
-            CustomGame customGame = new CustomGame(stage);
-            customGame.start();
+            CustomGame.start(scene);
         });
         StackPane optionsButton = Button.buildButton("Options");
 

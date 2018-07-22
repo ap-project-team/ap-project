@@ -10,10 +10,8 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.TextAlignment;
-import javafx.stage.Stage;
 import src.ApProject.graphics.Button;
 import src.ApProject.thing.Amulet;
-import src.ApProject.thing.Item;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -24,9 +22,8 @@ public class NewAmulet {
     private int amuletMPChange;
     private int amuletCost;
     private int amuletHPChange;
-
-    public void start(Stage stage){
-        stage.close();
+    private String path;
+    public void start(Scene scene){
         GridPane gridPane = new GridPane();
         Label amuletNameLabel = new Label("Insert Amulet's Name : ");
         TextField amuletNameTextField = new TextField();
@@ -63,11 +60,11 @@ public class NewAmulet {
             alert.setHeaderText(null);
             alert.setContentText("Your Amulet Was Successfully Added To The Amulets!");
             alert.showAndWait();
-            NewCustomGame.start(stage);
+            NewCustomGame.start(scene, path);
         });
         StackPane backButton = Button.buildButton("Back");
         backButton.setOnMouseClicked(event -> {
-            NewCustomGame.start(stage);
+            NewCustomGame.start(scene, path);
         });
         gridPane.add(confirmButton, 1, 4);
         gridPane.add(backButton,0,4);
@@ -88,9 +85,7 @@ public class NewAmulet {
         gridPane.setPadding(new Insets(20,20, 20,20));
         gridPane.setVgap(20);
         gridPane.setHgap(20);
-        Scene scene = new Scene(vBox);
-        stage.setScene(scene);
-        stage.show();
+        scene.setRoot(vBox);
     }
 
 

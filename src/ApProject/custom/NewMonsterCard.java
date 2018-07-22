@@ -33,7 +33,7 @@ public class NewMonsterCard {
     private int cardAP;
     private MonsterCardSpeciality monsterCardSpeciality;
     private Tribe tribe;
-    public GridPane getGridPane(Stage stage){
+    public GridPane getGridPane(Scene scene){
         Label cardNameLabel = new Label("Insert Monster Card's Name : ");
         TextField cardNameTextField = new TextField();
         gridPane.add(cardNameLabel, 0, 0);
@@ -152,20 +152,20 @@ public class NewMonsterCard {
            switch (monsterCardTypeLabel.getText()){
                case "Normal" :
                    MonsterCard normalMonsterCard = new NormalMonsterCard(cardName, cardAP, cardHP, cardMana, monsterCardSpeciality, tribe);
-                   showEndMassage(stage, normalMonsterCard);
+                   showEndMassage(scene, normalMonsterCard);
                    break;
                case "Spell Caster" :
                    MonsterCard magicMonsterCard = new MagicMonsterCard(cardName,cardAP, cardHP, cardMana, monsterCardSpeciality, tribe, null);
-                   setInstantSpell(stage, "spell", magicMonsterCard);
+                   setInstantSpell(scene, "spell", magicMonsterCard);
                    break;
                case "General" :
                    MonsterCard generalMonsterCard = new GeneralMonsterCard(cardName, cardAP, cardHP, cardMana, monsterCardSpeciality, tribe, null,null);
-                   setInstantSpell(stage, "battlecry", generalMonsterCard);
+                   setInstantSpell(scene, "battlecry", generalMonsterCard);
                    break;
                case "Hero" :
                    MonsterCard heroMonsterCard = new HeroMonsterCard(cardName, cardAP, cardHP, cardMana, monsterCardSpeciality, tribe, null, null, null);
                    System.out.println(heroMonsterCard.getType());
-                   setInstantSpell(stage, "battlecry", heroMonsterCard);
+                   setInstantSpell(scene, "battlecry", heroMonsterCard);
                    break;
            }
 
@@ -183,7 +183,7 @@ public class NewMonsterCard {
 
     private String spellDetails ="";
 
-    public void setInstantSpell(Stage stage, String type, MonsterCard monsterCard){
+    public void setInstantSpell(Scene scene, String type, MonsterCard monsterCard){
         ArrayList<Magic> magics = new ArrayList<>();
         GridPane gridPane = new GridPane();
         GridPane gridPane1 = new GridPane();
@@ -346,18 +346,18 @@ public class NewMonsterCard {
             switch (type){
                 case "battlecry" :
                     monsterCard.setBattleCry(new InstantSpell(cardName, 0, magics));
-                    setInstantSpell(stage, "will", monsterCard);
+                    setInstantSpell(scene, "will", monsterCard);
                     break;
                 case "will" :
                     monsterCard.setWill(new InstantSpell(cardName, 0, magics));
                     if(monsterCard.getType().equals(Type.Hero))
-                        setInstantSpell(stage, "spell", monsterCard);
+                        setInstantSpell(scene, "spell", monsterCard);
                     else
-                        showEndMassage(stage, monsterCard);
+                        showEndMassage(scene, monsterCard);
                     break;
                 case "spell" :
                     monsterCard.setMagics(new InstantSpell(cardName, 0, magics));
-                    showEndMassage(stage, monsterCard);
+                    showEndMassage(scene, monsterCard);
                     break;
             }
         });
@@ -376,20 +376,17 @@ public class NewMonsterCard {
         vBox.getChildren().add(gridPane);
         vBox.setAlignment(Pos.CENTER);
         vBox.setSpacing(20);
-        Scene scene = new Scene(vBox);
-        stage.setScene(scene);
-        stage.setFullScreen(true);
-        stage.show();
+        scene.setRoot(vBox);
     }
 
-    public void showEndMassage(Stage stage, MonsterCard monsterCard){
+    public void showEndMassage(Scene scene, MonsterCard monsterCard){
         save(monsterCard);
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Information Dialog");
         alert.setHeaderText(null);
         alert.setContentText("Your Monster Card Was Successfully Added To The Cards!");
         alert.showAndWait();
-        NewCard.start(stage);
+        NewCard.start(scene);
     }
 
     public void save(Card card){

@@ -2,6 +2,7 @@ package src.ApProject.custom;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
@@ -27,10 +28,10 @@ public class NewSpellCard {
     private String cardType;
     private ArrayList<Magic> magics = new ArrayList<>();
     private ArrayList<Magic> inverseMagic = new ArrayList<>();
-    private Stage stage;
-    public GridPane getGridPane(Stage stage){
+    private Scene scene;
+    public GridPane getGridPane(Scene scene){
         GridPane gridPane = new GridPane();
-        this.stage = stage;
+        this.scene = scene;
         Label cardNameLabel = new Label("Insert Spell Card's Name : ");
         TextField cardNameTextField = new TextField();
         gridPane.add(cardNameLabel, 0, 0);
@@ -235,7 +236,7 @@ public class NewSpellCard {
                 confirmButton2.setOnMouseClicked(event -> {
                     gridPane.getChildren().clear();
                     save(new InstantSpell(cardName, cardMana, magics));
-                    NewCard.start(stage);
+                    NewCard.start(scene);
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setTitle("Information Dialog");
                     alert.setHeaderText(null);
@@ -314,7 +315,7 @@ public class NewSpellCard {
                 confirmButton1.setOnMouseClicked(event -> {
                     gridPane.getChildren().clear();
                     save(new ContinuousSpell(cardName, cardMana, magics));
-                    NewCard.start(stage);
+                    NewCard.start(scene);
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setTitle("Information Dialog");
                     alert.setHeaderText(null);
@@ -343,7 +344,7 @@ public class NewSpellCard {
                     magics.add(new ChangeHPAndAP(Integer.parseInt(auraAttackTextField.getText()),Integer.parseInt(auraHealthTextField.getText()), 0, cardName + " : " + cardDetails));
                     inverseMagic.add(new ChangeHPAndAP(Integer.parseInt(auraAttackTextField.getText()),Integer.parseInt(auraHealthTextField.getText()), 0, ""));
                     save(new AuraSpell(cardName, cardMana, magics,inverseMagic));
-                    NewCard.start(stage);
+                    NewCard.start(scene);
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setTitle("Information Dialog");
                     alert.setHeaderText(null);
