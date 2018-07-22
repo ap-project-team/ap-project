@@ -4,7 +4,6 @@ import javafx.animation.AnimationTimer;
 import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
-import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import src.ApProject.battle.battler.Battler;
@@ -13,7 +12,7 @@ import java.util.ArrayList;
 
 
 abstract public class AttackMove {
-    public synchronized static void buildAttackMove(Pane root, Battler battler, Node attacker, Node defender) {
+    public synchronized static void buildAttackMove(Battler battler, Node attacker, Node defender) {
         ArrayList<Circle> balls = new ArrayList<>();
         battler.getBattle().addEffect();
 
@@ -38,9 +37,9 @@ abstract public class AttackMove {
         AnimationTimer timer = new AnimationTimer() {
             @Override
             public void handle(long now) {
-                if (0.2 < balls.get(balls.size() - 1).getRadius()) {
-                    Circle circle = new Circle(beginPointX, beginPointY, (5 - balls.size() * 0.15),
-                            Color.color((balls.size() * 0.15) / 5, 0, 0));
+                if (0.5 < balls.get(balls.size() - 1).getRadius()) {
+                    Circle circle = new Circle(beginPointX, beginPointY, (balls.get(balls.size() - 1).getRadius() - 0.5),
+                            Color.color(balls.get(balls.size() - 1).getRadius() / 5, 0, 0));
                     battler.getBattle().getRoot().getChildren().addAll(circle);
                     balls.add(circle);
                 }
@@ -56,7 +55,7 @@ abstract public class AttackMove {
                     //battler.getBattle().newRoot();
                     battler.getBattle().deleteEffect();
                     battler.getBattle().update();
-                    System.out.println("END");
+//                    System.out.println("END");
                     this.stop();
                 }
 

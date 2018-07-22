@@ -4,6 +4,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import src.ApProject.battle.battler.Battler;
+import src.ApProject.graphics.AttackMove;
 import src.ApProject.graphics.DieingEffect;
 import src.ApProject.thing.Cards.Card;
 import src.ApProject.thing.Cards.Magic.Magic;
@@ -99,6 +100,8 @@ public class MonsterCardsInBattle {
                 }
             } else
             enemyBattler.changeHealthPoint(-this.currentAttackPoint);
+
+            AttackMove.buildAttackMove(currentBattler, getFullImage(), enemyBattler.getBattlerCard());
         }
         canAttack = false;
     }
@@ -123,6 +126,8 @@ public class MonsterCardsInBattle {
                     targetCard.currentHealthPoint -= this.currentAttackPoint;
                 }
             }
+            AttackMove.buildAttackMove(currentBattler, getFullImage(), targetCard.getFullImage());
+
             this.checkDeath();
             targetCard.checkDeath();
         }

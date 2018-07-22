@@ -7,9 +7,7 @@ import src.ApProject.graphics.AttackMove;
 import src.ApProject.thing.Cards.Card;
 import src.ApProject.thing.Cards.Magic.MagicType;
 import src.ApProject.thing.Cards.MonsterCards.InBattle.MonsterCardsInBattle;
-import src.ApProject.thing.Cards.MonsterCards.OutBattle.MonsterCard;
 
-import java.awt.image.AreaAveragingScaleFilter;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Random;
@@ -62,14 +60,14 @@ public class AI_Battler extends Battler {
                     int rand = new Random().nextInt(enemyMonsterField.size()+1);
                     if (rand == enemyMonsterField.size()) {
                         getBattle().updateEvent(monsterField.getSlot(i).getCardName() + " clashed with " + enemy.getName());
-                        AttackMove.buildAttackMove(battle.getRoot(), this, monsterField.getSlot(i).getFullImage(),
-                                enemy.battlerCard);
+//                        AttackMove.buildAttackMove(this, monsterField.getSlot(i).getFullImage(),
+//                                enemy.battlerCard);
                         monsterField.getSlot(i).attack();
                     } else {
                         getBattle().updateEvent(monsterField.getSlot(i).getCardName() + " clashed with "
                                 + enemyMonsterField.get(rand).getCardName());
-                        AttackMove.buildAttackMove(battle.getRoot(), this, monsterField.getSlot(i).getFullImage(),
-                                enemyMonsterField.get(rand).getFullImage());
+//                        AttackMove.buildAttackMove(this, monsterField.getSlot(i).getFullImage(),
+//                                enemyMonsterField.get(rand).getFullImage());
                         monsterField.getSlot(i).attack(enemyMonsterField.get(rand));
                     }
                 }

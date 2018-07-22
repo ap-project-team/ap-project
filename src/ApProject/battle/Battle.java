@@ -146,6 +146,7 @@ public class Battle {
 
     synchronized public void update() {
         //root.getChildren().remove(battleGround);
+        System.out.println(activeEffects);
         if (activeEffects == 0) {
             if (root.getChildren().contains(battleGround))
                 root.getChildren().remove(battleGround);
@@ -156,12 +157,12 @@ public class Battle {
             VBox vBox1 = new VBox(30);
             VBox vBox2 = new VBox(30);
 
-            Circle circle = new Circle(50, Color.GREENYELLOW);
+            Circle circle = new Circle(50, Color.LIGHTSKYBLUE);
             Text text = new Text("Health: " + battlers[1].getHealth());
             battlersView[1] = new StackPane(circle, text);
             battlers[1].setBattlerCard(battlersView[1]);
 
-            Circle circle1 = new Circle(50, Color.GREENYELLOW);
+            Circle circle1 = new Circle(50, Color.INDIANRED);
             Text text1 = new Text("Health: " + battlers[0].getHealth() + "\nMana: " + battlers[0].getCurrentMana());
             battlersView[0] = new StackPane(circle1, text1);
             battlers[0].setBattlerCard(battlersView[0]);
@@ -188,11 +189,11 @@ public class Battle {
         return root;
     }
 
-    public void addEffect() {
+    synchronized public void addEffect() {
         activeEffects++;
     }
 
-    public void deleteEffect() {
+    synchronized public void deleteEffect() {
         activeEffects--;
     }
 }

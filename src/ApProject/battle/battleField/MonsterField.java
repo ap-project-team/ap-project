@@ -1,5 +1,6 @@
 package src.ApProject.battle.battleField;
 
+import javafx.animation.PathTransition;
 import javafx.geometry.*;
 import javafx.scene.effect.*;
 import javafx.scene.layout.*;
@@ -21,8 +22,6 @@ import java.util.Map;
 import java.util.Random;
 
 import src.ApProject.thing.Cards.Spells.Spells;
-
-import javax.swing.text.html.ImageView;
 
 import static src.ApProject.thing.Cards.MonsterCards.MonsterCardSpeciality.Taunt;
 
@@ -369,55 +368,73 @@ public class MonsterField {
                 hBox.getChildren().addAll(new Rectangle(60,80));
             else {
                 StackPane image = slots[i].getImage();
-                hBox.getChildren().addAll(image);
+                Circle c = new Circle(100, 100, 15, Color.BLUE);
+                c.setOpacity(0);
+                StackPane imageAndIcon = new StackPane(c, image);
+                hBox.getChildren().addAll(imageAndIcon);
 
                 int finalI = i;
                 image.setOnMouseClicked(event -> {
-                    battler.getBattle().update();
-                    if (!slots[finalI].canAttack())
-                        root.getChildren().addAll(Message.buildMessage("This card can't attack.", root));
-                    else if (battler.getEnemy().getMonsterField().numberOfTaunts() != 0) {
-                        root.getChildren().addAll(Message.buildMessage("Player had Taunt in his field!", root));
-                        MonsterCardsInBattle card = battler.getEnemy().getMonsterField().getRandomTaunt();
-                        battler.getBattle().updateEvent(slots[finalI].getCardName() + " clashed with " + card.getCardName());
-                        slots[finalI].attack(card);
-                    } else {
-                        String cardName = slots[finalI].getCardName();
-                        slots[finalI].getFullImage().setEffect(new DropShadow(5, Color.RED));
+//                    battler.getBattle().update();
 
-                        battler.getEnemy().getBattlerCard().setOpacity(0.4);
-                        battler.getEnemy().getBattlerCard().setOnMouseClicked(event1 -> {
-                            battler.getBattle().updateEvent(cardName + " clashed with " + battler.getEnemy().getName());
-                            AttackMove.buildAttackMove(root, battler, slots[finalI].getFullImage(), battler.getEnemy().getBattlerCard());
-                            slots[finalI].attack();
-                            //battler.getBattle().update();
+                    if (slots[finalI].getMagicType() != MagicType.NONE && !slots[finalI].isMagicUsed() && !slots[finalI].isSleep()) {
+                        c.setOpacity(1);
+                        c.setTranslateY(40);
+                        c.setOnMouseClicked(event1 -> {
+                            c.setFill(Color.RED);
+                            c.setOnMouseClicked(event2 -> battler.getBattle().update());
                         });
-                        for (int j=0; j<ConstantDatas.SIZE_OF_MONSTERFIELD; j++){
-                            if (battler.getEnemy().getMonsterField().getSlot(j) == null)
-                                continue;
-
-                            StackPane enemyCard = battler.getEnemy().getMonsterField().getSlot(j).getFullImage();
-                            enemyCard.setOpacity(0.4);
-
-                            int finalJ = j;
-                            enemyCard.setOnMouseClicked(event1 -> {
-                                System.out.println(cardName + " clashed with " + battler.getEnemy().getMonsterField().getSlot(finalJ).getCardName());
-                                slots[finalI].attack(battler.getEnemy().getMonsterField().getSlot(finalJ));
-                                AttackMove.buildAttackMove(root, battler, image, enemyCard);
-                                //battler.getBattle().update();
-                            });
-
-                            getSlot(finalI).getFullImage().setOnMouseClicked(event1 -> {
-                                battler.getBattle().update();
-                            });
-                        }
                     }
+
+                    AttackMode(finalI, root);
                 });
             }
         }
 
         hBox.setAlignment(Pos.CENTER);
         root.getChildren().addAll(hBox);
+    }
+
+    synchronized void AttackMode(int finalI, Pane root) {
+        if (!slots[finalI].canAttack())
+            root.getChildren().addAll(Message.buildMessage("This card can't attack.", root));
+        else if (battler.getEnemy().getMonsterField().numberOfTaunts() != 0) {
+            root.getChildren().addAll(Message.buildMessage("Player had Taunt in his field!", root));
+            MonsterCardsInBattle card = battler.getEnemy().getMonsterField().getRandomTaunt();
+            battler.getBattle().updateEvent(slots[finalI].getCardName() + " clashed with " + card.getCardName());
+            slots[finalI].attack(card);
+        } else {
+            String cardName = slots[finalI].getCardName();
+            slots[finalI].getFullImage().setEffect(new DropShadow(5, Color.RED));
+
+            battler.getEnemy().getBattlerCard().setOpacity(0.4);
+            battler.getEnemy().getBattlerCard().setOnMouseClicked(event1 -> {
+                battler.getBattle().updateEvent(cardName + " clashed with " + battler.getEnemy().getName());
+//                            AttackMove.buildAttackMove(battler, slots[finalI].getFullImage(), battler.getEnemy().getBattlerCard());
+                slots[finalI].attack();
+//                            battler.getBattle().update();
+            });
+            for (int j = 0; j < ConstantDatas.SIZE_OF_MONSTERFIELD; j++) {
+                if (battler.getEnemy().getMonsterField().getSlot(j) == null)
+                    continue;
+
+                StackPane enemyCard = battler.getEnemy().getMonsterField().getSlot(j).getFullImage();
+                enemyCard.setOpacity(0.4);
+
+                int finalJ = j;
+                enemyCard.setOnMouseClicked(event1 -> {
+                    System.out.println(cardName + " clashed with " + battler.getEnemy().getMonsterField().getSlot(finalJ).getCardName());
+                    slots[finalI].attack(battler.getEnemy().getMonsterField().getSlot(finalJ));
+//                                AttackMove.buildAttackMove(battler, image, enemyCard);
+//                                battler.getBattle().update();
+                });
+
+                getSlot(finalI).getFullImage().setOnMouseClicked(event1 -> {
+                    battler.getBattle().update();
+                });
+            }
+
+        }
     }
 
     public int getFirstEmptySlot() {
