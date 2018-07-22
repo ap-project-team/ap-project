@@ -92,7 +92,7 @@ public class Player {
     public Battler becomeBattler() {
         Card[] realDeck = new Card[ConstantDatas.SIZE_OF_DECK];
         ArrayList<Item> realItems = new ArrayList<>();
-        Amulet realAmulet = Amulet.buildAmulet(inventory.deck.getEquippedAmulet());
+        Amulet realAmulet = Amulet.getAmulet(inventory.deck.getEquippedAmulet());
 
         for (int i = 0; i < realDeck.length; i++) {
             realDeck[i] = CreatCards.getCard(inventory.deck.getSlots()[i]);
@@ -100,7 +100,7 @@ public class Player {
         for (int i = 0; i < inventory.itemInventory.size(); i++) {
             InventoryThing inventoryThing = inventory.itemInventory.get(i);
             for (int j = 0; j < inventoryThing.getNum(); j++)
-                realItems.add(Item.buildItems(inventoryThing.getName()));
+                realItems.add(Item.getItems(inventoryThing.getName()));
         }
 
         Battler battler = new realBattler(name, realDeck, realItems, realAmulet);

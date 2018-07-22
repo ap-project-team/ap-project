@@ -12,9 +12,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import src.ApProject.graphics.Button;
-import src.ApProject.thing.Cards.Card;
-import src.ApProject.thing.Cards.Magic.ChangeHPAndAP;
-import src.ApProject.thing.Cards.Spells.AuraSpell;
 import src.ApProject.thing.Item;
 
 import java.io.*;

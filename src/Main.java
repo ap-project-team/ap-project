@@ -5,10 +5,12 @@ import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import src.ApProject.constants.CreatCards;
-import src.ApProject.Game;
 import src.ApProject.MainMenu;
-
-import java.util.ArrayList;
+import src.ApProject.shop.AmuletShop;
+import src.ApProject.shop.CardShop;
+import src.ApProject.shop.ItemShop;
+import src.ApProject.thing.Amulet;
+import src.ApProject.thing.Item;
 
 
 public class Main extends Application{
@@ -18,8 +20,12 @@ public class Main extends Application{
 
     @Override
     public void start(Stage stage) throws Exception {
-        CreatCards.createAllCards();
-
+        CreatCards.loadAllCards();
+        Item.loadAllItems();
+        Amulet.loadAllAmulets();
+        CardShop.loadShopCards();
+        ItemShop.loadShopItems();
+        AmuletShop.loadShopAmulets();
         Scene scene = new Scene(new Pane());
         stage.setScene(new MainMenu().buildMainMenu(stage, scene));
 

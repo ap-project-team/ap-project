@@ -6,6 +6,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
@@ -180,11 +181,22 @@ public class NewMonsterCard {
         return gridPane;
     }
 
+    private String spellDetails ="";
 
     public void setInstantSpell(Stage stage, String type, MonsterCard monsterCard){
         ArrayList<Magic> magics = new ArrayList<>();
         GridPane gridPane = new GridPane();
-        String cardDetails ="";
+        GridPane gridPane1 = new GridPane();
+        Label cardInfoLabel = new Label("Insert Spell's Details : ");
+        TextArea spellInfoTextField = new TextArea();
+        spellInfoTextField.setPrefColumnCount(20);
+        spellInfoTextField.setPrefRowCount(5);
+        spellInfoTextField.setWrapText(true);
+        gridPane1.add(cardInfoLabel, 0, 0);
+        gridPane1.add(spellInfoTextField, 1,0);
+        gridPane1.setAlignment(Pos.CENTER);
+        gridPane1.setPadding(new Insets(20,20,20,20));
+
         Label instantFriendlyAttackLabel = new Label("Insert All Friendly Attack Change : ");
         TextField instantFriendlyAttackTextField = new TextField();
         gridPane.add(instantFriendlyAttackLabel, 0, 0);
@@ -207,7 +219,8 @@ public class NewMonsterCard {
 
         StackPane addInstantMagicButton = Button.buildButton("Add Magic");
         addInstantMagicButton.setOnMouseClicked(event -> {
-            magics.add(new ChangeAllHPAndAP(Integer.parseInt(instantFriendlyAttackTextField.getText()),Integer.parseInt(instantFriendlyHealthTextField.getText()),Integer.parseInt(instantEnemyAttackTextField.getText()),Integer.parseInt(instantEnemyHealthTextField.getText()), cardName + " : " + cardDetails));
+            spellDetails = spellInfoTextField.getText();
+            magics.add(new ChangeAllHPAndAP(Integer.parseInt(instantFriendlyAttackTextField.getText()),Integer.parseInt(instantFriendlyHealthTextField.getText()),Integer.parseInt(instantEnemyAttackTextField.getText()),Integer.parseInt(instantEnemyHealthTextField.getText()),  spellDetails));
         });
         gridPane.add(addInstantMagicButton,4,1);
 
@@ -223,7 +236,8 @@ public class NewMonsterCard {
 
         StackPane addInstantMagicButton1 = Button.buildButton("Add Magic");
         addInstantMagicButton1.setOnMouseClicked(event -> {
-            magics.add(new ChangePlayerHP(Integer.parseInt(instantFriendlyHeroHealthTextField.getText()), Integer.parseInt(instantEnemyHeroHealthTextField.getText()),cardName + " : " + cardDetails));
+            spellDetails = spellInfoTextField.getText();
+            magics.add(new ChangePlayerHP(Integer.parseInt(instantFriendlyHeroHealthTextField.getText()), Integer.parseInt(instantEnemyHeroHealthTextField.getText()), spellDetails));
         });
         gridPane.add(addInstantMagicButton1,4,2);
 
@@ -234,7 +248,8 @@ public class NewMonsterCard {
 
         StackPane addInstantMagicButton2 = Button.buildButton("Add Magic");
         addInstantMagicButton2.setOnMouseClicked(event -> {
-            magics.add(new DamageRandomMSOrPlayer(Integer.parseInt(instantDamageRandomMSOrPlayerHeroTextField.getText()),1, cardName + " : " + cardDetails));
+            spellDetails = spellInfoTextField.getText();
+            magics.add(new DamageRandomMSOrPlayer(Integer.parseInt(instantDamageRandomMSOrPlayerHeroTextField.getText()),1, spellDetails));
         });
         gridPane.add(addInstantMagicButton2,4,3);
 
@@ -243,7 +258,8 @@ public class NewMonsterCard {
 
         StackPane addInstantMagicButton3 = Button.buildButton("Add Magic");
         addInstantMagicButton3.setOnMouseClicked(event -> {
-            magics.add(new RemoveAllSpells(cardName + " : " + cardDetails));
+            spellDetails = spellInfoTextField.getText();
+            magics.add(new RemoveAllSpells( spellDetails));
         });
         gridPane.add(addInstantMagicButton3,4,4);
 
@@ -265,7 +281,8 @@ public class NewMonsterCard {
 
         StackPane addInstantMagicButton4 = Button.buildButton("Add Magic");
         addInstantMagicButton4.setOnMouseClicked(event -> {
-            magics.add(new ChangeHPAndAP(Integer.parseInt(instantSelectedMonsterAttackTextField.getText()), Integer.parseInt(instantSelectedMonsterHealthTextField.getText()), Integer.parseInt(instantSelectedMonsterTypeTextField.getText()),cardName + " : " + cardDetails));
+            spellDetails = spellInfoTextField.getText();
+            magics.add(new ChangeHPAndAP(Integer.parseInt(instantSelectedMonsterAttackTextField.getText()), Integer.parseInt(instantSelectedMonsterHealthTextField.getText()), Integer.parseInt(instantSelectedMonsterTypeTextField.getText()), spellDetails));
         });
         gridPane.add(addInstantMagicButton4,4,6);
 
@@ -274,7 +291,8 @@ public class NewMonsterCard {
 
         StackPane addInstantMagicButton5 = Button.buildButton("Add Magic");
         addInstantMagicButton5.setOnMouseClicked(event -> {
-            magics.add(new RemoveRandomSpell(cardName + " : " + cardDetails));
+            spellDetails = spellInfoTextField.getText();
+            magics.add(new RemoveRandomSpell( spellDetails));
         });
         gridPane.add(addInstantMagicButton5,4,7);
 
@@ -285,7 +303,8 @@ public class NewMonsterCard {
 
         StackPane addInstantMagicButton6 = Button.buildButton("Add Magic");
         addInstantMagicButton6.setOnMouseClicked(event -> {
-            magics.add(new ChangeHPOfPlayerOrMS(Integer.parseInt(instantSelectedMonsterOrPlayerTextField.getText()),cardName + " : " + cardDetails));
+            spellDetails = spellInfoTextField.getText();
+            magics.add(new ChangeHPOfPlayerOrMS(Integer.parseInt(instantSelectedMonsterOrPlayerTextField.getText()), spellDetails));
         });
         gridPane.add(addInstantMagicButton6,4,8);
 
@@ -296,7 +315,8 @@ public class NewMonsterCard {
 
         StackPane addInstantMagicButton7 = Button.buildButton("Add Magic");
         addInstantMagicButton7.setOnMouseClicked(event -> {
-            magics.add(new DrawCard(Integer.parseInt(instantDrawCardTextField.getText()),cardName + " : " + cardDetails));
+            spellDetails = spellInfoTextField.getText();
+            magics.add(new DrawCard(Integer.parseInt(instantDrawCardTextField.getText()), spellDetails));
         });
         gridPane.add(addInstantMagicButton7,4,9);
 
@@ -305,7 +325,8 @@ public class NewMonsterCard {
 
         StackPane addInstantMagicButton8 = Button.buildButton("Add Magic");
         addInstantMagicButton8.setOnMouseClicked(event -> {
-            magics.add(new RemoveMonster(cardName + " : " + cardDetails));
+            spellDetails = spellInfoTextField.getText();
+            magics.add(new RemoveMonster(spellDetails));
         });
         gridPane.add(addInstantMagicButton8,4,10);
 
@@ -314,7 +335,8 @@ public class NewMonsterCard {
 
         StackPane addInstantMagicButton9 = Button.buildButton("Add Magic");
         addInstantMagicButton9.setOnMouseClicked(event -> {
-            magics.add(new RemoveSelectedSpell(cardName + " : " + cardDetails));
+            spellDetails = spellInfoTextField.getText();
+            magics.add(new RemoveSelectedSpell(spellDetails));
         });
         gridPane.add(addInstantMagicButton9,4,11);
 
@@ -350,6 +372,7 @@ public class NewMonsterCard {
         VBox vBox = new VBox();
         Label label = new Label(type);
         vBox.getChildren().add(label);
+        vBox.getChildren().add(gridPane1);
         vBox.getChildren().add(gridPane);
         vBox.setAlignment(Pos.CENTER);
         vBox.setSpacing(20);

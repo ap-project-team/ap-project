@@ -4,21 +4,31 @@ import src.ApProject.Game;
 import src.ApProject.player.Player;
 import src.ApProject.thing.Amulet;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Scanner;
 
 public class AmuletShop {
     static protected List<String> shopAmulets = new ArrayList<>();
 
-    {
-        shopAmulets.add("IronPendant");
-        shopAmulets.add("GoldPendant");
-        shopAmulets.add("DiamondPendant");
-        shopAmulets.add("IronRing");
-        shopAmulets.add("GoldRing");
-        shopAmulets.add("DiamondRing");
-        shopAmulets.add("DemonKing’sCrown");
+    public static void loadShopAmulets() {
+        try {
+            FileInputStream fileIn = new FileInputStream(".\\src\\Resource\\0\\Shop\\amuletShop.txt");
+            Scanner scanner = new Scanner(fileIn);
+            while (scanner.hasNext()) {
+                String amuletName = scanner.next();
+                int count = scanner.nextInt();
+                for (int i = 0; i < count; i++) {
+                    shopAmulets.add(amuletName);
+                }
+            }
+            System.out.println("Finished Loading Amulets In The Shop");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     protected boolean amuletShopOrders(Player p) {
@@ -33,9 +43,9 @@ public class AmuletShop {
                     "4. Edit Amulets: To equip or remove your ’heros amulet\n" +
                     "5. Exit: To exit to the shop menu");
         } else if (order.matches("Sell \\w* - \\d*\\s*")) {
-            p.sell(Integer.parseInt(str[3]), str[1], "AMULET", Amulet.buildAmulet(str[1]).getPrice());
+            p.sell(Integer.parseInt(str[3]), str[1], "AMULET", Amulet.getAmulet(str[1]).getPrice());
         } else if (order.matches("Buy \\w* - \\d*\\s*")) {
-            p.buy(Integer.parseInt(str[3]), str[1], "AMULET", shopAmulets, Amulet.buildAmulet(str[1]).getPrice());
+            p.buy(Integer.parseInt(str[3]), str[1], "AMULET", shopAmulets, Amulet.getAmulet(str[1]).getPrice());
         } else if (order.matches("info \\w*\\s*")) ;
             //toDo info
         else if (order.matches("Edit Amulets")) {
@@ -53,7 +63,7 @@ public class AmuletShop {
         System.out.println("Remaining gil : "+p.getGil());
         System.out.println(" Shop List");
         for(int i=0; i<shopAmulets.size(); i++){
-            System.out.println(i+1+".\t"+shopAmulets.get(i)+"\t"+ Amulet.buildAmulet(shopAmulets.get(i)).getPrice());
+            System.out.println(i+1+".\t"+shopAmulets.get(i)+"\t"+ Amulet.getAmulet(shopAmulets.get(i)).getPrice());
         }
         System.out.println(" Amulet Inventory");
         p.printInventory("AMULET");

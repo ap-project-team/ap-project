@@ -1,0 +1,3 @@
+ElvenHunter 5
+ElvenRanger 5
+Luthien,TheHighPriestess 1

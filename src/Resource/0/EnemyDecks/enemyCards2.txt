@@ -1,0 +1,10 @@
+Ogre Warlord
+OgreWarrior 6
+OrgeFrontliner 4
+OgreMagi 2
+OgreWarchief 1
+ThrowingKnives 3
+FirstAidKit 3
+PoisonousCauldron 1
+
+

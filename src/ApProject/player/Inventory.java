@@ -1,14 +1,9 @@
 package src.ApProject.player;
 
-import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.effect.Glow;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.ClipboardContent;
-import javafx.scene.input.Dragboard;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.input.TransferMode;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -24,7 +19,6 @@ import src.ApProject.thing.Amulet;
 import src.ApProject.thing.Item;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class Inventory {
     protected ArrayList<InventoryThing> cardInventory = new ArrayList<>();
@@ -266,9 +260,9 @@ public class Inventory {
                 });
 
             } else if (type.equals("ITEM")) {
-                t=new Text("Name : "+thing.getName()+"\n"+Item.buildItems(thing.getName()).getInfo());
+                t=new Text("Name : "+thing.getName()+"\n"+Item.getItems(thing.getName()).getInfo());
             } else if (type.equals("AMULET")) {
-                t = new Text("Name : "+thing.getName()+"\n"+Amulet.buildAmulet(thing.getName()).getInfo());
+                t = new Text("Name : "+thing.getName()+"\n"+Amulet.getAmulet(thing.getName()).getInfo());
                 img.setOnMouseClicked(event -> {
                     deck.setEquippedAmulet(thing.getName());
                     editAmulet(root);

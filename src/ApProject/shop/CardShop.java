@@ -4,25 +4,30 @@ import src.ApProject.Game;
 import src.ApProject.constants.CreatCards;
 import src.ApProject.player.Player;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class CardShop{
-    static protected ArrayList<String> shopCards = (new ArrayList<String>(){
-        {
-            add("ElvenHunter");
-            add("ElvenHunter");
-            add("ElvenHunter");
-            add("ElvenHunter");
-            add("ElvenHunter");
+    static protected ArrayList<String> shopCards = new ArrayList<>();
 
-            add("ElvenRanger");
-            add("ElvenRanger");
-            add("ElvenRanger");
-            add("ElvenRanger");
-            add("ElvenRanger");
-
-            add("Luthien,TheHighPriestess");
-        }});
+    public static void loadShopCards() {
+        try {
+            FileInputStream fileIn = new FileInputStream(".\\src\\Resource\\0\\Shop\\cardShop.txt");
+            Scanner scanner = new Scanner(fileIn);
+            while (scanner.hasNext()) {
+                String cardName = scanner.next();
+                int count = scanner.nextInt();
+                for (int i = 0; i < count; i++) {
+                    shopCards.add(cardName);
+                }
+            }
+            System.out.println("Finished Loading Cards In The Shop");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
 
     protected boolean cardShopOrders(Player p) {
         String order = Game.give();

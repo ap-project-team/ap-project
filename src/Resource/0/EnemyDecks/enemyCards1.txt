@@ -1,0 +1,4 @@
+Goblin Chieftain
+GoblinSmuggler 10
+GoblinShaman 5
+ThrowingKnives 5
