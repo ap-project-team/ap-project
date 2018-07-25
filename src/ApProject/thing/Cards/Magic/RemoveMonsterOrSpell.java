@@ -1,7 +1,9 @@
 package src.ApProject.thing.Cards.Magic;
 
 import src.ApProject.battle.battler.Battler;
+import src.ApProject.graphics.CastSpellEffect;
 import src.ApProject.thing.Cards.MonsterCards.InBattle.MonsterCardsInBattle;
+import src.ApProject.thing.Cards.Spells.Spells;
 
 public class RemoveMonsterOrSpell extends Magic{
     {
@@ -14,9 +16,12 @@ public class RemoveMonsterOrSpell extends Magic{
 
     public void doMagic(MonsterCardsInBattle monsterCardsInBattle, Battler currentBattler, Battler enemyBattler){
         if(monsterCardsInBattle == null){
-            enemyBattler.getSpellField().remove(enemyBattler.getSpellField().getRandomSpell(), enemyBattler);
+            Spells spell = enemyBattler.getSpellField().getRandomSpell();
+            CastSpellEffect.buildCastSpellEffect(enemyBattler, spell.getFullImage());
+            enemyBattler.getSpellField().remove(spell, enemyBattler);
         }
         else{
+            CastSpellEffect.buildCastSpellEffect(enemyBattler, monsterCardsInBattle.getFullImage());
             currentBattler.getMonsterField().remove(monsterCardsInBattle, currentBattler);
         }
     }

@@ -1,6 +1,7 @@
 package src.ApProject.thing.Cards.Magic;
 
 import src.ApProject.battle.battler.Battler;
+import src.ApProject.graphics.CastSpellEffect;
 import src.ApProject.thing.Cards.MonsterCards.InBattle.MonsterCardsInBattle;
 
 public class ChangeHPOfPlayerOrMS extends Magic{
@@ -17,13 +18,17 @@ public class ChangeHPOfPlayerOrMS extends Magic{
 
     public void doMagic(MonsterCardsInBattle monsterCardsInBattle, Battler currentBattler, Battler enemyBattler){
         if(monsterCardsInBattle == null){
-            if(magicType == MagicType.FriendlyPlayerOrMS)
+            if(magicType == MagicType.FriendlyPlayerOrMS) {
                 currentBattler.changeHealthPoint(changeHPAmount);
-            else
+                CastSpellEffect.buildCastSpellEffect(currentBattler, currentBattler.getBattlerCard());
+            } else {
                 enemyBattler.changeHealthPoint(changeHPAmount);
+                CastSpellEffect.buildCastSpellEffect(enemyBattler, enemyBattler.getBattlerCard());
+            }
         }
         else {
             monsterCardsInBattle.changeHealthPoint(changeHPAmount);
+            CastSpellEffect.buildCastSpellEffect(currentBattler, monsterCardsInBattle.getFullImage());
         }
     }
 }

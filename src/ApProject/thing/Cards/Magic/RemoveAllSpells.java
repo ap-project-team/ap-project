@@ -1,6 +1,7 @@
 package src.ApProject.thing.Cards.Magic;
 
 import src.ApProject.battle.battler.Battler;
+import src.ApProject.graphics.CastSpellEffect;
 import src.ApProject.thing.Cards.Spells.Spells;
 
 public class RemoveAllSpells extends Magic{
@@ -15,6 +16,7 @@ public class RemoveAllSpells extends Magic{
             if (spell != null) {
                 enemyBattler.getSpellField().remove(spell, enemyBattler);
                 currentBattler.getHand().add(spell);
+                CastSpellEffect.buildCastSpellEffect(enemyBattler, spell.getFullImage());
             }
         }
     }

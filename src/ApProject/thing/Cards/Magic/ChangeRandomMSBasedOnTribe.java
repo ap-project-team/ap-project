@@ -1,6 +1,7 @@
 package src.ApProject.thing.Cards.Magic;
 
 import src.ApProject.battle.battler.Battler;
+import src.ApProject.graphics.CastSpellEffect;
 import src.ApProject.thing.Cards.MonsterCards.InBattle.MonsterCardsInBattle;
 import src.ApProject.thing.Cards.MonsterCards.Tribe;
 
@@ -22,6 +23,7 @@ public class ChangeRandomMSBasedOnTribe extends Magic {
             if (targetMonsterCard != null) {
                 targetMonsterCard.changeAttackPoint(changeAPAmount);
                 targetMonsterCard.changeHealthPoint(changeHPAmount);
+                CastSpellEffect.buildCastSpellEffect(currentBattler, targetMonsterCard.getFullImage());
             }
     }
 }

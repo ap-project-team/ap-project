@@ -1,6 +1,7 @@
 package src.ApProject.thing.Cards.Magic;
 
 import src.ApProject.battle.battler.Battler;
+import src.ApProject.graphics.CastSpellEffect;
 import src.ApProject.thing.Cards.MonsterCards.InBattle.MonsterCardsInBattle;
 import src.ApProject.thing.Cards.MonsterCards.Tribe;
 
@@ -22,12 +23,14 @@ public class DamageBasedOnTribe extends Magic{
             for (MonsterCardsInBattle monsterCardsInBattle : enemyBattler.getMonsterField().getMonsterCardsInBattles()) {
                 if(monsterCardsInBattle != null && monsterCardsInBattle.getTribe() != tribe) {
                     monsterCardsInBattle.changeHealthPoint(enemyBattlerChangeHPAmount);
+                    CastSpellEffect.buildCastSpellEffect(enemyBattler, monsterCardsInBattle.getFullImage());
                     monsterCardsInBattle.checkDeath();
                 }
             }
             for (MonsterCardsInBattle monsterCardsInBattle : currentBattler.getMonsterField().getMonsterCardsInBattles()) {
                 if(monsterCardsInBattle != null && monsterCardsInBattle.getTribe() != tribe) {
                     monsterCardsInBattle.changeHealthPoint(currentBattlerChangeHPAmount);
+                    CastSpellEffect.buildCastSpellEffect(enemyBattler, monsterCardsInBattle.getFullImage());
                     monsterCardsInBattle.checkDeath();
                 }
             }

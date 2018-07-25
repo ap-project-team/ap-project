@@ -216,6 +216,7 @@ public class MonsterField {
                             monsterCard.getFullImage().setOnMouseClicked(event -> {
                                 battler.getSpellField().instantSpellOrders(finalI, battler, battler.getEnemy()
                                         , magic, outputMap.get(0), outputMap.get(1), outputMap.get(2));
+                                monsterCard.checkDeath();
                             });
 
                             count++;
@@ -237,6 +238,7 @@ public class MonsterField {
                             monsterCard.getFullImage().setOnMouseClicked(event -> {
                                 battler.getSpellField().instantSpellOrders(finalI, battler, battler.getEnemy()
                                         , magic, outputMap.get(0), outputMap.get(1), outputMap.get(2));
+                                monsterCard.checkDeath();
                             });
 
                             count++;
@@ -270,6 +272,7 @@ public class MonsterField {
                             monsterCard.getFullImage().setOnMouseClicked(event -> {
                                 battler.getSpellField().instantSpellOrders(finalCount, battler, battler.getEnemy()
                                         , magic, outputMap.get(0), outputMap.get(1), outputMap.get(2));
+                                monsterCard.checkDeath();
                             });
 
                             count++;
@@ -302,6 +305,7 @@ public class MonsterField {
                             monsterCard.getFullImage().setOnMouseClicked(event -> {
                                 battler.getSpellField().instantSpellOrders(finalCount, battler, battler.getEnemy()
                                         , magic, outputMap.get(0), outputMap.get(1), outputMap.get(2));
+                                monsterCard.checkDeath();
                             });
 
                             count++;
@@ -323,6 +327,7 @@ public class MonsterField {
                             currentBattler.getHand().gethBox().getChildren().get(i).setOnMouseClicked(event -> {
                                 battler.getSpellField().instantSpellOrders(finalCount, battler, battler.getEnemy()
                                         , magic, outputMap.get(0), outputMap.get(1), outputMap.get(2));
+
                             });
 
                             count++;
@@ -365,6 +370,7 @@ public class MonsterField {
                             monsterCard.getFullImage().setOnMouseClicked(event -> {
                                 battler.getSpellField().instantSpellOrders(finalCount, battler, battler.getEnemy()
                                         , magic, outputMap.get(0), outputMap.get(1), outputMap.get(2));
+                                monsterCard.checkDeath();
                             });
 
                             count++;
@@ -639,15 +645,19 @@ public class MonsterField {
                 image.setOnMouseClicked(event -> {
 //                    battler.getBattle().update();
                     if (slots[finalI].getMagicType() != MagicType.NONE && slots[finalI].isMagicUsed() == false && slots[finalI].canAttack()) {
-                        if (slots[finalI].getMagicType() != MagicType.NONE && !slots[finalI].isMagicUsed() && !slots[finalI].isSleep()) {
+                        if (!slots[finalI].isSleep()) {
                             spell.setOpacity(1);
                             spell.setTranslateY(40);
+                            spell.setTranslateX(30);
                             spell.setOnMouseClicked(event1 -> {
+                                battler.getBattle().update();
                                 spellCastingMode(finalI, root);
                             });
                             attack.setOpacity(1);
                             attack.setTranslateY(40);
+                            attack.setTranslateX(-30);
                             attack.setOnMouseClicked(event1 -> {
+                                battler.getBattle().update();
                                 AttackMode(finalI, root);
                             });
                         }
@@ -661,7 +671,7 @@ public class MonsterField {
                     });
                 });
 
-                StackPane imageAndIcon = new StackPane(spell, image);
+                StackPane imageAndIcon = new StackPane(spell, attack, image);
                 hBox.getChildren().addAll(imageAndIcon);
             }
         }
