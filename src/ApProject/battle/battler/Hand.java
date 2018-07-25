@@ -1,6 +1,7 @@
 package src.ApProject.battle.battler;
 
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -100,5 +101,13 @@ public class Hand {
 
         hBox.setAlignment(Pos.CENTER);
         root.getChildren().addAll(hBox);
+    }
+
+    public Node getFullImage(int finalI) {
+        return hBox.getChildren().get(finalI);
+    }
+
+    public HBox gethBox() {
+        return hBox;
     }
 }

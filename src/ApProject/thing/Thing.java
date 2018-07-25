@@ -15,7 +15,9 @@ abstract public class Thing implements Serializable{
     {
         try {
             image = new ImageView("./src//source//" + thingType + "//" + name + ".png");
-        } catch (Exception e) {} //{ image = new ImageView("./src//source//a.jpeg");}
+        } catch (Exception e) {
+            image = new ImageView("./src//source//NoImage.png");
+        } //{ image = new ImageView("./src//source//a.jpeg");}
     }
     /* public Thing(String name, int price) {
         this.name = name;

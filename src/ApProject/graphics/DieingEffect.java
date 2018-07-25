@@ -9,8 +9,10 @@ import javafx.scene.shape.Circle;
 import src.ApProject.battle.Battle;
 
 abstract public class DieingEffect {
-    public static void buildEffect(Node node, Battle battle){
+    public synchronized static void buildEffect(Node node, Battle battle){
         battle.addEffect();
+        System.out.println("DIEINGEFFECT ADDED: "+battle.getActiveEffects());
+
         AnimationTimer timer = new AnimationTimer() {
             public double i=0;
 
@@ -21,6 +23,7 @@ abstract public class DieingEffect {
                 if (i > 19.0) {
                     this.stop();
                     battle.deleteEffect();
+                    System.out.println("DIEINGEFFECT REMOVED: "+battle.getActiveEffects());
                     battle.update();
                 }
 

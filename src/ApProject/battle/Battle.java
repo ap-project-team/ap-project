@@ -196,4 +196,8 @@ public class Battle {
     synchronized public void deleteEffect() {
         activeEffects--;
     }
+
+    public int getActiveEffects() {
+        return activeEffects;
+    }
 }

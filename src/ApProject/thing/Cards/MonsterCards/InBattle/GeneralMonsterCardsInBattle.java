@@ -39,16 +39,18 @@ public class GeneralMonsterCardsInBattle extends MonsterCardsInBattle {
         }
         this.battleCryDetail = battleCry.getMagicDetails();
         this.willDetail = will.getMagicDetails();
-        ArrayList<Map> map = currentBattler.getMonsterField().printingTargets( currentBattler, enemyBattler, battleCryType);
+        ArrayList<Map> map = currentBattler.getMonsterField().printingTargets(this.battleCry, currentBattler, enemyBattler, battleCryType);
         setImage();
-        while (currentBattler.getSpellField().instantSpellOrders(currentBattler, enemyBattler, battleCry, map.get(0), map.get(1), map.get(2)));
+//        while (currentBattler.getSpellField().instantSpellOrders(currentBattler, enemyBattler, battleCry, map.get(0), map.get(1), map.get(2)));
     }
 
     public void checkDeath() {
         if(this.currentHealthPoint <= 0) {
             currentBattler.getMonsterField().remove(this, currentBattler);
             currentBattler.getBattle().updateEvent(this.getCardName() + " has been killed!");
-            while (currentBattler.getSpellField().instantSpellOrders(currentBattler, enemyBattler,this.will, null, null, null));
+            ArrayList<Map> map = currentBattler.getMonsterField().printingTargets
+                    (will, currentBattler, currentBattler.getEnemy(), getMagicType());
+//            currentBattler.getSpellField().instantSpellOrders(currentBattler, enemyBattler,this.will, null, null, null);
         }
     }
 }

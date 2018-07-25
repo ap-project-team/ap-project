@@ -44,8 +44,8 @@ public class HeroMonsterCardsInBattle extends MonsterCardsInBattle{
                     this.addAuraEffect((AuraSpell) spell);
         }
 
-        ArrayList<Map> map = currentBattler.getMonsterField().printingTargets( currentBattler, enemyBattler, battleCryType);
-        while (currentBattler.getSpellField().instantSpellOrders(currentBattler, enemyBattler, battleCry, map.get(0), map.get(1), map.get(2)));
+        ArrayList<Map> map = currentBattler.getMonsterField().printingTargets(this.getMagics(), currentBattler, enemyBattler, battleCryType);
+//        while (currentBattler.getSpellField().instantSpellOrders(currentBattler, enemyBattler, battleCry, map.get(0), map.get(1), map.get(2)));
         setImage();
 
     }
@@ -53,6 +53,7 @@ public class HeroMonsterCardsInBattle extends MonsterCardsInBattle{
         if(this.currentHealthPoint <= 0) {
             currentBattler.getMonsterField().remove(this, currentBattler);
             currentBattler.getBattle().updateEvent(this.getCardName() + " has been killed!");
+
             while (currentBattler.getSpellField().instantSpellOrders(currentBattler, enemyBattler,this.will, null, null, null));
         }
     }

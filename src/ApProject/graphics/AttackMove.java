@@ -1,20 +1,25 @@
 package src.ApProject.graphics;
 
 import javafx.animation.AnimationTimer;
+import javafx.animation.PathTransition;
 import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Line;
+import javafx.scene.shape.LineTo;
+import javafx.scene.shape.Path;
 import src.ApProject.battle.battler.Battler;
 
 import java.util.ArrayList;
 
 
 abstract public class AttackMove {
-    public synchronized static void buildAttackMove(Battler battler, Node attacker, Node defender) {
+    public static void buildAttackMove(Battler battler, Node attacker, Node defender) {
         ArrayList<Circle> balls = new ArrayList<>();
         battler.getBattle().addEffect();
+        System.out.println("ATTACKEFFECT ADDED: "+battler.getBattle().getActiveEffects());
 
         Bounds attackerBoundsInScene = attacker.localToScene(attacker.getBoundsInLocal());
         Bounds defenderBoundsInScene = defender.localToScene(defender.getBoundsInLocal());
@@ -32,7 +37,6 @@ abstract public class AttackMove {
         balls.add(new Circle(beginPointX, beginPointY, 5, Color.RED));
         battler.getBattle().getRoot().getChildren().addAll(balls.get(0));
 
-//        Path path = new Path(new MoveTo(endPointX, endPointY));
 
         AnimationTimer timer = new AnimationTimer() {
             @Override
@@ -54,6 +58,7 @@ abstract public class AttackMove {
                     //root.getChildren().remove(balls.get(0));
                     //battler.getBattle().newRoot();
                     battler.getBattle().deleteEffect();
+                    System.out.println("ATTACKEFFECT REMOVED: "+battler.getBattle().getActiveEffects());
                     battler.getBattle().update();
 //                    System.out.println("END");
                     this.stop();

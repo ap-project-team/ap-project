@@ -192,12 +192,20 @@ public class MonsterCardsInBattle {
 
     public void setImage() {
         System.out.println("./src//source//CARD//" + getCardName() + ".png");
-        this.image = new ImageView("./src//source//CARD//"+getCardName()+".png");
+
+        try {
+            this.image = new ImageView("./src//source//CARD//" + getCardName() + ".png");
+        } catch (Exception e) {
+            this.image = new ImageView("./src//source//NoImage.png");
+        }
+
         image.setFitWidth(60);
         image.setFitHeight(80);
     }
 
     public StackPane getFullImage() {
+        if (fullImage == null)
+            return getImage();
         return fullImage;
     }
 }

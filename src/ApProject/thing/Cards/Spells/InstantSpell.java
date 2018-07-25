@@ -28,8 +28,8 @@ public class InstantSpell extends Spells{
                 currentBattler.getHand().remove(this);
                 this.currentBattler = currentBattler;
                 this.enemyBattler = enemyBattler;
-                ArrayList<Map> map = currentBattler.getMonsterField().printingTargets( currentBattler, enemyBattler, magicType);
-                while (currentBattler.getSpellField().instantSpellOrders(currentBattler, enemyBattler,this, map.get(0), map.get(1), map.get(2)));
+                ArrayList<Map> map = currentBattler.getMonsterField().printingTargets(this, currentBattler, enemyBattler, magicType);
+//                while (currentBattler.getSpellField().instantSpellOrders(currentBattler, enemyBattler,this, map.get(0), map.get(1), map.get(2)));
         } else
             System.out.println("I don't have enough mana.");
     }

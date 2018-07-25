@@ -76,8 +76,8 @@ public class AI_Battler extends Battler {
         }
         for (int i = 0; i<monsterField.getNumberOfFullSlots(); i++) {
             if (monsterField.getSlot(i) != null && monsterField.getSlot(i).getMagicType() != MagicType.NONE  && !monsterField.getSlot(i).isMagicUsed() && !monsterField.getSlot(i).isSleep()) {
-                ArrayList<Map> map = this.getMonsterField().printingTargets(this, enemy, monsterField.getSlot(i).getMagicType());
-                while (this.getSpellField().instantSpellOrders(this, enemy, monsterField.getSlot(i).getMagics(), map.get(0), map.get(1), map.get(2))) ;
+                ArrayList<Map> map = this.getMonsterField().printingTargets(monsterField.getSlot(i).getMagics(), this, enemy, monsterField.getSlot(i).getMagicType());
+//                while (this.getSpellField().instantSpellOrders(this, enemy, monsterField.getSlot(i).getMagics(), map.get(0), map.get(1), map.get(2))) ;
             }
         }
     }
