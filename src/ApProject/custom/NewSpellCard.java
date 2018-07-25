@@ -11,6 +11,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import src.ApProject.constants.CreatCards;
 import src.ApProject.graphics.Button;
 import src.ApProject.thing.Cards.Card;
 import src.ApProject.thing.Cards.Magic.*;
@@ -365,16 +366,6 @@ public class NewSpellCard {
         return gridPane;
     }
     public void save(Card card){
-        try {
-            FileOutputStream fos = new FileOutputStream("cards.ser");
-            ObjectOutputStream oos = new ObjectOutputStream(fos);
-            oos.writeObject(card);
-//            FileInputStream fis = new FileInputStream("cards.ser");
-//            ObjectInputStream ois = new ObjectInputStream(fis);
-//            Card result = (Card) ois.readObject();
-            oos.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        CreatCards.addCard(card);
     }
 }

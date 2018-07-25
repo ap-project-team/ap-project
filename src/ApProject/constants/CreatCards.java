@@ -1,5 +1,6 @@
 package src.ApProject.constants;
 
+import src.ApProject.thing.Amulet;
 import src.ApProject.thing.Cards.Card;
 import src.ApProject.thing.Cards.Magic.*;
 import src.ApProject.thing.Cards.MonsterCards.MonsterCardSpeciality;
@@ -197,6 +198,9 @@ public abstract class CreatCards {
             return card;
     }
 
+    public static void addCard(Card card){
+        allCards.put(card.getName(),card);
+    }
 
 
     public static void loadAllCards(){
@@ -223,5 +227,8 @@ public abstract class CreatCards {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
+    }
+    public static Card[] getAllCards(){
+        return allCards.values().toArray(new Card[0]);
     }
 }

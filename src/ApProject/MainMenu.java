@@ -9,6 +9,7 @@ import javafx.stage.Stage;
 import src.ApProject.Game;
 import src.ApProject.custom.CustomGame;
 import src.ApProject.custom.NewCard;
+import src.ApProject.custom.NewCustomGame;
 import src.ApProject.graphics.Button;
 
 public class MainMenu extends Pane{
@@ -31,7 +32,9 @@ public class MainMenu extends Pane{
 
         StackPane customGameButton  = Button.buildButton("CustomGame");
         customGameButton.setOnMouseClicked(event -> {
-            CustomGame.start(scene);
+            NewCustomGame.start(scene, ".\\src\\Resource\\" + "12");
+
+//            CustomGame.start(scene);
         });
         StackPane optionsButton = Button.buildButton("Options");
 

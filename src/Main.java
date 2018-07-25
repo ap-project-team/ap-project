@@ -6,6 +6,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import src.ApProject.constants.CreatCards;
 import src.ApProject.MainMenu;
+import src.ApProject.custom.NewCustomGame;
 import src.ApProject.shop.AmuletShop;
 import src.ApProject.shop.CardShop;
 import src.ApProject.shop.ItemShop;

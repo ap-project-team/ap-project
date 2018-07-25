@@ -90,12 +90,6 @@ public class NewAmulet {
 
 
     public void save(Amulet amulet){
-        try {
-            FileOutputStream fos = new FileOutputStream("amulets.txt");
-            ObjectOutputStream oos = new ObjectOutputStream(fos);
-            oos.writeObject(amulet);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        Amulet.addAmulet(amulet);
     }
 }
