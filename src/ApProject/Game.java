@@ -15,6 +15,7 @@ import src.ApProject.battle.Battle;
 import src.ApProject.constants.AI_BattlerBuilder;
 import src.ApProject.graphics.ImageButton;
 import src.ApProject.graphics.Button;
+import src.ApProject.graphics.Map;
 import src.ApProject.graphics.Message;
 import src.ApProject.player.Player;
 import src.ApProject.shop.Shop;
@@ -37,6 +38,7 @@ public class Game {
     Pane pastRoot;
     Scene scene;
     boolean paused = false;
+    Map map;
 
     public Game(String name,  Scene scene, Pane pastRoot) {
         p = new Player(name);
@@ -44,7 +46,7 @@ public class Game {
         this.pastRoot = pastRoot;
 
         scene.setRoot(root);
-        movePlayer();
+        map = new Map(root, scene, this);
     }
 
     public boolean mainMenuOrders(String order) {
@@ -84,104 +86,14 @@ public class Game {
         return true;
     }
 
-    void movePlayer(){
-        final boolean[] stopped = {true};
-//        Image img = new Image("./src//source//test1.png");
-//        ImageView gameMap = new ImageView(img);
-//        gameMap.setFitWidth(1000);
-//        gameMap.setFitHeight(1000);
-//        root.getChildren().addAll(gameMap);
 
 
-        System.out.println(root.getWidth());
-        System.out.println(root.getHeight());
 
-
-        final Point2D[] veracity = {new Point2D(0, 0)};
-        ImageView player = new ImageView("./src//source//player//New folder//knight iso char_idle_0.png");
-        player.setFitHeight(30);
-        player.setFitWidth(30);
-        final File[] currentMove = {new File("./src//source//player//New folder")};
-
-        root.getChildren().addAll(player);
-
-        AnimationTimer timer = new AnimationTimer() {
-            int i = 0, j =0;
-
-            @Override
-            public void handle(long now) {
-                if (!stopped[0]) {
-                    if (j++ % 5 == 0) player.setImage(new Image(currentMove[0].listFiles()[i++ % currentMove[0].listFiles().length].getPath()));
-                    player.setTranslateX(player.getTranslateX() + veracity[0].getX());
-                    player.setTranslateY(player.getTranslateY() + veracity[0].getY());
-                }
-            }
-        };
-
-        scene.setOnKeyPressed(event -> {
-            if (!paused) {
-                if (event.getCode() == KeyCode.RIGHT) {
-                    System.out.println("RIGHT");
-                    veracity[0] = new Point2D(1, 0);
-                }
-
-                if (event.getCode() == KeyCode.LEFT) {
-                    System.out.println("LEFT");
-                    veracity[0] = new Point2D(-1, 0);
-                }
-
-                if (event.getCode() == KeyCode.UP) {
-                    System.out.println("UP");
-                    veracity[0] = new Point2D(0, -1);
-                }
-
-                if (event.getCode() == KeyCode.DOWN) {
-                    System.out.println("DOWN");
-                    veracity[0] = new Point2D(0, 1);
-                }
-
-
-                if (canGo(player.getX()+veracity[0].getX(), player.getY()+veracity[0].getY())) {
-                    stopped[0] = false;
-                    currentMove[0] = new File("./src//source//player//move("+(int)veracity[0].getX()+","+(int)veracity[0].getY()+")");
-                    System.out.println("move("+(int)veracity[0].getX()+","+(int)veracity[0].getY()+")");
-                }
-            }
-
-
-            if (event.getCode() == KeyCode.P) {
-                if (!paused)
-                    pause(timer);
-                timer.stop();
-            }
-
-        });
-
-        Rectangle rectangle = new Rectangle(100,100,100,100);
-        root.getChildren().addAll(rectangle);
-        rectangle.setOnMouseClicked(event -> {
-            if (p.isReadyForBattle()) {
-                Battle battle = new Battle(p.becomeBattler(), AI_BattlerBuilder.build(p.getLevel()));
-                battle.play(scene, root, p);
-                timer.stop();
-//                if (result.equals("PLAYER")) p.win();
-//                else if (result.equals("ENEMY"))
-//                    if (p.defeat()) {
-//                        System.out.println("YOU ARE OUT OF Mystic Hourglass.");
-//                        System.out.println("Good Game!\tWell Played!");
-//                        System.out.println("GAME OVER\nThe End");
-//                    }
-            } else Message.buildMessage("Your deck is not full.", root);
-        });
-
-        timer.start();
+    public boolean isPaused() {
+        return paused;
     }
 
-    private boolean canGo(double v, double v1) {
-        return true;
-    }
-
-    void pause(AnimationTimer timer) {
+    public void pause(AnimationTimer timer) {
         paused = true;
 
         StackPane exitButton = Button.buildButton("Exit to MainMenu");
@@ -226,5 +138,21 @@ public class Game {
 
         root.getChildren().addAll(buttonList);
 
+    }
+
+    public void play(AnimationTimer timer) {
+
+        if (p.isReadyForBattle()) {
+            Battle battle = new Battle(p.becomeBattler(), AI_BattlerBuilder.build(p.getLevel()));
+            battle.play(scene, root, p);
+            timer.stop();
+//                if (result.equals("PLAYER")) p.win();
+//                else if (result.equals("ENEMY"))
+//                    if (p.defeat()) {
+//                        System.out.println("YOU ARE OUT OF Mystic Hourglass.");
+//                        System.out.println("Good Game!\tWell Played!");
+//                        System.out.println("GAME OVER\nThe End");
+//                    }
+        } else Message.buildMessage("Your deck is not full.", root);
     }
 }
