@@ -2,15 +2,12 @@ package src.ApProject.thing.Cards.MonsterCards.InBattle;
 
 import src.ApProject.battle.battler.Battler;
 import src.ApProject.thing.Cards.Card;
-import src.ApProject.thing.Cards.Magic.Magic;
 import src.ApProject.thing.Cards.MonsterCards.MonsterCardSpeciality;
 import src.ApProject.thing.Cards.MonsterCards.Tribe;
 import src.ApProject.thing.Cards.Spells.AuraSpell;
 import src.ApProject.thing.Cards.Spells.InstantSpell;
 import src.ApProject.thing.Cards.Spells.SpellType;
 import src.ApProject.thing.Cards.Spells.Spells;
-
-import java.util.ArrayList;
 
 public class MagicMonsterCardsInBattle extends MonsterCardsInBattle {
     public MagicMonsterCardsInBattle(String cardName, int attackPoint, int healthPoint, MonsterCardSpeciality monsterCardSpeciality, Tribe tribe, InstantSpell magics, Card card, Battler currentBattler, Battler enemyBattler){
@@ -26,7 +23,7 @@ public class MagicMonsterCardsInBattle extends MonsterCardsInBattle {
         this.enemyBattler = enemyBattler;
         this.magicType = magics.getMagicType();
         this.magicDetail = magics.getMagicDetails();
-        if(this.monsterCardSpeciality == MonsterCardSpeciality.Charge){
+        if(this.monsterCardSpeciality == MonsterCardSpeciality.Nimble){
             canAttack = true;
             isSleep = false;
         }

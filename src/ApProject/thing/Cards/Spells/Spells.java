@@ -33,7 +33,7 @@ abstract public class Spells extends Card {
     }
 
     public StackPane getFullImage(){
-        image = new ImageView("./src//source//CARD//"+getSpellName()+".png");
+        ImageView image = new ImageView("./src//source//CARD//"+getSpellName()+".png");
         image.setFitWidth(60);
         image.setFitHeight(80);
 
@@ -47,4 +47,10 @@ abstract public class Spells extends Card {
     public String getSpellName() {
         return name;
     }
+
+    public void changeBasics(String name, int manaCost){
+        this.name = name;
+        this.manaCost =manaCost;
+    }
+
 }
