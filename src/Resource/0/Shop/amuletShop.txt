@@ -1,7 +1,7 @@
-IronPendant 1
-GoldPendant 1
-DiamondPendant 1
-IronRing 1
-GoldRing 1
-DiamondRing 1
-DemonKing’sCrown 1
+IronPendant
+GoldPendant
+DiamondPendant
+IronRing
+GoldRing
+DiamondRing
+DemonKing’sCrown

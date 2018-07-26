@@ -4,6 +4,8 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import src.ApProject.battle.battler.AI_Battler;
+import src.ApProject.constants.AI_BattlerBuilder;
 import src.ApProject.constants.CreatCards;
 import src.ApProject.MainMenu;
 import src.ApProject.custom.NewCustomGame;
@@ -21,12 +23,14 @@ public class Main extends Application{
 
     @Override
     public void start(Stage stage) throws Exception {
+        String path  = ".\\src\\Resource\\" + "0";
         CreatCards.loadAllCards();
         Item.loadAllItems();
         Amulet.loadAllAmulets();
-        CardShop.loadShopCards();
-        ItemShop.loadShopItems();
-        AmuletShop.loadShopAmulets();
+        CardShop.loadShopCards(path);
+        ItemShop.loadShopItems(path);
+        AmuletShop.loadShopAmulets(path);
+        AI_BattlerBuilder.loadAllEnemyDecks();
         Scene scene = new Scene(new Pane());
         stage.setScene(new MainMenu().buildMainMenu(scene));
 

@@ -1,6 +1,6 @@
 Ogre Warlord
 OgreWarrior 6
-OrgeFrontliner 4
+OgreFrontliner 4
 OgreMagi 2
 OgreWarchief 1
 ThrowingKnives 3

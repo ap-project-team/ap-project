@@ -20,35 +20,35 @@ public class Item extends Thing{
         thingType = "ITEM";
     }
     static final long serialVersionUID = 10000;
-//    public static void buildItems(){
-//        allItems.put("SmallHPPotion",new Item("SmallHPPotion", 1000, 500, 0));
-//        allItems.put("MediumHPPotion", new Item("MediumHPPotion", 2000, 1000, 0));
-//        allItems.put("LargeHPPotion", new  Item("LargeHPPotion", 4000, 2000, 0));
-//        allItems.put("SmallMPPotion", new Item("SmallMPPotion", 1000, 0, 2));
-//        allItems.put("MediumMPPotion", new  Item("MediumMPPotion", 2000, 0, 4));
-//        allItems.put("LargeMPPotion", new Item("LargeMPPotion", 4000, 0, 8));
-//        allItems.put("LesserRestorative", new Item("LesserRestorative", 2000, 500, 2));
-//        allItems.put("GreaterRestorative", new Item("GreaterRestorative", 4000, 1000, 4));
-//        saveAllItems();
-//    }
-//
-//    public static void saveAllItems(){
-//        for(Item item : allItems.values()){
-//            System.out.println(item.getInfo());
-//            try {
-//                FileOutputStream fout = new FileOutputStream(".\\src\\Resource\\0\\allItems.ser",true);
-//                ObjectOutputStream oos = new ObjectOutputStream(fout);
-//                oos.writeObject(item);
-//                oos.close();
-//                fout.close();
-//            } catch (FileNotFoundException e) {
-//                System.out.println(e.getMessage());
-//            } catch (IOException e) {
-//                System.out.println(e.getMessage());
-//            }
-//
-//        }
-//    }
+    public static void buildItems(){
+        allItems.put("SmallHPPotion",new Item("SmallHPPotion", 1000, 500, 0));
+        allItems.put("MediumHPPotion", new Item("MediumHPPotion", 2000, 1000, 0));
+        allItems.put("LargeHPPotion", new  Item("LargeHPPotion", 4000, 2000, 0));
+        allItems.put("SmallMPPotion", new Item("SmallMPPotion", 1000, 0, 2));
+        allItems.put("MediumMPPotion", new  Item("MediumMPPotion", 2000, 0, 4));
+        allItems.put("LargeMPPotion", new Item("LargeMPPotion", 4000, 0, 8));
+        allItems.put("LesserRestorative", new Item("LesserRestorative", 2000, 500, 2));
+        allItems.put("GreaterRestorative", new Item("GreaterRestorative", 4000, 1000, 4));
+    }
+
+    public static void saveAllItems(String path){
+        try {
+            FileOutputStream fout = new FileOutputStream(path + "\\AllThings\\allItems.ser", false);
+            fout.close();
+            for (Item item : allItems.values()) {
+                fout = new FileOutputStream(path + "\\AllThings\\allItems.ser", true);
+                ObjectOutputStream oos = new ObjectOutputStream(fout);
+                oos.writeObject(item);
+                oos.close();
+                fout.close();
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        System.out.println("Finished Saving All Items");
+    }
     public static Item getItems(String name){
         return allItems.get(name);
     }
@@ -63,6 +63,14 @@ public class Item extends Thing{
         if (increaseMP == 0) return " Increase Player’s HP by " + increaseHP;
         else if (increaseHP == 0) return " Increase Player’s MP by "+ increaseMP;
         else return "Increase Player’s HP by " + increaseHP+" and MP by "+ increaseMP;
+    }
+
+    public int getIncreaseHP() {
+        return increaseHP;
+    }
+
+    public int getIncreaseMP() {
+        return increaseMP;
     }
 
     public static void addItem(Item item){
@@ -92,6 +100,9 @@ public class Item extends Thing{
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
+    }
+    public static void remove(Item item){
+        allItems.remove(item.getName());
     }
     public static Item[] getAllItems(){
         return allItems.values().toArray(new Item[0]);

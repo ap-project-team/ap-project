@@ -132,7 +132,5 @@ public class realBattler extends Battler {
     @Override
     public void defeat() {
         Pane root = battle.getRoot();
-
-
     }
 }
