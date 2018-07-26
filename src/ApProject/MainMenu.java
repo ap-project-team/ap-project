@@ -5,14 +5,15 @@ import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import src.ApProject.custom.CustomGame;
 import src.ApProject.custom.NewCustomGame;
 import src.ApProject.graphics.Button;
 
 public class MainMenu extends Pane{
     public Scene buildMainMenu(Scene scene){
-        scene = new Scene (this,1000,700);
-
-        getChildren().addAll(buildButtons(scene));
+        Pane pane = new Pane();
+        scene.setRoot(pane);
+        pane.getChildren().addAll(buildButtons(scene));
         return scene;
     }
 
@@ -28,9 +29,7 @@ public class MainMenu extends Pane{
 
         StackPane customGameButton  = Button.buildButton("CustomGame");
         customGameButton.setOnMouseClicked(event -> {
-            NewCustomGame.start(scene, ".\\src\\Resource\\" + "12");
-
-//            CustomGame.start(scene);
+            CustomGame.start(scene);
         });
         StackPane optionsButton = Button.buildButton("Options");
 

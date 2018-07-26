@@ -4,8 +4,7 @@ import src.ApProject.battle.battler.AI_Battler;
 import src.ApProject.exeptions.CardDoesNotExistExeption;
 import src.ApProject.thing.Cards.Card;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -28,7 +27,9 @@ public abstract class AI_BattlerBuilder {
         return new AI_Battler(enemyName, arrayList.toArray(new Card[0]));
     }
 
-    public static void loadAllEnemyDecks(){
+    public static void loadAllEnemyDecks(String path){
+        cardArrayList1 = new ArrayList<>();
+        cardArrayList2 = new ArrayList<>();
         ArrayList<Card> arrayList = new ArrayList<>();
         String enemyName = "";
         for (int level = 1; level < 3; level++) {
@@ -39,15 +40,12 @@ public abstract class AI_BattlerBuilder {
                 arrayList = cardArrayList2;
 
             try {
-                FileInputStream fileIn = new FileInputStream(".\\src\\Resource\\0\\EnemyDecks\\enemyCards" + level + ".txt");
+                FileInputStream fileIn = new FileInputStream(path + "\\EnemyDecks\\enemyCards" + level + ".txt");
                 Scanner scanner = new Scanner(fileIn);
                 enemyName = scanner.nextLine();
                 while (scanner.hasNext()) {
                     String cardName = scanner.next();
-                    int count = scanner.nextInt();
-                    for (int i = 0; i < count; i++) {
-                        arrayList.add(CreatCards.getCard(cardName));
-                    }
+                    arrayList.add(CreatCards.getCard(cardName));
                 }
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
@@ -62,6 +60,40 @@ public abstract class AI_BattlerBuilder {
         System.out.println("Finished Loading Enemy Decks");
     }
 
+    public static void saveAllEnemyDeck(String path){
+        ArrayList<Card> arrayList = new ArrayList<>();
+        String enemyName = "";
+        for (int level = 1; level < 3; level++) {
+            if(level == 1) {
+                arrayList = cardArrayList1;
+                enemyName = enemyName1;
+            }
+            if(level == 2) {
+                arrayList = cardArrayList2;
+                enemyName = enemyName2;
+            }
+
+            try {
+                File fileOut = new File(path + "\\EnemyDecks\\enemyCards" + level + ".txt");
+                FileWriter fileWriter = new FileWriter(fileOut, false);
+                fileWriter.write(enemyName + "\n");
+                for(Card card : arrayList){
+                    fileWriter.write(card.getName() + "\n");
+                }
+                fileWriter.flush();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            if(level == 1)
+                enemyName1 = enemyName;
+            if(level == 2)
+                enemyName2 = enemyName;
+        }
+        System.out.println("Finished Saving Enemy Decks");
+    }
     public static ArrayList<Card> getCardArrayList (int level){
         if(level == 1){
             return cardArrayList1;

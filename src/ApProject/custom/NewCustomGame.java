@@ -114,7 +114,8 @@ public class NewCustomGame {
             CardShop.saveShopCards(path);
             ItemShop.saveShopItems(path);
             AmuletShop.saveShopAmulets(path);
-//            AI_BattlerBuilder.loadAllEnemyDecks();
+            AI_BattlerBuilder.saveAllEnemyDeck(path);
+            CustomGame.start(scene);
         });
         gridPane.add(confirmButton,3,3);
 
@@ -181,6 +182,13 @@ public class NewCustomGame {
             } catch (IOException e) {
 
             }
+            CreatCards.loadAllCards(destinationPath);
+            Item.loadAllItems(destinationPath);
+            Amulet.loadAllAmulets(destinationPath);
+            CardShop.loadShopCards(destinationPath);
+            ItemShop.loadShopItems(destinationPath);
+            AmuletShop.loadShopAmulets(destinationPath);
+            AI_BattlerBuilder.loadAllEnemyDecks(destinationPath);
             start(scene, destinationPath);
         });
         gridPane.add(textField, 0, rowCount++);

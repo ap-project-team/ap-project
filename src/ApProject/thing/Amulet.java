@@ -76,9 +76,10 @@ public class Amulet extends Thing{
     public static void addAmulet(Amulet amulet){
         allAmulets.put(amulet.getName(),amulet);
     }
-    public static void loadAllAmulets(){
+    public static void loadAllAmulets(String path){
+        allAmulets = new HashMap<>();
         try {
-            FileInputStream fileIn = new FileInputStream(".\\src\\Resource\\0\\AllThings\\allAmulets.ser");
+            FileInputStream fileIn = new FileInputStream(path + "\\AllThings\\allAmulets.ser");
             Amulet amulet = null;
             boolean isExist = true;
             while (isExist) {

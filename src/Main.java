@@ -24,13 +24,13 @@ public class Main extends Application{
     @Override
     public void start(Stage stage) throws Exception {
         String path  = ".\\src\\Resource\\" + "0";
-        CreatCards.loadAllCards();
-        Item.loadAllItems();
-        Amulet.loadAllAmulets();
+        CreatCards.loadAllCards(path);
+        Item.loadAllItems(path);
+        Amulet.loadAllAmulets(path);
         CardShop.loadShopCards(path);
         ItemShop.loadShopItems(path);
         AmuletShop.loadShopAmulets(path);
-        AI_BattlerBuilder.loadAllEnemyDecks();
+        AI_BattlerBuilder.loadAllEnemyDecks(path);
         Scene scene = new Scene(new Pane());
         stage.setScene(new MainMenu().buildMainMenu(scene));
 
@@ -49,5 +49,18 @@ public class Main extends Application{
 //        Game game = new Game("name", scene, new Pane());
 //
 //        while (game.mainMenuOrders(Game.give())) ;
+    }
+
+    public static void start(Scene scene, String path){
+        CreatCards.loadAllCards(path);
+        Item.loadAllItems(path);
+        Amulet.loadAllAmulets(path);
+        CardShop.loadShopCards(path);
+        ItemShop.loadShopItems(path);
+        AmuletShop.loadShopAmulets(path);
+        AI_BattlerBuilder.loadAllEnemyDecks(path);
+        new MainMenu().buildMainMenu(scene);
+        System.out.println("'WELCOME TO THIS GAME'");
+        System.out.println("Please Enter Your Name : ");
     }
 }
