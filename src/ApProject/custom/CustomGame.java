@@ -30,6 +30,9 @@ public class CustomGame {
             NewCustomGame.showMenu(scene);
         });
         StackPane savedButton =  Button.buildButton("Saved Games");
+        savedButton.setOnMouseClicked(event -> {
+            SavedGames.start(scene);
+        });
         vBox.getChildren().addAll(newGame, savedButton);
         vBox.setSpacing(50);
         vBox.setAlignment(Pos.CENTER);

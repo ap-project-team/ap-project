@@ -14,6 +14,7 @@ public class AmuletShop {
     static protected ArrayList<String> shopAmulets = new ArrayList<>();
 
     public static void loadShopAmulets(String path) {
+        shopAmulets = new ArrayList<>();
         try {
             FileInputStream fileIn = new FileInputStream(path + "\\Shop\\amuletShop.txt");
             Scanner scanner = new Scanner(fileIn);

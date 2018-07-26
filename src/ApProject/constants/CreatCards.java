@@ -204,9 +204,10 @@ public abstract class CreatCards {
     }
 
 
-    public static void loadAllCards(){
+    public static void loadAllCards(String path){
+        allCards = new HashMap<>();
         try {
-            FileInputStream fileIn = new FileInputStream(".\\src\\Resource\\0\\AllThings\\allCards.ser");
+            FileInputStream fileIn = new FileInputStream( path + "\\AllThings\\allCards.ser");
             Card card = null;
             boolean isExist = true;
             while (isExist) {

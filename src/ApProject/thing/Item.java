@@ -76,9 +76,10 @@ public class Item extends Thing{
     public static void addItem(Item item){
         allItems.put(item.getName(), item);
     }
-    public static void loadAllItems(){
+    public static void loadAllItems(String path){
+        allItems = new HashMap<>();
         try {
-            FileInputStream fileIn = new FileInputStream(".\\src\\Resource\\0\\AllThings\\allItems.ser");
+            FileInputStream fileIn = new FileInputStream(path + "\\AllThings\\allItems.ser");
             Item item = null;
             boolean isExist = true;
             while (isExist) {

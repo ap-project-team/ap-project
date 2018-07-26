@@ -12,6 +12,7 @@ public class CardShop{
     static protected ArrayList<String> shopCards = new ArrayList<>();
 
     public static void loadShopCards(String path) {
+        shopCards = new ArrayList<>();
         try {
             FileInputStream fileIn = new FileInputStream(path + "\\Shop\\cardShop.txt");
             Scanner scanner = new Scanner(fileIn);

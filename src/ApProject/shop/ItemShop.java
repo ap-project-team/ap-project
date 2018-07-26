@@ -16,6 +16,7 @@ public class ItemShop {
     static protected ArrayList<String> shopItems = new ArrayList<>();
 
     public static void loadShopItems(String path) {
+        shopItems = new ArrayList<>();
         try {
             FileInputStream fileIn = new FileInputStream(path + "\\Shop\\itemShop.txt");
             Scanner scanner = new Scanner(fileIn);
