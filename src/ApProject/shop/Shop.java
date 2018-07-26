@@ -4,11 +4,12 @@ import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import src.ApProject.Game;
+import src.ApProject.graphics.BackButton;
 import src.ApProject.graphics.Button;
 import src.ApProject.player.Player;
 
 public class Shop {
-    Pane root = new Pane();
+    Pane root;
     CardShop cardShop = new CardShop();
     ItemShop itemShop = new ItemShop();
     AmuletShop amuletShop = new AmuletShop();
@@ -21,7 +22,8 @@ public class Shop {
                 "4. Exit");
     }
 
-    public void shopControler(Player p, Scene scene, Pane pastRoot){
+    public void shopView(Player p, Scene scene, Pane pastRoot){
+        root = new Pane();
         scene.setRoot(root);
 
         StackPane cardShopButtom = Button.buildButton("Card Shop");
@@ -40,6 +42,7 @@ public class Shop {
         });
 
 
+        root.getChildren().addAll(BackButton.buildBackButton(scene, pastRoot));
         root.getChildren().addAll(Button.buildButtonList(new StackPane[]{cardShopButtom, itemShopButtom, amuletShopButtom}));
     }
 

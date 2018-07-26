@@ -1,6 +1,9 @@
 package src.ApProject.battle.battler;
 
 import javafx.animation.AnimationTimer;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import src.ApProject.Game;
@@ -41,8 +44,8 @@ public class realBattler extends Battler {
                     "4. View Graveyard: To view the cards in your graveyard \n" +
                     "5. View SpellField: To view the cards in both ’players spell fields \n" +
                     "6. View MonsterField: To view the cards in both ’players monster fields \n" +
-                    "7. Battler Info: To view your HP and Mana.\n"+
-                    "8. Use Item #ItemName: To use some of your items."+
+                    "7. Battler Info: To view your HP and Mana.\n" +
+                    "8. Use Item #ItemName: To use some of your items." +
                     "9. Info \"Card Name\": To view full information about a card\n" +
                     "10. Done: To end your turn");
         } else if (order.matches("Use \\d*\\s*")) {
@@ -52,7 +55,7 @@ public class realBattler extends Battler {
             else {
                 int i = Integer.parseInt(str[1]) - 1;
                 System.out.println(monsterField.getSlot(i).getUseInfo());
-                while (monsterField.useCardOrders(this, enemy, i));
+                while (monsterField.useCardOrders(this, enemy, i)) ;
             }
         } else if (order.matches("Set \\d* to \\d*\\s*")) {
             String[] str = order.split("\\s");
@@ -67,7 +70,7 @@ public class realBattler extends Battler {
         } else if (order.matches("View Hand\\s*")) {
             System.out.println("Your Hand :");
             for (int i = 0; i < hand.size(); i++)
-                System.out.println((i + 1) + ".\t" + hand.get(i).getName() +" - Mana : "+hand.get(i).getManaCost());
+                System.out.println((i + 1) + ".\t" + hand.get(i).getName() + " - Mana : " + hand.get(i).getManaCost());
         } else if (order.matches("View Graveyard\\s*")) {
             System.out.println("Your Graveyard :");
             graveYard.viewGraveyard();
@@ -87,8 +90,8 @@ public class realBattler extends Battler {
             System.out.println("Your Info :\nCurrentMana :\t" + getCurrentMana()
                     + "\nCurrentHP :\t" + getHealth() + "\nAmulet :\t" + this.amulet.getName());
             System.out.println("Enemy Info :\nCurrentHP :\t" + enemy.getHealth());
-        } else if(order.matches("Use Item")) {
-            while (useItemOrders());
+        } else if (order.matches("Use Item")) {
+            while (useItemOrders()) ;
         } else if (order.matches("Info \\w*\\s*")) {
             System.out.println(CreatCards.getCard(order.split("\\s")[1]).getInfo());
         } else if (order.matches("Done\\s*")) {
@@ -130,9 +133,8 @@ public class realBattler extends Battler {
     }
 
 
-
     @Override
-    public void defeat() {
-        Pane root = battle.getRoot();
+    synchronized public void defeat() {
+        battle.getGame().playerDefeat();
     }
 }

@@ -11,6 +11,7 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import src.ApProject.Game;
 import src.ApProject.battle.battler.Battler;
 import src.ApProject.graphics.BackButton;
 import src.ApProject.graphics.Message;
@@ -25,15 +26,15 @@ public class Battle {
     final int numberOfCardsInFirstHand = 5;
     int turnNum = 1;
     VBox battleGround = new VBox();
+    Game game;
     Pane root = new Pane();
-    Pane pastRoot = new Pane();
-    int startNumber;
     Battler[] battlers = new Battler[2];
     StackPane eventView;
     String history = "";
     private int activeEffects = 0;
 
-    public Battle(Battler battler, Battler enemy) {
+    public Battle(Game game, Battler battler, Battler enemy) {
+        this.game = game;
         battlers[0] = battler;
         battlers[0].setBattle(this);
         battlers[0].setEnemy(enemy);
@@ -149,11 +150,6 @@ public class Battle {
         //root.getChildren().remove(battleGround);
         System.out.println(activeEffects);
 
-        if (!battlers[0].isAlive())
-            battlers[0].defeat();
-        if (!battlers[1].isAlive())
-            battlers[1].defeat();
-
         if (activeEffects == 0) {
             if (root.getChildren().contains(battleGround))
                 root.getChildren().remove(battleGround);
@@ -189,6 +185,12 @@ public class Battle {
             battlers[1].updatePlayField(vBox1);
 
             root.getChildren().addAll(battleGround);
+
+            if (!battlers[0].isAlive())
+                battlers[0].defeat();
+            if (!battlers[1].isAlive())
+                battlers[1].defeat();
+
         }
     }
 
@@ -207,4 +209,9 @@ public class Battle {
     public int getActiveEffects() {
         return activeEffects;
     }
+
+    public Game getGame() {
+        return game;
+    }
+
 }

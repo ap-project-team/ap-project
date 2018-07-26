@@ -11,7 +11,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -24,83 +23,55 @@ import java.util.Scanner;
 public class Map {
     boolean[][] wall = new boolean[40][40];
     boolean[][] enemy = new boolean[40][40];
-    ImageView map;
+    boolean[][] shop = new boolean[40][40];
+
+    final Point2D[] veracity = {new Point2D(0, 0)};
+    ImageView map, player = new ImageView();
+    Pane root;
+    int level = 0;
     Game game;
 
-    public Map(Pane root, Scene scene, Game game){
-        Scanner wallScanner = null;
-        Scanner enemyScanner = null;
+    public Map(Pane root, Scene scene, Game game) {
         this.game = game;
+        this.root = root;
+        nextLevel(root, scene);
 
-        try {
-            wallScanner = new Scanner(new File("./src//source//Map//wall.txt"));
-            enemyScanner = new Scanner(new File("./src//source//Map//enemy.txt"));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-
-        for (int i=0; i<40; i++){
-            String line = wallScanner.nextLine();
-            String[] number = line.split(",");
-            for (int j=0; j<40; j++){
-                wall[j][i] = !number[j].equals("0");
-            }
-            wall[0][i] = true;
-            wall[i][0] = true;
-            wall[39][i] = true;
-            wall[i][39] = true;
-        }
-
-        for (int i=0; i<40; i++){
-            String line = enemyScanner.nextLine();
-            String[] number = line.split(",");
-            for (int j=0; j<40; j++){
-                enemy[j][i] = !number[j].equals("0");
-            }
-        }
-
-        map = new ImageView("./src//source//Map//map.png");
-
-
-
-        map.setFitWidth(2200);
-        map.setFitHeight(2200);
-
-        map.setPreserveRatio(true);
-
-
-        root.getChildren().addAll(map);
-
-        movePlayer(root, scene);
-    }
-
-    void movePlayer(Pane root, Scene scene){
-        final boolean[] stopped = {false};
-        final Image[][] playerImages = {new Image[1]};
-
-        playerImages[0][0] = new Image("./src//source//player//knight iso char_idle_0.png");
-
-//        Image img = new Image("./src//source//test1.png");
-//        ImageView gameMap = new ImageView(img);
-//        gameMap.setFitWidth(1000);
-//        gameMap.setFitHeight(1000);
-//        root.getChildren().addAll(gameMap);
-
-
-        System.out.println(root.getWidth());
-        System.out.println(root.getHeight());
-
-
-        final Point2D[] veracity = {new Point2D(0, 0)};
-        ImageView player = new ImageView(playerImages[0][0]);
         player.setFitHeight(100);
         player.setFitWidth(100);
 
         player.setTranslateX(500);
         player.setTranslateY(500);
 
+        Scanner shopScanner = null;
 
-        root.getChildren().addAll(player);
+        try {
+            shopScanner = new Scanner(new File("./src//source//Map//shop.txt"));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        for (int i = 0; i < 40; i++) {
+            String line = shopScanner.nextLine();
+            String[] number = line.split(",");
+            for (int j = 0; j < 40; j++) {
+                shop[j][i] = !number[j].equals("0");
+            }
+        }
+    }
+
+    public void movePlayer(Pane root, Scene scene){
+        final boolean[] stopped = {false};
+        final Image[][] playerImages = {new Image[1]};
+
+        playerImages[0][0] = new Image("./src//source//player//knight iso char_idle_0.png");
+        player.setImage(playerImages[0][0]);
+
+        if (!root.getChildren().contains(player))
+            root.getChildren().addAll(player);
+
+        System.out.println(root.getWidth());
+        System.out.println(root.getHeight());
+
 
         AnimationTimer timer = new AnimationTimer() {
             int time = 0, imageNum = 0;
@@ -111,8 +82,8 @@ public class Map {
                     if (player.getTranslateX() + veracity[0].getX() < root.getWidth() * 2 / 3
                             && player.getTranslateX() + veracity[0].getX() > root.getWidth() * 1 / 3)
                         player.setTranslateX(player.getTranslateX() + veracity[0].getX());
-                    else if (player.getTranslateX() > root.getWidth() * 2 /3 ||
-                            player.getTranslateX() < root.getWidth() * 1 /3)
+                    else if (player.getTranslateX() > root.getWidth() * 2 / 3 ||
+                            player.getTranslateX() < root.getWidth() * 1 / 3)
                         player.setTranslateX(player.getTranslateX() + veracity[0].getX());
                     else if (map.getTranslateX() - veracity[0].getX() < 0)
                         map.setTranslateX(map.getTranslateX() - veracity[0].getX());
@@ -121,25 +92,25 @@ public class Map {
                     if (player.getTranslateY() + veracity[0].getY() < root.getHeight() * 2 / 3
                             && player.getTranslateY() + veracity[0].getY() > root.getHeight() * 1 / 3)
                         player.setTranslateY(player.getTranslateY() + veracity[0].getY());
-                    else if(player.getTranslateY() > root.getHeight() * 2 /3 ||
-                            player.getTranslateY() < root.getHeight() * 1 /3)
+                    else if (player.getTranslateY() > root.getHeight() * 2 / 3 ||
+                            player.getTranslateY() < root.getHeight() * 1 / 3)
                         player.setTranslateY(player.getTranslateY() + veracity[0].getY());
-                    else if (map.getTranslateY() - veracity[0].getY() <0)
+                    else if (map.getTranslateY() - veracity[0].getY() < 0)
                         map.setTranslateY(map.getTranslateY() - veracity[0].getY());
                     else player.setTranslateY(player.getTranslateY() + veracity[0].getY());
 //                    player.setTranslateY(player.getTranslateY() + veracity[0].getY());
 
 
-                    time = (time+1)%5;
+                    time = (time + 1) % 5;
 
                     if (time == 0) {
                         imageNum = (imageNum + 1) % playerImages[0].length;
                         player.setImage(playerImages[0][imageNum]);
                     }
 
-                    if (enemy[(int)((player.getTranslateX() - map.getTranslateX() + veracity[0].getX()
-                            + player.getFitWidth()/2) / map.getFitWidth() * 40)]
-                            [(int)((player.getTranslateY() - map.getTranslateY() + veracity[0].getY()
+                    if (enemy[(int) ((player.getTranslateX() - map.getTranslateX() + veracity[0].getX()
+                            + player.getFitWidth() / 2) / map.getFitWidth() * 40)]
+                            [(int) ((player.getTranslateY() - map.getTranslateY() + veracity[0].getY()
                             + player.getFitHeight()) / map.getFitHeight() * 40)]) {
 
                         player.setTranslateX(player.getTranslateX() - 5 * veracity[0].getX());
@@ -163,8 +134,9 @@ public class Map {
 
                         yes.setOnMouseClicked(event -> {
                             game.play(this);
-                            scene.setOnKeyPressed(event1 -> {});
-                            return;
+                            scene.setOnKeyPressed(event1 -> {
+                            });
+                            root.getChildren().remove(wantToPlay);
                         });
 
                         no.setOnMouseClicked(event -> {
@@ -176,13 +148,26 @@ public class Map {
                         options.setTranslateX(20);
                         wantToPlay.getChildren().addAll(rectangle, options, text);
 
-                        wantToPlay.setTranslateX(root.getWidth()/2 - 225);
-                        wantToPlay.setTranslateY(root.getHeight()/2 - 200);
+                        wantToPlay.setTranslateX(root.getWidth() / 2 - 225);
+                        wantToPlay.setTranslateY(root.getHeight() / 2 - 200);
 
                         root.getChildren().addAll(wantToPlay);
                     }
 
+                    if (shop[(int) ((player.getTranslateX() - map.getTranslateX() + veracity[0].getX()
+                            + player.getFitWidth() / 2) / map.getFitWidth() * 40)]
+                            [(int) ((player.getTranslateY() - map.getTranslateY() + veracity[0].getY()
+                            + player.getFitHeight()) / map.getFitHeight() * 40)]) {
+
+                        player.setTranslateX(player.getTranslateX() - 5 * veracity[0].getX());
+                        player.setTranslateY(player.getTranslateY() - 5 * veracity[0].getY());
+
+                        stopPlayer(playerImages, veracity);
+
+                        game.getShop().shopView(game.getPlayer(), scene, root);
+                    }
                 }
+
                 if (!canGo(player, veracity, root)) {
                     player.setTranslateX(player.getTranslateX() - 3 * veracity[0].getX());
                     player.setTranslateY(player.getTranslateY() - 3 * veracity[0].getY());
@@ -224,7 +209,6 @@ public class Map {
                 veracity[0] = new Point2D(veracity[0].getX() * 3 , veracity[0].getY() * 3);
             }
 
-
             if (event.getCode() == KeyCode.P) {
                 if (!game.isPaused())
                     game.pause(timer);
@@ -250,4 +234,51 @@ public class Map {
         playerImages[0][0] = new Image("./src//source//player//knight iso char_idle_0.png");
     }
 
+    public void nextLevel(Pane root, Scene scene) {
+        level ++;
+        Scanner wallScanner = null;
+        Scanner enemyScanner = null;
+
+        try {
+            wallScanner = new Scanner(new File("./src//source//Map//wall"+level+".txt"));
+            enemyScanner = new Scanner(new File("./src//source//Map//enemy"+level+".txt"));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        for (int i=0; i<40; i++){
+            String line = wallScanner.nextLine();
+            String[] number = line.split(",");
+            for (int j=0; j<40; j++){
+                wall[j][i] = !number[j].equals("0");
+            }
+            wall[0][i] = true;
+            wall[i][0] = true;
+            wall[39][i] = true;
+            wall[i][39] = true;
+        }
+
+        for (int i=0; i<40; i++){
+            String line = enemyScanner.nextLine();
+            String[] number = line.split(",");
+            for (int j=0; j<40; j++){
+                enemy[j][i] = !number[j].equals("0");
+            }
+        }
+
+        map = new ImageView("./src//source//Map//map"+level+".png");
+
+        map.setFitWidth(2200);
+        map.setFitHeight(2200);
+
+        map.setPreserveRatio(true);
+
+        root.getChildren().addAll(map);
+
+        movePlayer(root, scene);
+    }
+
+    public Pane getRoot() {
+        return root;
+    }
 }

@@ -635,31 +635,32 @@ public class MonsterField {
                 hBox.getChildren().addAll(new Rectangle(60,80));
             else {
                 StackPane image = slots[i].getImage();
-                Circle attack = new Circle(100, 100, 15, Color.RED);
-                Circle spell = new Circle(100, 100, 15, Color.BLUE);
-
-                spell.setOpacity(0);
-                attack.setOpacity(0);
+                StackPane imageAndIcon = new StackPane(image);
 
                 int finalI = i;
                 image.setOnMouseClicked(event -> {
 //                    battler.getBattle().update();
                     if (slots[finalI].getMagicType() != MagicType.NONE && slots[finalI].isMagicUsed() == false && slots[finalI].canAttack()) {
                         if (!slots[finalI].isSleep()) {
+                            Circle attack = new Circle(100, 100, 15, Color.RED);
+                            Circle spell = new Circle(100, 100, 15, Color.BLUE);
+
                             spell.setOpacity(1);
-                            spell.setTranslateY(40);
-                            spell.setTranslateX(30);
+                            spell.setTranslateY(35);
+                            spell.setTranslateX(25);
                             spell.setOnMouseClicked(event1 -> {
                                 battler.getBattle().update();
                                 spellCastingMode(finalI, root);
                             });
                             attack.setOpacity(1);
-                            attack.setTranslateY(40);
-                            attack.setTranslateX(-30);
+                            attack.setTranslateY(35);
+                            attack.setTranslateX(-25);
                             attack.setOnMouseClicked(event1 -> {
                                 battler.getBattle().update();
                                 AttackMode(finalI, root);
                             });
+
+                            imageAndIcon.getChildren().addAll(attack, spell);
                         }
                     } else if (slots[finalI].getMagicType() != MagicType.NONE && slots[finalI].isMagicUsed() == false) {
                         spellCastingMode(finalI, root);
@@ -671,7 +672,6 @@ public class MonsterField {
                     });
                 });
 
-                StackPane imageAndIcon = new StackPane(spell, attack, image);
                 hBox.getChildren().addAll(imageAndIcon);
             }
         }

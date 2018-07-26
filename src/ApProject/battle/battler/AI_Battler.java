@@ -17,6 +17,8 @@ public class AI_Battler extends Battler {
     public AI_Battler(String name, Card[] cards) {
         super(name, cards);
         type = "ENEMY";
+
+        HP = 100;
     }
 
 
@@ -86,4 +88,9 @@ public class AI_Battler extends Battler {
         spellField.update(vBox);
         monsterField.update(vBox);
     }
+
+    synchronized public void defeat() {
+        battle.getGame().playerWon();
+    }
+
 }

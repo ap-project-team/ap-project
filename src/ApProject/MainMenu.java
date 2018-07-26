@@ -16,7 +16,7 @@ public class MainMenu extends Pane{
         return scene;
     }
 
-    VBox buildButtons( Scene scene){
+    VBox buildButtons(Scene scene){
 
         StackPane singlePlayerButton = Button.buildButton("SinglePlayer");
         singlePlayerButton.setOnMouseClicked(event -> {

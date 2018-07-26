@@ -37,7 +37,7 @@ public class InventoryDeck {
         for (int i = 20; i < 25; i++)
             slots[i] = "OgreWarchief";
         for (int i = 25; i < 30; i++)
-            slots[i] = "ElvenSorceress";
+            slots[i] = "ElvenDruid";
     }
 
     InventoryDeck(String[] slots, String equippedAmulet){

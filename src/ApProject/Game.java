@@ -13,10 +13,8 @@ import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
 import src.ApProject.battle.Battle;
 import src.ApProject.constants.AI_BattlerBuilder;
-import src.ApProject.graphics.ImageButton;
+import src.ApProject.graphics.*;
 import src.ApProject.graphics.Button;
-import src.ApProject.graphics.Map;
-import src.ApProject.graphics.Message;
 import src.ApProject.player.Player;
 import src.ApProject.shop.Shop;
 
@@ -32,8 +30,8 @@ public class Game {
     }
 
 
-    Player p;
-    Shop S = new Shop();
+    Player player;
+    Shop shop = new Shop();
     Pane root = new Pane();
     Pane pastRoot;
     Scene scene;
@@ -41,7 +39,7 @@ public class Game {
     Map map;
 
     public Game(String name,  Scene scene, Pane pastRoot) {
-        p = new Player(name);
+        player = new Player(name);
         this.scene = scene;
         this.pastRoot = pastRoot;
 
@@ -57,16 +55,16 @@ public class Game {
 
             if (order.matches("Enter Shop\\s*")) {
                 System.out.println("Welcome To Shop :");
-                while (S.shopOrders(p)) ;
+                while (shop.shopOrders(player)) ;
             } else if (order.matches("Edit Inventory\\s*")) {
-                p.editInventory();
+                player.editInventory();
             } else if (order.matches("Next\\s*")) {
-                if (p.isReadyForBattle()) {
-                    Battle battle = new Battle(p.becomeBattler(), AI_BattlerBuilder.getAIBattler(p.getLevel()));
+                if (player.isReadyForBattle()) {
+                    Battle battle = new Battle(this, player.becomeBattler(), AI_BattlerBuilder.getAIBattler(player.getLevel()));
                     String result = battle.play();
-                    if (result.equals("PLAYER")) p.win();
+                    if (result.equals("PLAYER")) player.win();
                     else if (result.equals("ENEMY"))
-                        if (p.defeat()) {
+                        if (player.defeat()) {
                             System.out.println("YOU ARE OUT OF Mystic Hourglass.");
                             System.out.println("Good Game!\tWell Played!");
                             System.out.println("GAME OVER\nThe End");
@@ -110,13 +108,13 @@ public class Game {
             root.getChildren().remove(buttonList);
 
             StackPane editDeck = ImageButton.buildButton("./src//source//CARD//card.png");
-            editDeck.setOnMouseClicked(event -> p.editDeck(scene, root));
+            editDeck.setOnMouseClicked(event -> player.editDeck(scene, root));
 
             StackPane items = ImageButton.buildButton("./src//source//ITEM//item.jpg");
-            items.setOnMouseClicked(event -> p.viewInventory(scene, root, "ITEM"));
+            items.setOnMouseClicked(event -> player.viewInventory(scene, root, "ITEM"));
 
             StackPane amulets = ImageButton.buildButton("./src//source//AMULET//amulet.gif");
-            amulets.setOnMouseClicked(event -> p.editAmulet(scene, root));
+            amulets.setOnMouseClicked(event -> player.editAmulet(scene, root));
 
             StackPane back = ImageButton.buildButton("./src//source//back.png");
 
@@ -142,9 +140,9 @@ public class Game {
 
     public void play(AnimationTimer timer) {
 
-        if (p.isReadyForBattle()) {
-            Battle battle = new Battle(p.becomeBattler(), AI_BattlerBuilder.getAIBattler(p.getLevel()));
-            battle.play(scene, root, p);
+        if (player.isReadyForBattle()) {
+            Battle battle = new Battle(this, player.becomeBattler(), AI_BattlerBuilder.getAIBattler(player.getLevel()));
+            battle.play(scene, root, player);
             timer.stop();
 //                if (result.equals("PLAYER")) p.win();
 //                else if (result.equals("ENEMY"))
@@ -154,5 +152,28 @@ public class Game {
 //                        System.out.println("GAME OVER\nThe End");
 //                    }
         } else Message.buildMessage("Your deck is not full.", root);
+    }
+
+    public void playerDefeat(){
+        root = map.getRoot();
+        scene.setRoot(root);
+        map.movePlayer(root, scene);
+        player.defeat();
+        EndGameMessage.buildMessage(root, "lose");
+    }
+    public void playerWon(){
+        root = new Pane();
+        scene.setRoot(root);
+        map.nextLevel(root, scene);
+        player.win();
+        EndGameMessage.buildMessage(root, "win");
+    }
+
+    public Shop getShop() {
+        return shop;
+    }
+
+    public Player getPlayer() {
+        return player;
     }
 }
