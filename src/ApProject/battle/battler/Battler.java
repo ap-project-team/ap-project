@@ -235,4 +235,8 @@ abstract public class Battler {
     public StackPane getBattlerCard() {
         return battlerCard;
     }
+
+    public void defeat() {
+        //Override
+    }
 }

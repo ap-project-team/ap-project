@@ -1,7 +1,6 @@
 package src.ApProject.graphics;
 
 import javafx.animation.AnimationTimer;
-import javafx.animation.PathTransition;
 import javafx.geometry.Point2D;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -17,8 +16,6 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import src.ApProject.Game;
-import src.ApProject.battle.Battle;
-import src.ApProject.constants.AI_BattlerBuilder;
 
 import java.io.File;
 import java.io.FileNotFoundException;

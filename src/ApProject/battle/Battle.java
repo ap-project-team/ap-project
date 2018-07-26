@@ -1,12 +1,11 @@
 package src.ApProject.battle;
 
 import javafx.animation.AnimationTimer;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
@@ -41,6 +40,8 @@ public class Battle {
         battlers[1] = enemy;
         battlers[1].setEnemy(battler);
         battlers[1].setBattle(this);
+
+        root.setBackground(new Background(new BackgroundFill(Color.color(0.9, 1, 1), CornerRadii.EMPTY, Insets.EMPTY)));
     }
 
     public String play(){
@@ -147,6 +148,12 @@ public class Battle {
     synchronized public void update() {
         //root.getChildren().remove(battleGround);
         System.out.println(activeEffects);
+
+        if (!battlers[0].isAlive())
+            battlers[0].defeat();
+        if (!battlers[1].isAlive())
+            battlers[1].defeat();
+
         if (activeEffects == 0) {
             if (root.getChildren().contains(battleGround))
                 root.getChildren().remove(battleGround);
@@ -167,11 +174,6 @@ public class Battle {
             battlersView[0] = new StackPane(circle1, text1);
             battlers[0].setBattlerCard(battlersView[0]);
 
-            vBox1.getChildren().addAll(battlersView[1]);
-            battlers[1].updatePlayField(vBox1);
-            battlers[0].updatePlayField(vBox2);
-            vBox2.getChildren().addAll(battlersView[0]);
-
             battleGround.getChildren().addAll(vBox1, vBox2);
 
             vBox1.setAlignment(Pos.CENTER);
@@ -180,6 +182,11 @@ public class Battle {
             battleGround.setTranslateX(root.getWidth() / 2 - 170);
             battleGround.setTranslateY(50);
             battleGround.setAlignment(Pos.CENTER);
+
+            vBox1.getChildren().addAll(battlersView[1]);
+            battlers[0].updatePlayField(vBox2);
+            vBox2.getChildren().addAll(battlersView[0]);
+            battlers[1].updatePlayField(vBox1);
 
             root.getChildren().addAll(battleGround);
         }

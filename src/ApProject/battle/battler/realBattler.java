@@ -1,6 +1,7 @@
 package src.ApProject.battle.battler;
 
 import javafx.animation.AnimationTimer;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import src.ApProject.Game;
 import src.ApProject.battle.battleField.MonsterField;
@@ -126,5 +127,10 @@ public class realBattler extends Battler {
         monsterField.update(vBox);
         spellField.update(vBox);
         hand.update(vBox);
+    }
+
+    @Override
+    public void defeat() {
+        Pane root = battle.getRoot();
     }
 }
