@@ -10,14 +10,13 @@ abstract public class Thing implements Serializable{
     public static String thingType;
     protected String name;
     protected int price;
-    protected String imagePath;
-    protected static final long serialVersionUID = 100010;
+    protected ImageView image;
+
     {
         try {
-            imagePath = "./src//source//" + thingType + "//" + name + ".png";
-            ImageView image = new ImageView(imagePath);
+            image = new ImageView("./src//source//" + thingType + "//" + name + ".png");
         } catch (Exception e) {
-            imagePath = "./src//source//NoImage.jpg";
+            image = new ImageView("./src//source//NoImage.jpg");
         } //{ image = new ImageView("./src//source//a.jpeg");}
     }
     /* public Thing(String name, int price) {

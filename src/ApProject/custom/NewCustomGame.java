@@ -7,26 +7,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import org.apache.commons.io.FileUtils;
-import src.ApProject.constants.AI_BattlerBuilder;
-import src.ApProject.constants.CreatCards;
-import src.ApProject.custom.Edit.Enemy.EditEnemyDeck;
-import src.ApProject.custom.Edit.Shop.EditCardShop;
-import src.ApProject.custom.Edit.Shop.EditItemShop;
-import src.ApProject.custom.Edit.Thing.EditAmulet;
-import src.ApProject.custom.Edit.Shop.EditAmuletShop;
-import src.ApProject.custom.Edit.Thing.EditCard;
-import src.ApProject.custom.Edit.Thing.EditItem;
-import src.ApProject.custom.New.NewAmulet;
-import src.ApProject.custom.New.NewCard;
-import src.ApProject.custom.New.NewItem;
 import src.ApProject.graphics.Button;
-import src.ApProject.shop.AmuletShop;
-import src.ApProject.shop.CardShop;
-import src.ApProject.shop.ItemShop;
-import src.ApProject.thing.Amulet;
-import src.ApProject.thing.Item;
 
 import java.io.File;
 import java.io.FilenameFilter;
@@ -40,42 +24,42 @@ public class NewCustomGame {
         gridPane.setPadding(new Insets(20,20,20,20));
         StackPane newCardButton =  Button.buildButton("Create New Card");
         newCardButton.setOnMouseClicked(event -> {
-            NewCard.start(scene,path);
+            NewCard.start(scene);
         });
         gridPane.add(newCardButton,0,0);
 
         StackPane newItemButton =  Button.buildButton("Create New Item");
         newItemButton.setOnMouseClicked(event -> {
             NewItem newItem = new NewItem();
-            newItem.start(scene,path);
+            newItem.start(scene);
         });
         gridPane.add(newItemButton,0,1);
 
         StackPane newAmuletButton =  Button.buildButton("Create New Amulet");
         newAmuletButton.setOnMouseClicked(event -> {
             NewAmulet newAmulet = new NewAmulet();
-            newAmulet.start(scene,path);
+            newAmulet.start(scene);
         });
         gridPane.add(newAmuletButton,0,2);
 
         StackPane editCardsButton =  Button.buildButton("Edit Cards");
         editCardsButton.setOnMouseClicked(event -> {
             EditCard editCard = new EditCard();
-            editCard.start(scene, path);
+            editCard.start(scene);
         });
         gridPane.add(editCardsButton,1,0);
 
         StackPane editItemsButton =  Button.buildButton("Edit Items");
         editItemsButton.setOnMouseClicked(event -> {
             EditItem editItem = new EditItem();
-            editItem.start(scene, path);
+            editItem.start(scene);
         });
         gridPane.add(editItemsButton,1,1);
         
         StackPane editAmuletsButton =  Button.buildButton("Edit Amulets");
         editAmuletsButton.setOnMouseClicked(event -> {
             EditAmulet editAmulet = new EditAmulet();
-            editAmulet.start(scene, path);
+            editAmulet.start(scene);
         });
         gridPane.add(editAmuletsButton,1,2);
 
@@ -106,22 +90,10 @@ public class NewCustomGame {
         });
         gridPane.add(backButton,0,3);
 
-        StackPane confirmButton =  Button.buildButton("Confirm");
-        confirmButton.setOnMouseClicked(event -> {
-            CreatCards.saveAllCards(path);
-            Item.saveAllItems(path);
-            Amulet.saveAllAmulets(path);
-            CardShop.saveShopCards(path);
-            ItemShop.saveShopItems(path);
-            AmuletShop.saveShopAmulets(path);
-//            AI_BattlerBuilder.loadAllEnemyDecks();
-        });
-        gridPane.add(confirmButton,3,3);
-
         StackPane editEnemyDeckButton =  Button.buildButton("Edit Enemy's Deck");
         editEnemyDeckButton.setOnMouseClicked(event -> {
             EditEnemyDeck editEnemyDeck = new EditEnemyDeck();
-            editEnemyDeck.start(scene,path);
+            editEnemyDeck.start(scene);
         });
         gridPane.add(editEnemyDeckButton,3,0);
 

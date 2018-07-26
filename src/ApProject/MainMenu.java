@@ -5,6 +5,10 @@ import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+import src.ApProject.Game;
+import src.ApProject.custom.CustomGame;
+import src.ApProject.custom.NewCard;
 import src.ApProject.custom.NewCustomGame;
 import src.ApProject.graphics.Button;
 

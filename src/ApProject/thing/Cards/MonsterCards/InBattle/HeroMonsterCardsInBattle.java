@@ -2,6 +2,7 @@ package src.ApProject.thing.Cards.MonsterCards.InBattle;
 
 import src.ApProject.battle.battler.Battler;
 import src.ApProject.thing.Cards.Card;
+import src.ApProject.thing.Cards.Magic.Magic;
 import src.ApProject.thing.Cards.MonsterCards.MonsterCardSpeciality;
 import src.ApProject.thing.Cards.MonsterCards.Tribe;
 import src.ApProject.thing.Cards.Spells.AuraSpell;
@@ -33,7 +34,7 @@ public class HeroMonsterCardsInBattle extends MonsterCardsInBattle{
         this.battleCryDetail = battleCry.getMagicDetails();
         this.willDetail = will.getMagicDetails();
 
-        if(this.monsterCardSpeciality == MonsterCardSpeciality.Nimble){
+        if(this.monsterCardSpeciality == MonsterCardSpeciality.Charge){
             canAttack = true;
             isSleep = false;
         }

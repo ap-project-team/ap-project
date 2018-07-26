@@ -10,95 +10,25 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public abstract class AI_BattlerBuilder {
-    private static ArrayList<Card> cardArrayList1 = new ArrayList<>();
-    private static ArrayList<Card> cardArrayList2 = new ArrayList<>();
-    private static String enemyName1;
-    private static String enemyName2;
-    public static AI_Battler getAIBattler(int level) {
-        ArrayList<Card> arrayList = new ArrayList<>();
-        String enemyName = "";
-        if(level == 1) {
-            arrayList = cardArrayList1;
-            enemyName = enemyName1;
-        }
-        if(level == 2) {
-            arrayList = cardArrayList2;
-            enemyName = enemyName2;
-        }
-        return new AI_Battler(enemyName, arrayList.toArray(new Card[0]));
-    }
 
-    public static void loadAllEnemyDecks(){
-        ArrayList<Card> arrayList = new ArrayList<>();
-        String enemyName = "";
-        for (int level = 1; level < 3; level++) {
-            if(level == 1)
-                arrayList = cardArrayList1;
-
-            if(level == 2)
-                arrayList = cardArrayList2;
-
-            try {
+    static public AI_Battler build(int level) {
+        try {
                 FileInputStream fileIn = new FileInputStream(".\\src\\Resource\\0\\EnemyDecks\\enemyCards" + level + ".txt");
                 Scanner scanner = new Scanner(fileIn);
-                enemyName = scanner.nextLine();
+                ArrayList<Card> cardArrayList = new ArrayList<>();
+                String enemyName = scanner.nextLine();
                 while (scanner.hasNext()) {
                     String cardName = scanner.next();
                     int count = scanner.nextInt();
                     for (int i = 0; i < count; i++) {
-                        arrayList.add(CreatCards.getCard(cardName));
+                        cardArrayList.add(CreatCards.getCard(cardName));
                     }
                 }
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
+                return new AI_Battler(enemyName, cardArrayList.toArray(new Card[0]));
 
-            if(level == 1)
-                enemyName1 = enemyName;
-
-            if(level == 2)
-                enemyName2 = enemyName;
-        }
-        System.out.println("Finished Loading Enemy Decks");
-    }
-
-    public static ArrayList<Card> getCardArrayList (int level){
-        if(level == 1){
-            return cardArrayList1;
-        }
-        if(level == 2){
-            return cardArrayList2;
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
         }
         return null;
-    }
-
-    public static String getEnemyName(int level){
-        if(level == 1){
-            return enemyName1;
-        }
-        if(level == 2){
-            return enemyName2;
-        }
-        return null;
-    }
-
-    public static void setEnemeyName(int level, String string){
-        if(level == 1)
-            enemyName1 = string;
-        if(level == 2)
-            enemyName2 = string;
-    }
-    public static void remove(int level, Card card){
-        if(level == 1)
-            cardArrayList1.remove(card);
-        if(level == 2)
-            cardArrayList2.remove(card);
-    }
-
-    public static void add(int level, Card card){
-        if(level == 1)
-            cardArrayList1.add(card);
-        if(level == 2)
-            cardArrayList2.add(card);
     }
 }

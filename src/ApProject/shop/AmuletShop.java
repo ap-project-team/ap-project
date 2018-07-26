@@ -4,7 +4,8 @@ import src.ApProject.Game;
 import src.ApProject.player.Player;
 import src.ApProject.thing.Amulet;
 
-import java.io.*;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -13,13 +14,16 @@ import java.util.Scanner;
 public class AmuletShop {
     static protected ArrayList<String> shopAmulets = new ArrayList<>();
 
-    public static void loadShopAmulets(String path) {
+    public static void loadShopAmulets() {
         try {
-            FileInputStream fileIn = new FileInputStream(path + "\\Shop\\amuletShop.txt");
+            FileInputStream fileIn = new FileInputStream(".\\src\\Resource\\0\\Shop\\amuletShop.txt");
             Scanner scanner = new Scanner(fileIn);
             while (scanner.hasNext()) {
                 String amuletName = scanner.next();
-                shopAmulets.add(amuletName);
+                int count = scanner.nextInt();
+                for (int i = 0; i < count; i++) {
+                    shopAmulets.add(amuletName);
+                }
             }
             System.out.println("Finished Loading Amulets In The Shop");
         } catch (FileNotFoundException e) {
@@ -27,21 +31,6 @@ public class AmuletShop {
         }
     }
 
-    public static void saveShopAmulets(String path){
-        try {
-            File file = new File(path + "\\Shop\\amuletShop.txt");
-            FileWriter fileWriter = new FileWriter(file, false);
-            for (String string : shopAmulets) {
-                fileWriter.write(string + "\n");
-            }
-            fileWriter.flush();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        System.out.println("Finished Saving All Amulets In The Shop");
-    }
     protected boolean amuletShopOrders(Player p) {
         String order = Game.give();
         String[] str = order.split("\\s");

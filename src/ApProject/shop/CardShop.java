@@ -4,41 +4,29 @@ import src.ApProject.Game;
 import src.ApProject.constants.CreatCards;
 import src.ApProject.player.Player;
 
-import java.io.*;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class CardShop{
     static protected ArrayList<String> shopCards = new ArrayList<>();
 
-    public static void loadShopCards(String path) {
+    public static void loadShopCards() {
         try {
-            FileInputStream fileIn = new FileInputStream(path + "\\Shop\\cardShop.txt");
+            FileInputStream fileIn = new FileInputStream(".\\src\\Resource\\0\\Shop\\cardShop.txt");
             Scanner scanner = new Scanner(fileIn);
             while (scanner.hasNext()) {
                 String cardName = scanner.next();
-                shopCards.add(cardName);
+                int count = scanner.nextInt();
+                for (int i = 0; i < count; i++) {
+                    shopCards.add(cardName);
+                }
             }
             System.out.println("Finished Loading Cards In The Shop");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-    }
-
-    public static void saveShopCards(String path){
-        try {
-            File file = new File(path + "\\Shop\\cardShop.txt");
-            FileWriter fileWriter = new FileWriter(file, false);
-            for (String string : shopCards) {
-                fileWriter.write(string + "\n");
-            }
-            fileWriter.flush();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        System.out.println("Finished Saving All Cards In The Shop");
     }
 
     protected boolean cardShopOrders(Player p) {

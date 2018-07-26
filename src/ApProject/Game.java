@@ -62,7 +62,7 @@ public class Game {
                 p.editInventory();
             } else if (order.matches("Next\\s*")) {
                 if (p.isReadyForBattle()) {
-                    Battle battle = new Battle(p.becomeBattler(), AI_BattlerBuilder.getAIBattler(p.getLevel()));
+                    Battle battle = new Battle(p.becomeBattler(), AI_BattlerBuilder.build(p.getLevel()));
                     String result = battle.play();
                     if (result.equals("PLAYER")) p.win();
                     else if (result.equals("ENEMY"))
@@ -143,7 +143,7 @@ public class Game {
     public void play(AnimationTimer timer) {
 
         if (p.isReadyForBattle()) {
-            Battle battle = new Battle(p.becomeBattler(), AI_BattlerBuilder.getAIBattler(p.getLevel()));
+            Battle battle = new Battle(p.becomeBattler(), AI_BattlerBuilder.build(p.getLevel()));
             battle.play(scene, root, p);
             timer.stop();
 //                if (result.equals("PLAYER")) p.win();

@@ -1,11 +1,14 @@
 package src.ApProject.thing.Cards.MonsterCards.OutBattle;
 
 import src.ApProject.battle.battler.Battler;
+import src.ApProject.thing.Cards.Magic.Magic;
 import src.ApProject.thing.Cards.MonsterCards.InBattle.MagicMonsterCardsInBattle;
 import src.ApProject.thing.Cards.MonsterCards.MonsterCardSpeciality;
 import src.ApProject.thing.Cards.MonsterCards.Tribe;
 import src.ApProject.thing.Cards.MonsterCards.Type;
 import src.ApProject.thing.Cards.Spells.InstantSpell;
+
+import java.util.ArrayList;
 
 public class MagicMonsterCard extends MonsterCard {
 
@@ -43,7 +46,7 @@ public class MagicMonsterCard extends MonsterCard {
     public String getInfo(){
         info = "Name : " + name + "\n" + "HP : " + basicHealthPoint + "\n" + "AP : " + basicAttackPoint + "\n"
                 + "MP cost : " + manaCost + "\n" + "Card Type : " + type + "\n"+ "Card Tribe : " + tribe + "\n" + "Is Defensive : "
-                + (monsterCardSpeciality == MonsterCardSpeciality.Taunt) + "\n" + "Is Nimble : " + (monsterCardSpeciality == MonsterCardSpeciality.Nimble)
+                + (monsterCardSpeciality == MonsterCardSpeciality.Taunt) + "\n" + "Is Nimble : " + (monsterCardSpeciality == MonsterCardSpeciality.Charge)
                 + "\n" + "Spell Details : " + "\n" + magics.getMagicDetails();
         return info;
     }

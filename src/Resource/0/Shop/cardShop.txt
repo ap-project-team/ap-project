@@ -1,11 +1,3 @@
-ElvenHunter
-ElvenHunter
-ElvenHunter
-ElvenHunter
-ElvenHunter
-ElvenRanger
-ElvenRanger
-ElvenRanger
-ElvenRanger
-ElvenRanger
-Luthien,TheHighPriestess
+ElvenHunter 5
+ElvenRanger 5
+Luthien,TheHighPriestess 1
