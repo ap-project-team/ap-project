@@ -1,4 +1,4 @@
-package src.ApProject.custom;
+package src.ApProject.custom.New.Card;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -10,16 +10,20 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import src.ApProject.constants.CreatCards;
+import src.ApProject.custom.Edit.Shop.EditAmuletShop;
+import src.ApProject.custom.Edit.Thing.EditAmulet;
+import src.ApProject.custom.Edit.Thing.EditCard;
+import src.ApProject.custom.New.NewCard;
+import src.ApProject.custom.NewCustomGame;
 import src.ApProject.graphics.Button;
 import src.ApProject.thing.Cards.Card;
 import src.ApProject.thing.Cards.Magic.*;
 import src.ApProject.thing.Cards.Spells.AuraSpell;
 import src.ApProject.thing.Cards.Spells.ContinuousSpell;
 import src.ApProject.thing.Cards.Spells.InstantSpell;
+import src.ApProject.thing.Cards.Spells.Spells;
 
-import java.io.*;
 import java.util.ArrayList;
 
 public class NewSpellCard {
@@ -30,8 +34,10 @@ public class NewSpellCard {
     private ArrayList<Magic> magics = new ArrayList<>();
     private ArrayList<Magic> inverseMagic = new ArrayList<>();
     private Scene scene;
-    public GridPane getGridPane(Scene scene){
+    private String path;
+    public GridPane getGridPane(Scene scene, String path){
         GridPane gridPane = new GridPane();
+        this.path = path;
         this.scene = scene;
         Label cardNameLabel = new Label("Insert Spell Card's Name : ");
         TextField cardNameTextField = new TextField();
@@ -96,6 +102,97 @@ public class NewSpellCard {
         gridPane.setAlignment(Pos.TOP_CENTER);
         return gridPane;
     }
+
+    public GridPane getEditGridPane(Scene scene, String path, Card card){
+        Spells spells = (Spells)card;
+        GridPane gridPane = new GridPane();
+        this.path = path;
+        this.scene = scene;
+        Label cardNameLabel = new Label("Insert Spell Card's Name : ");
+        TextField cardNameTextField = new TextField();
+        cardNameTextField.setText(card.getName());
+        gridPane.add(cardNameLabel, 0, 0);
+        gridPane.add(cardNameTextField, 1,0);
+
+        Label cardMPlabel = new Label("Insert Spell Card's Mana Point : ");
+        TextField cardMPTextField = new TextField();
+        cardMPTextField.setText(Integer.toString(card.getManaCost()));
+        gridPane.add(cardMPlabel, 0, 1);
+        gridPane.add(cardMPTextField, 1,1);
+
+        Label cardInfoLabel = new Label("Insert Spell Card's Details : ");
+        TextArea cardInfoTextField = new TextArea();
+        cardInfoTextField.setText(card.getInfo());
+        cardInfoTextField.setPrefColumnCount(20);
+        cardInfoTextField.setPrefRowCount(5);
+        cardInfoTextField.setWrapText(true);
+        gridPane.add(cardInfoLabel, 0, 2);
+        gridPane.add(cardInfoTextField, 1,2);
+
+        Label spellCardTypeInfoLabel = new Label("Choose Spell Card's Type : ");
+        gridPane.add(spellCardTypeInfoLabel,0,3);
+        Label spellCardTypeLabel = new Label(spells.getSpellType().toString());
+
+        StackPane instantButton =  Button.buildButton("Instant");
+        instantButton.setOnMouseClicked(event -> {
+            spellCardTypeLabel.setText("Instant");
+        });
+        gridPane.add(instantButton,0,4);
+
+        StackPane continuousButton =  Button.buildButton("Continuous");
+        continuousButton.setOnMouseClicked(event -> {
+            spellCardTypeLabel.setText("Continuous");
+        });
+        gridPane.add(continuousButton,1,4);
+
+        StackPane auraButton =  Button.buildButton("Aura");
+        auraButton.setOnMouseClicked(event -> {
+            spellCardTypeLabel.setText("Aura");
+        });
+        gridPane.add(auraButton,2,4);
+        gridPane.add(spellCardTypeLabel, 3,4);
+
+        StackPane confirmButton = Button.buildButton("Confirm");
+        confirmButton.setOnMouseClicked(event -> {
+            cardName = cardNameTextField.getText();
+            cardMana = Integer.parseInt(cardMPTextField.getText());
+            cardDetails = cardInfoTextField.getText();
+            cardType = spellCardTypeLabel.getText();
+            gridPane.getChildren().clear();
+            VBox vBox = new VBox(new Label(spellCardTypeLabel.getText()));
+            vBox.setAlignment(Pos.CENTER);
+            gridPane.add(vBox, 0 ,0);
+            gridPane.add(createMagic(),0,1);
+        });
+        StackPane editButton = Button.buildButton("Done");
+        editButton.setOnMouseClicked(event -> {
+            CreatCards.remove(card);
+            cardName = cardNameTextField.getText();
+            cardMana = Integer.parseInt(cardMPTextField.getText());
+            cardDetails = cardInfoTextField.getText();
+            cardType = spellCardTypeLabel.getText();
+            spells.changeBasics(cardName, cardMana);
+            CreatCards.addCard(card);
+            EditCard editCard = new EditCard();
+            editCard.start(scene, path);
+        });
+        gridPane.add(editButton,1,5);
+        StackPane backButton = Button.buildButton("Back");
+        backButton.setOnMouseClicked(event -> {
+            CreatCards.addCard(card);
+            EditCard editCard = new EditCard();
+            editCard.start(scene, path);
+        });
+        gridPane.add(backButton,0,5);
+        gridPane.add(confirmButton,2,5);
+
+        gridPane.setPadding(new Insets(20,20,20,20));
+        gridPane.setVgap(20);
+        gridPane.setHgap(20);
+        gridPane.setAlignment(Pos.TOP_CENTER);
+        return gridPane;
+    }
+
     public GridPane createMagic(){
         GridPane gridPane = new GridPane();
         switch (cardType){
@@ -237,7 +334,7 @@ public class NewSpellCard {
                 confirmButton2.setOnMouseClicked(event -> {
                     gridPane.getChildren().clear();
                     save(new InstantSpell(cardName, cardMana, magics));
-                    NewCard.start(scene);
+                    NewCustomGame.start(scene,path);
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setTitle("Information Dialog");
                     alert.setHeaderText(null);
@@ -316,7 +413,7 @@ public class NewSpellCard {
                 confirmButton1.setOnMouseClicked(event -> {
                     gridPane.getChildren().clear();
                     save(new ContinuousSpell(cardName, cardMana, magics));
-                    NewCard.start(scene);
+                    NewCustomGame.start(scene,path);
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setTitle("Information Dialog");
                     alert.setHeaderText(null);
@@ -345,7 +442,7 @@ public class NewSpellCard {
                     magics.add(new ChangeHPAndAP(Integer.parseInt(auraAttackTextField.getText()),Integer.parseInt(auraHealthTextField.getText()), 0, cardName + " : " + cardDetails));
                     inverseMagic.add(new ChangeHPAndAP(Integer.parseInt(auraAttackTextField.getText()),Integer.parseInt(auraHealthTextField.getText()), 0, ""));
                     save(new AuraSpell(cardName, cardMana, magics,inverseMagic));
-                    NewCard.start(scene);
+                    NewCustomGame.start(scene,path);
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setTitle("Information Dialog");
                     alert.setHeaderText(null);

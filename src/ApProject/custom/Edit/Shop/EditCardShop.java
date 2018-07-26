@@ -1,4 +1,4 @@
-package src.ApProject.custom;
+package src.ApProject.custom.Edit.Shop;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -8,8 +8,8 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import src.ApProject.constants.CreatCards;
+import src.ApProject.custom.NewCustomGame;
 import src.ApProject.shop.CardShop;
-import src.ApProject.thing.Amulet;
 import src.ApProject.thing.Cards.Card;
 
 import java.util.ArrayList;
@@ -24,13 +24,15 @@ public class EditCardShop {
         scene.setRoot(gridPane);
         int count = 0;
         Label info = new Label("All Cards");
-        Label info1 = new Label("Info");
+        info.setMaxWidth(Double.MAX_VALUE);
+        info.setAlignment(Pos.CENTER);
         gridPane.add(info, 0, count);
-        gridPane.add(info1, 1, count);
         Card[] allCards = CreatCards.getAllCards();
         for (Card card : allCards) {
             Label label = new Label(card.getName());
             gridPane.add(label,   count / 20 * 2, count %20 + 1);
+            label.setMaxWidth(Double.MAX_VALUE);
+            label.setAlignment(Pos.CENTER);
             Button button = new Button("Add to Shop");
             button.setOnMouseClicked(event -> {
                 CardShop.add(card.getName());
@@ -44,11 +46,14 @@ public class EditCardShop {
         count = 0;
         Label info2 = new Label("Cards In The Shop");
         gridPane.add(info2, base, count);
+        info2.setMaxWidth(Double.MAX_VALUE);
+        info2.setAlignment(Pos.CENTER);
         ArrayList<String> shopCards = CardShop.getAllCards();
         for (String string : shopCards) {
             Label label = new Label(string);
-            Label label1 = new Label(CreatCards.getCard(string).getInfo());
             gridPane.add(label,   base + count / 20 * 2, count %20 + 1);
+            label.setMaxWidth(Double.MAX_VALUE);
+            label.setAlignment(Pos.CENTER);
             Button button = new Button("Remove From Shop");
             button.setOnMouseClicked(event -> {
                 CardShop.remove(string);

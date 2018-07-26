@@ -6,8 +6,7 @@ import src.ApProject.player.Player;
 import src.ApProject.thing.Cards.Card;
 import src.ApProject.thing.Item;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -16,21 +15,34 @@ import java.util.Scanner;
 public class ItemShop {
     static protected ArrayList<String> shopItems = new ArrayList<>();
 
-    public static void loadShopItems() {
+    public static void loadShopItems(String path) {
         try {
-            FileInputStream fileIn = new FileInputStream(".\\src\\Resource\\0\\Shop\\itemShop.txt");
+            FileInputStream fileIn = new FileInputStream(path + "\\Shop\\itemShop.txt");
             Scanner scanner = new Scanner(fileIn);
             while (scanner.hasNext()) {
-                String itemName = scanner.next();
-                int count = scanner.nextInt();
-                for (int i = 0; i < count; i++) {
-                    shopItems.add(itemName);
-                }
+                String itemName = scanner.nextLine();
+                shopItems.add(itemName);
             }
             System.out.println("Finished Loading Items In The Shop");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+    }
+
+    public static void saveShopItems(String path){
+        try {
+            File file = new File(path + "\\Shop\\itemShop.txt");
+            FileWriter fileWriter = new FileWriter(file, false);
+            for (String string : shopItems) {
+                fileWriter.write(string + "\n");
+            }
+            fileWriter.flush();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        System.out.println("Finished Saving All In The Shop");
     }
 
     protected boolean itemShopOrders(Player p) {

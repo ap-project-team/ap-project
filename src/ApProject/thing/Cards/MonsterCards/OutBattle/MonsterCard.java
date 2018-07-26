@@ -39,4 +39,31 @@ abstract public class MonsterCard extends Card {
     public Type getType() {
         return type;
     }
+
+    public void changeBasics(String name, int HP, int AP, int MP, MonsterCardSpeciality monsterCardSpeciality, Tribe tribe){
+        this.name = name;
+        this.basicHealthPoint = HP;
+        this.basicAttackPoint = AP;
+        this.manaCost = MP;
+        if(monsterCardSpeciality != null)
+            this.monsterCardSpeciality =monsterCardSpeciality;
+        if(tribe != null)
+            this.tribe = tribe;
+    }
+
+    public int getBasicHealthPoint() {
+        return basicHealthPoint;
+    }
+
+    public int getBasicAttackPoint() {
+        return basicAttackPoint;
+    }
+
+    public Tribe getTribe() {
+        return tribe;
+    }
+
+    public MonsterCardSpeciality getMonsterCardSpeciality() {
+        return monsterCardSpeciality;
+    }
 }

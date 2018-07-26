@@ -1,4 +1,4 @@
-package src.ApProject.custom;
+package src.ApProject.custom.New;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -8,11 +8,13 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.TextAlignment;
+import src.ApProject.custom.NewCustomGame;
+import src.ApProject.custom.New.Card.NewMonsterCard;
+import src.ApProject.custom.New.Card.NewSpellCard;
 import src.ApProject.graphics.Button;
 
 public class NewCard {
-    static private String path;
-    public static void start(Scene scene){
+    public static void start(Scene scene, String path){
         GridPane gridPane = new GridPane();
         StackPane monsterCard =  Button.buildButton("Monster Card");
         StackPane spellCard =  Button.buildButton("Spell Card");
@@ -27,7 +29,7 @@ public class NewCard {
             VBox vBox = new VBox(new Label("Monster Card"));
             vBox.setAlignment(Pos.CENTER);
             gridPane.add(vBox, 0 ,0);
-            gridPane.add(newMonsterCard.getGridPane(scene),0,1);
+            gridPane.add(newMonsterCard.getGridPane(scene,path),0,1);
         });
         spellCard.setOnMouseClicked(event -> {
             cardTypeLabel.setText("Spell Card");
@@ -36,7 +38,7 @@ public class NewCard {
             VBox vBox = new VBox(new Label("Spell Card"));
             vBox.setAlignment(Pos.CENTER);
             gridPane.add(vBox, 0 ,0);
-            gridPane.add(newSpellCard.getGridPane(scene),0,1);
+            gridPane.add(newSpellCard.getGridPane(scene,path),0,1);
         });
         StackPane backButton =  Button.buildButton("Back");
         backButton.setOnMouseClicked(event -> {

@@ -1,6 +1,5 @@
-package src.ApProject.custom;
+package src.ApProject.custom.New.Card;
 
-import com.sun.deploy.security.ValidationState;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -11,8 +10,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import src.ApProject.constants.CreatCards;
+import src.ApProject.custom.Edit.Thing.EditCard;
+import src.ApProject.custom.New.NewCard;
+import src.ApProject.custom.NewCustomGame;
 import src.ApProject.graphics.Button;
 import src.ApProject.thing.Cards.Card;
 import src.ApProject.thing.Cards.Magic.*;
@@ -22,7 +23,6 @@ import src.ApProject.thing.Cards.MonsterCards.Tribe;
 import src.ApProject.thing.Cards.MonsterCards.Type;
 import src.ApProject.thing.Cards.Spells.InstantSpell;
 
-import java.io.*;
 import java.util.ArrayList;
 
 
@@ -34,7 +34,9 @@ public class NewMonsterCard {
     private int cardAP;
     private MonsterCardSpeciality monsterCardSpeciality;
     private Tribe tribe;
-    public GridPane getGridPane(Scene scene){
+    private String path;
+    public GridPane getGridPane(Scene scene, String path){
+        this.path = path;
         Label cardNameLabel = new Label("Insert Monster Card's Name : ");
         TextField cardNameTextField = new TextField();
         gridPane.add(cardNameLabel, 0, 0);
@@ -98,7 +100,7 @@ public class NewMonsterCard {
         StackPane nimbleButton =  Button.buildButton("Nimble");
         nimbleButton.setOnMouseClicked(event -> {
             cardSpecialtyLabel.setText("Nimble");
-            monsterCardSpeciality = MonsterCardSpeciality.Charge;
+            monsterCardSpeciality = MonsterCardSpeciality.Nimble;
         });
         gridPane.add(nimbleButton,1,7);
 
@@ -173,6 +175,180 @@ public class NewMonsterCard {
         });
         StackPane backButton = Button.buildButton("Back");
         gridPane.add(backButton,1,10);
+        gridPane.add(confirmButton,2,10);
+
+        gridPane.setPadding(new Insets(20,20,20,20));
+        gridPane.setAlignment(Pos.TOP_CENTER);
+        gridPane.setVgap(20);
+        gridPane.setHgap(20);
+        return gridPane;
+    }
+
+    public GridPane getEditGridPane(Scene scene, String path, MonsterCard monsterCard){
+        this.path = path;
+        Label cardNameLabel = new Label("Insert Monster Card's Name : ");
+        TextField cardNameTextField = new TextField();
+        cardNameTextField.setText(monsterCard.getName());
+        gridPane.add(cardNameLabel, 0, 0);
+        gridPane.add(cardNameTextField, 1,0);
+
+        Label cardHPLabel = new Label("Insert Monster Card's Health Point : ");
+        TextField cardHPTextField = new TextField();
+        cardHPTextField.setText(Integer.toString(monsterCard.getBasicHealthPoint()));
+        gridPane.add(cardHPLabel, 0, 1);
+        gridPane.add(cardHPTextField, 1,1);
+
+        Label cardAttackLabel = new Label("Insert Monster Card's Attack Point : ");
+        TextField cardAttackTextField = new TextField();
+        cardAttackTextField.setText(Integer.toString(monsterCard.getBasicAttackPoint()));
+        gridPane.add(cardAttackLabel, 0, 2);
+        gridPane.add(cardAttackTextField, 1,2);
+
+        Label cardMPlabel = new Label("Insert Monster Card's Mana Point : ");
+        TextField cardMPTextField = new TextField();
+        cardMPTextField.setText(Integer.toString(monsterCard.getManaCost()));
+        gridPane.add(cardMPlabel, 0, 3);
+        gridPane.add(cardMPTextField, 1,3);
+
+        Label monsterCardTypeInfoLabel = new Label("Choose Monster Card's Type : ");
+        gridPane.add(monsterCardTypeInfoLabel,0,4);
+        Label monsterCardTypeLabel = new Label();
+        monsterCardTypeLabel.setText(monsterCard.getType().toString());
+        StackPane normalButton =  Button.buildButton("Normal");
+        normalButton.setOnMouseClicked(event -> {
+            monsterCardTypeLabel.setText("Normal");
+        });
+        gridPane.add(normalButton,0,5);
+
+        StackPane spellCasterButton =  Button.buildButton("Spell Caster");
+        spellCasterButton.setOnMouseClicked(event -> {
+            monsterCardTypeLabel.setText("SpellCaster");
+        });
+        gridPane.add(spellCasterButton,1,5);
+
+        StackPane generalButton =  Button.buildButton("General");
+        generalButton.setOnMouseClicked(event -> {
+            monsterCardTypeLabel.setText("General");
+        });
+        gridPane.add(generalButton,2,5);
+
+        StackPane heroButton =  Button.buildButton("Hero");
+        heroButton.setOnMouseClicked(event -> {
+            monsterCardTypeLabel.setText("Hero");
+        });
+        gridPane.add(heroButton,3,5);
+        gridPane.add(monsterCardTypeLabel, 4,5);
+
+        Label cardSpecialtyInfoLabel = new Label("Choose Monster Card's Speciality : ");
+        gridPane.add(cardSpecialtyInfoLabel,0,6);
+
+        Label cardSpecialtyLabel = new Label("");
+        cardSpecialtyLabel.setText(monsterCard.getMonsterCardSpeciality().toString());
+
+        StackPane normalButton1 =  Button.buildButton("Normal");
+        normalButton1.setOnMouseClicked(event -> {
+            cardSpecialtyLabel.setText("Normal");
+            monsterCardSpeciality = MonsterCardSpeciality.Normal;
+        });
+        gridPane.add(normalButton1,0,7);
+
+        StackPane nimbleButton =  Button.buildButton("Nimble");
+        nimbleButton.setOnMouseClicked(event -> {
+            cardSpecialtyLabel.setText("Nimble");
+            monsterCardSpeciality = MonsterCardSpeciality.Nimble;
+        });
+        gridPane.add(nimbleButton,1,7);
+
+        StackPane tauntButton =  Button.buildButton("Defender");
+        tauntButton.setOnMouseClicked(event -> {
+            cardSpecialtyLabel.setText("Defender");
+            monsterCardSpeciality = MonsterCardSpeciality.Taunt;
+        });
+        gridPane.add(tauntButton,2,7);
+        gridPane.add(cardSpecialtyLabel, 3,7);
+
+        Label monsterCardTribeInfoLabel = new Label("Choose Monster Card's Tribe : ");
+        gridPane.add(monsterCardTribeInfoLabel,0,8);
+        Label monsterCardTribeLabel = new Label();
+        monsterCardTribeLabel.setText(monsterCard.getTribe().toString());
+        StackPane elvenButton =  Button.buildButton("Elven");
+        elvenButton.setOnMouseClicked(event -> {
+            monsterCardTribeLabel.setText("Elven");
+            tribe = Tribe.Elven;
+        });
+        gridPane.add(elvenButton,0,9);
+
+        StackPane dragonBreedButton =  Button.buildButton("Dragon Breed");
+        dragonBreedButton.setOnMouseClicked(event -> {
+            monsterCardTribeLabel.setText("Dragon Breed");
+            tribe = Tribe.DragonBreed;
+        });
+        gridPane.add(dragonBreedButton,1,9);
+
+        StackPane atlanteanButton =  Button.buildButton("Atlantean");
+        atlanteanButton.setOnMouseClicked(event -> {
+            monsterCardTribeLabel.setText("Atlantean");
+            tribe = Tribe.Atlantean;
+        });
+        gridPane.add(atlanteanButton,2,9);
+
+        StackPane demonicButton =  Button.buildButton("Demonic");
+        demonicButton.setOnMouseClicked(event -> {
+            monsterCardTribeLabel.setText("Demonic");
+            tribe = Tribe.Demonic;
+        });
+        gridPane.add(demonicButton,3,9);
+        gridPane.add(monsterCardTribeLabel, 4,9);
+
+        StackPane confirmButton = Button.buildButton("Confirm");
+        confirmButton.setOnMouseClicked(event -> {
+            cardName = cardNameTextField.getText();
+            cardMana = Integer.parseInt(cardMPTextField.getText());
+            cardHP = Integer.parseInt(cardHPTextField.getText());
+            cardAP = Integer.parseInt(cardAttackTextField.getText());
+            gridPane.getChildren().clear();
+            switch (monsterCardTypeLabel.getText()){
+                case "Normal" :
+                    MonsterCard normalMonsterCard = new NormalMonsterCard(cardName, cardAP, cardHP, cardMana, monsterCardSpeciality, tribe);
+                    showEndMassage(scene, normalMonsterCard);
+                    break;
+                case "SpellCaster" :
+                    MonsterCard magicMonsterCard = new MagicMonsterCard(cardName,cardAP, cardHP, cardMana, monsterCardSpeciality, tribe, null);
+                    setInstantSpell(scene, "spell", magicMonsterCard);
+                    break;
+                case "General" :
+                    MonsterCard generalMonsterCard = new GeneralMonsterCard(cardName, cardAP, cardHP, cardMana, monsterCardSpeciality, tribe, null,null);
+                    setInstantSpell(scene, "battlecry", generalMonsterCard);
+                    break;
+                case "Hero" :
+                    MonsterCard heroMonsterCard = new HeroMonsterCard(cardName, cardAP, cardHP, cardMana, monsterCardSpeciality, tribe, null, null, null);
+                    System.out.println(heroMonsterCard.getType());
+                    setInstantSpell(scene, "battlecry", heroMonsterCard);
+                    break;
+            }
+
+        });
+
+        StackPane editButton = Button.buildButton("Done");
+        editButton.setOnMouseClicked(event -> {
+            CreatCards.remove(monsterCard);
+            cardName = cardNameTextField.getText();
+            cardMana = Integer.parseInt(cardMPTextField.getText());
+            cardHP = Integer.parseInt(cardHPTextField.getText());
+            cardAP = Integer.parseInt(cardAttackTextField.getText());
+            monsterCard.changeBasics(cardName, cardHP, cardAP,cardMana, monsterCardSpeciality, tribe);
+            CreatCards.addCard(monsterCard);
+            EditCard editCard = new EditCard();
+            editCard.start(scene, path);
+        });
+        gridPane.add(editButton,1,10);
+
+        StackPane backButton = Button.buildButton("Back");
+        backButton.setOnMouseClicked(event -> {
+            CreatCards.addCard(monsterCard);
+            NewCustomGame.start(scene, path);
+        });
+        gridPane.add(backButton,0,10);
         gridPane.add(confirmButton,2,10);
 
         gridPane.setPadding(new Insets(20,20,20,20));
@@ -387,7 +563,7 @@ public class NewMonsterCard {
         alert.setHeaderText(null);
         alert.setContentText("Your Monster Card Was Successfully Added To The Cards!");
         alert.showAndWait();
-        NewCard.start(scene);
+        NewCustomGame.start(scene,path);
     }
 
     public void save(Card card){

@@ -1,2 +1,2 @@
-SmallMPPotion 1
-SmallHPPotion 1
+SmallMPPotion
+SmallHPPotion
