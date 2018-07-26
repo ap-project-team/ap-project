@@ -4,6 +4,7 @@ import javafx.scene.image.*;
 import src.ApProject.battle.battler.Battler;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -72,7 +73,9 @@ public class Amulet extends Thing{
         return attack;
     }
 
-
+    public static void addAmulet(Amulet amulet){
+        allAmulets.put(amulet.getName(),amulet);
+    }
     public static void loadAllAmulets(){
         try {
             FileInputStream fileIn = new FileInputStream(".\\src\\Resource\\0\\AllThings\\allAmulets.ser");
@@ -97,5 +100,9 @@ public class Amulet extends Thing{
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
+    }
+
+    public static Amulet[] getAllAmulets(){
+        return allAmulets.values().toArray(new Amulet[0]);
     }
 }

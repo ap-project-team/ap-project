@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class ItemShop {
-    static protected List<String> shopItems = new ArrayList<>();
+    static protected ArrayList<String> shopItems = new ArrayList<>();
 
     public static void loadShopItems() {
         try {
@@ -66,5 +66,16 @@ public class ItemShop {
         }
         System.out.println(" Item Inventory");
         p.printInventory("ITEM");
+    }
+
+    public static ArrayList<String> getAllItems(){
+        return shopItems;
+    }
+
+    public static void remove(String string){
+        shopItems.remove(string);
+    }
+    public static void add(String string){
+        shopItems.add(string);
     }
 }

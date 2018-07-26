@@ -22,26 +22,83 @@ public class NewCustomGame {
     public static void start(Scene scene, String path){
         GridPane gridPane = new GridPane();
         gridPane.setPadding(new Insets(20,20,20,20));
-        VBox vBox = new VBox();
         StackPane newCardButton =  Button.buildButton("Create New Card");
         newCardButton.setOnMouseClicked(event -> {
             NewCard.start(scene);
         });
+        gridPane.add(newCardButton,0,0);
+
         StackPane newItemButton =  Button.buildButton("Create New Item");
         newItemButton.setOnMouseClicked(event -> {
             NewItem newItem = new NewItem();
             newItem.start(scene);
         });
+        gridPane.add(newItemButton,0,1);
+
         StackPane newAmuletButton =  Button.buildButton("Create New Amulet");
         newAmuletButton.setOnMouseClicked(event -> {
             NewAmulet newAmulet = new NewAmulet();
             newAmulet.start(scene);
         });
-        vBox.getChildren().addAll(newCardButton, newItemButton, newAmuletButton);
-        vBox.setSpacing(50);
-        vBox.setAlignment(Pos.CENTER);
-        vBox.setPadding(new Insets(20,20,20,20));
-        gridPane.add(vBox,0,0);
+        gridPane.add(newAmuletButton,0,2);
+
+        StackPane editCardsButton =  Button.buildButton("Edit Cards");
+        editCardsButton.setOnMouseClicked(event -> {
+            EditCard editCard = new EditCard();
+            editCard.start(scene);
+        });
+        gridPane.add(editCardsButton,1,0);
+
+        StackPane editItemsButton =  Button.buildButton("Edit Items");
+        editItemsButton.setOnMouseClicked(event -> {
+            EditItem editItem = new EditItem();
+            editItem.start(scene);
+        });
+        gridPane.add(editItemsButton,1,1);
+        
+        StackPane editAmuletsButton =  Button.buildButton("Edit Amulets");
+        editAmuletsButton.setOnMouseClicked(event -> {
+            EditAmulet editAmulet = new EditAmulet();
+            editAmulet.start(scene);
+        });
+        gridPane.add(editAmuletsButton,1,2);
+
+        StackPane editCardShopButton =  Button.buildButton("Edit Card Shop");
+        editCardShopButton.setOnMouseClicked(event -> {
+            EditCardShop editCardShop = new EditCardShop();
+            editCardShop.start(scene, path);
+        });
+        gridPane.add(editCardShopButton,2,0);
+
+        StackPane editItemShopButton =  Button.buildButton("Edit Item Shop");
+        editItemShopButton.setOnMouseClicked(event -> {
+            EditItemShop editItemShop = new EditItemShop();
+            editItemShop.start(scene, path);
+        });
+        gridPane.add(editItemShopButton,2,1);
+
+        StackPane editAmuletShopButton =  Button.buildButton("Edit Amulet Shop");
+        editAmuletShopButton.setOnMouseClicked(event -> {
+            EditAmuletShop editAmuletShop = new EditAmuletShop();
+            editAmuletShop.start(scene, path);
+        });
+        gridPane.add(editAmuletShopButton,2,2);
+
+        StackPane backButton =  Button.buildButton("Back");
+        backButton.setOnMouseClicked(event -> {
+            showMenu(scene);
+        });
+        gridPane.add(backButton,0,3);
+
+        StackPane editEnemyDeckButton =  Button.buildButton("Edit Enemy's Deck");
+        editEnemyDeckButton.setOnMouseClicked(event -> {
+            EditEnemyDeck editEnemyDeck = new EditEnemyDeck();
+            editEnemyDeck.start(scene);
+        });
+        gridPane.add(editEnemyDeckButton,3,0);
+
+        gridPane.setHgap(20);
+        gridPane.setVgap(20);
         gridPane.setAlignment(Pos.CENTER);
         scene.setRoot(gridPane);
     }

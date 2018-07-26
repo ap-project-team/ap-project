@@ -65,4 +65,15 @@ public class CardShop{
         System.out.println(" Card Inventory");
         p.printInventory("CARD");
     }
+
+    public static ArrayList<String> getAllCards(){
+        return shopCards;
+    }
+
+    public static void remove(String string){
+        shopCards.remove(string);
+    }
+    public static void add(String string){
+        shopCards.add(string);
+    }
 }

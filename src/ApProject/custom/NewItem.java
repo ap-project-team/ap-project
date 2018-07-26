@@ -89,12 +89,6 @@ public class NewItem {
 
 
     public void save(Item item){
-        try {
-            FileOutputStream fos = new FileOutputStream("items.txt");
-            ObjectOutputStream oos = new ObjectOutputStream(fos);
-            oos.writeObject(item);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        Item.addItem(item);
     }
 }

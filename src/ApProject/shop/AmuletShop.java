@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class AmuletShop {
-    static protected List<String> shopAmulets = new ArrayList<>();
+    static protected ArrayList<String> shopAmulets = new ArrayList<>();
 
     public static void loadShopAmulets() {
         try {
@@ -68,4 +68,16 @@ public class AmuletShop {
         System.out.println(" Amulet Inventory");
         p.printInventory("AMULET");
     }
+
+    public static ArrayList<String> getAllAmulets(){
+        return shopAmulets;
+    }
+
+    public static void remove(String string){
+        shopAmulets.remove(string);
+    }
+    public static void add(String string){
+        shopAmulets.add(string);
+    }
+
 }

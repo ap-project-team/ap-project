@@ -14,7 +14,6 @@ public class NewCard {
     static private String path;
     public static void start(Scene scene){
         GridPane gridPane = new GridPane();
-        gridPane.setPadding(new Insets(20,20,20,20));
         StackPane monsterCard =  Button.buildButton("Monster Card");
         StackPane spellCard =  Button.buildButton("Spell Card");
         Label cardTypeLabel = new Label("Choose Card Type");

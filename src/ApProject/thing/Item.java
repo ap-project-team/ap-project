@@ -65,7 +65,9 @@ public class Item extends Thing{
         else return "Increase Player’s HP by " + increaseHP+" and MP by "+ increaseMP;
     }
 
-
+    public static void addItem(Item item){
+        allItems.put(item.getName(), item);
+    }
     public static void loadAllItems(){
         try {
             FileInputStream fileIn = new FileInputStream(".\\src\\Resource\\0\\AllThings\\allItems.ser");
@@ -90,5 +92,8 @@ public class Item extends Thing{
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
+    }
+    public static Item[] getAllItems(){
+        return allItems.values().toArray(new Item[0]);
     }
 }
