@@ -129,6 +129,8 @@ public class realBattler extends Battler {
         hand.update(vBox);
     }
 
+
+
     @Override
     public void defeat() {
         Pane root = battle.getRoot();
