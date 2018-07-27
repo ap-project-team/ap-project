@@ -28,6 +28,7 @@ public class Battle {
     VBox battleGround = new VBox();
     Game game;
     Pane root = new Pane();
+    StackPane info = new StackPane();
     Battler[] battlers = new Battler[2];
     StackPane eventView;
     String history = "";
@@ -81,6 +82,7 @@ public class Battle {
 
     public void play(Scene scene, Pane pastRoot, Player p){
         scene.setRoot(root);
+
         Circle nextTurnButton = new Circle(root.getWidth()-100,root.getHeight()/2,30, Color.BLUE);
         root.getChildren().addAll(BackButton.buildBackButton(scene, pastRoot), nextTurnButton);
 
@@ -93,6 +95,9 @@ public class Battle {
 
         updateEvent("Battle against "+ battlers[1].getName()+" started!\n"+
                 battlers[startNumber].getName()+" starts the battle.\n");
+
+        info.setTranslateX(eventView.getTranslateX() + 70);
+        info.setTranslateY(600);
 
         battlers[0].drawCard(numberOfCardsInFirstHand);
         battlers[1].drawCard(numberOfCardsInFirstHand);
@@ -154,7 +159,9 @@ public class Battle {
         }
 
         eventView.getChildren().addAll(eventBox, eventHistory, topic);
-        root.getChildren().addAll(eventView);
+        if (root.getChildren().contains(info))
+            root.getChildren().removeAll(info);
+        root.getChildren().addAll(eventView, info);
     }
 
     synchronized public void update() {
@@ -191,9 +198,9 @@ public class Battle {
             battleGround.setAlignment(Pos.CENTER);
 
             vBox1.getChildren().addAll(battlersView[1]);
-            battlers[0].updatePlayField(vBox2);
+            battlers[0].updatePlayField(vBox2, info);
             vBox2.getChildren().addAll(battlersView[0]);
-            battlers[1].updatePlayField(vBox1);
+            battlers[1].updatePlayField(vBox1, info);
 
 
             Circle itemButton = battlers[0].buildItemButton(root);

@@ -1,6 +1,7 @@
 package src.ApProject.battle.battler;
 
 
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import src.ApProject.constants.ConstantDatas;
 import src.ApProject.graphics.AttackMove;
@@ -84,9 +85,9 @@ public class AI_Battler extends Battler {
         }
     }
 
-    public void updatePlayField(VBox vBox) {
+    public void updatePlayField(VBox vBox, Pane root) {
         spellField.update(vBox);
-        monsterField.update(vBox);
+        monsterField.update(vBox, root);
     }
 
     synchronized public void defeat() {

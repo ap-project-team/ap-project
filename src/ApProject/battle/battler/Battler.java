@@ -176,7 +176,7 @@ abstract public class Battler {
 
     }
 
-    public void updatePlayField(VBox vBox) {
+    public void updatePlayField(VBox vBox, Pane root) {
         //Override
     }
 

@@ -6,6 +6,7 @@ import javafx.scene.effect.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.*;
 import javafx.scene.shape.*;
+import javafx.scene.text.Text;
 import src.ApProject.Game;
 import src.ApProject.battle.battler.Battler;
 import src.ApProject.constants.ConstantDatas;
@@ -31,7 +32,6 @@ public class MonsterField {
 
     private HBox hBox;
     Battler battler;
-
 
     private MonsterCardsInBattle[] slots = new MonsterCardsInBattle[ConstantDatas.SIZE_OF_MONSTERFIELD];
 
@@ -626,9 +626,9 @@ public class MonsterField {
 //        return outputMap;
 //    }
 
-    public void update(Pane root){
+    public void update(Pane mainVBox, Pane root){
         if (hBox != null)
-            root.getChildren().remove(hBox);
+            mainVBox.getChildren().remove(hBox);
 
         hBox = new HBox(10);
 
@@ -652,26 +652,43 @@ public class MonsterField {
                             spell.setTranslateX(25);
                             spell.setOnMouseClicked(event1 -> {
                                 battler.getBattle().update();
-                                spellCastingMode(finalI, root);
+                                spellCastingMode(finalI, mainVBox);
                             });
                             attack.setOpacity(1);
                             attack.setTranslateY(35);
                             attack.setTranslateX(-25);
                             attack.setOnMouseClicked(event1 -> {
                                 battler.getBattle().update();
-                                AttackMode(finalI, root);
+                                AttackMode(finalI, mainVBox);
                             });
 
                             imageAndIcon.getChildren().addAll(attack, spell);
                         }
                     } else if (slots[finalI].getMagicType() != MagicType.NONE && slots[finalI].isMagicUsed() == false) {
-                        spellCastingMode(finalI, root);
+                        spellCastingMode(finalI, mainVBox);
                     } else if (slots[finalI].canAttack())
-                        AttackMode(finalI, root);
+                        AttackMode(finalI, mainVBox);
 
                     image.setOnMouseClicked(event1 -> {
                         battler.getBattle().update();
                     });
+                });
+
+
+                StackPane info = new StackPane();
+
+                Text text = new Text(slots[finalI].getUseInfo());
+                Rectangle rectangle = new Rectangle(text.maxWidth(10)+20,text.maxHeight(10)+20, Color.LIGHTYELLOW);
+
+                info.getChildren().addAll(rectangle, text);
+                info.setAlignment(Pos.CENTER);
+                rectangle.setArcHeight(30);
+                rectangle.setArcWidth(30);
+
+                image.setOnMouseEntered(event1 -> {
+                    if (root.getChildren().size() != 0)
+                        root.getChildren().remove(0);
+                    root.getChildren().addAll(info);
                 });
 
                 hBox.getChildren().addAll(imageAndIcon);
@@ -679,7 +696,7 @@ public class MonsterField {
         }
 
         hBox.setAlignment(Pos.CENTER);
-        root.getChildren().addAll(hBox);
+        mainVBox.getChildren().addAll(hBox);
     }
 
     synchronized void spellCastingMode(int finalI, Pane root) {

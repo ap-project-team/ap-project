@@ -136,8 +136,8 @@ public class realBattler extends Battler {
         return true;
     }
 
-    public void updatePlayField(VBox vBox) {
-        monsterField.update(vBox);
+    public void updatePlayField(VBox vBox, Pane root) {
+        monsterField.update(vBox, root);
         spellField.update(vBox);
         hand.update(vBox);
     }
