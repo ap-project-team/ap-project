@@ -31,6 +31,8 @@ public class MonsterField {
 
     private HBox hBox;
     Battler battler;
+
+
     private MonsterCardsInBattle[] slots = new MonsterCardsInBattle[ConstantDatas.SIZE_OF_MONSTERFIELD];
 
     public MonsterField(Battler battler){

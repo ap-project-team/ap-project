@@ -6,6 +6,7 @@ import src.ApProject.battle.battler.Battler;
 import src.ApProject.battle.battler.realBattler;
 import src.ApProject.constants.*;
 import src.ApProject.graphics.BackButton;
+import src.ApProject.shop.Shop;
 import src.ApProject.thing.Amulet;
 import src.ApProject.thing.Cards.Card;
 import src.ApProject.thing.Item;
@@ -135,16 +136,20 @@ public class Player {
         inventory.editDeck(scene, pastRoot);
     }
 
-    public void viewInventory(Pane root, String type) {
-        inventory.viewInventory(root, type, inventory.getList(type));
+    public void viewInventoryWhenPaused(Pane root, String type) {
+        inventory.viewInventoryWhenPaused(root, type, inventory.getList(type));
     }
 
-    public void viewInventory(Scene scene, Pane pastRoot, String type){
+    public void viewInventoryWhenPaused(Scene scene, Pane pastRoot, String type){
         Pane root = new Pane();
         scene.setRoot(root);
         root.getChildren().addAll(BackButton.buildBackButton(scene, pastRoot));
 
-        viewInventory(root, type);
+        viewInventoryWhenPaused(root, type);
+    }
+
+    public void viewInventoryInShop(Scene scene, Pane root, String type, Player player, Shop shop, Pane pastRoot){
+        inventory.viewInventoryInShop(root, type, inventory.getList(type), player, shop);
     }
 
     public void editAmulet(Scene scene, Pane pastRoot){
@@ -152,7 +157,7 @@ public class Player {
         scene.setRoot(root);
         root.getChildren().addAll(BackButton.buildBackButton(scene, pastRoot));
 
-        viewInventory(root,"AMULET");
+        viewInventoryWhenPaused(root,"AMULET");
         inventory.editAmulet(root);
     }
 }

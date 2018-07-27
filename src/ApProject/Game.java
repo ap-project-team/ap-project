@@ -1,16 +1,11 @@
 package src.ApProject;
 
 import javafx.animation.AnimationTimer;
-import javafx.geometry.Point2D;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.shape.Rectangle;
 import src.ApProject.battle.Battle;
 import src.ApProject.constants.AI_BattlerBuilder;
 import src.ApProject.graphics.*;
@@ -18,8 +13,6 @@ import src.ApProject.graphics.Button;
 import src.ApProject.player.Player;
 import src.ApProject.shop.Shop;
 
-import java.awt.*;
-import java.io.File;
 import java.util.Scanner;
 
 public class Game {
@@ -111,7 +104,7 @@ public class Game {
             editDeck.setOnMouseClicked(event -> player.editDeck(scene, root));
 
             StackPane items = ImageButton.buildButton("./src//source//ITEM//item.jpg");
-            items.setOnMouseClicked(event -> player.viewInventory(scene, root, "ITEM"));
+            items.setOnMouseClicked(event -> player.viewInventoryWhenPaused(scene, root, "ITEM"));
 
             StackPane amulets = ImageButton.buildButton("./src//source//AMULET//amulet.gif");
             amulets.setOnMouseClicked(event -> player.editAmulet(scene, root));
@@ -175,5 +168,9 @@ public class Game {
 
     public Player getPlayer() {
         return player;
+    }
+
+    public Map getMap() {
+        return map;
     }
 }

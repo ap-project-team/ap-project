@@ -45,6 +45,17 @@ public class Battle {
         root.setBackground(new Background(new BackgroundFill(Color.color(0.9, 1, 1), CornerRadii.EMPTY, Insets.EMPTY)));
     }
 
+    public Battle(Battler battler, Battler enemy) {
+        battlers[0] = battler;
+        battlers[0].setBattle(this);
+        battlers[0].setEnemy(enemy);
+        battlers[1] = enemy;
+        battlers[1].setEnemy(battler);
+        battlers[1].setBattle(this);
+
+        root.setBackground(new Background(new BackgroundFill(Color.color(0.9, 1, 1), CornerRadii.EMPTY, Insets.EMPTY)));
+    }
+
     public String play(){
         int startNumber = Math.abs(new Random().nextInt())%2;
         System.out.println("Battle against "+ battlers[1].getName()+" started!");
@@ -183,6 +194,9 @@ public class Battle {
             battlers[0].updatePlayField(vBox2);
             vBox2.getChildren().addAll(battlersView[0]);
             battlers[1].updatePlayField(vBox1);
+
+
+            Circle itemButton = battlers[0].buildItemButton(root);
 
             root.getChildren().addAll(battleGround);
 

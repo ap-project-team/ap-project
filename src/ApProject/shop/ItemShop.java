@@ -91,4 +91,8 @@ public class ItemShop {
     public static void add(String string){
         shopItems.add(string);
     }
+
+    public static ArrayList<String> getShopItems() {
+        return shopItems;
+    }
 }

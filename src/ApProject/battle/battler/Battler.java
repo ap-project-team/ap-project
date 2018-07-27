@@ -2,9 +2,17 @@ package src.ApProject.battle.battler;
 
 
 
+import javafx.animation.PathTransition;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.MoveTo;
+import javafx.scene.shape.Path;
+import javafx.scene.shape.PathElement;
+import javafx.util.Duration;
 import src.ApProject.battle.Battle;
 import src.ApProject.battle.battleField.GraveYard;
 import src.ApProject.battle.battleField.MonsterField;
@@ -239,4 +247,9 @@ abstract public class Battler {
     public void defeat() {
         //Override
     }
+    public Circle buildItemButton(Pane root){
+        //Override
+        return null;
+    }
+
 }

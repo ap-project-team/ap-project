@@ -144,6 +144,7 @@ public class Map {
                         });
 
                         HBox options = new HBox(yes, no);
+                        options.setTranslateY(30);
                         options.setSpacing(50);
                         options.setTranslateX(20);
                         wantToPlay.getChildren().addAll(rectangle, options, text);
@@ -164,7 +165,11 @@ public class Map {
 
                         stopPlayer(playerImages, veracity);
 
-                        game.getShop().shopView(game.getPlayer(), scene, root);
+                        game.getShop().shopView(game.getPlayer(), scene, root, game.getMap());
+
+                        this.stop();
+
+                        scene.setOnKeyPressed(event -> {});
                     }
                 }
 
@@ -199,6 +204,10 @@ public class Map {
                 if (event.getCode() == KeyCode.DOWN) {
                     System.out.println("DOWN");
                     veracity[0] = new Point2D(0, 1);
+                }
+
+                if (event.getCode() == KeyCode.P){
+                    game.pause(timer);
                 }
 
                 File[] files = new File("./src//source//player//move("+(int)veracity[0].getX()+","+(int)veracity[0].getY()+")").listFiles();;

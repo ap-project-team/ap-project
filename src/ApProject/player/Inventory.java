@@ -2,8 +2,10 @@ package src.ApProject.player;
 
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.effect.Glow;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -15,10 +17,12 @@ import src.ApProject.Game;
 import src.ApProject.constants.CreatCards;
 import src.ApProject.graphics.BackButton;
 import src.ApProject.graphics.Message;
+import src.ApProject.shop.Shop;
 import src.ApProject.thing.Amulet;
 import src.ApProject.thing.Item;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 public class Inventory {
     protected ArrayList<InventoryThing> cardInventory = new ArrayList<>();
@@ -34,6 +38,8 @@ public class Inventory {
         cardInventory.add(new InventoryThing(5,"ElvenRanger"));
         cardInventory.add(new InventoryThing(10,"OgreWarchief"));
 
+        for (int i=0; i<deck.getSlots().length; i++)
+            addToInventory(1, deck.getSlots()[i], cardInventory);
     }
 
     Inventory(ArrayList<InventoryThing> cards, ArrayList<InventoryThing> items, ArrayList<InventoryThing> amulets, InventoryDeck deck) {
@@ -176,7 +182,7 @@ public class Inventory {
             amulets.add(amuletInventory.get(i).copy());
 
         Inventory inventory = new Inventory(cards,items,amulets,deck);
-        return null;
+        return inventory;
     }
 
     public void editDeck(Scene scene, Pane pastRoot){
@@ -185,7 +191,7 @@ public class Inventory {
         root.getChildren().addAll(BackButton.buildBackButton(scene, pastRoot));
 
         deck.viewDeck(root);
-        viewInventory(root,"CARD", cardInventory);
+        viewInventoryWhenPaused(root,"CARD", cardInventory);
 
         Rectangle rectangle = new Rectangle(root.getWidth()-400,0,10,root.getHeight());
         root.getChildren().addAll(rectangle);
@@ -224,8 +230,10 @@ public class Inventory {
         root.getChildren().addAll(stackPane);
     }
 
-    public void viewInventory(Pane root, String type, ArrayList<InventoryThing> list) {
+    public void viewInventoryWhenPaused(Pane root, String type, ArrayList<InventoryThing> list) {
         VBox inventoryVBox = new VBox(5);
+        HBox[] inventoryHBoxes = new HBox[numberOfThingsInInventory(type)/3];
+
         inventoryVBox.setTranslateX(100);
         inventoryVBox.setTranslateY(60);
         Text text = new Text(100, 40 , "Your Inventory :");
@@ -234,8 +242,8 @@ public class Inventory {
         for (int i=0; i<list.size(); i++) {
             InventoryThing thing = list.get(i);
             ImageView img = new ImageView("./src//source//"+type+"//" + thing.getName() + ".png");
-            img.setFitHeight(20);
-            img.setFitWidth(350);
+            img.setFitHeight(80);
+            img.setFitWidth(60);
             img.setEffect(new Glow(0.2));
 
             StackPane stackPane = new StackPane();
@@ -293,13 +301,119 @@ public class Inventory {
             Text numText = new Text(thing.getNum()+"×");
             numText.setFill(Color.ORANGE);
             numText.setFont(new Font(20));
-            inventoryVBox.getChildren().addAll(numText);
+//            inventoryVBox.getChildren().addAll(numText);
 
-            numText.setTranslateX(-200);
+            numText.setTranslateX(-70);
             stackPane.getChildren().addAll(numText, img);
-            inventoryVBox.getChildren().addAll(stackPane);
+
+            if (i%3 == 0)
+                inventoryHBoxes[i/3] = new HBox(150);
+            inventoryHBoxes[i/3].getChildren().addAll(stackPane);
         }
+
+        for (int i=0; i<inventoryHBoxes.length; i++)
+            if (inventoryHBoxes[i] != null)
+                inventoryVBox.getChildren().add(inventoryHBoxes[i]);
         root.getChildren().addAll(inventoryVBox, text);
+    }
+
+    public void viewInventoryInShop(Pane root, String type, ArrayList<InventoryThing> list, Player player, Shop shop) {
+        VBox inventoryVBox = new VBox(5);
+        HBox[] inventoryHBoxes = new HBox[numberOfThingsInInventory(type)/3];
+
+        Text gil = new Text("Gil: "+player.getGil()+"\n\n");
+        gil.setFont(new Font(18));
+        inventoryVBox.getChildren().add(gil);
+
+        inventoryVBox.setTranslateX(100);
+        inventoryVBox.setTranslateY(60);
+        Text text = new Text(100, 40 , "Your Available Inventory :");
+        text.setFont(new Font(25));
+        text.setFill(Color.SLATEGRAY);
+        for (int i=0; i<list.size(); i++) {
+            InventoryThing thing = list.get(i);
+            ImageView img = new ImageView("./src//source//"+type+"//" + thing.getName() + ".png");
+            img.setFitHeight(80);
+            img.setFitWidth(60);
+            img.setEffect(new Glow(0.2));
+
+            StackPane stackPane = new StackPane();
+            StackPane info = new StackPane();
+
+
+            Text t = new Text("");
+            if (type.equals("CARD")) {
+                t = new Text(CreatCards.getCard(thing.getName()).getInfo());
+            } else if (type.equals("ITEM")) {
+                t=new Text("Name : "+thing.getName()+"\n"+Item.getItems(thing.getName()).getInfo());
+            } else if (type.equals("AMULET")) {
+                t = new Text("Name : "+thing.getName()+"\n"+Amulet.getAmulet(thing.getName()).getInfo());
+            }
+
+            img.setOnMouseClicked(event -> {
+                TextInputDialog alert = new TextInputDialog("");
+                alert.setTitle("Sell");
+                alert.setContentText("How much "+thing.getName()+" do you want to sell?");
+                alert.setHeaderText(type+" SHOP");
+                Optional<String> result = alert.showAndWait();
+
+                if (result.isPresent()){
+                    if (type.equals("CARD"))
+                        player.sell(Integer.parseInt(result.get()), thing.getName(), type, CreatCards.getCard(thing.getName()).getPrice());
+                    else if (type.equals("ITEM"))
+                        player.sell(Integer.parseInt(result.get()), thing.getName(), type, Item.getItems(thing.getName()).getPrice());
+                    else player.sell(Integer.parseInt(result.get()), thing.getName(), type, Amulet.getAmulet(thing.getName()).getPrice());
+
+                    shop.viewShopThings(type, player);
+                }
+            });
+
+            t.setFont(new Font(10));
+            t.setFill(Color.SLATEGRAY);
+
+            Rectangle rectangle = new Rectangle(t.maxWidth(100)+10, t.maxHeight(100)+10);
+            rectangle.setFill(Color.LIGHTYELLOW);
+            rectangle.setArcHeight(15);
+            rectangle.setArcWidth(15);
+            info.getChildren().addAll(rectangle, t);
+            info.setAlignment(Pos.CENTER);
+
+            img.setOnMouseEntered(event -> {
+                img.setOpacity(0.6);
+                root.getChildren().addAll(info);
+                info.setTranslateX(event.getSceneX()-5);
+                info.setTranslateY(event.getSceneY()+5);
+            });
+            img.setOnMouseExited(event -> {
+                img.setOpacity(1);
+                root.getChildren().remove(info);
+            });
+
+            Text numText = new Text((thing.getNum() - deck.getNumberOfCardsInDeck(thing.getName(), type)- deck.getNumberOfUsedAmulets(thing.getName()))+"×");
+            numText.setFill(Color.ORANGE);
+            numText.setFont(new Font(20));
+//            inventoryVBox.getChildren().addAll(numText);
+
+            numText.setTranslateX(-70);
+            stackPane.getChildren().addAll(numText, img);
+
+            if (i%3 == 0)
+                inventoryHBoxes[i/3] = new HBox(150);
+            inventoryHBoxes[i/3].getChildren().addAll(stackPane);
+        }
+
+        for (int i=0; i<inventoryHBoxes.length; i++)
+            if (inventoryHBoxes[i] != null)
+                inventoryVBox.getChildren().add(inventoryHBoxes[i]);
+        root.getChildren().addAll(inventoryVBox, text);
+    }
+
+    private int numberOfThingsInInventory(String type) {
+        int num = 0;
+        ArrayList<InventoryThing> list = getList(type);
+        for (int i=0; i<list.size(); i++)
+            num+=list.get(i).getNum();
+        return num;
     }
 
 }

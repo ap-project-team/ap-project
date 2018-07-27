@@ -92,4 +92,7 @@ public class AmuletShop {
         shopAmulets.add(string);
     }
 
+    public static ArrayList<String> getShopAmulets() {
+        return shopAmulets;
+    }
 }

@@ -196,7 +196,7 @@ public class MonsterCardsInBattle {
         try {
             this.image = new ImageView("./src//source//CARD//" + getCardName() + ".png");
         } catch (Exception e) {
-            this.image = new ImageView("./src//source//NoImage.png");
+            this.image = new ImageView("./src//source//NoImage.jpg");
         }
 
         image.setFitWidth(60);

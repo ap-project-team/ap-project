@@ -248,4 +248,10 @@ public class InventoryDeck {
     public void sort(){
         Arrays.sort(slots);
     }
+
+    public int getNumberOfUsedAmulets(String name) {
+        if (equippedAmulet.equals(name))
+            return 1;
+        return 0;
+    }
 }
