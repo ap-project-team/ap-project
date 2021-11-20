@@ -10,13 +10,8 @@ import src.ApProject.graphics.AttackMove;
 import src.ApProject.thing.Cards.Card;
 import src.ApProject.thing.Cards.Magic.MagicType;
 import src.ApProject.thing.Cards.MonsterCards.InBattle.MonsterCardsInBattle;
-import src.ApProject.thing.Cards.MonsterCards.OutBattle.MonsterCard;
-import src.ApProject.thing.Cards.MonsterCards.Type;
 import src.ApProject.thing.Cards.Spells.*;
 
-import java.security.PublicKey;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 

@@ -114,7 +114,6 @@ abstract public class Battler {
         monsterField.nextTurn();
 
         String addedCard = "Your hand is full.";
-
         if (turnNum != 1) {
             if (deck.size() != 0) {
                 if (hand.size() != ConstantDatas.MAX_CARD_IN_HAND)

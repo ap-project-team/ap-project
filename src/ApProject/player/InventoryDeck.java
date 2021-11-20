@@ -13,14 +13,14 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import src.ApProject.Game;
-import src.ApProject.constants.ConstantDatas;
+import src.ApProject.constants.ConstantData;
 import src.ApProject.constants.CreatCards;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class InventoryDeck {
-    private String[] slots = new String[ConstantDatas.SIZE_OF_DECK];
+    private String[] slots = new String[ConstantData.SIZE_OF_DECK];
     private String equippedAmulet = "DemonKing’sCrown";
 
     InventoryDeck(){

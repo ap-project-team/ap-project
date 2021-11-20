@@ -45,6 +45,9 @@ public class Main extends Application{
 
 
 
+//        BattleGraphic battleGraphic = new BattleGraphic();
+//        battleGraphic.startLaunch();
+
         System.out.println("'WELCOME TO THIS GAME'");
         System.out.println("Please Enter Your Name : ");
 
