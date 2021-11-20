@@ -1,12 +1,26 @@
 package src.ApProject.battle.battler;
 
+
+
+import javafx.animation.PathTransition;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.MoveTo;
+import javafx.scene.shape.Path;
+import javafx.scene.shape.PathElement;
+import javafx.util.Duration;
 import src.ApProject.battle.Battle;
-import src.ApProject.constants.ConstantDatas;
-import src.ApProject.thing.Amulet;
-import src.ApProject.thing.Cards.Card;
 import src.ApProject.battle.battleField.GraveYard;
 import src.ApProject.battle.battleField.MonsterField;
 import src.ApProject.battle.battleField.SpellField;
+import src.ApProject.constants.ConstantDatas;
+import src.ApProject.graphics.Message;
+import src.ApProject.thing.Amulet;
+import src.ApProject.thing.Cards.Card;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -17,15 +31,15 @@ abstract public class Battler {
     protected String type;
     protected Amulet amulet;
 
-    MonsterField monsterField = new MonsterField();
+    MonsterField monsterField = new MonsterField(this);
     SpellField spellField = new SpellField();
     GraveYard graveYard = new GraveYard();
-
+    StackPane battlerCard;
 
     int HP = 10000;
 
     int currentMaxMP = 0;
-    int currentMP;
+    int currentMP = 0;
     int MAX_HP = 10000;
     final int MAX_MP = 10;
 
@@ -34,7 +48,7 @@ abstract public class Battler {
 
 
     protected ArrayList<Card> deck;
-    protected Hand hand = new Hand();
+    protected Hand hand = new Hand(this);
 
     public String getType() {
         return type;
@@ -89,8 +103,7 @@ abstract public class Battler {
                 deck.remove(n);
             }
         }
-        if (deck.size() > 0) return deck.get(deck.size()-1).getName();
-        else return "Your deck is empty";
+        return hand.get(hand.size()-1).getName();
     }
 
     public void playOneTurn(int turnNum){
@@ -101,15 +114,18 @@ abstract public class Battler {
         monsterField.nextTurn();
 
         String addedCard = "Your hand is full.";
-        if (turnNum != 1 && turnNum != 2) {
-            if (hand.size() != ConstantDatas.MAX_CARD_IN_HAND)
-                addedCard = addToHand(1);
-            else {
-                int i =(new Random().nextInt(deck.size()));
-                graveYard.add(deck.get(i));
-                deck.remove(i);
-            }
-        }else addedCard = "Your cards has been drawn.";
+
+        if (turnNum != 1) {
+            if (deck.size() != 0) {
+                if (hand.size() != ConstantDatas.MAX_CARD_IN_HAND)
+                    addedCard = addToHand(1);
+                else {
+                    int i = (new Random().nextInt(deck.size()));
+                    graveYard.add(deck.get(i));
+                    deck.remove(i);
+                }
+            } else addedCard = "Your deck is empty.";
+        } else addedCard = "Your cards has been drawn.";
 
         if (type.equals("PLAYER")) {
             System.out.println(
@@ -123,9 +139,50 @@ abstract public class Battler {
         }
     }
 
+    public void playOneTurn(int turnNum, Pane root){
+        if (currentMaxMP < MAX_MP) currentMaxMP++;
+        currentMP = currentMaxMP;
+
+        spellField.nextTurn();
+        monsterField.nextTurn();
+
+        String addedCard = "Your hand is full.";
+        if (turnNum != 1) {
+            if (deck.size() != 0) {
+                if (hand.size() != ConstantDatas.MAX_CARD_IN_HAND)
+                    addedCard = addToHand(1);
+                else {
+                    int i = (new Random().nextInt(deck.size()));
+                    graveYard.add(deck.get(i));
+                    deck.remove(i);
+                }
+            } else addedCard = "Your deck is empty.";
+        } else addedCard = "Your cards has been drawn.";
+
+        battle.update();
+        root.getChildren().addAll(Message.buildMessage(addedCard, root));
+
+        if (type.equals("PLAYER")) {
+            System.out.println(
+                    "Turn " + turnNum + " started! \n"
+                            + name + "’s turn.\n"+
+                            "[" + addedCard + "]\n" +
+                            "[" + currentMaxMP + " - " + MAX_MP + "]");
+            //turnOrders();
+            // while (turnOrders());
+        } else if (type.equals("ENEMY")) {
+            turnOrders();
+        }
+
+    }
+
+    public void updatePlayField(VBox vBox, Pane root) {
+        //Override
+    }
+
     protected boolean turnOrders() {
         System.out.println("TURN ORDERS DID'NT OVERWRITE PROPERLY.");
-        return true;
+        return false;
     }
 
     public String getName() {
@@ -151,7 +208,6 @@ abstract public class Battler {
         return monsterField;
     }
 
-
     public void setCurrentMana(int currentMana){
         this.currentMP = currentMana;
     }
@@ -171,4 +227,29 @@ abstract public class Battler {
     }
 
     public Amulet getAmulet(){return amulet;}
+
+    public Battler getEnemy() {
+        return enemy;
+    }
+
+    public Battle getBattle() {
+        return battle;
+    }
+
+    public void setBattlerCard(StackPane battlerCard) {
+        this.battlerCard = battlerCard;
+    }
+
+    public StackPane getBattlerCard() {
+        return battlerCard;
+    }
+
+    public void defeat() {
+        //Override
+    }
+    public Circle buildItemButton(Pane root){
+        //Override
+        return null;
+    }
+
 }

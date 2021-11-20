@@ -1,11 +1,17 @@
 package src.ApProject.thing;
 
+import javafx.scene.image.ImageView;
 import src.ApProject.battle.battler.Battler;
+import src.ApProject.thing.Cards.Card;
+
+import java.io.*;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Item extends Thing{
     int increaseHP;
     int increaseMP;
-
+    private static Map<String, Item> allItems = new HashMap<>();
     public Item(String name, int price, int increaseHP, int increaseMP) {
         this.name = name;
         this.price = price;
@@ -13,17 +19,38 @@ public class Item extends Thing{
         this.increaseMP = increaseMP;
         thingType = "ITEM";
     }
+    static final long serialVersionUID = 10000;
+    public static void buildItems(){
+        allItems.put("SmallHPPotion",new Item("SmallHPPotion", 1000, 500, 0));
+        allItems.put("MediumHPPotion", new Item("MediumHPPotion", 2000, 1000, 0));
+        allItems.put("LargeHPPotion", new  Item("LargeHPPotion", 4000, 2000, 0));
+        allItems.put("SmallMPPotion", new Item("SmallMPPotion", 1000, 0, 2));
+        allItems.put("MediumMPPotion", new  Item("MediumMPPotion", 2000, 0, 4));
+        allItems.put("LargeMPPotion", new Item("LargeMPPotion", 4000, 0, 8));
+        allItems.put("LesserRestorative", new Item("LesserRestorative", 2000, 500, 2));
+        allItems.put("GreaterRestorative", new Item("GreaterRestorative", 4000, 1000, 4));
+    }
 
-    public static Item buildItems(String name){
-        if (name.equals("SmallHPPotion")) return new Item(name, 1000, 500, 0);
-        if (name.equals("MediumHPPotion")) return new Item(name, 2000, 1000, 0);
-        if (name.equals("LargeHPPotion")) return new Item(name, 4000, 2000, 0);
-        if (name.equals("SmallMPPotion")) return new Item(name, 1000, 0, 2);
-        if (name.equals("MediumMPPotion")) return new Item(name, 2000, 0, 4);
-        if (name.equals("LargeMPPotion")) return new Item(name, 4000, 0, 8);
-        if (name.equals("LesserRestorative")) return new Item(name, 2000, 500, 2);
-        if (name.equals("GreaterRestorative")) return new Item(name, 4000, 1000, 4);
-        return null;
+    public static void saveAllItems(String path){
+        try {
+            FileOutputStream fout = new FileOutputStream(path + "\\AllThings\\allItems.ser", false);
+            fout.close();
+            for (Item item : allItems.values()) {
+                fout = new FileOutputStream(path + "\\AllThings\\allItems.ser", true);
+                ObjectOutputStream oos = new ObjectOutputStream(fout);
+                oos.writeObject(item);
+                oos.close();
+                fout.close();
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        System.out.println("Finished Saving All Items");
+    }
+    public static Item getItems(String name){
+        return allItems.get(name);
     }
 
     public void useItem(Battler battler){
@@ -33,9 +60,52 @@ public class Item extends Thing{
     }
 
     public String getInfo(){
-        if (increaseMP == 0) return " Increase Player’s HP by "+increaseHP;
-        else if (increaseHP == 0) return " Increase Player’s MP by "+increaseMP;
-        else return "Increase Player’s HP by "+increaseHP+" and MP by "+increaseMP;
+        if (increaseMP == 0) return " Increase Player’s HP by " + increaseHP;
+        else if (increaseHP == 0) return " Increase Player’s MP by "+ increaseMP;
+        else return "Increase Player’s HP by " + increaseHP+" and MP by "+ increaseMP;
     }
 
+    public int getIncreaseHP() {
+        return increaseHP;
+    }
+
+    public int getIncreaseMP() {
+        return increaseMP;
+    }
+
+    public static void addItem(Item item){
+        allItems.put(item.getName(), item);
+    }
+    public static void loadAllItems(String path){
+        allItems = new HashMap<>();
+        try {
+            FileInputStream fileIn = new FileInputStream(path + "\\AllThings\\allItems.ser");
+            Item item = null;
+            boolean isExist = true;
+            while (isExist) {
+                if(fileIn.available() != 0) {
+                    ObjectInputStream objectIn = new ObjectInputStream(fileIn);
+                    item = (Item) objectIn.readObject();
+                    allItems.put(item.getName(), item);
+                }
+                else {
+                    isExist = false;
+                }
+            }
+            System.out.println("Finished Loading All Items");
+            fileIn.close();
+        }catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+    public static void remove(Item item){
+        allItems.remove(item.getName());
+    }
+    public static Item[] getAllItems(){
+        return allItems.values().toArray(new Item[0]);
+    }
 }

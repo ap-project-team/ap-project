@@ -23,10 +23,12 @@ public class ContinuousSpell extends Spells{
                 currentBattler.getSpellField().add(this, slotNum);
                 currentBattler.getHand().remove(this);
                 System.out.println(this.name + " was moved from hand to number " + (slotNum + 1) + " slot in the spell field. " + this.manaCost + " MP was used.");
+                currentBattler.getBattle().updateEvent(this.name + " was moved from hand\n   to number " + (slotNum + 1) + " slot in the spell field. " + this.manaCost + " MP was used.");
+
             } else {
-                if(slotNum > -1 && slotNum < 3)
-                    System.out.println("That slot is full.");
-                else
+                if(slotNum > -1 && slotNum < 3) {
+                    System.out.println("That slot is full. SlotNum: "+slotNum);
+                }else
                     System.out.println("Invalid Input");            }
         }
         else {
@@ -36,7 +38,7 @@ public class ContinuousSpell extends Spells{
 
     public void doMagic(){
             try {
-                System.out.println(this.name + " has cast a spell : \n" + magics.get(0).getmagicDetails() + "\n");
+                System.out.println(this.name + " has cast a spell : \n" + magics.get(0).getMagicDetails() + "\n");
                 for (Magic magic : magics) {
                     magic.doMagic(currentBattler, enemyBattler);
                 }

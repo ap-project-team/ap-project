@@ -3,8 +3,10 @@ package src.ApProject.thing.Cards;
 import src.ApProject.battle.battler.Battler;
 import src.ApProject.thing.Thing;
 
+
+
 abstract public class Card extends Thing{
-    protected static String cardType;
+    protected String cardType;
     protected int manaCost;
     protected String info;
 
@@ -13,7 +15,7 @@ abstract public class Card extends Thing{
     }
 
 
-    public static String getCardType() {
+    public String getCardType() {
         return cardType;
     }
 

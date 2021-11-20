@@ -1,6 +1,7 @@
 package src.ApProject.thing.Cards.Magic;
 
 import src.ApProject.battle.battler.Battler;
+import src.ApProject.graphics.CastSpellEffect;
 import src.ApProject.thing.Cards.MonsterCards.InBattle.MonsterCardsInBattle;
 import src.ApProject.thing.Cards.MonsterCards.Tribe;
 
@@ -23,6 +24,7 @@ public class ChangeHPBasedOnTribe extends Magic{
             monsterCardsInBattle.changeAttackPoint(changeAPAmount);
             monsterCardsInBattle.changeHealthPoint(changeHPAmount);
             monsterCardsInBattle.checkDeath();
+            CastSpellEffect.buildCastSpellEffect(currentBattler, monsterCardsInBattle.getFullImage());
         }
     }
 }

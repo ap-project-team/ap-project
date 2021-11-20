@@ -1,6 +1,11 @@
 package src.ApProject.thing.Cards.MonsterCards.InBattle;
 
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.StackPane;
+import javafx.scene.text.Text;
 import src.ApProject.battle.battler.Battler;
+import src.ApProject.graphics.AttackMove;
+import src.ApProject.graphics.DieingEffect;
 import src.ApProject.thing.Cards.Card;
 import src.ApProject.thing.Cards.Magic.Magic;
 import src.ApProject.thing.Cards.Magic.MagicType;
@@ -38,6 +43,8 @@ public class MonsterCardsInBattle {
     protected String magicDetail;
     protected String battleCryDetail;
     protected String willDetail;
+    protected ImageView image;
+    StackPane fullImage;
 
     public InstantSpell getMagics() { return magics; }
 
@@ -93,6 +100,8 @@ public class MonsterCardsInBattle {
                 }
             } else
             enemyBattler.changeHealthPoint(-this.currentAttackPoint);
+
+            AttackMove.buildAttackMove(currentBattler, getFullImage(), enemyBattler.getBattlerCard());
         }
         canAttack = false;
     }
@@ -117,6 +126,8 @@ public class MonsterCardsInBattle {
                     targetCard.currentHealthPoint -= this.currentAttackPoint;
                 }
             }
+            AttackMove.buildAttackMove(currentBattler, getFullImage(), targetCard.getFullImage());
+
             this.checkDeath();
             targetCard.checkDeath();
         }
@@ -145,6 +156,7 @@ public class MonsterCardsInBattle {
         if(this.currentHealthPoint <= 0) {
             currentBattler.getMonsterField().remove(this, currentBattler);
             System.out.println(this.getCardName() + " has been killed!");
+            DieingEffect.buildEffect(this.fullImage, currentBattler.getBattle());
         }
     }
 
@@ -170,4 +182,30 @@ public class MonsterCardsInBattle {
         return "Using : " + this.cardName + "\n" + "HP : " + this.currentHealthPoint + " AP : " + this.currentAttackPoint + "\n" + "Is Sleeping : " + isSleep + "\nCan Attack : " + this.canAttack + ((this.magicType == MagicType.NONE)?"":"\nCan Cast : " + (isSleep?"False":isMagicUsed?"False":"True"));
     }
 
+    public StackPane getImage() {
+        fullImage = new StackPane();
+        Text t = new Text("HP: "+getCurrentHealthPoint()+"\n"+"AP: "+getCurrentAttackPoint());
+
+        fullImage.getChildren().addAll(image, t);
+        return fullImage;
+    }
+
+    public void setImage() {
+        System.out.println("./src//source//CARD//" + getCardName() + ".png");
+
+        try {
+            this.image = new ImageView("./src//source//CARD//" + getCardName() + ".png");
+        } catch (Exception e) {
+            this.image = new ImageView("./src//source//NoImage.jpg");
+        }
+
+        image.setFitWidth(60);
+        image.setFitHeight(80);
+    }
+
+    public StackPane getFullImage() {
+        if (fullImage == null)
+            return getImage();
+        return fullImage;
+    }
 }

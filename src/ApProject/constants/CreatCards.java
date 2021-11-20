@@ -12,6 +12,7 @@ import src.ApProject.thing.Cards.Spells.AuraSpell;
 import src.ApProject.thing.Cards.Spells.ContinuousSpell;
 import src.ApProject.thing.Cards.Spells.InstantSpell;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -33,7 +34,7 @@ public abstract class CreatCards {
 
         magics.add(new ChangeAllHPAndAP(0,0,0,-100, "Poisonous Cauldron : Deal 100 damage to all enemy monster cards and enemy player"));
         magics.add(new ChangePlayerHP(0, -100,""));
-        allCards.put("PoisonousCauldron" , new ContinuousSpell("PoisonousCauldron ", 4,magics));
+        allCards.put("PoisonousCauldron" , new ContinuousSpell("PoisonousCauldron", 4,magics));
         magics.clear();
 
         magics.add(new ChangeHPOfPlayerOrMS(500, "First Aid Kit : Increase HP of a selected friendly monster or player by 500"));
@@ -112,7 +113,7 @@ public abstract class CreatCards {
         magics.add(new ChangeAllHPAndAP(0,0,0,400, "Arcane Explosion : Deal 400 damage to all enemy monster cards and remove a random spell card form enemy field and move it to graveyard"));
         magics.add(new RemoveRandomSpell(""));
         magicalSpell = new InstantSpell("ElvenSorceress", 0, magics);
-        allCards.put("ElvenSorceress", new MagicMonsterCard("ElvenSorceress", 1000, 1000, 7, MonsterCardSpeciality.Charge, Tribe.Elven, magicalSpell));
+        allCards.put("ElvenSorceress", new MagicMonsterCard("ElvenSorceress", 1000, 1000, 7, MonsterCardSpeciality.Nimble, Tribe.Elven, magicalSpell));
         magics.clear();
 
         magics.add(new RemoveAllSpells("Purge : Remove all enemy spell cards on the field and move them to hand"));
@@ -141,7 +142,7 @@ public abstract class CreatCards {
 
         allCards.put("ArmoredDragon", new NormalMonsterCard("ArmoredDragon", 400,2000, 5, MonsterCardSpeciality.Taunt, Tribe.DragonBreed));
 
-        allCards.put("YellowDrake", new NormalMonsterCard("YellowDrake", 1000, 800, 5, MonsterCardSpeciality.Charge, Tribe.DragonBreed));
+        allCards.put("YellowDrake", new NormalMonsterCard("YellowDrake", 1000, 800, 5, MonsterCardSpeciality.Nimble, Tribe.DragonBreed));
 
         allCards.put("GoblinSmuggler", new NormalMonsterCard("GoblinSmuggler", 400, 600,2, MonsterCardSpeciality.Normal, Tribe.Demonic));
 
@@ -167,8 +168,26 @@ public abstract class CreatCards {
         will = new InstantSpell("OgreWarchief",0, magics);
         magics.clear();
         allCards.put("OgreWarchief", new GeneralMonsterCard("OgreWarchief", 1500, 2500, 7,MonsterCardSpeciality.Normal, Tribe.Demonic, battleCry, will));
-
     }
+    public static void saveAllCards(String path){
+        try {
+            FileOutputStream fout = new FileOutputStream(path + "\\AllThings\\allCards.ser", false);
+            fout.close();
+            for (Card card : allCards.values()) {
+                fout = new FileOutputStream(path + "\\AllThings\\allCards.ser", true);
+                ObjectOutputStream oos = new ObjectOutputStream(fout);
+                oos.writeObject(card);
+                oos.close();
+                fout.close();
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        System.out.println("Finished Saving All Cards");
+    }
+    static final long serialVersionUID = 10005;
 
     public static Card getCard(String cardName){
         Card card = allCards.get(cardName);
@@ -178,5 +197,43 @@ public abstract class CreatCards {
         }
         else
             return card;
+    }
+
+    public static void addCard(Card card){
+        allCards.put(card.getName(),card);
+    }
+
+
+    public static void loadAllCards(String path){
+        allCards = new HashMap<>();
+        try {
+            FileInputStream fileIn = new FileInputStream( path + "\\AllThings\\allCards.ser");
+            Card card = null;
+            boolean isExist = true;
+            while (isExist) {
+                if(fileIn.available() != 0) {
+                    ObjectInputStream objectIn = new ObjectInputStream(fileIn);
+                    card = (Card) objectIn.readObject();
+                    allCards.put(card.getName(), card);
+                }
+                else {
+                    isExist = false;
+                }
+            }
+            System.out.println("Finished Loading All Cards");
+            fileIn.close();
+        }catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+    public static Card[] getAllCards(){
+        return allCards.values().toArray(new Card[0]);
+    }
+    public static void remove(Card card){
+        allCards.remove(card.getName());
     }
 }

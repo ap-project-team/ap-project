@@ -1,8 +1,12 @@
 package src.ApProject.player;
 
+import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
 import src.ApProject.battle.battler.Battler;
 import src.ApProject.battle.battler.realBattler;
 import src.ApProject.constants.*;
+import src.ApProject.graphics.BackButton;
+import src.ApProject.shop.Shop;
 import src.ApProject.thing.Amulet;
 import src.ApProject.thing.Cards.Card;
 import src.ApProject.thing.Item;
@@ -74,7 +78,7 @@ public class Player {
     }
 
     public void printInventory(String type) {
-        inventory.printInventoy(inventory.getList(type));
+        inventory.printInventory(inventory.getList(type));
     }
 
     public void editInventory() {
@@ -89,7 +93,7 @@ public class Player {
     public Battler becomeBattler() {
         Card[] realDeck = new Card[ConstantDatas.SIZE_OF_DECK];
         ArrayList<Item> realItems = new ArrayList<>();
-        Amulet realAmulet = Amulet.buildAmulet(inventory.deck.getEquippedAmulet());
+        Amulet realAmulet = Amulet.getAmulet(inventory.deck.getEquippedAmulet());
 
         for (int i = 0; i < realDeck.length; i++) {
             realDeck[i] = CreatCards.getCard(inventory.deck.getSlots()[i]);
@@ -97,7 +101,7 @@ public class Player {
         for (int i = 0; i < inventory.itemInventory.size(); i++) {
             InventoryThing inventoryThing = inventory.itemInventory.get(i);
             for (int j = 0; j < inventoryThing.getNum(); j++)
-                realItems.add(Item.buildItems(inventoryThing.getName()));
+                realItems.add(Item.getItems(inventoryThing.getName()));
         }
 
         Battler battler = new realBattler(name, realDeck, realItems, realAmulet);
@@ -126,5 +130,34 @@ public class Player {
     public void editDeck(){
         inventory.deck.printDeckEnteringText(inventory.cardInventory);
         while (inventory.deck.editDeckOrders(inventory));
+    }
+
+    public void editDeck (Scene scene, Pane pastRoot) {
+        inventory.editDeck(scene, pastRoot);
+    }
+
+    public void viewInventoryWhenPaused(Pane root, String type) {
+        inventory.viewInventoryWhenPaused(root, type, inventory.getList(type));
+    }
+
+    public void viewInventoryWhenPaused(Scene scene, Pane pastRoot, String type){
+        Pane root = new Pane();
+        scene.setRoot(root);
+        root.getChildren().addAll(BackButton.buildBackButton(scene, pastRoot));
+
+        viewInventoryWhenPaused(root, type);
+    }
+
+    public void viewInventoryInShop(Scene scene, Pane root, String type, Player player, Shop shop, Pane pastRoot){
+        inventory.viewInventoryInShop(root, type, inventory.getList(type), player, shop);
+    }
+
+    public void editAmulet(Scene scene, Pane pastRoot){
+        Pane root = new Pane();
+        scene.setRoot(root);
+        root.getChildren().addAll(BackButton.buildBackButton(scene, pastRoot));
+
+        viewInventoryWhenPaused(root,"AMULET");
+        inventory.editAmulet(root);
     }
 }

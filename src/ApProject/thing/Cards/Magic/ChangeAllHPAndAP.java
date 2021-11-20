@@ -1,6 +1,7 @@
 package src.ApProject.thing.Cards.Magic;
 
 import src.ApProject.battle.battler.Battler;
+import src.ApProject.graphics.CastSpellEffect;
 import src.ApProject.thing.Cards.MonsterCards.InBattle.MonsterCardsInBattle;
 
 public class ChangeAllHPAndAP extends Magic {
@@ -24,6 +25,8 @@ public class ChangeAllHPAndAP extends Magic {
                 monsterCardsInBattle.changeAttackPoint(enemyBattlerChangeAPAmount);
                 monsterCardsInBattle.changeHealthPoint(enemyBattlerChangeHPAmount);
                 monsterCardsInBattle.checkDeath();
+                if (enemyBattlerChangeAPAmount != 0 || enemyBattlerChangeHPAmount != 0)
+                    CastSpellEffect.buildCastSpellEffect(enemyBattler, monsterCardsInBattle.getFullImage());
             }
         }
         for (MonsterCardsInBattle monsterCardsInBattle : currentBattler.getMonsterField().getMonsterCardsInBattles()) {
@@ -31,6 +34,8 @@ public class ChangeAllHPAndAP extends Magic {
                 monsterCardsInBattle.changeAttackPoint(currentBattlerChangeAPAmount);
                 monsterCardsInBattle.changeHealthPoint(currentBattlerChangeHPAmount);
                 monsterCardsInBattle.checkDeath();
+                if (currentBattlerChangeAPAmount != 0 || currentBattlerChangeHPAmount != 0)
+                    CastSpellEffect.buildCastSpellEffect(currentBattler, monsterCardsInBattle.getFullImage());
             }
         }
     }

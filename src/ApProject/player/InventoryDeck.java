@@ -1,15 +1,27 @@
 package src.ApProject.player;
 
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.effect.Glow;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import src.ApProject.Game;
 import src.ApProject.constants.ConstantDatas;
 import src.ApProject.constants.CreatCards;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class InventoryDeck {
     private String[] slots = new String[ConstantDatas.SIZE_OF_DECK];
     private String equippedAmulet = "DemonKing’sCrown";
-
 
     InventoryDeck(){
         for (int i=0; i<slots.length; i++)
@@ -25,7 +37,7 @@ public class InventoryDeck {
         for (int i = 20; i < 25; i++)
             slots[i] = "OgreWarchief";
         for (int i = 25; i < 30; i++)
-            slots[i] = "OgreWarchief";
+            slots[i] = "ElvenDruid";
     }
 
     InventoryDeck(String[] slots, String equippedAmulet){
@@ -49,6 +61,72 @@ public class InventoryDeck {
         for (int i=0; i<list.size(); i++)
             System.out.println(i+1+".\t"+list.get(i).getNum()+ "\t"+list.get(i).getName()
                     + "\t/\t"+getNumberOfCardsInDeck(list.get(i).getName(),"CARD")+" on deck");
+    }
+
+    protected void viewDeck(Pane root) {
+        Scene scene = root.getScene();
+        VBox deckVBox = new VBox(5);
+        deckVBox.setTranslateX(scene.getWidth()-350);
+        deckVBox.setTranslateY(60);
+        Text text = new Text(scene.getWidth()-350, 40 , "Your Deck :");
+        text.setFont(new Font(25));
+        text.setFill(Color.SLATEGRAY);
+        for (int i=0; i<slots.length; i++) {
+            String name = slots[i];
+            if (!name.equals("null")) {
+                ImageView img = new ImageView("./src//source//CARD//" + name + ".png");
+                img.setFitHeight(20);
+                img.setFitWidth(300);
+                img.setEffect(new Glow(0.2));
+                deckVBox.getChildren().addAll(img);
+
+                StackPane info = new StackPane();
+
+                Text t = new Text(CreatCards.getCard(name).getInfo());
+                t.setFont(new Font(10));
+                t.setFill(Color.SLATEGRAY);
+                Rectangle rectangle = new Rectangle(t.maxWidth(100) + 10, t.maxHeight(100) + 10);
+                rectangle.setFill(Color.LIGHTYELLOW);
+                rectangle.setArcHeight(15);
+                rectangle.setArcWidth(15);
+                info.getChildren().addAll(rectangle, t);
+                info.setAlignment(Pos.CENTER);
+
+                img.setOnMouseEntered(event -> {
+                    img.setOpacity(0.6);
+                    root.getChildren().addAll(info);
+                    info.setTranslateX(event.getSceneX() - 5);
+                    info.setTranslateY(event.getSceneY() + 5);
+                });
+                img.setOnMouseExited(event -> {
+                    img.setOpacity(1);
+                    root.getChildren().remove(info);
+                });
+
+                int finalI = i;
+                img.setOnMouseClicked(event -> {
+                    slots[finalI] = "null";
+                    deckVBox.getChildren().removeAll(img);
+                    StackPane empty = new StackPane();
+
+                    Label label = new Label("This Slot is empty.");
+                    Rectangle rectangle1 = new Rectangle(300, 20, Color.LIGHTSKYBLUE);
+
+                    empty.getChildren().addAll(rectangle1, label);
+                    deckVBox.getChildren().addAll(empty);
+                });
+            } else {
+                StackPane empty = new StackPane();
+
+                Label label = new Label("This Slot is empty.");
+                Rectangle rectangle1 = new Rectangle(300, 20, Color.LIGHTSKYBLUE);
+
+                empty.getChildren().addAll(rectangle1, label);
+                deckVBox.getChildren().addAll(empty);
+            }
+        }
+        root.getChildren().addAll(deckVBox, text);
+
     }
 
     protected void printAmuletEnteringText(ArrayList<InventoryThing> list){
@@ -150,5 +228,30 @@ public class InventoryDeck {
 
     InventoryDeck copy(){
         return new InventoryDeck(this.slots.clone(),equippedAmulet.substring(0));
+    }
+
+    public void removeEquippedAmulet(){
+        equippedAmulet = "null";
+    }
+
+    public void setEquippedAmulet(String name) {equippedAmulet = name;}
+
+    public void addCardToDeck(String name) {
+        for (int i=0; i<slots.length; i++){
+            if (slots[i].equals("null")) {
+                slots[i] = name;
+                break;
+            }
+        }
+    }
+
+    public void sort(){
+        Arrays.sort(slots);
+    }
+
+    public int getNumberOfUsedAmulets(String name) {
+        if (equippedAmulet.equals(name))
+            return 1;
+        return 0;
     }
 }

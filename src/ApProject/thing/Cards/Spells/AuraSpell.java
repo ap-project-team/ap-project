@@ -32,7 +32,7 @@ public class AuraSpell extends Spells {
                     if (monsterCardsInBattle != null)
                         monsterCardsInBattle.addAuraEffect(this);
                 }
-                System.out.println(this.name + " was moved from hand to number " + (slotNum + 1) + " slot in the spell field. " + this.manaCost + " MP was used.");
+                currentBattler.getBattle().updateEvent(this.name + " was moved from hand\n   to number " + (slotNum + 1) + " slot in the spell field. " + this.manaCost + " MP was used.");
             } else {
                 if(slotNum >= -1 && slotNum < 3)
                      System.out.println("That slot is full.");

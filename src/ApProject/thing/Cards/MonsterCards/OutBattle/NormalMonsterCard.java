@@ -26,7 +26,7 @@ public class NormalMonsterCard extends MonsterCard {
                 currentBattler.setCurrentMana(currentBattler.getCurrentMana() - manaCost);
                 currentBattler.getHand().remove(this);
                 currentBattler.getMonsterField().add(new NormalMonsterCardsInBattle(name, this.basicAttackPoint, this.basicHealthPoint, this.monsterCardSpeciality, this.tribe, this, currentBattler, enemyBattler), slotNum);
-                System.out.println(this.name + " was moved from hand to number " + (slotNum + 1) + " slot in the monster field. " + this.manaCost + " MP was used.");
+                currentBattler.getBattle().updateEvent(this.name + " was moved from hand\n   to number " + (slotNum + 1) + " slot in the monster field. " + this.manaCost + " MP was used.");
             } else {
                 if(slotNum > -1 &&  slotNum < 5)
                     System.out.println("That slot is full.");
@@ -40,7 +40,7 @@ public class NormalMonsterCard extends MonsterCard {
     public String getInfo(){
         info = "Name : " + name + "\n" + "HP : " + basicHealthPoint + "\n" + "AP : " + basicAttackPoint + "\n"
                 + "MP cost : " + manaCost + "\n" + "Card Type : " + type + "\n"+ "Card Tribe : " + tribe + "\n" + "Is Defensive : "
-                + (monsterCardSpeciality == MonsterCardSpeciality.Taunt) + "\n" + "Is Nimble : " + (monsterCardSpeciality == MonsterCardSpeciality.Charge)
+                + (monsterCardSpeciality == MonsterCardSpeciality.Taunt) + "\n" + "Is Nimble : " + (monsterCardSpeciality == MonsterCardSpeciality.Nimble)
                 + "\n";
         return info;
     }

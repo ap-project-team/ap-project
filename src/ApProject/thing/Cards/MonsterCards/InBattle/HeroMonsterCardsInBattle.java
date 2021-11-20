@@ -2,7 +2,6 @@ package src.ApProject.thing.Cards.MonsterCards.InBattle;
 
 import src.ApProject.battle.battler.Battler;
 import src.ApProject.thing.Cards.Card;
-import src.ApProject.thing.Cards.Magic.Magic;
 import src.ApProject.thing.Cards.MonsterCards.MonsterCardSpeciality;
 import src.ApProject.thing.Cards.MonsterCards.Tribe;
 import src.ApProject.thing.Cards.Spells.AuraSpell;
@@ -33,7 +32,8 @@ public class HeroMonsterCardsInBattle extends MonsterCardsInBattle{
         this.magicDetail = magics.getMagicDetails();
         this.battleCryDetail = battleCry.getMagicDetails();
         this.willDetail = will.getMagicDetails();
-        if(this.monsterCardSpeciality == MonsterCardSpeciality.Charge){
+
+        if(this.monsterCardSpeciality == MonsterCardSpeciality.Nimble){
             canAttack = true;
             isSleep = false;
         }
@@ -42,14 +42,19 @@ public class HeroMonsterCardsInBattle extends MonsterCardsInBattle{
                 if(spell.getSpellType() == SpellType.Aura)
                     this.addAuraEffect((AuraSpell) spell);
         }
-        ArrayList<Map> map = currentBattler.getMonsterField().printingTargets( currentBattler, enemyBattler, battleCryType);
-        while (currentBattler.getSpellField().instantSpellOrders(currentBattler, enemyBattler, battleCry, map.get(0), map.get(1), map.get(2)));
+
+        ArrayList<Map> map = currentBattler.getMonsterField().printingTargets(this.getMagics(), currentBattler, enemyBattler, battleCryType);
+//        while (currentBattler.getSpellField().instantSpellOrders(currentBattler, enemyBattler, battleCry, map.get(0), map.get(1), map.get(2)));
+        setImage();
+
     }
     public void checkDeath() {
         if(this.currentHealthPoint <= 0) {
             currentBattler.getMonsterField().remove(this, currentBattler);
-            System.out.println(this.getCardName() + " has been killed!");
+            currentBattler.getBattle().updateEvent(this.getCardName() + " has been killed!");
+
             while (currentBattler.getSpellField().instantSpellOrders(currentBattler, enemyBattler,this.will, null, null, null));
         }
     }
+
 }

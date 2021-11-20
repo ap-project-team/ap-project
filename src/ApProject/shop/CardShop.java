@@ -1,29 +1,68 @@
 package src.ApProject.shop;
 
+import javafx.geometry.Pos;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.TextField;
+import javafx.scene.control.TextInputDialog;
+import javafx.scene.effect.Glow;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import src.ApProject.Game;
-import src.ApProject.constants.ConstantDatas;
+import src.ApProject.battle.battler.Hand;
 import src.ApProject.constants.CreatCards;
+import src.ApProject.graphics.Message;
+import src.ApProject.player.InventoryThing;
 import src.ApProject.player.Player;
+import src.ApProject.thing.Amulet;
+import src.ApProject.thing.Item;
+import src.ApProject.thing.Thing;
 
+import java.io.*;
 import java.util.ArrayList;
+import java.util.Optional;
+import java.util.Scanner;
 
 public class CardShop{
-    static protected ArrayList<String> shopCards = (new ArrayList<String>(){
-        {
-            add("ElvenHunter");
-            add("ElvenHunter");
-            add("ElvenHunter");
-            add("ElvenHunter");
-            add("ElvenHunter");
+    static protected ArrayList<String> shopCards = new ArrayList<>();
 
-            add("ElvenRanger");
-            add("ElvenRanger");
-            add("ElvenRanger");
-            add("ElvenRanger");
-            add("ElvenRanger");
+    public static void loadShopCards(String path) {
+        shopCards = new ArrayList<>();
+        try {
+            FileInputStream fileIn = new FileInputStream(path + "\\Shop\\cardShop.txt");
+            Scanner scanner = new Scanner(fileIn);
+            while (scanner.hasNext()) {
+                String cardName = scanner.next();
+                shopCards.add(cardName);
+            }
+            System.out.println("Finished Loading Cards In The Shop");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
 
-            add("Luthien,TheHighPriestess");
-        }});
+    public static void saveShopCards(String path){
+        try {
+            File file = new File(path + "\\Shop\\cardShop.txt");
+            FileWriter fileWriter = new FileWriter(file, false);
+            for (String string : shopCards) {
+                fileWriter.write(string + "\n");
+            }
+            fileWriter.flush();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        System.out.println("Finished Saving All Cards In The Shop");
+    }
 
     protected boolean cardShopOrders(Player p) {
         String order = Game.give();
@@ -60,5 +99,21 @@ public class CardShop{
         }
         System.out.println(" Card Inventory");
         p.printInventory("CARD");
+    }
+
+    public static ArrayList<String> getAllCards(){
+        return shopCards;
+    }
+
+    public static void remove(String string){
+        shopCards.remove(string);
+    }
+
+    public static void add(String string){
+        shopCards.add(string);
+    }
+
+    public static ArrayList<String> getShopCards() {
+        return shopCards;
     }
 }
